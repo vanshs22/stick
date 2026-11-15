@@ -1,0 +1,53 @@
+{
+  "file": "r7.mp4",
+  "size": [
+    720,
+    1280
+  ],
+  "aspect": "9:16",
+  "fps": 30.0,
+  "duration": 42.93,
+  "cuts_per_10s": 1.63,
+  "cut_times": [
+    4.33,
+    8.83,
+    9.67,
+    33.5,
+    34.5,
+    35.83,
+    42.17
+  ],
+  "motion_mean": 5.1,
+  "motion_p90": 10.56,
+  "saturation": 0.687,
+  "brightness": 0.382,
+  "edge_density": 0.0461,
+  "palette": [
+    {
+      "hex": "#141D5F",
+      "share": 0.437
+    },
+    {
+      "hex": "#0F143D",
+      "share": 0.218
+    },
+    {
+      "hex": "#150D0E",
+      "share": 0.146
+    },
+    {
+      "hex": "#A6573A",
+      "share": 0.127
+    },
+    {
+      "hex": "#C2D1E2",
+      "share": 0.04
+    },
+    {
+      "hex": "#E3AA47",
+      "share": 0.032
+    }
+  ],
+  "audio_rms": 0.1332,
+  "audio_active_share": 0.99
+}
