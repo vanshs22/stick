@@ -1,0 +1,87 @@
+{
+ "id": "cartoon-comedy",
+ "name": "Cartoon Comedy",
+ "aspect": "9:16",
+ "description": "Bright saturated city/room sets, skin-tone round heads with big eyes, white gloves, thick outlines, speech bubbles and a yellow hook card. From the railway, 'rich' and 'think ahead' shorts.",
+ "refs": [
+  "YTDown..Bro-s-Wife-Started-a-Railway-Drama",
+  "YTDown..Bro-Thought-He-Was-Rich",
+  "YTDown..Always-think-ahead"
+ ],
+ "sets": {
+  "default": "street",
+  "tod": "day",
+  "saturation": 1.15,
+  "palette": {
+   "sky": [
+    "#9FD8EE",
+    "#E9F4F7"
+   ],
+   "wall": "#C9B6E6",
+   "floor": "#8F7BBF",
+   "accent": "#FFD43B"
+  }
+ },
+ "character": {
+  "head": "skin",
+  "outline": 10,
+  "limbs": "#17171B",
+  "limbW": 20,
+  "hands": "glove",
+  "face": "full",
+  "blush": true,
+  "skins": [
+   "#E8B48C",
+   "#C98A5E",
+   "#8A5A3C",
+   "#F2C9A0"
+  ],
+  "outfits": [
+   "#D6452F",
+   "#2D5A9E",
+   "#4FA36A",
+   "#F2B23E",
+   "#C9566E",
+   "#7A4FB5"
+  ],
+  "defaultTop": "tee"
+ },
+ "grade": {
+  "tint": "rgba(255,240,220,0.04)",
+  "vignette": 0.22,
+  "sat": 1.1,
+  "grain": 0.0,
+  "bloom": 0.0
+ },
+ "captions": {
+  "font": "900",
+  "size": 88,
+  "fill": "#FFFFFF",
+  "hi": "#FFD43B",
+  "stroke": "#111111",
+  "strokeW": 18,
+  "y": 1580,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.1,
+  "handheld": 0.004,
+  "parallax": 1.0,
+  "punch": 0.07
+ },
+ "pacing": {
+  "cutsPer10s": 6,
+  "minShot": 1.2,
+  "maxShot": 3.2
+ },
+ "bubbles": true,
+ "hookCard": true,
+ "audio": {
+  "voice": "am_puck",
+  "speed": 1.08,
+  "music": "bed",
+  "sfx": 1.0
+ }
+}

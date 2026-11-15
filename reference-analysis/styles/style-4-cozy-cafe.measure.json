@@ -1,0 +1,54 @@
+{
+  "file": "style-4-cozy-cafe.mp4",
+  "size": [
+    1280,
+    720
+  ],
+  "aspect": "16:9",
+  "fps": 24.0,
+  "duration": 10.0,
+  "cuts_per_10s": 8.0,
+  "cut_times": [
+    2.83,
+    3.67,
+    5.33,
+    6.5,
+    7.5,
+    8.83,
+    9.17,
+    9.5
+  ],
+  "motion_mean": 11.99,
+  "motion_p90": 29.24,
+  "saturation": 0.124,
+  "brightness": 0.74,
+  "edge_density": 0.09,
+  "palette": [
+    {
+      "hex": "#E5E3D6",
+      "share": 0.435
+    },
+    {
+      "hex": "#B9C3B8",
+      "share": 0.187
+    },
+    {
+      "hex": "#8B968F",
+      "share": 0.136
+    },
+    {
+      "hex": "#616668",
+      "share": 0.129
+    },
+    {
+      "hex": "#2D3144",
+      "share": 0.063
+    },
+    {
+      "hex": "#FAFBFA",
+      "share": 0.049
+    }
+  ],
+  "audio_rms": 0.0842,
+  "audio_active_share": 0.95
+}

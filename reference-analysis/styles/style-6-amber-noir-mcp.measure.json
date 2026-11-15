@@ -1,0 +1,56 @@
+{
+  "file": "style-6-amber-noir-mcp.mp4",
+  "size": [
+    1280,
+    720
+  ],
+  "aspect": "16:9",
+  "fps": 24.0,
+  "duration": 20.0,
+  "cuts_per_10s": 5.0,
+  "cut_times": [
+    2.67,
+    3.67,
+    4.83,
+    6.83,
+    8.67,
+    9.83,
+    11.0,
+    11.33,
+    12.5,
+    15.67
+  ],
+  "motion_mean": 11.39,
+  "motion_p90": 24.04,
+  "saturation": 0.325,
+  "brightness": 0.455,
+  "edge_density": 0.0634,
+  "palette": [
+    {
+      "hex": "#1A0F15",
+      "share": 0.247
+    },
+    {
+      "hex": "#4D3735",
+      "share": 0.227
+    },
+    {
+      "hex": "#AAA29C",
+      "share": 0.176
+    },
+    {
+      "hex": "#BB6245",
+      "share": 0.145
+    },
+    {
+      "hex": "#696B6E",
+      "share": 0.13
+    },
+    {
+      "hex": "#DDDED9",
+      "share": 0.076
+    }
+  ],
+  "audio_rms": 0.058,
+  "audio_active_share": 0.69
+}

@@ -1,0 +1,82 @@
+{
+ "id": "safety-explainer",
+ "name": "Safety Explainer",
+ "aspect": "9:16",
+ "description": "Clean blue-grey perspective rooms, skin-tone characters with white gloves, speech-bubble warnings and yellow hook cards. The original elevator video look.",
+ "refs": [
+  "night-walk elevator video"
+ ],
+ "sets": {
+  "default": "room",
+  "tod": "day",
+  "saturation": 1.0,
+  "palette": {
+   "sky": [
+    "#A9D3E8",
+    "#E8F2F7"
+   ],
+   "wall": "#6C7A93",
+   "floor": "#3A4558",
+   "accent": "#FFD43B"
+  }
+ },
+ "character": {
+  "head": "skin",
+  "outline": 10,
+  "limbs": "#17171B",
+  "limbW": 20,
+  "hands": "glove",
+  "face": "full",
+  "blush": true,
+  "skins": [
+   "#E8B48C",
+   "#A86B45",
+   "#F2C9A0"
+  ],
+  "outfits": [
+   "#D6452F",
+   "#2D5A9E",
+   "#4FA36A",
+   "#C9566E"
+  ],
+  "defaultTop": "tee"
+ },
+ "grade": {
+  "tint": "rgba(0,0,0,0)",
+  "vignette": 0.4,
+  "sat": 1.0,
+  "grain": 0.0,
+  "bloom": 0.0
+ },
+ "captions": {
+  "font": "900",
+  "size": 84,
+  "fill": "#FFFFFF",
+  "hi": "#FFD43B",
+  "stroke": "#111111",
+  "strokeW": 16,
+  "y": 1590,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.1,
+  "handheld": 0.0045,
+  "parallax": 1.0,
+  "punch": 0.06
+ },
+ "pacing": {
+  "cutsPer10s": 4,
+  "minShot": 1.5,
+  "maxShot": 3.5
+ },
+ "bubbles": true,
+ "hookCard": true,
+ "audio": {
+  "voice": "am_puck",
+  "speed": 1.05,
+  "music": "bed",
+  "sfx": 1.0
+ }
+}

@@ -1,0 +1,53 @@
+{
+  "file": "style-6-amber-noir-flow.mp4",
+  "size": [
+    1280,
+    720
+  ],
+  "aspect": "16:9",
+  "fps": 24.0,
+  "duration": 8.0,
+  "cuts_per_10s": 8.75,
+  "cut_times": [
+    5.17,
+    5.5,
+    5.83,
+    6.17,
+    6.5,
+    6.83,
+    7.17
+  ],
+  "motion_mean": 14.78,
+  "motion_p90": 32.58,
+  "saturation": 0.467,
+  "brightness": 0.385,
+  "edge_density": 0.064,
+  "palette": [
+    {
+      "hex": "#211320",
+      "share": 0.319
+    },
+    {
+      "hex": "#3D2432",
+      "share": 0.282
+    },
+    {
+      "hex": "#70423C",
+      "share": 0.143
+    },
+    {
+      "hex": "#EBBC7D",
+      "share": 0.113
+    },
+    {
+      "hex": "#B83F34",
+      "share": 0.076
+    },
+    {
+      "hex": "#BA825F",
+      "share": 0.067
+    }
+  ],
+  "audio_rms": 0.0248,
+  "audio_active_share": 0.97
+}

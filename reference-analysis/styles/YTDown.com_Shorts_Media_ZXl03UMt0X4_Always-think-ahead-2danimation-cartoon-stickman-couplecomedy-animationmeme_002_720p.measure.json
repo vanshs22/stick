@@ -1,0 +1,51 @@
+{
+  "file": "YTDown.com_Shorts_Media_ZXl03UMt0X4_Always-think-ahead-2danimation-cartoon-stickman-couplecomedy-animationmeme_002_720p.mp4",
+  "size": [
+    720,
+    720
+  ],
+  "aspect": "1:1",
+  "fps": 24.0,
+  "duration": 11.75,
+  "cuts_per_10s": 4.26,
+  "cut_times": [
+    0.17,
+    0.5,
+    2.67,
+    5.17,
+    7.17
+  ],
+  "motion_mean": 10.63,
+  "motion_p90": 25.38,
+  "saturation": 0.385,
+  "brightness": 0.645,
+  "edge_density": 0.0994,
+  "palette": [
+    {
+      "hex": "#59557D",
+      "share": 0.321
+    },
+    {
+      "hex": "#A8A5C0",
+      "share": 0.223
+    },
+    {
+      "hex": "#EAE3E0",
+      "share": 0.172
+    },
+    {
+      "hex": "#94A235",
+      "share": 0.165
+    },
+    {
+      "hex": "#271B1C",
+      "share": 0.082
+    },
+    {
+      "hex": "#FCEA04",
+      "share": 0.036
+    }
+  ],
+  "audio_rms": 0.1088,
+  "audio_active_share": 0.87
+}

@@ -1,0 +1,82 @@
+{
+ "id": "cozy-cafe",
+ "name": "Cozy Cafe",
+ "aspect": "9:16",
+ "description": "Washed-out pastel watercolour, cream/sage/teal, soft light, white round head with thin black limbs, gentle close-up inserts (hands writing, cups), leaf-frame foreground. From style-4 cozy cafe.",
+ "refs": [
+  "style-4-cozy-cafe"
+ ],
+ "sets": {
+  "default": "cafe",
+  "tod": "day",
+  "saturation": 0.55,
+  "palette": {
+   "sky": [
+    "#E5E3D6",
+    "#B9C3B8"
+   ],
+   "wall": "#CBD5C8",
+   "floor": "#A9B7A8",
+   "accent": "#7FA39A"
+  }
+ },
+ "character": {
+  "head": "white",
+  "outline": 8,
+  "limbs": "#1E2230",
+  "limbW": 16,
+  "hands": "mitten",
+  "face": "dots",
+  "blush": false,
+  "skins": [
+   "#FFFDF7"
+  ],
+  "outfits": [
+   "#F4F1E8",
+   "#8FA89A",
+   "#C9B6A0",
+   "#E5E3D6"
+  ],
+  "defaultTop": "tee",
+  "heroTop": "tee",
+  "heroColor": "#F4F1E8"
+ },
+ "grade": {
+  "tint": "rgba(240,240,225,0.18)",
+  "vignette": 0.18,
+  "sat": 0.7,
+  "grain": 0.02,
+  "bloom": 0.3
+ },
+ "captions": {
+  "font": "900",
+  "size": 64,
+  "fill": "#FFFFFF",
+  "hi": "#E9D8A6",
+  "stroke": "#4B5A55",
+  "strokeW": 8,
+  "y": 1660,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.08,
+  "handheld": 0.002,
+  "parallax": 1.0,
+  "punch": 0.03
+ },
+ "pacing": {
+  "cutsPer10s": 8,
+  "minShot": 1.4,
+  "maxShot": 3.6
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": {
+  "voice": "af_heart",
+  "speed": 0.98,
+  "music": "bed",
+  "sfx": 0.5
+ }
+}

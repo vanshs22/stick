@@ -1,0 +1,52 @@
+{
+  "file": "YTDown.com_Shorts_Media_QprvUw5exGk_Bro-s-Wife-Started-a-Railway-Drama-shorts-funnymoments-2d-stickman-animation_003_720p.mp4",
+  "size": [
+    720,
+    1280
+  ],
+  "aspect": "9:16",
+  "fps": 60.0,
+  "duration": 12.17,
+  "cuts_per_10s": 4.93,
+  "cut_times": [
+    2.0,
+    3.0,
+    5.0,
+    7.0,
+    9.0,
+    10.17
+  ],
+  "motion_mean": 13.27,
+  "motion_p90": 17.17,
+  "saturation": 0.229,
+  "brightness": 0.502,
+  "edge_density": 0.1143,
+  "palette": [
+    {
+      "hex": "#010101",
+      "share": 0.224
+    },
+    {
+      "hex": "#DAC7A9",
+      "share": 0.207
+    },
+    {
+      "hex": "#9E917D",
+      "share": 0.203
+    },
+    {
+      "hex": "#685A4E",
+      "share": 0.154
+    },
+    {
+      "hex": "#BEE7EA",
+      "share": 0.122
+    },
+    {
+      "hex": "#2E2D2C",
+      "share": 0.09
+    }
+  ],
+  "audio_rms": 0.0998,
+  "audio_active_share": 0.86
+}

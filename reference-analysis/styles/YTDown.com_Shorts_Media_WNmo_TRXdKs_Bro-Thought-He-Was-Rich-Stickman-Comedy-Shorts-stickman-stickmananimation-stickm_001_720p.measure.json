@@ -1,0 +1,54 @@
+{
+  "file": "YTDown.com_Shorts_Media_WNmo_TRXdKs_Bro-Thought-He-Was-Rich-Stickman-Comedy-Shorts-stickman-stickmananimation-stickm_001_720p.mp4",
+  "size": [
+    720,
+    1280
+  ],
+  "aspect": "9:16",
+  "fps": 24.0,
+  "duration": 10.0,
+  "cuts_per_10s": 8.0,
+  "cut_times": [
+    0.17,
+    1.5,
+    1.83,
+    3.0,
+    5.0,
+    7.0,
+    7.33,
+    9.0
+  ],
+  "motion_mean": 12.92,
+  "motion_p90": 45.37,
+  "saturation": 0.31,
+  "brightness": 0.716,
+  "edge_density": 0.0961,
+  "palette": [
+    {
+      "hex": "#93B0A3",
+      "share": 0.363
+    },
+    {
+      "hex": "#F2DEC4",
+      "share": 0.179
+    },
+    {
+      "hex": "#9C4C34",
+      "share": 0.127
+    },
+    {
+      "hex": "#D3A172",
+      "share": 0.121
+    },
+    {
+      "hex": "#1C1517",
+      "share": 0.111
+    },
+    {
+      "hex": "#FDFCFC",
+      "share": 0.099
+    }
+  ],
+  "audio_rms": 0.0579,
+  "audio_active_share": 0.66
+}

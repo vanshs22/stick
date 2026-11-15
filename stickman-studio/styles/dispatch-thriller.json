@@ -1,0 +1,82 @@
+{
+ "id": "dispatch-thriller",
+ "name": "Dispatch Thriller",
+ "aspect": "9:16",
+ "description": "Night-office survival thriller: deep navy room lit by monitors and a warm desk lamp, white round head with black headset, rule cards, a faceless yellow-raincoat entity outside the window, small white lower-third captions, tension music, 'your move' ending. From b4 dispatch.",
+ "refs": [
+  "b4-dispatch"
+ ],
+ "sets": {
+  "default": "office",
+  "tod": "night",
+  "saturation": 0.85,
+  "palette": {
+   "sky": [
+    "#0F131A",
+    "#1F2F43"
+   ],
+   "wall": "#1B2638",
+   "floor": "#161B26",
+   "accent": "#A27647"
+  }
+ },
+ "character": {
+  "head": "white",
+  "outline": 9,
+  "limbs": "#0E1118",
+  "limbW": 18,
+  "hands": "mitten",
+  "face": "dots",
+  "blush": false,
+  "skins": [
+   "#F4F1EA"
+  ],
+  "outfits": [
+   "#2C3A52",
+   "#55453C",
+   "#4E5F7E",
+   "#E6B53C"
+  ],
+  "defaultTop": "tee",
+  "heroTop": "tee",
+  "heroColor": "#2C3A52"
+ },
+ "grade": {
+  "tint": "rgba(20,50,90,0.20)",
+  "vignette": 0.6,
+  "sat": 0.9,
+  "grain": 0.05,
+  "bloom": 0.2
+ },
+ "captions": {
+  "font": "900",
+  "size": 60,
+  "fill": "#F4F1EA",
+  "hi": "#E6B53C",
+  "stroke": "#05070B",
+  "strokeW": 9,
+  "y": 1670,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.1,
+  "handheld": 0.004,
+  "parallax": 1.2,
+  "punch": 0.05
+ },
+ "pacing": {
+  "cutsPer10s": 4,
+  "minShot": 1.8,
+  "maxShot": 4.0
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": {
+  "voice": "bm_george",
+  "speed": 0.97,
+  "music": "tension",
+  "sfx": 1.0
+ }
+}

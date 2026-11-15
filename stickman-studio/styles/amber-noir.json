@@ -1,0 +1,84 @@
+{
+ "id": "amber-noir",
+ "name": "Amber Noir",
+ "aspect": "9:16",
+ "description": "Dark plum/amber cinematic night. Faceless round black head with two white eyes, orange hoodie, low-key warm window light, deep shadows, strong silhouettes and running tracking shots. From style-6 amber noir (flow + MCP).",
+ "refs": [
+  "style-6-amber-noir-flow",
+  "style-6-amber-noir-mcp"
+ ],
+ "sets": {
+  "default": "street",
+  "tod": "night",
+  "saturation": 0.95,
+  "palette": {
+   "sky": [
+    "#1A0F15",
+    "#4D3735"
+   ],
+   "wall": "#3D2432",
+   "floor": "#20131C",
+   "accent": "#EBBC7D"
+  }
+ },
+ "character": {
+  "head": "black",
+  "outline": 0,
+  "limbs": "#0E0A0D",
+  "limbW": 22,
+  "hands": "mitten",
+  "face": "dots",
+  "blush": false,
+  "skins": [
+   "#0E0A0D"
+  ],
+  "outfits": [
+   "#E3542F",
+   "#B83F34",
+   "#EBBC7D",
+   "#8A5A9E",
+   "#D9822B"
+  ],
+  "defaultTop": "hoodie",
+  "heroTop": "hoodie",
+  "heroColor": "#E3542F"
+ },
+ "grade": {
+  "tint": "rgba(70,20,50,0.10)",
+  "vignette": 0.45,
+  "sat": 0.95,
+  "grain": 0.05,
+  "bloom": 0.25
+ },
+ "captions": {
+  "font": "900",
+  "size": 64,
+  "fill": "#F3EBDD",
+  "hi": "#EBBC7D",
+  "stroke": "#111111",
+  "strokeW": 10,
+  "y": 1660,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.12,
+  "handheld": 0.005,
+  "parallax": 1.5,
+  "punch": 0.05
+ },
+ "pacing": {
+  "cutsPer10s": 6,
+  "minShot": 1.4,
+  "maxShot": 3.4
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": {
+  "voice": "am_onyx",
+  "speed": 1.0,
+  "music": "tension",
+  "sfx": 1.0
+ }
+}

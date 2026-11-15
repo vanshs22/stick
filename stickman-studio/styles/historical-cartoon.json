@@ -1,0 +1,83 @@
+{
+ "id": "historical-cartoon",
+ "name": "Historical Cartoon",
+ "aspect": "16:9->9:16",
+ "description": "Warm earth-tone painted period sets with deep layered parallax, round white heads with minimal faces, black limbs, small black mitten hands, navy/grey period clothes. From style-5 Japan.",
+ "refs": [
+  "style-5-japan"
+ ],
+ "sets": {
+  "default": "street",
+  "tod": "day",
+  "saturation": 0.9,
+  "palette": {
+   "sky": [
+    "#9CC3D8",
+    "#F2E3C6"
+   ],
+   "wall": "#6A4B36",
+   "floor": "#B8946A",
+   "accent": "#C9A24A"
+  }
+ },
+ "character": {
+  "head": "white",
+  "outline": 9,
+  "limbs": "#17171B",
+  "limbW": 18,
+  "hands": "mitten",
+  "face": "dots",
+  "blush": false,
+  "skins": [
+   "#FFFDF7"
+  ],
+  "outfits": [
+   "#27437A",
+   "#6A7A8C",
+   "#8A5A3C",
+   "#B8946A",
+   "#3E5A4A"
+  ],
+  "defaultTop": "coat",
+  "heroTop": "coat",
+  "heroColor": "#27437A"
+ },
+ "grade": {
+  "tint": "rgba(255,214,150,0.10)",
+  "vignette": 0.35,
+  "sat": 0.95,
+  "grain": 0.02,
+  "bloom": 0.1
+ },
+ "captions": {
+  "font": "900",
+  "size": 70,
+  "fill": "#FFFFFF",
+  "hi": "#F2C64B",
+  "stroke": "#111111",
+  "strokeW": 12,
+  "y": 1650,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.14,
+  "handheld": 0.002,
+  "parallax": 1.8,
+  "punch": 0.04
+ },
+ "pacing": {
+  "cutsPer10s": 12,
+  "minShot": 1.4,
+  "maxShot": 3.6
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": {
+  "voice": "bm_george",
+  "speed": 1.0,
+  "music": "bed",
+  "sfx": 0.6
+ }
+}
