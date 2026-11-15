@@ -8,7 +8,7 @@ export const SHADOW = '0 1px 3px rgba(20,20,19,0.06), 0 14px 40px rgba(20,20,19,
 export const Zone: React.FC<{children: React.ReactNode; style?: React.CSSProperties}> = ({children, style}) => {
   const zh = SAFE.content_bottom - SAFE.content_top, k = Math.min(1, zh / 1020);
   return (
-    <AbsoluteFill style={{top: SAFE.content_top, bottom: 1920 - SAFE.content_bottom, justifyContent: 'center', alignItems: 'center', padding: '0 70px', ...style}}>
+    <AbsoluteFill style={{top: SAFE.content_top, height: 'auto', bottom: 1920 - SAFE.content_bottom, justifyContent: 'center', alignItems: 'center', padding: '0 70px', ...style}}>
       <div style={{transform: `scale(${k})`, transformOrigin: 'center center'}}>{children}</div>
     </AbsoluteFill>
   );

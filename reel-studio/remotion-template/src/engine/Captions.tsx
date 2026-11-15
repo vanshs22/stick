@@ -13,7 +13,7 @@ const PRESETS: Record<string, Pre> = {
   typewriter: {size: 54, weight: 600, boxed: true},
   karaoke: {size: 64, weight: 800, boxed: false},
   headline: {size: 80, weight: 500, boxed: false},
-  dialogue: {size: 46, weight: 500, boxed: false},
+  dialogue: {size: 56, weight: 500, boxed: false},
 };
 
 const Word: React.FC<{w: Chunk['words'][number]; t: number; pre: Pre; preset: string; last: boolean; index: number}> = ({w, t, pre, preset, last, index}) => {
@@ -44,13 +44,13 @@ export const Captions: React.FC<{timeline: Timeline; show?: boolean}> = ({timeli
   const speaker = timeline.shots.find((sh) => t >= sh.start && t < sh.end)?.speaker;
   if (preset === 'headline') return <div style={{position: 'absolute', left: 64, right: 120, top: 190, textAlign: 'left', fontWeight: 500, fontSize: 84, lineHeight: 1.12, letterSpacing: '-0.02em'}}>{chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} />)}</div>;
   if (preset === 'dialogue') return (
-    <div style={{position: 'absolute', left: 70, right: 70, top: 170, textAlign: 'center', lineHeight: 1.2, fontSize: 46}}>
-      {speaker ? <div style={{display: 'inline-block', background: C.accent, color: '#fff', fontFamily: F.mono, fontWeight: 800, fontSize: 22, letterSpacing: '0.08em', padding: '4px 14px', borderRadius: 6, marginBottom: 10, textTransform: 'uppercase'}}>{speaker}</div> : null}
-      <div><div style={{display: 'inline-block', background: 'rgba(14,14,26,0.66)', borderRadius: 20, padding: '10px 28px 14px'}}>{chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} />)}</div></div>
+    <div style={{position: 'absolute', left: 70, right: 70, top: 170, textAlign: 'center', lineHeight: 1.2, fontSize: 56}}>
+      {speaker ? <div style={{display: 'inline-block', background: C.accent, color: '#fff', fontFamily: F.mono, fontWeight: 800, fontSize: 26, letterSpacing: '0.08em', padding: '4px 16px', borderRadius: 6, marginBottom: 10, textTransform: 'uppercase'}}>{speaker}</div> : null}
+      <div><div style={{display: 'inline-block', background: 'rgba(8,8,18,0.86)', border: '2px solid rgba(255,255,255,0.18)', borderRadius: 24, padding: '12px 30px 16px'}}>{chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} />)}</div></div>
     </div>);
   return (
     <div style={{position: 'absolute', left: 60, right: SAFE.right_margin, top: SAFE.caption_y, textAlign: 'center', fontWeight: pre.weight, fontSize: pre.size, lineHeight: 1.15, letterSpacing: '-0.01em'}}>
-      <div style={{display: 'inline-block', ...(pre.boxed ? {background: 'rgba(255,255,255,0.94)', borderRadius: 26, padding: '12px 30px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.18)'} : {textShadow: '0 4px 18px rgba(0,0,0,0.55)'})}}>
+      <div style={{display: 'inline-block', ...(pre.boxed ? {background: 'rgba(255,255,255,0.94)', borderRadius: 26, padding: '12px 30px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.18)'} : {textShadow: '0 4px 18px rgba(0,0,0,0.55)', WebkitTextStroke: `${Math.round(pre.size / 8)}px ${CAPTION.stroke}`, paintOrder: 'stroke fill'} as React.CSSProperties)}}>
         {chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} />)}
       </div>
     </div>

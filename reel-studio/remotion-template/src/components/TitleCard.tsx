@@ -11,7 +11,7 @@ export const TitleCard: React.FC<ShotProps> = ({shot, text = '', accent = '', an
   const start = anchor ? atLocal(shot, anchor) : 0.1;
   const words = String(text).split(/\s+/).filter(Boolean);
   return (
-    <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center', padding: '0 80px', top: SAFE.top, bottom: 1920 - SAFE.bottom}}>
+    <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center', padding: '0 80px', top: SAFE.top, height: 'auto', bottom: 1920 - SAFE.bottom}}>
       <div style={{fontFamily: F.sans, fontWeight: 800, fontSize: 112, lineHeight: 1.05, color: C.ink, textAlign: 'center', letterSpacing: '-0.03em'}}>
         {words.map((w, i) => {
           const a = p(lt, start + i * 0.07, 0.5, E.outExpo);

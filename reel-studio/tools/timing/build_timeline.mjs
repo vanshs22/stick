@@ -10,7 +10,7 @@ import path from 'node:path';
 const a = process.argv.slice(2), P = a[0], opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? a[i + 1] : d; };
 if (!P) { console.error('usage: build_timeline.mjs <projectDir> [--fps 30] [--preset word-pop]'); process.exit(2); }
 const rd = (f) => JSON.parse(fs.readFileSync(path.join(P, f), 'utf8')), norm = (w) => String(w).toLowerCase().replace(/[^a-z0-9']+/g, '');
-const script = rd('script/script.json'), sb = rd('storyboard/storyboard.json'), L = rd('data/lines.json'), W = rd('data/words.json'), fps = +opt('fps', 30), preset = opt('preset', 'word-pop');
+const script = rd('script/script.json'), sb = rd('storyboard/storyboard.json'), L = rd('data/lines.json'), W = rd('data/words.json'), fps = +opt('fps', 30), preset = opt('preset', (() => { try { return rd('brief.json').captions.preset; } catch { return 'word-pop'; } })() || 'word-pop');
 const idx = Object.fromEntries(script.lines.map((l, i) => [l.id, i])), errs = [];
 if (L.lines.length !== script.lines.length) errs.push(`data/lines.json has ${L.lines.length} lines but script.json has ${script.lines.length}: re-run the voice tools`);
 // every script line belongs to exactly one shot, in order
@@ -25,7 +25,7 @@ const total = L.duration, shots = sb.shots.map((s, k) => {
 });
 shots.forEach((s, k) => { s.end = +(k + 1 < shots.length ? shots[k + 1].start : total).toFixed(3); if (s.end - s.start < 0.6) errs.push(`shot ${s.id} lasts only ${(s.end - s.start).toFixed(2)} s: merge it with a neighbour`); });
 // captions: chunks of up to N words, broken at punctuation; the highlighted word = script emphasis, else a number, else the longest word
-const N = { 'word-pop': 3, phrase: 5, 'one-word': 1, typewriter: 4, boxed: 4, karaoke: 4 }[preset] || 3, chunks = [];
+const N = { 'word-pop': 3, phrase: 5, 'one-word': 1, typewriter: 4, boxed: 4, karaoke: 4, headline: 6, dialogue: 6 }[preset] || 3, chunks = [];
 script.lines.forEach((ln, li) => {
   const ws = W.filter((x) => x.line === li), emph = new Set((ln.emphasis || []).map(norm)); let cur = [];
   const flush = () => { if (!cur.length) return; const hi = cur.findIndex((x) => emph.has(norm(x.w))); const k = hi >= 0 ? hi : cur.findIndex((x) => /\d|\$/.test(x.w)) >= 0 ? cur.findIndex((x) => /\d|\$/.test(x.w)) : cur.reduce((b, x, j) => (norm(x.w).length > norm(cur[b].w).length ? j : b), 0);
