@@ -31,5 +31,5 @@ reference videos ref7, ref2
 
 ## 3D starting point (Scene3D props)
 ```json
-{"set": "starfield", "light": "studio", "characters": [{"variant": "voxel", "x": -0.2, "pose": "open", "mood": "happy", "skin": "#A8704A", "shirt": "#5a5a72", "hair": "#14100c", "beard": true, "badge": "#F2C12E"}], "creatures": [{"kind": "box", "x": 0.8, "z": 0.4, "scale": 1.1, "color": "#F0683C"}]}
+{"set": "starfield", "light": "studio", "camera": {"shot": "presenter", "move": "push"}, "characters": [{"variant": "voxel", "x": -0.1, "pose": "open", "mood": "happy", "skin": "#A8704A", "shirt": "#5a5a72", "hair": "#14100c", "beard": true, "badge": "#F2C12E"}], "creatures": [{"kind": "box", "x": 0.8, "z": 0.4, "scale": 1.1, "color": "#F0683C"}]}
 ```

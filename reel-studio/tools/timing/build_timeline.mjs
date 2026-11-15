@@ -21,7 +21,7 @@ const wordT = (line, word) => { const n = norm(word), li = idx[line]; const w = 
 const total = L.duration, shots = sb.shots.map((s, k) => {
   const first = L.lines[idx[s.line_ids[0]]], start = k === 0 ? 0 : Math.max(0, +(first.start - 0.08).toFixed(3));
   const anchors = {}; (s.anchors || []).forEach((an) => { const t = wordT(an.line, an.word); if (t == null) errs.push(`shot ${s.id}: anchor "${an.name}" word "${an.word}" not found in line ${an.line}`); else anchors[an.name] = +t.toFixed(3); });
-  return { id: s.id, start, end: 0, component: s.component, props: s.props || {}, lines: s.line_ids, anchors, camera: s.camera || {}, transition_out: s.transition_out || {}, intent: s.visual_intent };
+  return { id: s.id, start, end: 0, component: s.component, props: s.props || {}, lines: s.line_ids, anchors, camera: s.camera || {}, transition_out: s.transition_out || {}, intent: s.visual_intent, ...(s.bg ? { bg: s.bg } : {}), ...(s.speaker ? { speaker: s.speaker } : {}), ...(s.presenter ? { presenter: s.presenter } : {}), ...(s.overlays ? { overlays: s.overlays.map((o) => { if (!o.anchor) return o; const an = (s.anchors || []).find((x) => x.name === o.anchor); return o; }) } : {}) };
 });
 shots.forEach((s, k) => { s.end = +(k + 1 < shots.length ? shots[k + 1].start : total).toFixed(3); if (s.end - s.start < 0.6) errs.push(`shot ${s.id} lasts only ${(s.end - s.start).toFixed(2)} s: merge it with a neighbour`); });
 // captions: chunks of up to N words, broken at punctuation; the highlighted word = script emphasis, else a number, else the longest word

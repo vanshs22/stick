@@ -12,7 +12,7 @@ Best for: software and idea explainers, tutorials, how-to.
 - Motion is calm: springs with little overshoot, no shake, no flashes.
 
 ## Defaults
-Captions `boxed`, shots 1.5-3.5 s, music `upbeat`.
+Captions `headline`, shots 1.5-3.5 s, music `upbeat`.
 Camera: No camera: layout and motion only. Slow 2 percent push on cards.
 Type: Heavy sans headlines, italic serif accent, mono labels.
 Transitions: cut, slide, mask, swing

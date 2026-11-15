@@ -1,24 +1,33 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {C, F} from '../engine/tokens';
+import {C, CHROME, F, SAFE} from '../engine/tokens';
 
 export const SHADOW = '0 1px 3px rgba(20,20,19,0.06), 0 14px 40px rgba(20,20,19,0.12), 0 40px 100px rgba(20,20,19,0.14)';
 
-/** centre column inside the safe zone (y 180-1380) */
-export const Zone: React.FC<{children: React.ReactNode; style?: React.CSSProperties}> = ({children, style}) => (
-  <AbsoluteFill style={{top: 180, bottom: 540, justifyContent: 'center', alignItems: 'center', padding: '0 70px', ...style}}>{children}</AbsoluteFill>
-);
+/** content area between style.json safe_zone.content_top and content_bottom; cards are designed for ~1000 px and shrink to fit a smaller zone (packs with a presenter or step labels) */
+export const Zone: React.FC<{children: React.ReactNode; style?: React.CSSProperties}> = ({children, style}) => {
+  const zh = SAFE.content_bottom - SAFE.content_top, k = Math.min(1, zh / 1020);
+  return (
+    <AbsoluteFill style={{top: SAFE.content_top, bottom: 1920 - SAFE.content_bottom, justifyContent: 'center', alignItems: 'center', padding: '0 70px', ...style}}>
+      <div style={{transform: `scale(${k})`, transformOrigin: 'center center'}}>{children}</div>
+    </AbsoluteFill>
+  );
+};
 
-/** desktop window chrome. children fill the body. */
-export const Win: React.FC<{title?: string; width?: number; height?: number; dark?: boolean; children?: React.ReactNode; style?: React.CSSProperties}> = ({title = '', width = 900, height = 600, dark, children, style}) => (
-  <div style={{width, height, borderRadius: 30, overflow: 'hidden', background: dark ? '#151517' : C.card, boxShadow: SHADOW, border: `1px solid ${dark ? '#2a2a2e' : 'rgba(0,0,0,0.07)'}`, position: 'relative', ...style}}>
-    <div style={{height: 62, background: dark ? '#1d1d20' : '#F6F4EF', display: 'flex', alignItems: 'center', gap: 10, padding: '0 24px', borderBottom: `1px solid ${dark ? '#2a2a2e' : 'rgba(0,0,0,0.07)'}`}}>
-      {['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{width: 17, height: 17, borderRadius: 9, background: c}} />)}
-      <div style={{flex: 1, textAlign: 'center', fontFamily: F.sans, fontWeight: 600, fontSize: 23, color: dark ? '#8d8d95' : C.muted, marginRight: 70, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{title}</div>
+/** desktop window chrome. The pack's look (style.json "chrome") decides: clean | sticker (thick outline, hard shadow) | glass (dark translucent). */
+export const Win: React.FC<{title?: string; width?: number; height?: number; dark?: boolean; children?: React.ReactNode; style?: React.CSSProperties}> = ({title = '', width = 900, height = 600, dark, children, style}) => {
+  const sticker = CHROME === 'sticker', glass = CHROME === 'glass', isDark = dark || glass;
+  const border = sticker ? '4px solid #141413' : `1px solid ${isDark ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.07)'}`;
+  return (
+    <div style={{width, height, borderRadius: sticker ? 18 : 30, overflow: 'hidden', background: glass ? 'rgba(10,16,60,0.78)' : isDark ? '#151517' : C.card, boxShadow: sticker ? '12px 12px 0 rgba(20,20,19,0.85)' : glass ? '0 20px 60px rgba(0,0,0,0.45)' : SHADOW, border, position: 'relative', backdropFilter: glass ? 'blur(14px)' : undefined, ...style}}>
+      <div style={{height: 62, background: glass ? 'rgba(255,255,255,0.06)' : isDark ? '#1d1d20' : sticker ? '#EDEAE2' : '#F6F4EF', display: 'flex', alignItems: 'center', gap: 10, padding: '0 24px', borderBottom: sticker ? '4px solid #141413' : `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.07)'}`}}>
+        {(sticker ? ['#E5322D', '#cfcac0', '#fff'] : ['#FF5F57', '#FEBC2E', '#28C840']).map((c, i) => <div key={i} style={{width: 17, height: 17, borderRadius: 9, background: c, border: sticker ? '3px solid #141413' : undefined, boxSizing: 'border-box'}} />)}
+        <div style={{flex: 1, textAlign: 'center', fontFamily: sticker ? F.mono : F.sans, fontWeight: 600, fontSize: 23, color: isDark ? '#9a9aa8' : C.muted, marginRight: 70, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{title}</div>
+      </div>
+      <div style={{position: 'absolute', top: 62, left: 0, right: 0, bottom: 0}}>{children}</div>
     </div>
-    <div style={{position: 'absolute', top: 62, left: 0, right: 0, bottom: 0}}>{children}</div>
-  </div>
-);
+  );
+};
 
 export const Pill: React.FC<{children: React.ReactNode; tone?: 'light' | 'accent' | 'dark'; size?: number}> = ({children, tone = 'light', size = 34}) => (
   <div style={{display: 'inline-flex', alignItems: 'center', padding: `${size * 0.4}px ${size * 0.75}px`, borderRadius: 999, fontFamily: F.sans, fontWeight: 700, fontSize: size, whiteSpace: 'nowrap', background: tone === 'accent' ? C.accent : tone === 'dark' ? '#151517' : C.card, color: tone === 'light' ? C.ink : '#fff', boxShadow: SHADOW}}>{children}</div>

@@ -38,3 +38,12 @@ For every script line ask: what does this sentence COMMUNICATE, and what is the 
 - Check before building: `node $TK/tools/check_storyboard.mjs $P` (unknown components, missing props, unknown sounds, missing screenshots, shot-type runs).
 - Use the style pack's `defaults` (captions, shot seconds, and for 3D packs a `scene3d` starting point) and its `components` list first.
 - Examples to copy from: `$TK/examples/*/storyboard.json` (software explainer, character story, motion graphics, voxel how-to).
+
+## Design layers (from the reference videos)
+A strong shot = one main component + a few graphics on top + the right host or camera. Set these on the shot:
+- `overlays`: graphics timed to spoken words (`anchor`): label (mono HUD row), step-chip, step-label, sticker, tags, callout, cursor, scribble (circle/underline), hearts, calendar, waveform, warning, progress, backword. Full props in `manifest.json` -> `overlays`. Use 1 to 3 per shot, never more than the eye can follow; every overlay must point at or explain something spoken.
+- `bg`: change the background colour per section (editorial packs): `paper`, `dark`, `red`, `green`, `slate` or a hex. Change it at section changes (hook, proof, call to action), not every shot.
+- `presenter`: the host's `pose` (idle, point, open, wave, think, shrug) and `mood` per shot, for packs that have a host. Point at the card on "this", open hands on a list, wave on greetings and the call to action.
+- `speaker`: a name tag above dialogue captions (3D story packs).
+- Real proof first: RepoCard / ProofCard / ProfileCard for a named repo, page or creator; scribble circle on the number that matters (star count, price, views).
+- Look at `$TK/reference-library/_frames/ref*.jpg` (4 frames per reference) before designing a shot to see how the references layer these graphics.

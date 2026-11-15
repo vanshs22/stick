@@ -10,10 +10,11 @@ export const Effects: React.FC = () => {
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
       {fx.paper ? <AbsoluteFill style={{background: `radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.35), rgba(120,90,50,0.12))`, mixBlendMode: 'multiply'}} /> : null}
+      {fx.dots ? <AbsoluteFill style={{backgroundImage: 'radial-gradient(rgba(20,20,19,0.16) 1px, transparent 1.4px)', backgroundSize: '7px 7px', opacity: Number(fx.dots)}} /> : null}
       {fx.halftone ? <AbsoluteFill style={{backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1.5px, transparent 2px)', backgroundSize: '14px 14px', opacity: Number(fx.halftone)}} /> : null}
-      {fx.bokeh ? Array.from({length: 14}).map((_, i) => {
-        const x = rnd(i) * 1080, y = rnd(i + 30) * 1920, r = 18 + rnd(i + 60) * 50, ph = Math.sin(frame / 40 + i) * 0.5 + 0.5;
-        return <div key={i} style={{position: 'absolute', left: x, top: y + Math.sin(frame / 90 + i) * 16, width: r, height: r, borderRadius: '50%', background: `rgba(255,${190 + rnd(i) * 50},${120 + rnd(i + 5) * 100},${0.05 + 0.1 * ph})`, filter: 'blur(3px)'}} />;
+      {fx.bokeh ? Array.from({length: 16}).map((_, i) => {
+        const x = rnd(i) * 1080, y = rnd(i + 30) * 1920, r = 22 + rnd(i + 60) * 64, ph = Math.sin(frame / 40 + i) * 0.5 + 0.5;
+        return <div key={i} style={{position: 'absolute', left: x, top: y + Math.sin(frame / 90 + i) * 16, width: r, height: r, borderRadius: '50%', background: `hsla(${[330, 260, 210, 30, 180][i % 5]},85%,65%,${0.14 + 0.2 * ph})`, filter: 'blur(2px)'}} />;
       }) : null}
       {fx.rain ? Array.from({length: 40}).map((_, i) => {
         const x = rnd(i) * 1080, y = ((rnd(i + 9) * 1920 + frame * (30 + rnd(i) * 20)) % 2100) - 100;

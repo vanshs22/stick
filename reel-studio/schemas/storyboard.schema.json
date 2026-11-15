@@ -171,6 +171,30 @@
        }
       }
      },
+     "bg": {
+      "type": "string"
+     },
+     "speaker": {
+      "type": "string"
+     },
+     "presenter": {
+      "type": "object"
+     },
+     "overlays": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "type"
+       ],
+       "properties": {
+        "type": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     },
      "notes": {
       "type": "string"
      }

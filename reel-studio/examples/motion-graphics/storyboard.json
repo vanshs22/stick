@@ -16,7 +16,18 @@
    "transition_out": {
     "type": "whip",
     "sound": "whoosh"
-   }
+   },
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy"
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// captions",
+     "right": "3 MISTAKES"
+    }
+   ]
   },
   {
    "id": "S02",
@@ -69,6 +80,10 @@
    "transition_out": {
     "type": "slide",
     "sound": "swish"
+   },
+   "presenter": {
+    "pose": "think",
+    "mood": "worried"
    }
   },
   {
@@ -100,7 +115,20 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
-   }
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "FIX",
+     "anchor": "v",
+     "x": 800,
+     "y": 470
+    }
+   ]
   },
   {
    "id": "S04",
@@ -127,7 +155,11 @@
      "anchor": "k",
      "offset": 0.4
     }
-   ]
+   ],
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy"
+   }
   }
  ]
 }

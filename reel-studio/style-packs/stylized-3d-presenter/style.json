@@ -24,8 +24,11 @@
    "top": 180,
    "bottom": 1380,
    "caption_y": 1440,
-   "right_margin": 120
-  }
+   "right_margin": 120,
+   "content_top": 330,
+   "content_bottom": 1120
+  },
+  "chrome": "glass"
  },
  "effects": {
   "bokeh": true,
@@ -64,7 +67,7 @@
   "reference videos ref1, ref4"
  ],
  "defaults": {
-  "captions": "phrase",
+  "captions": "dialogue",
   "shot_seconds": [
    2,
    4

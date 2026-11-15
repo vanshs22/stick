@@ -12,7 +12,7 @@ Best for: dialogue and story comedy about tech and work, character-led explainer
 - Original characters only.
 
 ## Defaults
-Captions `phrase`, shots 2-4 s, music `bed`.
+Captions `dialogue`, shots 2-4 s, music `bed`.
 Camera: Slow push-ins; close-up on reactions; desk shot for 2-character beats.
 Type: Phrase captions, serif accent.
 Transitions: cut, fade, dip

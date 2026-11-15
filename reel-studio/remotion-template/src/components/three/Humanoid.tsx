@@ -62,15 +62,15 @@ export const Humanoid: React.FC<HumanProps> = ({variant = 'voxel', x = 0, z = 0,
   );
 };
 
-export type CreatureProps = {kind?: 'box' | 'screen' | 'cloud'; color?: string; eye?: string; x?: number; y?: number; z?: number; scale?: number; rotY?: number; t?: number; kickAt?: number};
+export type CreatureProps = {kind?: 'box' | 'screen' | 'cloud'; eyes?: 'arch' | 'slit'; color?: string; eye?: string; x?: number; y?: number; z?: number; scale?: number; rotY?: number; t?: number; kickAt?: number};
 /** A small companion with vertical eyes. kickAt = film time of a hop (when it reacts). */
-export const Creature: React.FC<CreatureProps> = ({kind = 'box', color = '#E8643C', eye = '#111', x = 0, y = 0, z = 0, scale = 1, rotY = 0.25, t = 0, kickAt = -9}) => {
+export const Creature: React.FC<CreatureProps> = ({kind = 'box', eyes = 'arch', color = '#E8643C', eye = '#111', x = 0, y = 0, z = 0, scale = 1, rotY = 0.25, t = 0, kickAt = -9}) => {
   const k = Math.min(1, Math.max(0, (t - kickAt) / 0.45)), hop = k > 0 && k < 1 ? Math.sin(k * Math.PI) * 0.16 : 0, bl = (t + x * 3) % 3.4 < 0.09 ? 0.1 : 1;
   return (
     <group position={[x, y + hop + Math.sin(t * 2.2 + x) * 0.006, z]} rotation={[0, rotY, 0]} scale={scale}>
       {kind === 'cloud' ? <>{[[0, 0.18, 0, 0.19], [-0.15, 0.14, 0.02, 0.13], [0.15, 0.14, 0.02, 0.13], [0, 0.1, 0.06, 0.17]].map((q, i) => <mesh key={i} position={[q[0], q[1], q[2]]}><icosahedronGeometry args={[q[3], 1]} />{lam(color, {emissive: color, emissiveIntensity: 0.25})}</mesh>)}</> :
         <><mesh position={[0, 0.17, 0]}><boxGeometry args={[kind === 'screen' ? 0.26 : 0.34, kind === 'screen' ? 0.26 : 0.24, 0.26]} />{lam(color)}</mesh>
-          {[-1, 1].map((s) => <mesh key={s} position={[s * (kind === 'screen' ? 0.06 : 0.07), 0.19, 0.133]} scale={[1, bl, 1]}><planeGeometry args={[kind === 'screen' ? 0.045 : 0.035, kind === 'screen' ? 0.12 : 0.08]} /><meshBasicMaterial color={kind === 'screen' ? '#ffffff' : eye} /></mesh>)}
+          {kind === 'box' && eyes === 'arch' ? [-1, 1].map((s) => <group key={s} position={[s * 0.085, 0.2, 0.134]} scale={[1, bl, 1]}>{[-1, 1].map((q) => <mesh key={q} position={[q * 0.018, -0.006, 0]} rotation={[0, 0, -q * 0.75]}><boxGeometry args={[0.05, 0.014, 0.004]} /><meshBasicMaterial color={eye} /></mesh>)}</group>) : [-1, 1].map((s) => <mesh key={s} position={[s * (kind === 'screen' ? 0.06 : 0.07), 0.19, 0.133]} scale={[1, bl, 1]}><planeGeometry args={[kind === 'screen' ? 0.045 : 0.035, kind === 'screen' ? 0.12 : 0.08]} /><meshBasicMaterial color={kind === 'screen' ? '#ffffff' : eye} /></mesh>)}
           {[[-0.11, 0.08], [0.11, 0.08], [-0.11, -0.08], [0.11, -0.08]].map((q, i) => <mesh key={i} position={[q[0], 0.03, q[1]]}><boxGeometry args={[0.06, 0.06, 0.06]} />{lam(color)}</mesh>)}</>}
     </group>
   );

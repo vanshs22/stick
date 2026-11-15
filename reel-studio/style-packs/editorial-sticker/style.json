@@ -1,0 +1,102 @@
+{
+ "id": "editorial-sticker",
+ "name": "Editorial sticker",
+ "family": "2d",
+ "description": "Light grey paper, thick-outlined sticker windows, colour-changing sections and a hooded host. Fast tech explainers.",
+ "tokens": {
+  "colors": {
+   "bg": "#E9E8E0",
+   "ink": "#141413",
+   "ink2": "#141413",
+   "muted": "#8C8A82",
+   "card": "#FFFFFF",
+   "accent": "#EF501A",
+   "accentSoft": "#EF501A33",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1440,
+   "right_margin": 120,
+   "content_top": 420,
+   "content_bottom": 1290
+  },
+  "chrome": "sticker",
+  "presenter": {
+   "skin": "#D98C4E",
+   "hair": "#1a1410",
+   "beard": true,
+   "curly": true,
+   "hat": "none",
+   "glasses": false,
+   "jacket": "#17171a",
+   "shirt": "#17171a",
+   "x": 620,
+   "y": 1830,
+   "scale": 1.0
+  },
+  "bgs": {
+   "dark": "#111412",
+   "green": "#0E2A22",
+   "red": "#E8381A",
+   "slate": "#B7BEC9",
+   "paper": "#E9E8E0",
+   "navy": "#1b2150"
+  }
+ },
+ "effects": {
+  "dots": 0.5,
+  "grain": 0.06
+ },
+ "rules": [
+  "Every window is a sticker: 4 px black outline, hard offset shadow, red/grey/white dots.",
+  "The background changes colour per section (paper, dark, red, green, slate): bg per shot.",
+  "Mono HUD row on top: '// 03 - what it does' left, a counter or keyword in the accent colour right.",
+  "Red scribble circles and underlines point at the proof (star count, price, number).",
+  "The host stays bottom-centre and gestures on the key words; headline text is the caption."
+ ],
+ "components": [
+  "RepoCard",
+  "Terminal",
+  "BrowserWindow",
+  "ProofCard",
+  "Versus",
+  "Ledger",
+  "ProfileCard",
+  "Checklist",
+  "CommentBox",
+  "BigStat",
+  "EndCard"
+ ],
+ "camera_language": "No camera; layout motion only.",
+ "typography": "Sans headline, red italic serif accent, mono HUD.",
+ "transitions": [
+  "cut",
+  "slide",
+  "wipe"
+ ],
+ "audio_direction": "upbeat bed, pop per card, stamp on verdicts, ding on the comment box",
+ "pitfalls": [
+  "Soft shadows (breaks the sticker look).",
+  "Same background for the whole video.",
+  "Host covering the card."
+ ],
+ "references": [
+  "reference video ref6"
+ ],
+ "defaults": {
+  "captions": "headline",
+  "shot_seconds": [
+   1.5,
+   3
+  ],
+  "music": "upbeat"
+ }
+}

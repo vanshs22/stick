@@ -247,7 +247,9 @@
    "description": "Items that tick off one by one.",
    "props": {
     "items": "string[] (required)",
-    "anchorPrefix": "'c' -> c0,c1..."
+    "anchorPrefix": "'c' -> c0,c1...",
+    "heading": "string, e.g. 'CLAUDE IS BUILDING'",
+    "progress": "true = a progress bar fills as items tick"
    },
    "anchors": [
     "c0",
@@ -337,8 +339,9 @@
     "light": "studio|night|noir|golden|bright-sky",
     "characters": "[{variant:'voxel'|'blocky'|'lowpoly'|'stick'|'noir', x,z,rotY, pose, mood, speaks, skin,shirt,pants,hair,beard,glasses,badge, pose2+poseAnchor}]",
     "creatures": "[{kind:'box'|'screen'|'cloud', x,y,z,scale,color,kickAnchor}]",
-    "camera": "{shot:'wide'|'medium'|'close'|'desk', move:'push'|'pull'|'drift'|'orbit'|'static', fov}",
-    "bg": "hex"
+    "camera": "{shot:'wide'|'medium'|'close'|'desk'|'presenter', move, fov}",
+    "bg": "hex",
+    "wall": "true = a screen wall of charts behind the studio set"
    },
    "anchors": [
     "any (poseAnchor, kickAnchor)"
@@ -371,6 +374,98 @@
     "surprised",
     "relieved",
     "smirk"
+   ]
+  },
+  "FileList": {
+   "category": "ui",
+   "description": "Folder listing with one row selected (yellow outline) or an empty rename box.",
+   "props": {
+    "title": "'FILES'",
+    "items": "string[] (required)",
+    "select": "index of the selected row",
+    "input": "true = the selected row is an empty rename box",
+    "anchor": "selection word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "items"
+   ]
+  },
+  "Ledger": {
+   "category": "data",
+   "description": "A price list with lines struck through one by one and a total (what I pay for).",
+   "props": {
+    "title": "string",
+    "items": "[{name, price}] (required)",
+    "total": "string",
+    "anchorPrefix": "'i' -> i0,i1...",
+    "strike": "boolean, true"
+   },
+   "anchors": [
+    "i0",
+    "i1",
+    "..."
+   ],
+   "required": [
+    "items"
+   ]
+  },
+  "ProfileCard": {
+   "category": "evidence",
+   "description": "A creator profile with a video grid, one tile highlighted and a sticker badge (9M VIEWS). Use real numbers only.",
+   "props": {
+    "name": "string (required)",
+    "handle": "string",
+    "stat": "'169K subscribers'",
+    "tiles": "[{views}] (required)",
+    "highlight": "tile index",
+    "badge": "string",
+    "anchor": "start word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "name",
+    "tiles"
+   ],
+   "evidence": true
+  },
+  "RepoCard": {
+   "category": "evidence",
+   "description": "A GitHub repository page with the star count circled in red. Capture the real page when possible (ProofCard); use this when a clean redrawn page reads better.",
+   "props": {
+    "repo": "owner/name (required)",
+    "description": "string",
+    "stars": "'105k'",
+    "forks": "string",
+    "commits": "string",
+    "anchor": "word when the circle is drawn"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "repo"
+   ],
+   "evidence": true
+  },
+  "EndCard": {
+   "category": "text",
+   "description": "Closing card: serif headline with an accent word, a call-to-action pill and a handle, on a soft gradient.",
+   "props": {
+    "headline": "string (required)",
+    "accent": "word",
+    "cta": "'Comment WORD'",
+    "handle": "'@name'"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "headline"
    ]
   }
  },
@@ -415,7 +510,31 @@
   "boxed",
   "phrase",
   "typewriter",
-  "karaoke"
+  "karaoke",
+  "headline (top-left, grey until spoken, red italic accent: editorial)",
+  "dialogue (top pill with speaker tag: 3D story)"
  ],
- "effects": "style.json 'effects': {grain, vignette, bokeh, rain, halftone, paper}"
+ "effects": "style.json 'effects': {grain, vignette, bokeh, rain, halftone, paper}",
+ "shot_fields": {
+  "bg": "background colour for this shot: 'paper' | a name from style.json bgs (dark, slate, green, red ...) | a hex",
+  "presenter": "{pose, mood, hidden}: the illustrated host's gesture for this shot (editorial packs with a presenter). poses: idle point open wave think shrug; moods: calm happy surprised worried smirk",
+  "speaker": "name shown as a tag above dialogue captions",
+  "overlays": "graphics on top of the main component, see overlays"
+ },
+ "overlays": {
+  "label": "{left, right, rightAccent}: mono HUD row at the top ('// 03 \u00b7 step one' ... 'LAYERS 2/4')",
+  "step-chip": "{n, of, x, y, anchor}: black numbered square with progress dots",
+  "step-label": "{text, n, of, y, anchor}: dark pill 'STEP 2 \u00b7 ONE FOLDER' with yellow dashes (top centre)",
+  "sticker": "{text, color, rotate, x, y, size, anchor}: tilted outlined label ('9M VIEWS')",
+  "tags": "{items:[{text,color}], x, y, anchor}: pills with dots ('free', 'open source')",
+  "callout": "{text, x, y, rotate, anchor}: white speech label",
+  "cursor": "{from:[x,y], to:[x,y], dur, anchor}: arrow cursor with motion lines, then a click ripple",
+  "scribble": "{kind:'circle'|'underline', x, y, w, h, color, anchor}: hand-drawn red circle or underline",
+  "hearts": "{x, y, count, anchor}: hearts floating up",
+  "calendar": "{month, day, weekday, x, y, anchor}",
+  "waveform": "{x, y, bars, color}: audio bars that move with the voice",
+  "warning": "{text, x, y, anchor}: yellow-bordered warning bar",
+  "progress": "{name, to, w, x, y, dur, anchor}: file progress card",
+  "backword": "{text, color, y, size}: huge glowing word behind everything"
+ }
 }

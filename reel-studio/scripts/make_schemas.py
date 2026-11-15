@@ -35,6 +35,7 @@ schemas = {
   "anchors": arr(obj(["name", "line", "word"], {"name": ST, "line": LID, "word": ST})),
   "overlay": {"type": "object"}, "transition_out": obj([], {"type": {"type": "string"}, "sound": {"type": "string"}}),
   "sfx": arr(obj(["type"], {"type": ST, "anchor": {"type": "string"}, "offset": N, "at": {"type": "string", "enum": ["start", "end"]}, "gain": {"type": "number", "minimum": 0, "maximum": 1.5}, "dur": N})),
+  "bg": {"type": "string"}, "speaker": {"type": "string"}, "presenter": {"type": "object"}, "overlays": arr({"type": "object", "required": ["type"], "properties": {"type": ST}}),
   "notes": {"type": "string"}}), {"minItems": 3})}),
 "audio-plan": obj(["voice", "music", "mix"], {"voice": obj(["engine"], {"engine": ST, "voice": {"type": "string"}, "speed": N, "pronunciations": {"type": "object"}}),
   "music": obj(["direction"], {"direction": ST, "file": {"type": "string"}, "bed": {"type": "string", "enum": ["bed", "tension", "upbeat", "none", "file"]}, "gain_db": N}),

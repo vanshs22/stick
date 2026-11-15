@@ -24,7 +24,7 @@ P = [
   rules=["A 3D voxel presenter in the lower half, cards in the upper half, captions at the bottom.", "A companion creature reacts (hops) on the key word of the shot.", "Step chips (STEP 1 .. n) appear top centre with the card.", "Hero shirt must be lighter than the background (readability): check luma.", "Yellow is the accent: one yellow word in captions."],
   components=["Scene3D", "Terminal", "BrowserWindow", "CommentBox", "Checklist", "BigStat", "KineticList"], camera="Medium shot mostly, slow push; close only for reactions.", typo="Heavy sans, white with yellow accent.", trans=["cut", "zoom", "whip"], audio="upbeat groove, pop on card, tick on step chip, hop = boing",
   pitfalls=["Dark shirt on dark background.", "Creature cropped by the frame edge.", "Cards covering the head."], refs=["reference videos ref7, ref2"],
-  scene=dict(set="starfield", light="studio", characters=[dict(variant="voxel", x=-0.2, pose="open", mood="happy", skin="#A8704A", shirt="#5a5a72", hair="#14100c", beard=True, badge="#F2C12E")], creatures=[dict(kind="box", x=0.8, z=0.4, scale=1.1, color="#F0683C")])),
+  scene=dict(set="starfield", light="studio", camera=dict(shot="presenter", move="push"), characters=[dict(variant="voxel", x=-0.2, pose="open", mood="happy", skin="#A8704A", shirt="#5a5a72", hair="#14100c", beard=True, badge="#F2C12E")], creatures=[dict(kind="box", x=0.8, z=0.4, scale=1.1, color="#F0683C")])),
  dict(id="stickman-3d", name="3D stickman", family="3d", description="Simple expressive stick figures acting in bright minimal studio sets. Comedy, 'what if' and survival explainers.",
   colors=col("#E8E8EC", "#111111", "#E8512A", muted="#777777", soft="#E8512A33"), effects={"vignette": 0.1}, captions="word-pop", shots=[1.5, 3], music="bed",
   best="comedy bits, 'what would you do if', quick lessons with a character",
@@ -60,8 +60,33 @@ P = [
   components=["RouteMap", "Timeline", "EvidenceCard", "ProofCard", "TitleCard", "Stamp", "BigStat"], camera="No camera; slow zoom on maps.", typo="Serif italic for places, mono for dates.", trans=["fade", "cut", "wipe"], audio="calm bed, paper slide whooshes, stamp on dates",
   pitfalls=["Modern UI mixed into a paper look.", "Unsourced dates.", "Too many labels crossing the route."], refs=["faceless-shorts paper-atlas"]),
 ]
+P.append(dict(id="editorial-sticker", name="Editorial sticker", family="2d", description="Light grey paper, thick-outlined sticker windows, colour-changing sections and a hooded host. Fast tech explainers.",
+  colors=col("#E9E8E0", "#141413", "#EF501A", soft="#EF501A33"), effects={"dots": 0.5, "grain": 0.06}, captions="headline", shots=[1.5, 3], music="upbeat",
+  best="tool and repo explainers: GitHub pages, terminals, MCP-style diagrams, 'you pay $0' reveals",
+  rules=["Every window is a sticker: 4 px black outline, hard offset shadow, red/grey/white dots.", "The background changes colour per section (paper, dark, red, green, slate): bg per shot.", "Mono HUD row on top: '// 03 - what it does' left, a counter or keyword in the accent colour right.", "Red scribble circles and underlines point at the proof (star count, price, number).", "The host stays bottom-centre and gestures on the key words; headline text is the caption."],
+  components=["RepoCard", "Terminal", "BrowserWindow", "ProofCard", "Versus", "Ledger", "ProfileCard", "Checklist", "CommentBox", "BigStat", "EndCard"], camera="No camera; layout motion only.", typo="Sans headline, red italic serif accent, mono HUD.", trans=["cut", "slide", "wipe"], audio="upbeat bed, pop per card, stamp on verdicts, ding on the comment box",
+  pitfalls=["Soft shadows (breaks the sticker look).", "Same background for the whole video.", "Host covering the card."], refs=["reference video ref6"]))
+P.append(dict(id="voxel-studio", name="Voxel studio", family="3d", description="Light-grey studio with a wall of live charts, blocky characters and floating label chips. Data and finance explainers.",
+  colors=col("#E4E4E8", "#111111", "#1FA855", muted="#6a6a72", soft="#1FA85533"), effects={"vignette": 0.08}, captions="boxed", shots=[2, 5], music="upbeat",
+  best="finance, markets, data and 'how it works' explainers with a calm voice",
+  rules=["Light stage with a chart wall; characters in hats or uniforms (original designs).", "Label chips with green outlines float over objects (tags overlay).", "Title bar at the top (step-label), caption box at the bottom with a green accent.", "Slow camera: long 2-5 s shots; props explain the idea (rings, bars, glass columns).", "Keep green for good, red for bad, amber for in-between."],
+  components=["Scene3D", "BigStat", "BarChart", "LineChart", "Versus", "Checklist", "Timeline"], camera="Medium, slow push or orbit.", typo="Heavy sans, dark on white boxes.", trans=["cut", "slide", "fade"], audio="light upbeat bed, pop on chips, tick on counters",
+  pitfalls=["Copying the original characters.", "Chart wall too busy behind captions."], refs=["reference video ref2"], scene=dict(set="studio", light="studio", wall=True, characters=[dict(variant="voxel", pose="open", mood="calm", skin="#B8643A", shirt="#1d2a52", hair="#22160f", badge="#F2C12E")])))
+EXTRA = {
+ "editorial-notebook": dict(chrome="clean", presenter=dict(skin="#E8B48C", hair="#2a2019", beard=True, hat="#1f1f22", glasses=True, jacket="#5c5348", shirt="#f1eee8", x=680, y=1800, scale=1.0), safe_zone=dict(content_top=430, content_bottom=1290), bgs={"dark": "#0F0F11", "slate": "#B7BEC9", "green": "#10261F", "red": "#E8381A", "paper": "#F4F1EC"}),
+ "editorial-sticker": dict(chrome="sticker", presenter=dict(skin="#D98C4E", hair="#1a1410", beard=True, curly=True, hat="none", glasses=False, jacket="#17171a", shirt="#17171a", x=620, y=1830, scale=1.0), safe_zone=dict(content_top=420, content_bottom=1290), bgs={"dark": "#111412", "green": "#0E2A22", "red": "#E8381A", "slate": "#B7BEC9", "paper": "#E9E8E0", "navy": "#1b2150"}),
+ "voxel-explainer": dict(chrome="glass", safe_zone=dict(content_top=230, content_bottom=1120), caption=dict(fill="#ffffff")),
+ "voxel-studio": dict(chrome="clean", safe_zone=dict(content_top=300, content_bottom=1120)),
+ "roblox-inspired": dict(caption=dict(fill="#FFE600")),
+ "stylized-3d-presenter": dict(chrome="glass", safe_zone=dict(content_top=330, content_bottom=1120)),
+}
 for d in P:
-    tokens = {"colors": d["colors"], "fonts": FONTS, "safe_zone": SZ}
+    d["captions"] = {"editorial-notebook": "headline", "editorial-sticker": "headline", "stylized-3d-presenter": "dialogue"}.get(d["id"], d["captions"])
+    d["effects"] = {"editorial-notebook": {"dots": 0.55, "grain": 0.05}}.get(d["id"], d["effects"])
+    if d["id"] == "voxel-explainer": d["scene"]["characters"][0]["x"] = -0.1
+for d in P:
+    ex = EXTRA.get(d["id"], {})
+    tokens = {"colors": d["colors"], "fonts": FONTS, "safe_zone": {**SZ, **ex.get("safe_zone", {})}, **{k: v for k, v in ex.items() if k != "safe_zone"}}
     sty = {"id": d["id"], "name": d["name"], "family": d["family"], "description": d["description"], "tokens": tokens, "effects": d["effects"], "rules": d["rules"], "components": d["components"],
            "camera_language": d["camera"], "typography": d["typo"], "transitions": d["trans"], "audio_direction": d["audio"], "pitfalls": d["pitfalls"], "references": d["refs"],
            "defaults": {"captions": d["captions"], "shot_seconds": d["shots"], "music": d["music"], **({"scene3d": d["scene"]} if "scene" in d else {})}}

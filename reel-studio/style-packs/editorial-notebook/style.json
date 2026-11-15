@@ -24,12 +24,34 @@
    "top": 180,
    "bottom": 1380,
    "caption_y": 1440,
-   "right_margin": 120
+   "right_margin": 120,
+   "content_top": 430,
+   "content_bottom": 1290
+  },
+  "chrome": "clean",
+  "presenter": {
+   "skin": "#E8B48C",
+   "hair": "#2a2019",
+   "beard": true,
+   "hat": "#1f1f22",
+   "glasses": true,
+   "jacket": "#5c5348",
+   "shirt": "#f1eee8",
+   "x": 680,
+   "y": 1800,
+   "scale": 1.0
+  },
+  "bgs": {
+   "dark": "#0F0F11",
+   "slate": "#B7BEC9",
+   "green": "#10261F",
+   "red": "#E8381A",
+   "paper": "#F4F1EC"
   }
  },
  "effects": {
-  "paper": true,
-  "grain": 0.04
+  "dots": 0.55,
+  "grain": 0.05
  },
  "rules": [
   "One accent colour (orange) used for the single most important word or number per shot.",
@@ -76,7 +98,7 @@
   "reference videos ref5, ref6"
  ],
  "defaults": {
-  "captions": "boxed",
+  "captions": "headline",
   "shot_seconds": [
    1.5,
    3.5

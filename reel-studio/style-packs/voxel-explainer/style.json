@@ -24,7 +24,13 @@
    "top": 180,
    "bottom": 1380,
    "caption_y": 1440,
-   "right_margin": 120
+   "right_margin": 120,
+   "content_top": 230,
+   "content_bottom": 1120
+  },
+  "chrome": "glass",
+  "caption": {
+   "fill": "#ffffff"
   }
  },
  "effects": {
@@ -73,10 +79,14 @@
   "scene3d": {
    "set": "starfield",
    "light": "studio",
+   "camera": {
+    "shot": "presenter",
+    "move": "push"
+   },
    "characters": [
     {
      "variant": "voxel",
-     "x": -0.2,
+     "x": -0.1,
      "pose": "open",
      "mood": "happy",
      "skin": "#A8704A",

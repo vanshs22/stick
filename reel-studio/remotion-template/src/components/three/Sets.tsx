@@ -27,7 +27,7 @@ export const Lights: React.FC<{rig: Rig}> = ({rig}) => {
 };
 
 const FR: Record<string, {pos: [number, number, number]; look: [number, number, number]; fov: number}> = {
-  wide: {pos: [0, 1.6, 6.4], look: [0, 1.0, 0], fov: 36}, medium: {pos: [0, 1.4, 4.4], look: [0, 1.1, 0], fov: 34}, close: {pos: [0, 1.62, 2.5], look: [0, 1.55, 0], fov: 30}, desk: {pos: [0, 1.35, 3.8], look: [0, 1.15, 0], fov: 34},
+  wide: {pos: [0, 1.6, 6.4], look: [0, 1.0, 0], fov: 36}, medium: {pos: [0, 1.4, 4.4], look: [0, 1.1, 0], fov: 34}, close: {pos: [0, 1.62, 2.5], look: [0, 1.55, 0], fov: 30}, desk: {pos: [0, 1.35, 3.8], look: [0, 1.15, 0], fov: 34}, presenter: {pos: [0, 1.4, 3.1], look: [0, 1.22, 0], fov: 36},
 };
 /** Camera as a pure function of progress p (0..1). shot: wide|medium|close|desk; move: push|pull|drift|orbit|static */
 export const CameraRig: React.FC<{shot?: string; move?: string; p: number; fov?: number}> = ({shot = 'medium', move = 'push', p, fov}) => {
@@ -41,7 +41,7 @@ export const CameraRig: React.FC<{shot?: string; move?: string; p: number; fov?:
 
 const Stars: React.FC<{bg: string}> = ({bg}) => {
   const map = useTex(1024, 600, (c, w, h) => { const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#0d1445'); g.addColorStop(1, bg); c.fillStyle = g; c.fillRect(0, 0, w, h); for (let i = 0; i < 260; i++) { c.fillStyle = ['#fff', '#bcd0ff', '#ffb89a', '#9ad1ff'][i % 4] + (rnd(i + 3) > 0.5 ? 'ff' : '99'); c.beginPath(); c.arc(rnd(i) * w, rnd(i + 1) * h, 1 + rnd(i + 2) * 2.6, 0, 7); c.fill(); } });
-  return <><Plane w={44} h={26} pos={[0, 4, -6]} map={map} /><Floor color="#2f43b8" /></>;
+  return <><Plane w={44} h={26} pos={[0, 4, -6]} map={map} /><Floor color="#1f2e8e" r={16} /></>;
 };
 const Desk: React.FC = () => {
   const city = useTex(512, 300, (c, w, h) => { const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#070b24'); g.addColorStop(1, '#16255a'); c.fillStyle = g; c.fillRect(0, 0, w, h); for (let i = 0; i < 26; i++) { c.fillStyle = '#0a1030'; c.fillRect(rnd(i) * w, h - (60 + rnd(i + 40) * 140), 30 + rnd(i + 9) * 30, 220); } });
@@ -75,8 +75,12 @@ const NoirRoom: React.FC = () => (
     <mesh position={[0.8, 1.9, 1.1]} rotation={[0, 0, -0.38]}><coneGeometry args={[1.5, 3.8, 24, 1, true]} /><meshBasicMaterial color="#ffe2b0" transparent opacity={0.06} depthWrite={false} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} /></mesh>
   </>
 );
-const Studio: React.FC<{bg: string}> = ({bg}) => <><Plane w={40} h={26} pos={[0, 4, -5]} color={bg} /><Floor color="#d8d8de" r={14} /></>;
+const Wall: React.FC = () => {
+  const map = useTex(512, 256, (c, w, h) => { c.fillStyle = '#0c0f14'; c.fillRect(0, 0, w, h); for (let r = 0; r < 3; r++) for (let k = 0; k < 6; k++) { const x = 8 + k * 84, y = 10 + r * 82; c.fillStyle = '#151a22'; c.fillRect(x, y, 76, 70); c.strokeStyle = (r + k) % 3 ? '#34e07b' : '#ff5a5f'; c.lineWidth = 2; c.beginPath(); for (let i = 0; i <= 12; i++) { const yy = y + 45 - rnd(r * 9 + k * 3 + i) * 28 - i * 1.2; i ? c.lineTo(x + 6 + i * 5.6, yy) : c.moveTo(x + 6, yy); } c.stroke(); } c.fillStyle = '#181d26'; c.fillRect(0, 252, w, 4); });
+  return <Plane w={12} h={6} pos={[0, 3.9, -4.6]} map={map} />;
+};
+const Studio: React.FC<{bg: string; wall?: boolean}> = ({bg, wall}) => <><Plane w={40} h={26} pos={[0, 4, -5]} color={bg} />{wall ? <Wall /> : null}<Floor color="#d8d8de" r={14} /></>;
 
 export type SetName = 'starfield' | 'desk-night' | 'block-world' | 'noir-room' | 'studio';
-export const SetScene: React.FC<{name: SetName; bg?: string}> = ({name, bg = '#22349f'}) => name === 'starfield' ? <Stars bg={bg} /> : name === 'desk-night' ? <Desk /> : name === 'block-world' ? <BlockWorld /> : name === 'noir-room' ? <NoirRoom /> : <Studio bg={bg} />;
+export const SetScene: React.FC<{name: SetName; bg?: string; wall?: boolean}> = ({name, bg = '#22349f', wall}) => name === 'starfield' ? <Stars bg={bg} /> : name === 'desk-night' ? <Desk /> : name === 'block-world' ? <BlockWorld /> : name === 'noir-room' ? <NoirRoom /> : <Studio bg={bg} wall={wall} />;
 export const SET_BG: Record<SetName, string> = {starfield: '#22349f', 'desk-night': '#070a1c', 'block-world': '#8cc8f6', 'noir-room': '#050508', studio: '#e8e8ec'};

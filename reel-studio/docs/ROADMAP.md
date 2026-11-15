@@ -16,3 +16,6 @@ Original plan:
 - Preview galleries: styles, typography, captions.
 - Reference analyses of the supplied videos as shot libraries.
 - One example project per style, then the end-to-end tests in Claude Code and OpenCode (free model) with three different videos.
+
+## Design pass (after milestone 2)
+Studied the reference frames again and added what was missing: an illustrated host (SVG, lip-sync, gestures), 14 overlay graphics (step chips and labels, stickers, tags, cursor with motion lines, scribbles, hearts, calendar, waveform, warning bar, progress card), sticker and glass window looks, per-shot background colours, headline and dialogue captions, repo, profile, ledger, file-list and end cards, a chart wall set, arch-eyed creatures, a close presenter camera, fine dot paper texture, coloured bokeh, and two more style packs (editorial-sticker, voxel-studio). Type-checks clean; nothing rendered yet.

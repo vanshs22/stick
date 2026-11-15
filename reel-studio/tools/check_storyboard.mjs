@@ -14,6 +14,7 @@ for (const s of sb.shots) {
   if (!new RegExp(`\\b${s.component}\\b`).test(reg)) errs.push(`${s.id}: "${s.component}" is in the manifest but not registered in registry.ts`);
   for (const r of m.required || []) if (s.props?.[r] == null) errs.push(`${s.id}: ${s.component} needs prop "${r}"`);
   for (const k of Object.keys(s.props || {})) if (!(k in m.props)) warns.push(`${s.id}: ${s.component} has no prop "${k}" (known: ${Object.keys(m.props).join(', ')})`);
+  for (const o of s.overlays || []) { if (!(o.type in man.overlays)) errs.push(`${s.id}: unknown overlay "${o.type}" (${Object.keys(man.overlays).join(', ')})`); else if (o.anchor && !(s.anchors || []).some((x) => x.name === o.anchor)) errs.push(`${s.id}: overlay ${o.type} uses anchor "${o.anchor}" that the shot does not define`); }
   if (s.transition_out?.type && !man.transitions.includes(s.transition_out.type)) errs.push(`${s.id}: unknown transition "${s.transition_out.type}" (${man.transitions.join(', ')})`);
   for (const f of s.sfx || []) if (!man.sfx.includes(f.type)) errs.push(`${s.id}: unknown sound "${f.type}"`);
   if (s.transition_out?.sound && s.transition_out.sound !== 'none' && !man.sfx.includes(s.transition_out.sound)) errs.push(`${s.id}: unknown transition sound "${s.transition_out.sound}"`);

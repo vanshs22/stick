@@ -14,9 +14,10 @@ type Crt = CreatureProps & {kickAnchor?: string};
  *  set: starfield | desk-night | block-world | noir-room | studio   light: studio | night | noir | golden | bright-sky
  *  characters: [{variant: voxel|blocky|lowpoly|stick|noir, x, z, rotY, pose, mood, speaks, skin, shirt, pants, hair, beard, glasses, badge, pose2 + poseAnchor (change pose at a spoken word)}]
  *  creatures: [{kind: box|screen|cloud, x, y, z, scale, color, kickAnchor (hop at that word)}]
- *  camera: {shot: wide|medium|close|desk, move: push|pull|drift|orbit|static, fov}   bg: background colour for starfield/studio
+ *  wall: true = a screen wall of charts behind a studio set (data / finance look)
+ *  camera: {shot: wide|medium|close|desk|presenter, move: push|pull|drift|orbit|static, fov}   bg: background colour for starfield/studio
  */
-export const Scene3D: React.FC<ShotProps> = ({shot, set = 'studio', light, characters = [{}], creatures = [], camera = {}, bg}) => {
+export const Scene3D: React.FC<ShotProps> = ({shot, set = 'studio', light, characters = [{}], creatures = [], camera = {}, bg, wall}) => {
   const {t, lt, p} = useShotTime(shot);
   const {width, height} = useVideoConfig();
   const rig: Rig = light || (set === 'noir-room' ? 'noir' : set === 'desk-night' ? 'night' : set === 'block-world' ? 'bright-sky' : 'studio');
@@ -26,7 +27,7 @@ export const Scene3D: React.FC<ShotProps> = ({shot, set = 'studio', light, chara
       <ThreeCanvas width={width} height={height} camera={{position: [0, 1.4, 4.4], fov: 34}}>
         <color attach="background" args={[bg || SET_BG[set as SetName] || '#222']} />
         <Lights rig={rig} />
-        <SetScene name={set as SetName} bg={bg} />
+        <SetScene name={set as SetName} bg={bg} wall={wall} />
         <CameraRig shot={camera.shot || 'medium'} move={camera.move || 'push'} p={p} fov={camera.fov} />
         {(characters as Char[]).map((c, i) => {
           const sw = c.poseAnchor && c.pose2 && lt >= atLocal(shot, c.poseAnchor);

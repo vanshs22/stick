@@ -44,7 +44,7 @@
      }
     ],
     "camera": {
-     "shot": "medium",
+     "shot": "presenter",
      "move": "push"
     }
    },
@@ -65,7 +65,15 @@
    "transition_out": {
     "type": "cut",
     "sound": "swish"
-   }
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Make it with code",
+     "n": 1,
+     "of": 5
+    }
+   ]
   },
   {
    "id": "S02",
@@ -96,7 +104,15 @@
    "transition_out": {
     "type": "zoom",
     "sound": "swish"
-   }
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Step 1 \u00b7 open a terminal",
+     "n": 1,
+     "of": 5
+    }
+   ]
   },
   {
    "id": "S03",
@@ -128,7 +144,29 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
-   }
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Step 2 \u00b7 one line",
+     "n": 2,
+     "of": 5
+    },
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "free"
+      },
+      {
+       "text": "open source"
+      }
+     ],
+     "x": 540,
+     "y": 820,
+     "anchor": "t"
+    }
+   ]
   },
   {
    "id": "S04",
@@ -162,8 +200,8 @@
      }
     ],
     "camera": {
-     "shot": "medium",
-     "move": "drift"
+     "shot": "presenter",
+     "move": "push"
     }
    },
    "anchors": [
@@ -182,7 +220,22 @@
    "transition_out": {
     "type": "whip",
     "sound": "whoosh"
-   }
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Step 3 \u00b7 press enter",
+     "n": 3,
+     "of": 5
+    },
+    {
+     "type": "callout",
+     "text": "built from simple shapes",
+     "x": 640,
+     "y": 1050,
+     "anchor": "enter"
+    }
+   ]
   },
   {
    "id": "S05",
@@ -208,6 +261,14 @@
      "type": "ding",
      "anchor": "k",
      "offset": 0.4
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Comment to get every step",
+     "n": 5,
+     "of": 5
     }
    ]
   }

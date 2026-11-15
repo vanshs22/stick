@@ -38,7 +38,8 @@
    "transition_out": {
     "type": "cut",
     "sound": "swish"
-   }
+   },
+   "speaker": "Me"
   },
   {
    "id": "S02",
@@ -102,7 +103,8 @@
    "transition_out": {
     "type": "cut",
     "sound": "swish"
-   }
+   },
+   "speaker": "Me"
   },
   {
    "id": "S03",
@@ -191,7 +193,8 @@
    "transition_out": {
     "type": "dip",
     "sound": "none"
-   }
+   },
+   "speaker": "Helper"
   },
   {
    "id": "S05",
@@ -241,7 +244,8 @@
    "transition_out": {
     "type": "cut",
     "sound": "swish"
-   }
+   },
+   "speaker": "Me"
   },
   {
    "id": "S06",

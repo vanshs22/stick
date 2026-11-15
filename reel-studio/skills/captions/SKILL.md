@@ -34,3 +34,5 @@ Render one still per preset using the same real line and show them side by side 
 3. Out of sync? The words.json times are wrong (rerun `words.py`); never shift captions by hand.
 
 All six presets now exist (word-pop, one-word, boxed, phrase, typewriter, karaoke). Preview them with `node $TK/tools/gallery.mjs $P --kind captions`.
+
+Two more presets: `headline` (editorial packs: big top-left text, grey until spoken, red italic accent word; it IS the caption) and `dialogue` (3D story packs: top pill with the speaker tag from `shot.speaker`).

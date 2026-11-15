@@ -47,7 +47,28 @@ E["voxel-howto"] = (brief("Free videos with code", "a voxel how-to", "voxel-expl
  S(3, ["L04"], "one line typed", "ui", "Terminal", {"lines": ["make a 30 second video"]}, [("t", "L04", "line")], [{"type": "type", "anchor": "t", "dur": 1.0}], ("cut", "none")),
  S(4, ["L05"], "presenter waits", "character", "Scene3D", {"set": "starfield", "characters": [{"variant": "voxel", "pose": "think", "mood": "smirk", "skin": "#A8704A", "shirt": "#5a5a72", "hair": "#14100c", "beard": True}], "creatures": [{"kind": "box", "x": 0.8, "z": 0.4, "scale": 1.1, "color": "#F0683C", "kickAnchor": "enter"}], "camera": {"shot": "medium", "move": "drift"}}, [("enter", "L05", "enter")], [{"type": "tick", "anchor": "enter"}], ("whip", "whoosh")),
  S(5, ["L06", "L07"], "comment call to action", "ui", "CommentBox", {"keyword": "VIDEO"}, [("k", "L06", "VIDEO")], [{"type": "ding", "anchor": "k", "offset": 0.4}])], plan("upbeat"))
+LBL = lambda l, r: {"type": "label", "left": l, "right": r}
+EXTRA = {
+ "software-explainer": {"S01": dict(presenter={"pose": "wave", "mood": "happy"}, overlays=[LBL("// 01 · the idea", "REACT")]),
+   "S02": dict(presenter={"pose": "open", "mood": "calm"}, overlays=[LBL("// 02 · why", "$0")]),
+   "S03": dict(presenter={"pose": "point", "mood": "calm"}, overlays=[LBL("// 03 · step one", "STEP 1/3"), {"type": "step-chip", "n": 1, "of": 3, "anchor": "go"}, {"type": "cursor", "from": [260, 900], "to": [520, 760], "anchor": "go"}]),
+   "S04": dict(presenter={"pose": "think", "mood": "calm"}, overlays=[LBL("// 04 · step two", "STEP 2/3"), {"type": "step-chip", "n": 2, "of": 3, "anchor": "b0"}]),
+   "S05": dict(presenter={"pose": "point", "mood": "happy"}, overlays=[LBL("// 05 · step three", "STEP 3/3"), {"type": "step-chip", "n": 3, "of": 3, "anchor": "r"}, {"type": "progress", "name": "video.mp4", "anchor": "r", "x": 540, "y": 1180}]),
+   "S06": dict(bg="dark", presenter={"pose": "open", "mood": "happy"}, overlays=[LBL("// 06 · the licence", "CHECK IT")]),
+   "S07": dict(presenter={"pose": "wave", "mood": "happy"}, overlays=[LBL("// 07 · get it", "COMMENT"), {"type": "hearts", "x": 800, "y": 1000, "anchor": "k"}])},
+ "character-story": {"S01": dict(speaker="Me"), "S02": dict(speaker="Me"), "S04": dict(speaker="Helper"), "S05": dict(speaker="Me")},
+ "motion-graphics": {"S01": dict(presenter={"pose": "wave", "mood": "happy"}, overlays=[LBL("// captions", "3 MISTAKES")]), "S02": dict(presenter={"pose": "think", "mood": "worried"}), "S03": dict(presenter={"pose": "open", "mood": "happy"}, overlays=[{"type": "sticker", "text": "FIX", "anchor": "v", "x": 800, "y": 470}]), "S04": dict(presenter={"pose": "wave", "mood": "happy"})},
+ "voxel-howto": {"S01": dict(overlays=[{"type": "step-label", "text": "Make it with code", "n": 1, "of": 5}]), "S02": dict(overlays=[{"type": "step-label", "text": "Step 1 · open a terminal", "n": 1, "of": 5}]), "S03": dict(overlays=[{"type": "step-label", "text": "Step 2 · one line", "n": 2, "of": 5}, {"type": "tags", "items": [{"text": "free"}, {"text": "open source"}], "x": 540, "y": 820, "anchor": "t"}]),
+   "S04": dict(overlays=[{"type": "step-label", "text": "Step 3 · press enter", "n": 3, "of": 5}, {"type": "callout", "text": "built from simple shapes", "x": 640, "y": 1050, "anchor": "enter"}]), "S05": dict(overlays=[{"type": "step-label", "text": "Comment to get every step", "n": 5, "of": 5}])},
+}
+CAPS = {"software-explainer": "headline", "character-story": "dialogue", "motion-graphics": "headline"}
 for n, (b, lines, shots, ap) in E.items():
+    for sid, ex in EXTRA.get(n, {}).items(): next(x for x in shots if x["id"] == sid).update(ex)
+    if n in CAPS: b["captions"] = {"preset": CAPS[n]}
+    if n == "voxel-howto":
+        for x in shots:
+            for ch in x["props"].get("characters", []): pass
+            if x["component"] == "Scene3D": x["props"]["camera"] = {"shot": "presenter", "move": "push"}
     os.makedirs(f"examples/{n}", exist_ok=True)
     json.dump(b, open(f"examples/{n}/brief.json", "w"), indent=1)
     json.dump({"title": b["title"], "language": "en", "lines": lines, "est_seconds": round(sum(len(l["text"].split()) for l in lines) / 2.4)}, open(f"examples/{n}/script.json", "w"), indent=1)

@@ -65,17 +65,20 @@ export const Timeline: React.FC<ShotProps> = ({shot, events = [], anchorPrefix =
   );
 };
 
-/** Items that tick off one by one. props: items[], anchorPrefix ("c" -> c0, c1...). */
-export const Checklist: React.FC<ShotProps> = ({shot, items = [], anchorPrefix = 'c'}) => {
-  const {a, out, lt} = useEnter(shot, undefined, 0.05);
+/** Items that tick off one by one, optionally under a heading with a progress bar ("CLAUDE IS BUILDING"). props: items[], heading, progress (true = bar fills as items tick), anchorPrefix ("c" -> c0, c1...). */
+export const Checklist: React.FC<ShotProps> = ({shot, items = [], heading = '', progress = false, anchorPrefix = 'c'}) => {
+  const {a, out, lt} = useEnter(shot, undefined, 0.05), I = items as string[];
+  const done = I.filter((_, i) => p(lt, anchorPrefix + i in shot.anchors ? shot.anchors[anchorPrefix + i] - shot.start : 0.4 + i * 0.7, 0.35, E.outBack) > 0.5).length;
   return (
-    <Zone><Card a={a} out={out} h={Math.max(420, 190 + (items as string[]).length * 130)}>
-      {(items as string[]).map((it, i) => {
+    <Zone><Card a={a} out={out} h={Math.max(420, 190 + I.length * 130 + (heading ? 80 : 0) + (progress ? 60 : 0))}>
+      {heading ? <div style={{fontFamily: F.mono, fontWeight: 700, fontSize: 28, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6}}>{heading}</div> : null}
+      {I.map((it, i) => {
         const s = anchorPrefix + i in shot.anchors ? shot.anchors[anchorPrefix + i] - shot.start : 0.4 + i * 0.7, k = p(lt, s, 0.35, E.outBack);
         return <div key={i} style={{display: 'flex', alignItems: 'center', gap: 30, height: 130, fontFamily: F.sans, fontWeight: 700, fontSize: 52, color: C.ink}}>
-          <div style={{width: 64, height: 64, borderRadius: 18, border: `6px solid ${k > 0.5 ? C.good : C.muted}`, background: k > 0.5 ? C.good : 'transparent', color: '#fff', fontSize: 44, textAlign: 'center', lineHeight: '52px', transform: `scale(${mix(1, 1.15, Math.sin(k * Math.PI))})`}}>{k > 0.5 ? '✓' : ''}</div>{it}
+          <div style={{width: 64, height: 64, borderRadius: 32, border: `6px solid ${k > 0.5 ? C.good : C.muted}`, background: k > 0.5 ? C.good : 'transparent', color: '#fff', fontSize: 40, textAlign: 'center', lineHeight: '52px', transform: `scale(${mix(1, 1.15, Math.sin(k * Math.PI))})`}}>{k > 0.5 ? '✓' : ''}</div>{it}
         </div>;
       })}
+      {progress ? <div style={{height: 14, borderRadius: 7, background: '#e8e6e0', marginTop: 8}}><div style={{height: '100%', width: `${(done / Math.max(1, I.length)) * 100}%`, borderRadius: 7, background: C.accent}} /></div> : null}
     </Card></Zone>
   );
 };
