@@ -22,6 +22,7 @@ function draw(t) {
   scale *= 1 + cam.punch * (1 - eo(clamp(lt / 0.22)));
   const hh = (mv === 'handheld' ? 3.2 : 1) * cam.handheld;
   dx += Math.sin(t * 7.3) * hh * 2400 + Math.sin(t * 13.1) * hh * 900; dy += Math.sin(t * 6.1) * hh * 2100;
+  const edge = 1.01 + Math.max((Math.abs(dx) + 18) / 540, (Math.abs(dy) + 18) / 960); scale = Math.max(scale, edge);   // never reveal past the picture edge
   const [cx, cy] = sh.cam || [540, 1000];
   ctx.save(); ctx.translate(cx + dx, cy + dy); ctx.rotate(Math.sin(t * 1.1) * 0.004 + (mv === 'handheld' ? Math.sin(t * 9) * 0.004 : 0)); ctx.scale(scale, scale); ctx.translate(-cx, -cy);
   sh.draw(lt, d, t);
@@ -45,7 +46,7 @@ function draw(t) {
     OP._shots = shots; OP.script = script;
     OP.duration = () => T.dur;
     OP.draw = draw;
-    OP.frame = (t, q = 0.92) => { draw(t); return cv.toDataURL('image/jpeg', q); };
+    OP.frame = (t, q = 0.92) => { draw(t); return q >= 1 ? cv.toDataURL('image/png') : cv.toDataURL('image/jpeg', q); };
     OP.shots = () => shots.map((s, i) => ({ id: s.id, at: +s.at.toFixed(3), end: +(i < shots.length - 1 ? shots[i + 1].at : T.dur).toFixed(3), note: s.note || '' }));
     OP.captions = () => captionList().map((c) => ({ s: +c.s.toFixed(3), e: +c.e.toFixed(3), text: c.words.map((w) => (w.hi ? '*' : '') + w.txt).join(' ') }));
     OP.cues = () => cues.slice().sort((a, b) => a.t - b.t);

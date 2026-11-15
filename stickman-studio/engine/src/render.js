@@ -22,14 +22,18 @@ function speech(text, x, y, s = 1, side = 1) {
 function card(text, y, st, s = 1) { ctx.save(); ctx.translate(W / 2, y); ctx.scale(s, s); ctx.font = '900 54px Inter'; const w = ctx.measureText(text).width + 90; rr(-w / 2 + 6, -44, w, 96, 14); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fill(); rr(-w / 2, -52, w, 96, 14); ctx.fillStyle = st.captions.hi; ctx.fill(); ctx.lineWidth = 7; ctx.strokeStyle = INK; ctx.stroke(); ctx.fillStyle = INK; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 0, -4); ctx.restore(); }
 function popText(text, y, st, p) { ctx.save(); ctx.translate(W / 2, y); ctx.scale(0.5 + 0.5 * p, 0.5 + 0.5 * p); ctx.font = `900 ${text.length > 7 ? 120 : 170}px Inter`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = 30; ctx.strokeStyle = '#0B0B10'; ctx.strokeText(text, 0, 0, 980); ctx.fillStyle = st.captions.hi; ctx.fillText(text, 0, 0, 980); ctx.restore(); }
 const hexA = (h) => { const n = parseInt(h.slice(1), 16); return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},A)`; };
-// Depth-of-field blur WITHOUT ctx.filter (which is ~100x slower on the software canvas): draw small, scale up with smoothing.
-const OFF = document.createElement('canvas');
+// Depth-of-field: a true Gaussian blur (ctx.filter) applied to a quarter-size copy, then scaled back with high-quality smoothing.
+// Blur is smooth by nature, so nothing visible is lost, and it is ~16x cheaper than filtering the full frame.
+// The copy is rendered with `pad` extra pixels on every side and cropped afterwards, so the frame edges stay clean.
+const OFF = document.createElement('canvas'), OFF2 = document.createElement('canvas');
 const blurred = (px, fn) => {
   if (px <= 0) return fn();
-  const k = Math.max(2, Math.round(px * 1.3)); OFF.width = Math.ceil(W / k); OFF.height = Math.ceil(H / k);
-  const main = ctx, o = OFF.getContext('2d'); o.setTransform(1 / k, 0, 0, 1 / k, 0, 0); setCtx(o);
+  const k = 4, pad = Math.ceil((px / k) * 3) + 2, w = Math.ceil(W / k) + pad * 2, h = Math.ceil(H / k) + pad * 2;
+  OFF.width = OFF2.width = w; OFF.height = OFF2.height = h;
+  const main = ctx, o = OFF.getContext('2d'); o.setTransform(1 / k, 0, 0, 1 / k, pad, pad); setCtx(o);
   try { fn(); } finally { setCtx(main); }
-  main.imageSmoothingEnabled = true; main.imageSmoothingQuality = 'high'; main.drawImage(OFF, 0, 0, OFF.width * k, OFF.height * k);
+  const o2 = OFF2.getContext('2d'); o2.filter = `blur(${(px / k).toFixed(2)}px)`; o2.drawImage(OFF, 0, 0); o2.filter = 'none';
+  main.imageSmoothingEnabled = true; main.imageSmoothingQuality = 'high'; main.drawImage(OFF2, pad, pad, w - pad * 2, h - pad * 2, 0, 0, W, H);
 };
 
 export function buildFromPlan(plan, st) {
