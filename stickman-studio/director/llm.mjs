@@ -5,6 +5,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { CARD_KINDS } from './cards.mjs';
 import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), CACHE = path.join(HERE, '..', '.cache', 'llm');
@@ -15,6 +16,7 @@ export const ENUM = {
   pose: ['idle', 'relax', 'slump', 'brace', 'panic', 'reach', 'halt', 'phone', 'drink', 'point', 'open', 'cheer', 'shake', 'walk', 'run', 'hands', 'cower', 'think', 'shrug', 'wave'],
   shot: ['wide', 'medium', 'two', 'close', 'insert'], move: ['push', 'pull', 'drift', 'track', 'handheld', 'punch'],
   hold: ['phone', 'cup', 'letter', 'book', 'key', 'money', 'flashlight', 'sign', 'bag'], insert: ['clock', 'phone', 'money', 'door', 'letter', 'light'],
+  transition: ['cut', 'whip', 'flash', 'fade'], card: CARD_KINDS,
   sfx: ['thud', 'heartbeat', 'inhale', 'alarm', 'tock', 'sparkle', 'boing', 'zip', 'slam', 'pop'],
 };
 const pickOne = (v, list) => (list.includes(v) ? v : undefined);
@@ -25,6 +27,7 @@ Return {"genre": string, "viral_hook_alt": string, "beats":[{"i":int,"emotion":E
 E in ${ENUM.emotion}. K in ${ENUM.kind}. T in ${ENUM.tod}. W in ${ENUM.weather}. P in ${ENUM.pose}. H in ${ENUM.hold}. S in ${ENUM.shot}. M in ${ENUM.move}. I in ${ENUM.insert}. X in ${ENUM.sfx}.
 Rules: beat 0 is the hook (strong visual, a pop word); put the emotional peak near 70% of the story; vary shots (no 3 identical in a row); use "insert" only when a prop is the point of the beat; "hold" is what the speaker holds in hand; "pop" is a 1-2 word kinetic keyword or number; "bubble" only for spoken dialogue; keep "why" under 8 words.`;
 
+const SYSTEM_EXTRA = `\nAlso per beat: "transition": one of ${ENUM.transition} (fade only for a time jump, flash only at the peak), and, only when the style has cards, "card": {"kind": one of ${ENUM.card}, "value": short string} or null. A card shows what the sentence is about (terminal for commands, step for numbered steps, stat/chart for numbers, versus for alternatives, doc, phone, stamp for warnings, list, cta for "comment WORD"). Never invent facts; values come from the sentence.`;
 export function providers() { const e = process.env, out = []; if (e.FREELLM_API_KEY) out.push('freellm'); if (e.GEMINI_API_KEY) out.push('gemini'); if (e.OPENAI_API_KEY) out.push('openai'); if (e.ANTHROPIC_API_KEY) out.push('anthropic'); if (e.OPENROUTER_API_KEY) out.push('openrouter'); if (e.LLM_PROVIDER === 'mock') out.push('mock'); return e.LLM_PROVIDER && out.includes(e.LLM_PROVIDER) ? [e.LLM_PROVIDER] : out; }
 
 async function call(provider, system, user, timeoutMs = 45000) {
@@ -49,6 +52,8 @@ export function cleanBeat(b) {
   const shot = pickOne(b.shot, ENUM.shot), mv = pickOne(b.move, ENUM.move); if (shot) o.shot = shot; if (mv) o.move = mv;
   if (b.insert === null) o.insert = null; else if (b.insert && pickOne(b.insert.type, ENUM.insert)) o.insert = { type: b.insert.type, ...(b.insert.value ? { value: String(b.insert.value).slice(0, 14) } : {}) };
   if (b.pop === null || typeof b.pop === 'string') o.pop = b.pop ? String(b.pop).slice(0, 14).toUpperCase() : null; if (b.bubble === null || typeof b.bubble === 'string') o.bubble = b.bubble ? String(b.bubble).slice(0, 40) : null;
+  const tr = pickOne(b.transition, ENUM.transition); if (tr) o.transition = tr;
+  if (b.card && pickOne(b.card.kind, ENUM.card)) o.card = { kind: b.card.kind, ...(b.card.value ? { value: String(b.card.value).slice(0, 40) } : {}) };
   if (Array.isArray(b.sfx)) o.sfx = b.sfx.filter((x) => ENUM.sfx.includes(x)).slice(0, 2); if (typeof b.why === 'string') o.why = b.why.slice(0, 60);
   return o;
 }
@@ -60,7 +65,7 @@ export async function planWithLLM(beats, styleId, styleDesc) {
   if (fs.existsSync(file)) return { ...JSON.parse(fs.readFileSync(file, 'utf8')), cached: true };
   const user = `Style: ${styleId} - ${styleDesc}\nBeats:\n` + beats.map((t, i) => `${i}. ${t}`).join('\n');
   for (const p of prov) for (let attempt = 0; attempt < 2; attempt++) {
-    try { const j = parseJSON(await call(p, SYSTEM, attempt ? user + '\nYour last reply was not valid JSON. Reply with the JSON object only.' : user)); if (j?.beats?.length) { const out = { provider: p, genre: j.genre, hookAlt: j.viral_hook_alt, beats: beats.map((_, i) => cleanBeat(j.beats.find((b) => b.i === i) || j.beats[i])) }; fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(file, JSON.stringify(out)); return out; } } catch (err) { console.error(`[llm ${p}] ${err.message}`); }
+    try { const j = parseJSON(await call(p, SYSTEM + SYSTEM_EXTRA, attempt ? user + '\nYour last reply was not valid JSON. Reply with the JSON object only.' : user)); if (j?.beats?.length) { const out = { provider: p, genre: j.genre, hookAlt: j.viral_hook_alt, beats: beats.map((_, i) => cleanBeat(j.beats.find((b) => b.i === i) || j.beats[i])) }; fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(file, JSON.stringify(out)); return out; } } catch (err) { console.error(`[llm ${p}] ${err.message}`); }
   }
   return null;
 }
@@ -73,7 +78,8 @@ export function mergeInto(plan, llm) {
     if (b.emotion) { s.emotion = b.emotion; s.grade = b.emotion; s.hero.mood = [[0, s.hero.mood[0][1]], [0.3, { fear: 'scared', tension: 'worried', anger: 'angry', sad: 'sad', joy: 'happy', surprise: 'surprised', relief: 'relieved', smug: 'smirk', calm: 'calm' }[b.emotion]]]; }
     if (b.intensity != null) s.intensity = b.intensity; if (b.kind) s.set.kind = b.kind; if (b.tod) s.set.tod = b.tod; if (b.weather) s.set.weather = b.weather;
     if (b.pose) s.hero.pose = [[0, s.hero.pose[0][1]], [0.35, b.pose]]; if ('hold' in b) s.hold = b.hold || undefined; if (b.shot) s.shot.type = b.shot; if (b.move) s.shot.move = b.move;
-    if ('insert' in b) s.insert = b.insert; if ('pop' in b) s.pop = b.pop; if ('bubble' in b && b.bubble) { s.bubble = b.bubble; s.quoted = b.bubble; } if (b.sfx) s.sfx = b.sfx.map((type) => ({ type, gain: 0.6, word: '' }));
+    if ('insert' in b) s.insert = b.insert; if ('pop' in b) s.pop = b.pop; if ('bubble' in b && b.bubble) { s.bubble = b.bubble; s.quoted = b.bubble; } if (b.sfx) { const keep = s.sfx.filter((x) => ['slam', 'heartbeat'].includes(x.type)); s.sfx = [...keep, ...b.sfx.filter((t) => !keep.some((k) => k.type === t)).map((type) => ({ type, gain: 0.6, word: '' }))]; }
+    if (b.transition && !(s.arc === 'peak' && b.transition === 'cut')) s.transition = b.transition; if (b.card && s.card) s.card = { ...s.card, ...b.card, kind: b.card.kind, ...(b.card.value ? {} : { value: s.card.value }) };
     if (b.shot === 'insert' && !s.insert) s.shot.type = 'medium'; if (s.shot.type === 'insert' && !s.insert) s.shot.type = 'close'; s.why = b.why;
     if (had !== JSON.stringify([s.emotion, s.set, s.hero.pose, s.shot])) changed++;
   });

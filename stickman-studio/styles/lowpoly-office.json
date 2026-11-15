@@ -1,0 +1,153 @@
+{
+ "aspect": "9:16",
+ "sets": {
+  "default": "room",
+  "tod": "night",
+  "saturation": 1.0,
+  "palette": {
+   "sky": [
+    "#101030",
+    "#101030"
+   ],
+   "wall": "#10142e",
+   "floor": "#2b1f1a",
+   "accent": "#E8512A"
+  }
+ },
+ "camera": {
+  "zoom": 0.05,
+  "handheld": 0.002,
+  "parallax": 0,
+  "punch": 0.0
+ },
+ "pacing": {
+  "cutsPer10s": 5,
+  "minShot": 1.2,
+  "maxShot": 3.4
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "id": "lowpoly-office",
+ "name": "Low-poly Night Office",
+ "family": "lowpoly",
+ "description": "Faceted low-poly 3D: a person at a desk at night, city bokeh outside the window, little orange/black/blue AI helper creatures on the desk, dialogue captions in a dark pill at the top, explainer cards for tech lines. From refs 1 and 4.",
+ "refs": [
+  "ref1",
+  "ref4"
+ ],
+ "cards": true,
+ "world": {
+  "kind": "desk",
+  "sky": "#6f7fc0",
+  "ground": "#7a6a80",
+  "hemi": 2.2,
+  "key": "#fff0dd",
+  "keyI": 2.2,
+  "rim": "#6f8cff",
+  "rimI": 1.5,
+  "desk": "#8a5a36"
+ },
+ "creatures": [
+  {
+   "kind": "box",
+   "color": "#E2582F",
+   "eye": "#111",
+   "x": -0.95,
+   "z": 0.95,
+   "y": 0.83,
+   "s": 0.8
+  },
+  {
+   "kind": "screen",
+   "color": "#232329",
+   "x": -0.45,
+   "z": 0.95,
+   "y": 0.83,
+   "s": 0.8
+  },
+  {
+   "kind": "cloud",
+   "color": "#4a46c9",
+   "x": 0.1,
+   "z": 0.95,
+   "y": 0.83,
+   "s": 0.8
+  }
+ ],
+ "character": {
+  "variant": "lowpoly",
+  "head": "skin",
+  "outline": 0,
+  "hands": "none",
+  "face": "full",
+  "skins": [
+   "#F1CBA8",
+   "#E3B08A"
+  ],
+  "outfits": [
+   "#F4CB3A",
+   "#3b6fd6"
+  ],
+  "defaultTop": "hoodie",
+  "heroTop": "hoodie",
+  "heroColor": "#F4CB3A",
+  "hair": "#3a2418",
+  "glasses": true,
+  "pants": "#232a44",
+  "shoe": "#2a2a33"
+ },
+ "frames": {
+  "close": {
+   "pos": [
+    0,
+    1.45,
+    2.3
+   ],
+   "look": [
+    0,
+    1.42,
+    0
+   ],
+   "fov": 30
+  },
+  "medium": {
+   "pos": [
+    0,
+    1.35,
+    3.8
+   ],
+   "look": [
+    0,
+    1.15,
+    0
+   ],
+   "fov": 34
+  }
+ },
+ "grade": {
+  "vignette": 0.35,
+  "paint": 0
+ },
+ "captions": {
+  "own": true,
+  "layout": "top",
+  "y": 190,
+  "size": 46,
+  "weight": 500,
+  "fill": "#FFFFFF",
+  "hi": "#FFD27A",
+  "box": "rgba(18,18,28,0.62)",
+  "tag": true,
+  "tagColor": "#E8512A",
+  "words": 7
+ },
+ "cardY": 720,
+ "cardScale": 0.62,
+ "cardAccent": "#E8512A",
+ "audio": {
+  "voice": "af_heart",
+  "speed": 1.02,
+  "music": "bed",
+  "sfx": 0.9
+ }
+}

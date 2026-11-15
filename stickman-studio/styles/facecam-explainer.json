@@ -1,0 +1,22 @@
+{
+ "id": "facecam-explainer",
+ "name": "Face-cam Explainer",
+ "family": "facecam",
+ "aspect": "9:16",
+ "description": "Your own talking-head clip. Explainer beats split the screen: beige panel with the card on top (terminal, number, phone, doc, chart, list, comment pill), your face below; other beats go full-bleed with a big italic-serif keyword. Captions: bold sans with one italic-serif keyword.",
+ "refs": ["ref3"],
+ "cards": true,
+ "bg": ["paper"],
+ "bgPinned": true,
+ "endCta": "",
+ "faceY": 0.55,
+ "sets": { "default": "room", "tod": "day", "saturation": 1, "palette": { "sky": ["#EAE4DA", "#EAE4DA"], "wall": "#EAE4DA", "floor": "#EAE4DA", "accent": "#E0301E" } },
+ "character": { "head": "skin", "outline": 0, "limbs": "#17171B", "limbW": 20, "hands": "none", "face": "full", "blush": false, "skins": ["#E8B48C"], "outfits": ["#5c5348"], "defaultTop": "hoodie" },
+ "grade": { "tint": "rgba(0,0,0,0)", "vignette": 0, "sat": 1, "grain": 0, "bloom": 0 },
+ "captions": { "own": true, "font": "700", "size": 74, "fill": "#FFFFFF", "hi": "#E0301E", "stroke": "#111111", "strokeW": 0, "y": 1500, "words": 3, "upper": false, "box": null },
+ "camera": { "zoom": 0.04, "handheld": 0, "parallax": 0, "punch": 0 },
+ "pacing": { "cutsPer10s": 4.5, "minShot": 1.2, "maxShot": 3.5 },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": { "voice": "am_michael", "speed": 1.0, "music": "upbeat", "sfx": 0.8 }
+}

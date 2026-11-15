@@ -1,0 +1,164 @@
+{
+ "aspect": "9:16",
+ "sets": {
+  "default": "room",
+  "tod": "night",
+  "saturation": 1.0,
+  "palette": {
+   "sky": [
+    "#101030",
+    "#101030"
+   ],
+   "wall": "#10142e",
+   "floor": "#2b1f1a",
+   "accent": "#E8512A"
+  }
+ },
+ "camera": {
+  "zoom": 0.05,
+  "handheld": 0.002,
+  "parallax": 0,
+  "punch": 0.0
+ },
+ "pacing": {
+  "cutsPer10s": 5,
+  "minShot": 1.2,
+  "maxShot": 3.4
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "id": "voxel-explainer",
+ "name": "Voxel Explainer (starfield)",
+ "family": "voxel",
+ "description": "Blocky voxel presenter with a little orange box creature on a deep-blue starfield, STEP chip on top, explainer cards, bold white captions with a yellow keyword at the bottom. From ref 7.",
+ "refs": [
+  "ref7"
+ ],
+ "cards": true,
+ "stepChip": true,
+ "world": {
+  "kind": "stage",
+  "bg": "#141d5f",
+  "floor": "#1a2575",
+  "sky": "#8da0ff",
+  "ground": "#141d5f",
+  "hemi": 2.0,
+  "key": "#fff2dd",
+  "keyI": 2.0,
+  "rim": "#9ab0ff",
+  "rimI": 2.2
+ },
+ "creatures": [
+  {
+   "kind": "box",
+   "color": "#D9573A",
+   "eye": "#111",
+   "x": 0.72,
+   "z": 0.35,
+   "s": 1.15
+  }
+ ],
+ "character": {
+  "variant": "voxel",
+  "head": "skin",
+  "outline": 0,
+  "hands": "none",
+  "face": "full",
+  "skins": [
+   "#A8704A",
+   "#C98A5E",
+   "#8A5A3C"
+  ],
+  "outfits": [
+   "#40404f"
+  ],
+  "defaultTop": "tee",
+  "heroTop": "tee",
+  "heroColor": "#40404f",
+  "hair": "#14100c",
+  "beard": true,
+  "badge": "#F2C12E",
+  "pants": "#222a55",
+  "shoe": "#e8e8ea"
+ },
+ "frames": {
+  "close": {
+   "pos": [
+    0,
+    1.5,
+    3.0
+   ],
+   "look": [
+    0,
+    1.5,
+    0
+   ],
+   "fov": 30
+  },
+  "medium": {
+   "pos": [
+    0,
+    1.3,
+    5.2
+   ],
+   "look": [
+    0,
+    1.28,
+    0
+   ],
+   "fov": 34
+  },
+  "wide": {
+   "pos": [
+    0,
+    1.4,
+    6.6
+   ],
+   "look": [
+    0,
+    1.2,
+    0
+   ],
+   "fov": 36
+  },
+  "two": {
+   "pos": [
+    0,
+    1.3,
+    5.2
+   ],
+   "look": [
+    0,
+    1.28,
+    0
+   ],
+   "fov": 34
+  }
+ },
+ "grade": {
+  "vignette": 0.25,
+  "paint": 0
+ },
+ "captions": {
+  "own": true,
+  "layout": "bottom",
+  "y": 1450,
+  "size": 64,
+  "weight": 700,
+  "fill": "#FFFFFF",
+  "hi": "#FFD84A",
+  "stroke": "rgba(0,0,0,0.75)",
+  "words": 4
+ },
+ "cardY": 380,
+ "cardScale": 0.56,
+ "cardAccent": "#FFD84A",
+ "audio": {
+  "voice": "am_michael",
+  "speed": 1.1,
+  "music": "upbeat",
+  "sfx": 1.0
+ },
+ "avoidClose": true,
+ "singleCast": true
+}

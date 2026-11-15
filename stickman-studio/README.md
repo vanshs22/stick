@@ -55,3 +55,21 @@ for a 30-40 s Short. `director.log` tells you when a rule is missed.
 - Look is vector/cel-shaded with perspective and lighting. It is not the painted AI-image look of the style 5/6 references.
 - Eight named locations exist (room, bedroom, office, cafe, kitchen, hallway, street, outdoor, forest, elevator).
 - Two to three characters per story; hands cannot yet hold arbitrary props.
+
+## Style families (reference-video styles)
+
+`bash make.sh --styles` lists every style. A style's `family` picks the renderer:
+
+| family | styles | what it is | cost (24 s clip, `--fast`, 8 cores) |
+|---|---|---|---|
+| stick | cartoon-comedy, amber-noir, cozy-cafe, historical-cartoon, meme-painted, dispatch-thriller, safety-explainer | 3D stickman story | 3 to 5 min |
+| editorial | editorial-explainer | paper background, illustrated presenter, explainer cards, red italic keyword (refs 5, 6) | about 80 s |
+| facecam | facecam-explainer | your own talking-head clip + cards + serif keyword pops. `bash make.sh clip.mp4 --video clip.mp4` | about 90 s |
+| lowpoly | lowpoly-office | low-poly night office, AI helper creatures, dialogue captions (refs 1, 4) | 3 to 4 min |
+| voxel | voxel-explainer, voxel-studio | voxel presenter + creature, step chip, cards (refs 7, 2) | 3 to 4 min |
+| blocky | blocky-town | Roblox-style world, one yellow word at a time (ref 8) | 3 to 4 min |
+
+Every family uses the same plan (director -> optional LLM -> finish), so rules and LLM give the same fields.
+`node director/parity.test.mjs` checks this. Sounds per visual event: swish/whoosh at cuts and colour changes, pop on cards,
+tick on steps, type on terminals, stamp, ding on the comment pill, count on numbers. Music beds: bed, tension, upbeat.
+Reference analysis: `refs/REFERENCE-VIDS.md`. Competitor research (Agent-Reach): `node research/competitors.mjs "topic"`.

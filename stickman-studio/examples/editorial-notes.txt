@@ -1,0 +1,8 @@
+Someone just open sourced a free alternative to Notion, and it runs on your own laptop.
+Setup is only three steps.
+One, install the app with a single command.
+Two, open your notes folder.
+Three, type "sync my notes" and press enter.
+It already has over forty thousand stars on GitHub.
+It will not replace everything, but it covers most days.
+Comment NOTES and I will send you the link.

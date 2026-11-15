@@ -1,0 +1,102 @@
+{
+ "aspect": "9:16",
+ "sets": {
+  "default": "room",
+  "tod": "night",
+  "saturation": 1.0,
+  "palette": {
+   "sky": [
+    "#101030",
+    "#101030"
+   ],
+   "wall": "#10142e",
+   "floor": "#2b1f1a",
+   "accent": "#E8512A"
+  }
+ },
+ "camera": {
+  "zoom": 0.05,
+  "handheld": 0.002,
+  "parallax": 0,
+  "punch": 0.0
+ },
+ "pacing": {
+  "cutsPer10s": 5,
+  "minShot": 1.2,
+  "maxShot": 3.4
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "id": "voxel-studio",
+ "name": "Voxel Studio (ticker wall)",
+ "family": "voxel",
+ "description": "Light-grey studio with a stock-ticker wall, orange-brown blocky characters, title chip on top, explainer cards and a white caption box at the bottom with a green keyword. From ref 2.",
+ "refs": [
+  "ref2"
+ ],
+ "cards": true,
+ "stepChip": true,
+ "world": {
+  "kind": "stage",
+  "ticker": true,
+  "bg": "#e4e4e8",
+  "floor": "#d6d6da",
+  "sky": "#ffffff",
+  "ground": "#c9c9cf",
+  "hemi": 2.0,
+  "key": "#ffffff",
+  "keyI": 2.0,
+  "rim": "#ffffff",
+  "rimI": 0.8
+ },
+ "creatures": [],
+ "character": {
+  "variant": "voxel",
+  "head": "skin",
+  "outline": 0,
+  "hands": "none",
+  "face": "full",
+  "skins": [
+   "#B8643A",
+   "#A65530"
+  ],
+  "outfits": [
+   "#1d2a52",
+   "#6b2a2a",
+   "#2a5a3a"
+  ],
+  "defaultTop": "tee",
+  "heroTop": "tee",
+  "heroColor": "#1d2a52",
+  "hair": "#22160f",
+  "badge": "#F2C12E",
+  "pants": "#2a2a30",
+  "shoe": "#222"
+ },
+ "grade": {
+  "vignette": 0.1,
+  "paint": 0
+ },
+ "captions": {
+  "own": true,
+  "layout": "bottom",
+  "y": 1560,
+  "size": 60,
+  "weight": 700,
+  "fill": "#111111",
+  "hi": "#1FA855",
+  "box": "#FFFFFF",
+  "words": 3
+ },
+ "cardY": 600,
+ "cardScale": 0.62,
+ "cardAccent": "#1FA855",
+ "audio": {
+  "voice": "am_puck",
+  "speed": 1.1,
+  "music": "upbeat",
+  "sfx": 1.0
+ },
+ "avoidClose": true,
+ "singleCast": true
+}

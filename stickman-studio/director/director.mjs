@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { planWithLLM, mergeInto } from './llm.mjs';
 import { scorePlan, formatScore } from './score.mjs';
+import { addCards } from './cards.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const LEX = JSON.parse(fs.readFileSync(path.join(HERE, 'lexicon.json'), 'utf8'));
@@ -56,7 +57,7 @@ function detectCast(lines, style) {
     const R = LEX.roles[c.role] || {}, h = hash(c.name + c.id);
     const female = !!R.female || (new RegExp(`${c.name}[^.!?]{0,40}\\b(she|her)\\b|\\b(she|her)\\b[^.!?]{0,40}${c.name}`, 'i').test(text) && c.name.length > 2);
     c.outfit = { top: R.top || (female ? 'dress' : C.defaultTop || 'tee'), color: R.color || pal[(h + i) % pal.length], hat: R.hat || 'none', female, faceless: !!R.faceless,
-      skin: (C.skins || ['#E8B48C'])[(h >> 3) % (C.skins || ['#E8B48C']).length], hair: R.faceless ? 'none' : (female ? (h % 2 ? 'long' : 'bun') : ['curly', 'short', 'short', 'bald'][(h >> 5) % 4]) };
+      skin: (C.skins || ['#E8B48C'])[(h >>> 3) % (C.skins || ['#E8B48C']).length], hair: R.faceless ? 'none' : (female ? (h % 2 ? 'long' : 'bun') : ['curly', 'short', 'short', 'bald'][(h >>> 5) % 4]) };
     if (c.id === 'hero' && !R.top) { c.outfit.top = C.heroTop || c.outfit.top; c.outfit.color = C.heroColor || c.outfit.color; }
   });
   return { cast, firstPerson, secondPerson };
@@ -171,7 +172,8 @@ export function direct(raw, styleId = 'auto', opts = {}) {
   const report = { style: style.id, genre, beats: n, words: wc, estimatedSeconds: +estDur.toFixed(1), cast: cast.map((c) => `${c.id}:${c.name}(${c.role})`), hook: { ok: hookOk, line: first, advice: hookOk ? 'ok' : 'Open with a question, a shock or a rule in 11 words or fewer. Patterns: ' + LEX.hookPatterns.join(' / ') },
     pacing: { longestBeatWords: Math.max(...plan.map((p) => p.nWords)), avgBeatSeconds: +(estDur / n).toFixed(2), note: estDur > 62 ? 'too long for a Short: cut to <= 60 s' : estDur < 18 ? 'very short: add a mid-story twist beat' : 'ok' },
     structure: { emotions: [...emos], variety: emos.size >= 3 ? 'ok' : 'flat: add a contrast beat (fear->relief, calm->shock)', locations: [...kinds], peakLine: plan.find((p) => p.arc === 'peak')?.text, endsOnLoop: /[?]$/.test(lines[n - 1]) || /\b(again|next|follow|comment)\b/i.test(lines[n - 1]) ? 'ok' : 'end on a question, twist or callback so viewers replay or comment' } };
-  return { style, script, plan: { style: style.id, genre, cast, music: script.music, scenes: plan }, report };
+  const planObj = { style: style.id, genre, cast, music: script.music, scenes: plan }; if (style.cards) addCards(planObj, style);
+  return { style, script, plan: planObj, report };
 }
 
 // CLI

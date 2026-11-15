@@ -1,0 +1,93 @@
+{
+ "aspect": "9:16",
+ "sets": {
+  "default": "room",
+  "tod": "night",
+  "saturation": 1.0,
+  "palette": {
+   "sky": [
+    "#101030",
+    "#101030"
+   ],
+   "wall": "#10142e",
+   "floor": "#2b1f1a",
+   "accent": "#E8512A"
+  }
+ },
+ "camera": {
+  "zoom": 0.12,
+  "handheld": 0.004,
+  "parallax": 0,
+  "punch": 0.04
+ },
+ "pacing": {
+  "cutsPer10s": 5,
+  "minShot": 1.2,
+  "maxShot": 3.4
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "id": "blocky-town",
+ "name": "Blocky Town Story",
+ "family": "blocky",
+ "description": "Roblox-style blocky world in the sky (towers, clouds, grass), blocky characters with simple faces, one big yellow word at a time in the middle, fast camera moves. From ref 8.",
+ "refs": [
+  "ref8"
+ ],
+ "cards": false,
+ "world": {
+  "kind": "world",
+  "floor": "#5db84a",
+  "sky": "#9fc9ff",
+  "ground": "#6a9a48",
+  "hemi": 2.0,
+  "key": "#fff6e0",
+  "keyI": 2.4,
+  "rim": "#ffffff",
+  "rimI": 0.6
+ },
+ "character": {
+  "variant": "blocky",
+  "head": "skin",
+  "outline": 0,
+  "hands": "none",
+  "face": "full",
+  "skins": [
+   "#F4C98C",
+   "#F0B97A",
+   "#E8B88A"
+  ],
+  "outfits": [
+   "#2f7f4a",
+   "#2a4fa8",
+   "#c0392b",
+   "#2a2a35"
+  ],
+  "defaultTop": "tee",
+  "pants": "#2f3a66",
+  "shoe": "#2a2a2a",
+  "hair": "#3a2a1a"
+ },
+ "grade": {
+  "vignette": 0,
+  "paint": 0
+ },
+ "captions": {
+  "own": false,
+  "font": "900",
+  "size": 92,
+  "fill": "#FFE600",
+  "hi": "#FFE600",
+  "stroke": "#000000",
+  "strokeW": 16,
+  "y": 980,
+  "words": 1,
+  "upper": false
+ },
+ "audio": {
+  "voice": "am_adam",
+  "speed": 1.05,
+  "music": "bed",
+  "sfx": 1.0
+ }
+}

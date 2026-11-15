@@ -1,0 +1,21 @@
+{
+ "id": "editorial-explainer",
+ "name": "Editorial Explainer",
+ "family": "editorial",
+ "aspect": "9:16",
+ "description": "Paper-white explainer: mono section label, big sans headline with one red italic-serif keyword, an explainer card (terminal, number, phone, chart, doc, versus, stamp, checklist, comment pill) and an illustrated presenter bottom-right. Background colour changes per section. From the Claude-skill explainer reels.",
+ "refs": ["ref5", "ref6"],
+ "cards": true,
+ "bg": ["paper", "paper", "dark", "paper", "slate", "paper", "red", "paper"],
+ "endCta": "SKILL",
+ "presenter": { "hat": "#1f1f22", "beard": true, "glasses": true, "jacket": "#5c5348", "shirt": "#f1eee8" },
+ "sets": { "default": "room", "tod": "day", "saturation": 1, "palette": { "sky": ["#F4F1EC", "#F4F1EC"], "wall": "#F4F1EC", "floor": "#E7E2DA", "accent": "#E0301E" } },
+ "character": { "head": "skin", "outline": 0, "limbs": "#17171B", "limbW": 20, "hands": "none", "face": "full", "blush": false, "skins": ["#E8B48C", "#C98A5E", "#8A5A3C", "#F2C9A0"], "outfits": ["#5c5348", "#2D5A9E", "#4FA36A", "#C9566E"], "defaultTop": "hoodie" },
+ "grade": { "tint": "rgba(0,0,0,0)", "vignette": 0, "sat": 1, "grain": 0, "bloom": 0 },
+ "captions": { "own": true, "font": "500", "size": 74, "fill": "#111111", "hi": "#E0301E", "stroke": "#111111", "strokeW": 0, "y": 200, "words": 5, "upper": false, "box": null },
+ "camera": { "zoom": 0.04, "handheld": 0, "parallax": 0, "punch": 0 },
+ "pacing": { "cutsPer10s": 5.5, "minShot": 1.2, "maxShot": 3.2 },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": { "voice": "am_michael", "speed": 1.12, "music": "upbeat", "sfx": 1.0 }
+}

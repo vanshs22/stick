@@ -93,10 +93,32 @@ def heartbeat(**_):
     one = lambda d, f: np.sin(2 * np.pi * f * tt(d)) * env(int(d * SR), 0.004, 7)
     x = np.concatenate([one(0.16, 58), np.zeros(int(0.09 * SR)), one(0.2, 52) * 0.75]); return lp(x, 300) * 1.0
 
+# ---- explainer-family sounds (soft, short; no beeps above 5 kHz) ----
+def swish(d=0.3, **_):
+    n = bp(noise(d), 700, 3800); k = np.linspace(0, 1, len(n)); e = np.sin(np.pi * k) ** 2 * (0.35 + 0.65 * k)
+    return n / (np.abs(n).max() + 1e-9) * e * 0.55 + sweep(500, 1500, d) * np.sin(np.pi * k) ** 2 * 0.06
+def tick(**_): d = 0.07; t = tt(d); return (np.sin(2 * np.pi * 1500 * t) * 0.5 + np.sin(2 * np.pi * 900 * t) * 0.5) * env(len(t), 0.0008, 11) * 0.4
+def stamp(**_):
+    d = 0.4; t = tt(d); x = np.sin(2 * np.pi * (95 + 55 * np.exp(-t * 40)) * t) * env(len(t), 0.001, 8)
+    return np.tanh(1.8 * (x + lp(noise(d), 1500) * env(len(t), 0.0008, 16) * 0.7)) * 0.85
+def type_(d=1.0, **_):
+    x = np.zeros(int(d * SR) + int(0.1 * SR)); k = 0.0
+    while k < d - 0.05:
+        c = bp(noise(0.03), 1200, 4200) * env(int(0.03 * SR), 0.0006, 14) * rng.uniform(0.5, 1.0); i = int(k * SR); x[i:i + len(c)] += c; k += rng.uniform(0.055, 0.12)
+    return x
+def ding(**_):
+    d = 0.9; t = tt(d); x = (np.sin(2 * np.pi * 1175 * t) + 0.4 * np.sin(2 * np.pi * 1760 * t) + 0.15 * np.sin(2 * np.pi * 2349 * t)) * env(len(t), 0.002, 5)
+    return lp(x, 4800) * 0.5
+def count(d=0.9, **_):
+    x = np.zeros(int(d * SR) + int(0.1 * SR)); k = 0.0; step = 0.11
+    while k < d:
+        c = tick() * (0.6 + 0.4 * k / d); i = int(k * SR); x[i:i + len(c)] += c; k += step; step = max(0.045, step * 0.93)
+    return x
+
 FX = dict(inhale=inhale, heartbeat=heartbeat, whoosh=whoosh, slide=slide, pop=pop, plop=plop, gulp=gulp, boing=boing, bubbles=bubbles, sizzle=sizzle,
-          sparkle=sparkle, thud=thud, slam=slam, tock=tock, zip=zip_, alarm=alarm)
+          sparkle=sparkle, thud=thud, slam=slam, tock=tock, zip=zip_, alarm=alarm, swish=swish, tick=tick, stamp=stamp, type=type_, ding=ding, count=count)
 LEVEL = dict(inhale=-15, heartbeat=-8, whoosh=-17, slide=-19, pop=-14, plop=-15, gulp=-11, boing=-15, bubbles=-21, sizzle=-18, sparkle=-17,
-             thud=-11, slam=-9, tock=-18, zip=-14, alarm=-17)
+             thud=-11, slam=-9, tock=-18, zip=-14, alarm=-17, swish=-15, tick=-17, stamp=-9, type=-20, ding=-18, count=-20)
 
 
 # ---------- the music bed: soft pad + plucked arpeggio, 100 BPM, I–vi–IV–V ----------
@@ -133,6 +155,29 @@ def music_tension():
     x = lp(x, 2200); fade = np.ones(N); fo = int(1.5 * SR); fade[-fo:] = np.linspace(1, 0, fo); fi = int(0.8 * SR); fade[:fi] *= np.linspace(0, 1, fi)
     return x / (np.abs(x).max() + 1e-9) * fade
 
+def music_upbeat():
+    """editorial explainer bed: 112 BPM, soft pluck groove over a warm pad, light shaker. Quiet by design (it sits under the voice)."""
+    bpm = 112; beat = 60 / bpm; bar = beat * 4; x = np.zeros(N)
+    prog = [[220.0, 261.6, 329.6], [196.0, 246.9, 293.7], [174.6, 220.0, 261.6], [196.0, 246.9, 311.1]]; bass = [110.0, 98.0, 87.3, 98.0]
+    for b in range(int(np.ceil(DUR / bar)) + 1):
+        ch = prog[b % 4]; st = int(b * bar * SR)
+        if st >= N: break
+        n = int(bar * SR); t = tt(bar); e = np.minimum(1, t / 0.3) * np.minimum(1, (bar - t) / 0.3)
+        seg_ = sum(np.sin(2 * np.pi * f * t) * 0.5 + np.sin(2 * np.pi * f / 2 * t) * 0.3 for f in ch) * e * 0.07
+        x[st:st + n] += seg_[:max(0, min(n, N - st))]
+        for k in range(8):                                                      # off-beat pluck pattern
+            if k in (1, 3, 4, 6, 7):
+                f = ch[[0, 1, 2, 1, 2, 0, 1, 2][k]] * 2; ps = st + int(k * beat / 2 * SR); pn = int(0.32 * SR)
+                if ps + pn < N: pt = tt(0.32); x[ps:ps + pn] += (np.sin(2 * np.pi * f * pt) + 0.3 * np.sin(4 * np.pi * f * pt)) * env(pn, 0.002, 9) * 0.1
+        for k in range(4):                                                      # soft bass on the beat
+            ps = st + int(k * beat * SR); pn = int(0.4 * SR)
+            if ps + pn < N and k % 2 == 0: pt = tt(0.4); x[ps:ps + pn] += np.sin(2 * np.pi * bass[b % 4] * pt) * env(pn, 0.004, 5) * 0.2
+        for k in range(8):                                                      # shaker
+            ps = st + int(k * beat / 2 * SR); pn = int(0.05 * SR)
+            if ps + pn < N: x[ps:ps + pn] += bp(noise(0.05), 3500, 4900) * env(pn, 0.001, 12) * (0.05 if k % 2 else 0.03)
+    x = lp(x, 4200); fade = np.ones(N); fo = int(1.2 * SR); fade[-fo:] = np.linspace(1, 0, fo)
+    return x / (np.abs(x).max() + 1e-9) * fade
+
 def load_audio(f):
     out = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(f), '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True, check=True).stdout
     a = np.frombuffer(out, dtype=np.float32).reshape(-1, 2).astype(np.float64); return a
@@ -149,7 +194,7 @@ if vf.exists():
 # music
 mus = script.get('music', 'bed')
 if mus and mus != 'none':
-    m = music_bed() if mus == 'bed' else music_tension() if mus == 'tension' else None
+    m = music_bed() if mus == 'bed' else music_tension() if mus == 'tension' else music_upbeat() if mus == 'upbeat' else None
     if m is None:
         a = load_audio(P / mus)[:N]; m = np.zeros(N); m[:len(a)] = a.mean(1); m /= np.abs(m).max() + 1e-9
     m = np.stack([m, m], 1) * db(-24 if voice is not None else -20)

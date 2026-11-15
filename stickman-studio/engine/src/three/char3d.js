@@ -83,6 +83,6 @@ export function updateChar(J, spec) {
   });
   // head
   J.neckTop.rotation.z = -rad(P.tilt + 1.6 * Math.sin(t * 1.3 + seed) + ta * 2); J.head.rotation.y = look[0] * 0.18; J.head.rotation.x = look[1] * 0.12 + (ta ? -0.03 * ta : 0);
-  faceTexture(J.faceCv, F, { ...o, seed, sc, faceless: J.cloak || o.faceless, headFill: J.cloak ? '#ECE7DB' : o.headFill }, t, ta, look); J.faceTex.needsUpdate = true;
+  (J.drawFace || faceTexture)(J.faceCv, F, { ...o, seed, sc, faceless: J.cloak || o.faceless, headFill: J.cloak ? '#ECE7DB' : o.headFill }, t, ta, look); J.faceTex.needsUpdate = true;
   J.G.position.set(spec.x || 0, 0, spec.z || 0); J.G.rotation.y = spec.rotY || 0; J.G.visible = true;
 }
