@@ -104,19 +104,29 @@ else {
       if (r.status) throw new Error('ffmpeg: ' + r.stderr); console.log(`${out} (${n} frames, every ${step} s)`);
     } else if (mode === 'video') {
       const out = path.resolve(ROOT, rest[0] || 'renders/video.mp4'); fs.mkdirSync(path.dirname(out), { recursive: true });
-      const mix = path.join(ROOT, 'data/mix.wav'), hasMix = fs.existsSync(mix), a0 = rest[1] ? +rest[1] : 0, a1 = rest[2] ? Math.min(+rest[2], dur) : dur, n = Math.round((a1 - a0) * FPS);
-      const ff = spawn('ffmpeg', ['-v', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
-        ...(hasMix ? ['-ss', String(a0), '-t', String(a1 - a0), '-i', mix] : ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo']), '-map', '0:v', '-map', '1:a',
-        '-c:v', 'libx264', '-preset', flags.has('--draft') ? 'ultrafast' : 'slow', '-crf', flags.has('--draft') ? '28' : '15', '-pix_fmt', 'yuv420p',
-        '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', out], { stdio: ['pipe', 'inherit', 'inherit'] });
-      const t0 = Date.now();
-      for (let i = 0; i < n; i++) {
-        const b = jpg(await P.ev(FRAME(a0 + i / FPS, flags.has('--draft') ? 0.8 : 1)));
-        if (!ff.stdin.write(b)) await new Promise((r) => ff.stdin.once('drain', r));
-        if (i % 150 === 0) process.stdout.write(`\r${i}/${n} frames`);
+      const mix = path.join(ROOT, 'data/mix.wav'), hasMix = fs.existsSync(mix), a0 = rest[1] ? +rest[1] : 0, a1 = rest[2] ? Math.min(+rest[2], dur) : dur, n = Math.round((a1 - a0) * FPS), draft = flags.has('--draft');
+      // WORKERS: each worker is its own Chrome rendering a contiguous slice into its own x264 chunk; chunks are joined without re-encoding.
+      // Default = what the RAM allows (about 1.6 GB per Chrome with WebGL), at most the CPU count and 6. 4 GB VPS -> 1, 16 GB -> 4+.
+      const W = Math.max(1, Math.min(+(process.env.WORKERS || 0) || Math.floor((os.totalmem() / 2 ** 30 - 1) / 1.6), os.cpus().length, 6, Math.ceil(n / 60)));
+      const venc = ['-c:v', 'libx264', '-preset', draft ? 'ultrafast' : 'medium', '-crf', draft ? '28' : '15', '-pix_fmt', 'yuv420p'], t0 = Date.now(); let done = 0;
+      const pages = [P]; for (let k = 1; k < W; k++) pages.push(await openPage(port));
+      const cuts = Array.from({ length: W + 1 }, (_, k) => Math.round((n * k) / W)), parts = [];
+      await Promise.all(pages.map(async (pg, k) => {
+        const part = W === 1 ? out : path.join(path.dirname(out), `.part${k}.mp4`); parts.push(part);
+        const ff = spawn('ffmpeg', ['-v', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', ...(W === 1 ? [...(hasMix ? ['-ss', String(a0), '-t', String(a1 - a0), '-i', mix] : ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo']), '-map', '0:v', '-map', '1:a', ...venc, '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart'] : [...venc, '-an']), part], { stdio: ['pipe', 'inherit', 'inherit'] });
+        for (let i = cuts[k]; i < cuts[k + 1]; i++) {
+          const b = jpg(await pg.ev(FRAME(a0 + i / FPS, draft ? 0.8 : 1)));
+          if (!ff.stdin.write(b)) await new Promise((r) => ff.stdin.once('drain', r));
+          if (++done % 100 === 0) process.stdout.write(`\r${done}/${n} frames (${W} worker${W > 1 ? 's' : ''})`);
+        }
+        ff.stdin.end(); await new Promise((r) => ff.on('close', r)); if (k > 0) pg.close();
+      }));
+      if (W > 1) {
+        const list = path.join(path.dirname(out), '.parts.txt'); fs.writeFileSync(list, parts.sort().map((f) => `file '${f}'`).join('\n'));
+        const r = spawnSync('ffmpeg', ['-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', list, ...(hasMix ? ['-ss', String(a0), '-t', String(a1 - a0), '-i', mix] : ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo']), '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', out]);
+        parts.forEach((f) => fs.rmSync(f, { force: true })); fs.rmSync(list, { force: true }); if (r.status) throw new Error('concat: ' + r.stderr);
       }
-      ff.stdin.end(); await new Promise((r) => ff.on('close', r));
-      console.log(`\r${out} (${n} frames, ${hasMix ? 'with data/mix.wav' : 'SILENT: no data/mix.wav'}, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
+      console.log(`\r${out} (${n} frames, ${hasMix ? 'with data/mix.wav' : 'SILENT: no data/mix.wav'}, ${W} worker${W > 1 ? 's' : ''}, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
     } else console.log('modes: check · cues · sheet · frames · video · preview');
   } finally { P.close(); srv.close(); }
 }

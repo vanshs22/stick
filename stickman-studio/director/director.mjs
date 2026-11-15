@@ -182,7 +182,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   if (!a[0] || a[0].startsWith('--')) { console.error('usage: director.mjs script.txt [--style auto|<id>] [--out dir] [--voice id] [--speed 1.05] [--no-llm]\nstyles: ' + Object.keys(STYLES).join(', ')); process.exit(2); }
   const raw = a[0] === '-' ? fs.readFileSync(0, 'utf8') : fs.readFileSync(a[0], 'utf8');
   const res = direct(raw, arg('style', 'auto'), { voice: arg('voice'), speed: arg('speed') ? +arg('speed') : undefined });
-  if (!a.includes('--no-llm')) { const llm = await planWithLLM(res.plan.scenes.map((s) => s.text), res.style.id, res.style.description); if (llm) { mergeInto(res.plan, llm); res.report.llm = res.plan.llm; } else res.report.llm = 'off (no API key set): rule-based plan'; }
+  if (!a.includes('--no-llm') && !process.env.STUDIO_NO_LLM) { const llm = await planWithLLM(res.plan.scenes.map((s) => s.text), res.style.id, res.style.description); if (llm) { mergeInto(res.plan, llm); res.report.llm = res.plan.llm; } else res.report.llm = 'off (no API key set): rule-based plan'; }
   res.report.score = scorePlan(res.plan, res.script, res.style);
   const out = path.resolve(arg('out', '.')); fs.mkdirSync(out, { recursive: true });
   fs.writeFileSync(path.join(out, 'script.json'), JSON.stringify(res.script, null, 1)); fs.writeFileSync(path.join(out, 'plan.json'), JSON.stringify(res.plan, null, 1)); fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(res.report, null, 1));

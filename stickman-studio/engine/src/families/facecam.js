@@ -5,6 +5,8 @@ import { ctx, W, H, clamp, eo, eio, rr } from '../core/lib.js';
 import { L } from '../core/timing.js';
 import { captionList } from '../core/captions.js';
 import { drawCard, CARD_PX } from './cards.js';
+import { drawPresenter, presenterLook } from './avatar.js';
+import { T } from '../core/timing.js';
 
 const META = { fps: 30, frames: 0 }, CACHE = new Map(); let LAST = null;
 const SPLIT_Y = 1130, PANEL = '#EAE4DA';
@@ -25,6 +27,9 @@ function caption(t, onPanel) {
 }
 
 export function buildFaceCam(plan, st) {
+  const synth = !!st.synthFace, look = presenterLook(st, plan.cast[0]);
+  // the 'face' layer: your clip, or (synthFace) a generated presenter whose mouth follows the voice, so no clip is needed
+  const face = (sc, lt, t, split) => { if (split) { ctx.save(); ctx.beginPath(); ctx.rect(0, SPLIT_Y, W, H - SPLIT_Y); ctx.clip(); ctx.fillStyle = '#d9d2c5'; ctx.fillRect(0, SPLIT_Y, W, H); drawPresenter({ x: 540, y: 1790, s: 1.3, t, lt, pose: sc.hero.pose, mood: sc.hero.mood, talk: true, look }); ctx.restore(); } else { const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#2c2640'); g.addColorStop(1, '#14121f'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); drawPresenter({ x: 540, y: 1500, s: 1.8, t, lt, pose: sc.hero.pose, mood: sc.hero.mood, talk: true, look }); } };
   const shots = [], cues = [], cue = (t, type, o = {}) => cues.push({ t: +Math.max(0, t).toFixed(3), type, ...o });
   const sf = st.audio.sfx ?? 1, cut = (i) => (i === 0 ? 0 : L(i) - 0.08);
   plan.scenes.forEach((sc, i) => {
@@ -34,14 +39,14 @@ export function buildFaceCam(plan, st) {
         const k = eio(clamp(lt / 0.22));
         if (split) {
           ctx.fillStyle = PANEL; ctx.fillRect(0, 0, W, H);
-          if (LAST) { const sy = Math.round(clamp((st.faceY ?? 0.55) * H - 395, 0, H - 790)); ctx.save(); ctx.beginPath(); ctx.rect(0, SPLIT_Y + (1 - k) * 700, W, H); ctx.clip(); ctx.drawImage(LAST, 0, sy, W, 790, 0, SPLIT_Y + (1 - k) * 700, W, 790); ctx.restore(); }
+          if (synth) { ctx.save(); ctx.translate(0, (1 - k) * 700); face(sc, lt, t, true); ctx.restore(); } else if (LAST) { const sy = Math.round(clamp((st.faceY ?? 0.55) * H - 395, 0, H - 790)); ctx.save(); ctx.beginPath(); ctx.rect(0, SPLIT_Y + (1 - k) * 700, W, H); ctx.clip(); ctx.drawImage(LAST, 0, sy, W, 790, 0, SPLIT_Y + (1 - k) * 700, W, 790); ctx.restore(); }
           const out = clamp((d - lt) / 0.12);
           ctx.save(); ctx.translate(W / 2, 520); ctx.scale(0.92, 0.92); ctx.globalAlpha = out; drawCard(card, { x: 0, y: 0, lt, d, p: clamp((lt - 0.08) / 0.4), dark: false, accent: '#E0301E' }); ctx.restore();
           ctx.font = `500 22px ${CARD_PX.mono}`; ctx.fillStyle = '#8a8782'; ctx.textAlign = 'left'; ctx.fillText(sc.label?.left || '', 56, 64);
         } else {
-          if (LAST) ctx.drawImage(LAST, 0, 0, W, H); else { ctx.fillStyle = '#222'; ctx.fillRect(0, 0, W, H); }
+          if (synth) face(sc, lt, t, false); else if (LAST) ctx.drawImage(LAST, 0, 0, W, H); else { ctx.fillStyle = '#222'; ctx.fillRect(0, 0, W, H); }
           const g = ctx.createLinearGradient(0, H * 0.55, 0, H); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.45)'); ctx.fillStyle = g; ctx.fillRect(0, H * 0.55, W, H * 0.45);
-          if (card.value) { const kk = clamp(lt / 0.3), s = 0.8 + 0.2 * (1 - Math.pow(1 - kk, 3)); ctx.save(); ctx.translate(W / 2, 1350); ctx.scale(s, s); ctx.globalAlpha = kk; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `italic 400 150px ${CARD_PX.serif}`;
+          if (card.value) { const kk = clamp(lt / 0.3), s = 0.8 + 0.2 * (1 - Math.pow(1 - kk, 3)); ctx.save(); ctx.translate(W / 2, synth ? 430 : 1350); ctx.scale(s, s); ctx.globalAlpha = kk; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `italic 400 150px ${CARD_PX.serif}`;
             const txt = String(card.value).toLowerCase(), fs = Math.min(150, 150 * 900 / Math.max(1, ctx.measureText(txt).width)); ctx.font = `italic 400 ${fs}px ${CARD_PX.serif}`; ctx.lineWidth = 12; ctx.strokeStyle = 'rgba(0,0,0,.5)'; ctx.lineJoin = 'round'; ctx.strokeText(txt, 0, 0); ctx.fillStyle = '#fff'; ctx.fillText(txt, 0, 0); ctx.restore(); }
         }
         caption(t, split);

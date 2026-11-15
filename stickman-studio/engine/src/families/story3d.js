@@ -6,6 +6,7 @@ import { L, T, Wd } from '../core/timing.js';
 import { captionList } from '../core/captions.js';
 import { render3d } from '../three/render3d.js';
 import { drawCard, CARD_PX } from './cards.js';
+import * as FX from '../core/fx.js';
 
 const ALT = { close: 'medium', medium: 'close', wide: 'medium', two: 'close', insert: 'medium' };
 
@@ -42,6 +43,7 @@ export function buildStory3D(plan, st) {
         if (showCard) { const p = clamp((lt - 0.05) / 0.4), out = clamp((d - lt) / 0.14); ctx.save(); ctx.translate(W / 2, st.cardY ?? 600); ctx.scale(st.cardScale ?? 0.7, st.cardScale ?? 0.7); ctx.globalAlpha = out; drawCard(card, { x: 0, y: 0, lt, d, p, dark: true, accent: st.cardAccent || '#E8512A' }); ctx.restore(); }
         if (sc.pop && st.popText && lt > 0.08 && lt < Math.min(d - 0.1, 1.6)) { const q = eob(clamp((lt - 0.08) / 0.2)); ctx.save(); ctx.translate(W / 2, 500); ctx.scale(0.5 + 0.5 * q, 0.5 + 0.5 * q); ctx.font = `900 ${sc.pop.length > 7 ? 120 : 170}px Inter`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = 28; ctx.strokeStyle = '#0B0B10'; ctx.strokeText(sc.pop, 0, 0, 980); ctx.fillStyle = st.captions.hi; ctx.fillText(sc.pop, 0, 0, 980); ctx.restore(); }
         if (st.captions.own) ownCaption(t, st, st.captions.tag && plan.cast.length > 1 ? (hero.name === 'I' ? 'YOU' : hero.name).toUpperCase() : '');
+        FX.grade(sc.grade, sc.intensity, st, t);                       // emotion colour grade: cold for fear, warm for joy ...
         // grade
         if (st.grade?.vignette) { const g = ctx.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 0.75); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${st.grade.vignette})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
         if (sc.transition === 'flash') { ctx.fillStyle = `rgba(255,255,255,${Math.max(0, 0.7 * (1 - lt / 0.16))})`; ctx.fillRect(0, 0, W, H); }

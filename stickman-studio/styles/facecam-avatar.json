@@ -1,0 +1,87 @@
+{
+ "id": "facecam-avatar",
+ "name": "Face-cam Explainer (generated presenter)",
+ "family": "facecam",
+ "aspect": "9:16",
+ "description": "Same layout as facecam-explainer, but the face is a generated presenter whose mouth, eyes and gestures follow the voice and the story mood. Needs no video. Swap to facecam-explainer when you have your own clip.",
+ "refs": [
+  "ref3"
+ ],
+ "cards": true,
+ "bg": [
+  "paper"
+ ],
+ "bgPinned": true,
+ "endCta": "",
+ "faceY": 0.55,
+ "sets": {
+  "default": "room",
+  "tod": "day",
+  "saturation": 1,
+  "palette": {
+   "sky": [
+    "#EAE4DA",
+    "#EAE4DA"
+   ],
+   "wall": "#EAE4DA",
+   "floor": "#EAE4DA",
+   "accent": "#E0301E"
+  }
+ },
+ "character": {
+  "head": "skin",
+  "outline": 0,
+  "limbs": "#17171B",
+  "limbW": 20,
+  "hands": "none",
+  "face": "full",
+  "blush": false,
+  "skins": [
+   "#E8B48C"
+  ],
+  "outfits": [
+   "#5c5348"
+  ],
+  "defaultTop": "hoodie"
+ },
+ "grade": {
+  "tint": "rgba(0,0,0,0)",
+  "vignette": 0,
+  "sat": 1,
+  "grain": 0,
+  "bloom": 0
+ },
+ "captions": {
+  "own": true,
+  "font": "700",
+  "size": 74,
+  "fill": "#FFFFFF",
+  "hi": "#E0301E",
+  "stroke": "#111111",
+  "strokeW": 0,
+  "y": 1500,
+  "words": 3,
+  "upper": false,
+  "box": null
+ },
+ "camera": {
+  "zoom": 0.04,
+  "handheld": 0,
+  "parallax": 0,
+  "punch": 0
+ },
+ "pacing": {
+  "cutsPer10s": 4.5,
+  "minShot": 1.2,
+  "maxShot": 3.5
+ },
+ "bubbles": false,
+ "hookCard": false,
+ "audio": {
+  "voice": "am_michael",
+  "speed": 1.08,
+  "music": "upbeat",
+  "sfx": 0.8
+ },
+ "synthFace": true
+}

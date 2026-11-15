@@ -5,7 +5,7 @@ import { ctx, W, H, clamp, lerp, eo, eob, eio, rr } from '../core/lib.js';
 import { L, T, Wd } from '../core/timing.js';
 import { captionList } from '../core/captions.js';
 import { drawCard, CARD_PX } from './cards.js';
-import { drawPresenter } from './avatar.js';
+import { drawPresenter, presenterLook } from './avatar.js';
 
 const BG = { paper: ['#F4F1EC', false], dark: ['#0F0F11', true], slate: ['#B7BEC9', false], green: ['#10261F', true], red: ['#E8381A', false], navy: ['#141D5F', true], cream: ['#EFE7D8', false] };
 const ACC = '#E0301E';
@@ -18,7 +18,9 @@ function headline(t, dark, onRed) {
   const items = c.words.map((w) => { ctx.font = w.hi ? `italic 400 ${size * 1.14}px ${CARD_PX.serif}` : `500 ${size}px ${CARD_PX.sans}`; return { ...w, w: ctx.measureText(w.txt).width, font: ctx.font }; });
   const rows = [[]]; let rw = 0; for (const it of items) { if (rw + it.w > maxW && rows[rows.length - 1].length) { rows.push([]); rw = 0; } rows[rows.length - 1].push(it); rw += it.w + gap; }
   ctx.save(); ctx.globalAlpha = k; ctx.translate(0, (1 - k) * 26); ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-  rows.forEach((r, ri) => { let x = 64; r.forEach((it) => { ctx.font = it.font; ctx.fillStyle = it.hi ? hi : ink; ctx.fillText(it.txt, x, 200 + ri * 94); x += it.w + gap; }); });
+  rows.forEach((r, ri) => { let x = 64; r.forEach((it) => { ctx.font = it.font; ctx.fillStyle = it.hi ? hi : ink;
+    if (it.hi) { const g = eo(clamp((lt - 0.12) / 0.35)), y = 200 + ri * 94 + 16; ctx.save(); ctx.strokeStyle = onRed ? 'rgba(17,17,17,.55)' : 'rgba(224,48,30,.45)'; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.beginPath(); for (let k = 0; k <= 24 * g; k++) { const u = k / 24, px = x - 4 + u * (it.w + 8), py = y + Math.sin(u * 9) * 3.5; k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.stroke(); ctx.restore(); }
+    ctx.fillText(it.txt, x, 200 + ri * 94); x += it.w + gap; }); });
   ctx.restore();
 }
 
@@ -31,9 +33,7 @@ function backdrop(bg, prev, lt) {
 
 export function buildEditorial(plan, st) {
   const shots = [], cues = [], cue = (t, type, o = {}) => cues.push({ t: +Math.max(0, t).toFixed(3), type, ...o });
-  const sf = st.audio.sfx ?? 1, hero = plan.cast[0], P = st.presenter || {}, h = hash(hero.name + st.id);
-  const skins = st.character.skins || ['#E8B48C'], look = { skin: P.skin || skins[h % skins.length], hair: P.hair || '#2a2019', beard: P.beard ?? true, hat: P.hat === undefined ? '#1f1f22' : P.hat, glasses: P.glasses ?? true,
-    jacket: P.jacket || '#5c5348', shirt: P.shirt || '#f1eee8' };
+  const sf = st.audio.sfx ?? 1, hero = plan.cast[0], look = presenterLook(st, hero);
   const cut = (i) => (i === 0 ? 0 : L(i) - 0.08), N = plan.scenes.length;
   plan.scenes.forEach((sc, i) => {
     const at = cut(i), prevBg = i ? plan.scenes[i - 1].bg : null, bgChanged = i && prevBg !== sc.bg, card = sc.card || { kind: 'keyword', value: sc.text.split(' ')[0] };
@@ -45,6 +45,7 @@ export function buildEditorial(plan, st) {
         ctx.save(); ctx.textBaseline = 'middle'; ctx.font = `500 24px ${CARD_PX.mono}`; ctx.fillStyle = onRed ? 'rgba(255,255,255,.8)' : dark ? '#8d8a85' : '#8a8782'; ctx.textAlign = 'left'; ctx.fillText(sc.label?.left || '', 64, 70);
         ctx.textAlign = 'right'; ctx.fillStyle = onRed ? '#fff' : ACC; ctx.fillText(sc.label?.right || '', W - 64, 70); ctx.restore();
         headline(t, dark, onRed);
+        ctx.fillStyle = onRed ? 'rgba(255,255,255,.9)' : ACC; ctx.fillRect(0, 0, W * clamp(t / T.dur), 7);          // progress bar
         // card area (a little push-in), presenter anchored bottom right
         ctx.save(); ctx.translate(W / 2, 800); ctx.scale(drift, drift); ctx.globalAlpha = out; drawCard(card, { x: 0, y: 0, lt, d, p, dark: dark || onRed, accent: onRed ? '#111' : ACC }); ctx.restore();
         const gx = sc.hero.pose, mood = sc.hero.mood;

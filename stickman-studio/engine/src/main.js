@@ -45,13 +45,13 @@ function draw(t) {
     STYLE = style; setCapLook(style.captions);
     await loadTiming();
     buildCaptions(script);
-    if (style.family === 'facecam') { await faceInit(); OP.prep = facePrep; }
+    if (style.family === 'facecam' && !style.synthFace) { await faceInit(); OP.prep = facePrep; }
     const { shots, cues } = (FAMILIES[style.family || 'stick'] || buildFromPlan)(plan, style);
     shots.sort((a, b) => a.at - b.at);
     OP._shots = shots; OP.script = script;
     OP.duration = () => T.dur;
     OP.draw = draw;
-    OP.frame = async (t, q = 0.92) => { if (OP.prep) await OP.prep(clamp(t, 0, T.dur)); draw(t); return q >= 1 ? cv.toDataURL('image/png') : cv.toDataURL('image/jpeg', q); };
+    OP.frame = async (t, q = 0.92) => { if (OP.prep) await OP.prep(clamp(t, 0, T.dur)); draw(t); return q >= 1 ? cv.toDataURL('image/jpeg', 0.97) : cv.toDataURL('image/jpeg', q); };
     OP.shots = () => shots.map((s, i) => ({ id: s.id, at: +s.at.toFixed(3), end: +(i < shots.length - 1 ? shots[i + 1].at : T.dur).toFixed(3), note: s.note || '' }));
     OP.captions = () => captionList().map((c) => ({ s: +c.s.toFixed(3), e: +c.e.toFixed(3), text: c.words.map((w) => (w.hi ? '*' : '') + w.txt).join(' ') }));
     OP.cues = () => cues.slice().sort((a, b) => a.t - b.t);

@@ -9,7 +9,7 @@ import { shade } from '../core/rig.js';
 const U = 1.75 / 926, rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const UP = new THREE.Vector3(0, 1, 0);
 const mats = new Map();
-const mat = (col, o = {}) => { const k = col + JSON.stringify(o); let m = mats.get(k); if (!m) { m = new THREE.MeshStandardMaterial({ color: col, flatShading: true, roughness: 0.82, metalness: 0, ...o }); mats.set(k, m); } return m; };
+const mat = (col, o = {}) => { const k = col + JSON.stringify(o); let m = mats.get(k); if (!m) { m = new THREE.MeshLambertMaterial({ color: col, flatShading: true, ...o }); mats.set(k, m); } return m; };
 const glow = (col, k = 1) => new THREE.MeshBasicMaterial({ color: new THREE.Color(col).multiplyScalar(k) });
 const mesh = (g, m, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(g, m); o.position.set(x, y, z); return o; };
 const box = (w, h, d, col, x, y, z, o) => mesh(new THREE.BoxGeometry(w, h, d), mat(col, o), x, y, z);

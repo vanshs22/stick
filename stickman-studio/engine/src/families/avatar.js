@@ -78,3 +78,10 @@ export function drawPresenter(o) {
   else { ctx.beginPath(); ctx.ellipse(hd[0], hd[1], 40, 38, 0, 0, TAU); ctx.fillStyle = skin; ctx.fill(); }
   ctx.restore();
 }
+
+const hash = (str) => { let h = 2166136261; for (const c of String(str)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+/** the presenter's look: from the style (brand kit) first, otherwise stable per hero name + style, so the same channel always gets the same face */
+export function presenterLook(st, hero) {
+  const P = st.presenter || {}, skins = st.character.skins || ['#E8B48C'], h = hash((hero?.name || 'host') + st.id);
+  return { skin: P.skin || skins[h % skins.length], hair: P.hair || '#2a2019', beard: P.beard ?? true, hat: P.hat === undefined ? '#1f1f22' : P.hat, glasses: P.glasses ?? true, jacket: P.jacket || '#5c5348', shirt: P.shirt || '#f1eee8' };
+}

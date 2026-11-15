@@ -9,12 +9,13 @@ let R, scene, cam, rt, post, quad, qs, inited = false; const sets = new Map(), c
 const smooth = (x) => x * x * (3 - 2 * x), eo = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
 
 const POST = {
-  uniforms: { tex: { value: null }, res: { value: new THREE.Vector2(RW, RH) }, paint: { value: 0.5 }, t: { value: 0 }, sat: { value: 1 }, warm: { value: new THREE.Vector3(1, 1, 1) } },
+  uniforms: { tex: { value: null }, res: { value: new THREE.Vector2(RW, RH) }, paint: { value: 0.5 }, t: { value: 0 }, sat: { value: 1 }, expo: { value: 1 }, warm: { value: new THREE.Vector3(1, 1, 1) } },
   vertexShader: 'varying vec2 v; void main(){ v = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
-  fragmentShader: `uniform sampler2D tex; uniform vec2 res; uniform float paint, t, sat; uniform vec3 warm; varying vec2 v;
+  fragmentShader: `uniform sampler2D tex; uniform vec2 res; uniform float paint, t, sat, expo; uniform vec3 warm; varying vec2 v;
   float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
   float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f); return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
   void main(){
+    if (paint < 0.01) { gl_FragColor = vec4(mix(vec3(dot(texture2D(tex, v).rgb, vec3(0.299, 0.587, 0.114))), texture2D(tex, v).rgb, sat) * warm * expo, 1.0); gl_FragColor.rgb = pow(clamp(gl_FragColor.rgb, 0.0, 1.0), vec3(0.4545)); return; }
     vec2 px = 1.0 / res; vec2 w = vec2(n(v*vec2(60.0,110.0)+3.0), n(v*vec2(60.0,110.0)+9.0)) - 0.5;
     vec2 uv = v + w * px * 3.0 * paint;                      // hand-painted edge wobble
     vec3 c = texture2D(tex, uv).rgb;
@@ -27,7 +28,7 @@ const POST = {
     c *= 1.0 - (0.10 * paint) * (g - 0.35);                  // paper / canvas grain
     float s = abs(dot(a - b, vec3(0.33))) + abs(dot(d - e, vec3(0.33)));
     c *= 1.0 - smoothstep(0.18, 0.5, s) * 0.35 * paint;      // ink-line darkening on strong edges
-    c = mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, sat) * warm;
+    c = mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, sat) * warm * expo;
     gl_FragColor = vec4(c, 1.0);
   }`,
 };
@@ -73,7 +74,7 @@ export function render3d(spec) {
   const hh = (mv === 'handheld' ? 1 : 0.35) * (spec.hand || 0.004) * 12; px += (Math.sin(t * 7.3) * 0.6 + Math.sin(t * 13.1) * 0.3) * hh * 0.4; py += Math.sin(t * 6.1) * hh * 0.35; lx += Math.sin(t * 4.2) * hh * 0.1;
   if (spec.shake) { px += Math.sin(t * 61) * 0.05 * spec.shake; py += Math.cos(t * 53) * 0.04 * spec.shake; }
   cam.fov = fov; cam.position.set(px, py, pz); cam.lookAt(lx, ly, lz); cam.rotation.z += Math.sin(t * 1.1) * 0.004; cam.updateProjectionMatrix();
-  const g = spec.style.grade || {}; post.uniforms.paint.value = spec.paint ?? (g.paint ?? 0.6); post.uniforms.sat.value = spec.style.sets?.saturation ?? 1; post.uniforms.t.value = t;
+  const g = spec.style.grade || {}; post.uniforms.expo.value = g.exposure ?? 1; post.uniforms.paint.value = spec.paint ?? (g.paint ?? 0.6); post.uniforms.sat.value = spec.style.sets?.saturation ?? 1; post.uniforms.t.value = t;
   R.setRenderTarget(rt); R.render(scene, cam); R.setRenderTarget(null); R.render(qs, new THREE.Camera());
   return cv;
 }

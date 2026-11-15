@@ -86,3 +86,15 @@ export function mergeInto(plan, llm) {
   plan.llm = { provider: llm.provider, cached: !!llm.cached, beatsChanged: changed, hookAlt: llm.hookAlt };
   return plan;
 }
+
+/** General one-shot JSON helper for the agents: providers in order (FreeLLMAPI first, OpenAI last), cached by prompt, validated by the caller.
+ *  Returns { json, provider, cached } or null (no key, or every provider failed). Never throws. */
+export async function askJSON(system, user, { tag = 'agent', check = (j) => !!j } = {}) {
+  const prov = providers(); if (!prov.length) return null;
+  const key = crypto.createHash('sha1').update(JSON.stringify([tag, system, user, process.env.LLM_MODEL || '', prov[0]])).digest('hex').slice(0, 16), file = path.join(CACHE, 'ask-' + key + '.json');
+  if (fs.existsSync(file)) return { ...JSON.parse(fs.readFileSync(file, 'utf8')), cached: true };
+  for (const p of prov) for (let attempt = 0; attempt < 2; attempt++) {
+    try { const j = parseJSON(await call(p, system, attempt ? user + '\nReturn ONLY a valid JSON object.' : user)); if (j && check(j)) { const out = { json: j, provider: p }; fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(file, JSON.stringify(out)); return out; } } catch (e) { console.error(`[llm ${p}] ${e.message}`); }
+  }
+  return null;
+}

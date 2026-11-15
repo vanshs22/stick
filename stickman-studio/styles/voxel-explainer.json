@@ -38,20 +38,20 @@
  "stepChip": true,
  "world": {
   "kind": "stage",
-  "bg": "#141d5f",
-  "floor": "#1a2575",
+  "bg": "#22349f",
+  "floor": "#2f43b8",
   "sky": "#8da0ff",
   "ground": "#141d5f",
-  "hemi": 2.0,
-  "key": "#fff2dd",
-  "keyI": 2.0,
+  "hemi": 1.5,
+  "key": "#ffffff",
+  "keyI": 1.6,
   "rim": "#9ab0ff",
-  "rimI": 2.2
+  "rimI": 1.2
  },
  "creatures": [
   {
    "kind": "box",
-   "color": "#D9573A",
+   "color": "#F0683C",
    "eye": "#111",
    "x": 0.72,
    "z": 0.35,
@@ -70,11 +70,11 @@
    "#8A5A3C"
   ],
   "outfits": [
-   "#40404f"
+   "#5a5a72"
   ],
   "defaultTop": "tee",
   "heroTop": "tee",
-  "heroColor": "#40404f",
+  "heroColor": "#5a5a72",
   "hair": "#14100c",
   "beard": true,
   "badge": "#F2C12E",
