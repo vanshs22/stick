@@ -19,12 +19,12 @@ function draw(t) {
   const sh = S[i], end = i < S.length - 1 ? S[i + 1].at : T.dur, d = end - sh.at, lt = t - sh.at, u = clamp(lt / d), e = eio(u), z = sh.zoom ?? 0.08, mv = sh.move, cam = STYLE.camera;
   let scale = 1, dx = 0, dy = 0;
   if (mv === 'push') scale = 1 + z * e; else if (mv === 'pull') scale = 1 + z * (1 - e); else if (mv === 'punch') scale = 1 + 0.12 * (1 - eo(clamp(lt / 0.4))) + z * 0.5 * e; else if (mv === 'track') { scale = 1 + z * 0.4; dx = (0.5 - e) * 80; } else if (mv === 'handheld') { scale = 1 + z * 0.5 * e; } else { scale = 1 + z * 0.5 * e; dx = Math.sin(e * Math.PI) * 18; }
-  scale *= 1 + cam.punch * (1 - eo(clamp(lt / 0.22)));
+  if (sh.cam3d) { scale = 1; dx = dy = 0; } else scale *= 1 + cam.punch * (1 - eo(clamp(lt / 0.22)));
   const hh = (mv === 'handheld' ? 3.2 : 1) * cam.handheld;
-  dx += Math.sin(t * 7.3) * hh * 2400 + Math.sin(t * 13.1) * hh * 900; dy += Math.sin(t * 6.1) * hh * 2100;
-  const edge = 1.01 + Math.max((Math.abs(dx) + 18) / 540, (Math.abs(dy) + 18) / 960); scale = Math.max(scale, edge);   // never reveal past the picture edge
+  if (!sh.cam3d) { dx += Math.sin(t * 7.3) * hh * 2400 + Math.sin(t * 13.1) * hh * 900; dy += Math.sin(t * 6.1) * hh * 2100; }
+  const edge = sh.cam3d ? 1 : 1.01 + Math.max((Math.abs(dx) + 18) / 540, (Math.abs(dy) + 18) / 960); scale = Math.max(scale, edge);   // never reveal past the picture edge
   const [cx, cy] = sh.cam || [540, 1000];
-  ctx.save(); ctx.translate(cx + dx, cy + dy); ctx.rotate(Math.sin(t * 1.1) * 0.004 + (mv === 'handheld' ? Math.sin(t * 9) * 0.004 : 0)); ctx.scale(scale, scale); ctx.translate(-cx, -cy);
+  ctx.save(); ctx.translate(cx + dx, cy + dy); if (!sh.cam3d) ctx.rotate(Math.sin(t * 1.1) * 0.004 + (mv === 'handheld' ? Math.sin(t * 9) * 0.004 : 0)); ctx.scale(scale, scale); ctx.translate(-cx, -cy);
   sh.draw(lt, d, t);
   ctx.restore();
   ctx.globalAlpha = 1; ctx.letterSpacing = '0px'; ctx.filter = 'none';

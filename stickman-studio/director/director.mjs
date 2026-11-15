@@ -6,6 +6,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { planWithLLM, mergeInto } from './llm.mjs';
+import { scorePlan, formatScore } from './score.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const LEX = JSON.parse(fs.readFileSync(path.join(HERE, 'lexicon.json'), 'utf8'));
@@ -34,7 +36,7 @@ export function splitBeats(raw, maxWords = 13) {
 function makeCaps(text, perChunk, emoWords) {
   const w = words(text); const chunks = []; let cur = [];
   for (const t of w) { cur.push(t); const stop = /[,.;:!?]$/.test(t); if (cur.length >= perChunk || (stop && cur.length >= 2)) { chunks.push(cur); cur = []; } }
-  if (cur.length) { if (chunks.length && cur.length === 1) chunks[chunks.length - 1].push(cur[0]); else chunks.push(cur); }
+  if (cur.length) { if (chunks.length && cur.length === 1 && chunks[chunks.length - 1].length < perChunk) chunks[chunks.length - 1].push(cur[0]); else chunks.push(cur); }
   return chunks.map((c) => { let k = 0, best = -1; c.forEach((t, j) => { const n = t.toLowerCase().replace(/[^a-z0-9$:']/g, ''); const sc = (emoWords.has(n) ? 8 : 0) + (/\d|\$/.test(t) ? 6 : 0) + n.length; if (sc > best) { best = sc; k = j; } }); return c.map((t, j) => (j === k ? '*' + t : t)).join(' '); }).join(' | ');
 }
 
@@ -175,11 +177,13 @@ export function direct(raw, styleId = 'auto', opts = {}) {
 // CLI
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const a = process.argv.slice(2), arg = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? a[i + 1] : d; };
-  if (!a[0] || a[0].startsWith('--')) { console.error('usage: director.mjs script.txt [--style auto|<id>] [--out dir] [--voice id] [--speed 1.05]\nstyles: ' + Object.keys(STYLES).join(', ')); process.exit(2); }
+  if (!a[0] || a[0].startsWith('--')) { console.error('usage: director.mjs script.txt [--style auto|<id>] [--out dir] [--voice id] [--speed 1.05] [--no-llm]\nstyles: ' + Object.keys(STYLES).join(', ')); process.exit(2); }
   const raw = a[0] === '-' ? fs.readFileSync(0, 'utf8') : fs.readFileSync(a[0], 'utf8');
   const res = direct(raw, arg('style', 'auto'), { voice: arg('voice'), speed: arg('speed') ? +arg('speed') : undefined });
+  if (!a.includes('--no-llm')) { const llm = await planWithLLM(res.plan.scenes.map((s) => s.text), res.style.id, res.style.description); if (llm) { mergeInto(res.plan, llm); res.report.llm = res.plan.llm; } else res.report.llm = 'off (no API key set): rule-based plan'; }
+  res.report.score = scorePlan(res.plan, res.script, res.style);
   const out = path.resolve(arg('out', '.')); fs.mkdirSync(out, { recursive: true });
   fs.writeFileSync(path.join(out, 'script.json'), JSON.stringify(res.script, null, 1)); fs.writeFileSync(path.join(out, 'plan.json'), JSON.stringify(res.plan, null, 1)); fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(res.report, null, 1));
-  console.log(JSON.stringify(res.report, null, 2));
-  res.plan.scenes.forEach((s) => console.log(`${String(s.i).padStart(2)} ${s.arc.padEnd(7)} ${s.emotion.padEnd(8)} ${s.intensity.toFixed(2)} ${s.set.kind}/${s.set.tod}${s.set.weather !== 'none' ? '/' + s.set.weather : ''} ${s.shot.type}/${s.shot.move} ${s.hero.id}:${s.hero.pose[1][1]}${s.costar ? ' +' + s.costar.id : ''}${s.insert ? ' INSERT:' + s.insert.type : ''}${s.pop ? ' POP:' + s.pop : ''} ${s.transition} | ${s.text}`));
+  console.log(formatScore(res.report.score)); console.log('\nplanner:', typeof res.report.llm === 'string' ? res.report.llm : JSON.stringify(res.report.llm));
+  res.plan.scenes.forEach((s) => console.log(`${String(s.i).padStart(2)} ${s.arc.padEnd(7)} ${s.emotion.padEnd(8)} ${s.intensity.toFixed(2)} ${s.set.kind}/${s.set.tod}${s.set.weather !== 'none' ? '/' + s.set.weather : ''} ${s.shot.type}/${s.shot.move} ${s.hero.id}:${s.hero.pose[1][1]}${s.hold ? ' hold:' + s.hold : ''}${s.costar ? ' +' + s.costar.id : ''}${s.insert ? ' INSERT:' + s.insert.type : ''}${s.pop ? ' POP:' + s.pop : ''} ${s.transition} | ${s.text}`));
 }

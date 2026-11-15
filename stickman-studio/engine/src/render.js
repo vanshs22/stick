@@ -1,12 +1,13 @@
 // Turns plan.json (from the director) + a style preset into shots: set, cast, props, camera, overlays, transitions, sound cues.
 // Nothing here is story-specific: every decision (emotion, location, clothes, pose, shot) comes from the plan.
 import { ctx, setCtx, W, H, clamp, lerp, seg, eo, eio, eob, rr } from './core/lib.js';
-import { L, Wd } from './core/timing.js';
+import { L, Wd, T } from './core/timing.js';
 import { drawChar } from './core/rig.js';
 import * as S from './core/stage.js';
 import * as Z from './core/sets.js';
 import * as FX from './core/fx.js';
 import { drawInsert } from './core/props.js';
+import { render3d } from './three/render3d.js';
 
 const INK = '#17171B', WHITE = '#FFFDF7';
 const OUT = ['street', 'outdoor', 'forest'];
@@ -36,6 +37,18 @@ const blurred = (px, fn) => {
   main.imageSmoothingEnabled = true; main.imageSmoothingQuality = 'high'; main.drawImage(OFF2, pad, pad, w - pad * 2, h - pad * 2, 0, 0, W, H);
 };
 
+const HOLD_POSE = { phone: 'phone', cup: 'drink', letter: 'reach', book: 'reach', key: 'reach', money: 'shake', flashlight: 'point', sign: 'point', bag: 'idle' };
+function holdFor(sc) {
+  if (sc.hold) return sc.hold;                       // chosen by the LLM planner
+  const p = sc.props || [], pose = sc.hero.pose[1][1], txt = sc.text.toLowerCase();
+  if (pose === 'phone' || (p.includes('phone') && /\b(call|called|ring|rang|text|texted|answer|picked)\b/.test(txt))) return 'phone';
+  if (pose === 'drink' || p.includes('cup')) return 'cup';
+  if (/\b(flashlight|torch)\b/.test(txt)) return 'flashlight';
+  if (p.includes('letter') && /\b(read|letter|note|diary|contract|rule|rules|map)\b/.test(txt)) return /\bbook|diary\b/.test(txt) ? 'book' : 'letter';
+  if (p.includes('key') && /\bkey|keys\b/.test(txt)) return 'key';
+  if (p.includes('money') && /\b(cash|\$|wallet|paid|pay|borrow\w*|lend|bought)\b/.test(txt)) return 'money';
+  return null;
+}
 export function buildFromPlan(plan, st) {
   const shots = [], cues = [], cue = (t, type, o = {}) => cues.push({ t: +t.toFixed(3), type, ...o });
   const cast = Object.fromEntries(plan.cast.map((c) => [c.id, c])), pal = st.sets.palette, sfxScale = st.audio.sfx ?? 1;
@@ -43,7 +56,7 @@ export function buildFromPlan(plan, st) {
   plan.scenes.forEach((sc, i) => {
     const at = cut(i), type = sc.shot.type, set = sc.set, outside = OUT.includes(set.kind), cm = st.camera;
     const camC = type === 'close' ? [540, 940] : type === 'wide' ? [540, 1120] : [540, 1000];
-    shots.push({ id: 'S' + String(i + 1).padStart(2, '0'), at, cam: camC, zoom: sc.shot.zoom, move: sc.shot.move, trans: sc.transition, hand: cm.handheld, note: `${sc.arc} ${sc.emotion} ${set.kind}/${set.tod} ${type}/${sc.shot.move}`,
+    shots.push({ id: 'S' + String(i + 1).padStart(2, '0'), at, cam3d: st.render !== '2d', cam: camC, zoom: sc.shot.zoom, move: sc.shot.move, trans: sc.transition, hand: cm.handheld, note: `${sc.arc} ${sc.emotion} ${set.kind}/${set.tod} ${type}/${sc.shot.move}`,
       draw(lt, d, t) {
         const amp = (sc.shot.move === 'track' ? 70 : 22) * cm.parallax, px = (seg(lt, 0, d) - 0.5) * 2 * amp, peakShake = sc.arc === 'peak' ? Math.max(0, 1 - lt / 0.8) * 0.8 : 0;
         const rain = set.weather === 'rain' || set.weather === 'storm', bolt = rain ? FX.lightning(t, i * 0.173) : 0, flick = sc.emotion === 'fear' || sc.emotion === 'tension' ? 0.5 + sc.intensity * 0.5 : 0;
@@ -56,7 +69,16 @@ export function buildFromPlan(plan, st) {
           else if (outside) Z.outside(o);
           else Z.room({ ...o, kind: ['room', 'bedroom', 'office', 'cafe', 'kitchen'].includes(set.kind) ? set.kind : 'room' });
         };
-        if (type === 'insert') { ctx.save(); ctx.translate(px * 0.3, 0); blurred(14, drawBg); ctx.restore(); ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(-300, -300, W + 600, H + 600); if (sc.insert) drawInsert(sc.insert, t, lt, d, st); }
+        if (st.render !== '2d') {
+          const frac = lt / d, phase = sc.split2 && frac >= sc.split2 ? 2 : sc.split && frac >= sc.split ? 1 : 0, ALT = { close: 'medium', medium: 'close', wide: 'medium', two: 'close', insert: 'insert' };
+          const ty = phase === 1 ? ALT[type] : type, mvv = phase === 0 ? sc.shot.move : phase === 1 ? sc.splitMove || 'push' : 'punch', starts = [0, (sc.split || 0) * d, (sc.split2 || 0) * d], ends = [sc.split ? sc.split * d : d, sc.split2 ? sc.split2 * d : d, d];
+          const hero = cast[sc.hero.id], second = sc.costar ? cast[sc.costar.id] : sc.hero.id !== 'hero' && type === 'two' ? cast.hero : null, two = ty === 'two' && second;
+          const hold = holdFor(sc), heroPose = hold && HOLD_POSE[hold] && sc.hero.pose[1][1] !== 'run' ? [[0, sc.hero.pose[0][1]], [0.3, HOLD_POSE[hold]]] : sc.hero.pose;
+          const cs = []; if (ty !== 'insert') { cs.push({ id: hero.id, cast: hero, pose: heroPose, mood: sc.hero.mood, talk: true, seed: 0, hold, holdLabel: sc.pop || sc.insert?.value || '' }); if (two) cs.push({ id: second.id, cast: second, pose: sc.costar ? sc.costar.pose : 'idle', mood: sc.costar ? sc.costar.mood : 'calm', talk: false, seed: 1.7 }); }
+          const cv3 = render3d({ t, lt, d, set, pal, type: ty === 'insert' ? 'wide' : two ? 'two' : ty, move: mvv, camLt: lt - starts[phase], camD: Math.max(0.3, ends[phase] - starts[phase]), zoom: sc.shot.zoom, style: st, flick, shake: peakShake, hand: st.camera.handheld, cast: cs, noChars: ty === 'insert', open: set.kind === 'elevator' && /\b(open|opened|opens|doors)\b/i.test(sc.text) && sc.arc !== 'build' ? 1 : 0 });
+          if (ty === 'insert') { blurred(10, () => ctx.drawImage(cv3, 0, 0, W, H)); ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(-300, -300, W + 600, H + 600); if (sc.insert) drawInsert(sc.insert, t, lt, d, st); }
+          else { ctx.drawImage(cv3, 0, 0, W, H); if (sc.bubble && st.bubbles) speech(sc.bubble, two ? 540 : 560, ty === 'close' ? 330 : 520, 0.8, 1); }
+        } else if (type === 'insert') { ctx.save(); ctx.translate(px * 0.3, 0); blurred(14, drawBg); ctx.restore(); ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(-300, -300, W + 600, H + 600); if (sc.insert) drawInsert(sc.insert, t, lt, d, st); }
         else {
           ctx.save(); ctx.translate(outside ? 0 : px * 0.35, 0); blurred(type === 'close' ? 5 : 0, drawBg); ctx.restore();
           const hero = cast[sc.hero.id], second = sc.costar ? cast[sc.costar.id] : sc.hero.id !== 'hero' && type === 'two' ? cast.hero : null;
@@ -81,6 +103,7 @@ export function buildFromPlan(plan, st) {
         if (rule) card('RULE ' + ({ one: '01', two: '02', three: '03', four: '04', five: '05' }[rule[1].toLowerCase()] || rule[1].toUpperCase()), 250, st, eob(clamp(lt / 0.25)));
         else if (i === 0 && st.hookCard) card(sc.text.split(' ').slice(0, 4).join(' ').replace(/[.,!?]+$/, '').toUpperCase(), 250, st, eob(clamp(lt / 0.25)));
         if (sc.pop && lt > 0.08 && lt < Math.min(d - 0.1, 1.7)) popText(sc.pop, 430, st, eob(clamp((lt - 0.08) / 0.2)));
+        if (sc.cta && lt > d - 1.6) card(sc.cta, 1480, st, eob(clamp((lt - (d - 1.6)) / 0.25)));
         if (sc.transition === 'flash') FX.flash(Math.max(0, 0.8 * (1 - lt / 0.16)));
         if (sc.transition === 'fade') FX.dip(Math.max(0, 1 - lt / 0.3));
       } });
@@ -89,6 +112,7 @@ export function buildFromPlan(plan, st) {
     sc.sfx.forEach((s) => { let t0 = at + 0.1; try { if (s.word) t0 = Wd(s.word, i); } catch {} cue(t0, s.type, { gain: (s.gain || 0.5) * sfxScale, dur: s.type === 'alarm' ? 1.2 : undefined }); });
     if (sc.insert?.type === 'clock') cue(at + 0.15, 'tock', { gain: 0.6 * sfxScale });
     if (sc.insert?.type === 'phone') { cue(at + 0.1, 'tock', { gain: 0.7 }); cue(at + 0.5, 'tock', { gain: 0.7 }); }
+    { const dd = (i < plan.scenes.length - 1 ? cut(i + 1) : T.dur) - at; if (sc.split) cue(at + sc.split * dd, 'whoosh', { gain: 0.35 * sfxScale }); if (sc.split2) cue(at + sc.split2 * dd, 'whoosh', { gain: 0.35 * sfxScale }); }
     if (sc.pop) cue(at + 0.1, 'pop', { gain: 0.7 * sfxScale });
   });
   return { shots, cues };

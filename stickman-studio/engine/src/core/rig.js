@@ -1,13 +1,13 @@
 // Rigged cartoon character (v2): style-driven look (head fill, outline, limbs, hands, face mode), clothing (tee, hoodie,
 // coat, dress, uniform, cloak), hats and hair, keyframed poses/moods, FK legs grounded on the floor, lip-sync from word timings.
-import { ctx, clamp, lerp, TAU } from './lib.js';
+import { ctx, setCtx, clamp, lerp, TAU } from './lib.js';
 import { T } from './timing.js';
 
 const INK = '#17171B';
 const rad = (d) => (d * Math.PI) / 180;
 const ss = (u) => u * u * (3 - 2 * u);
 const mix = (a, b, u) => (Array.isArray(a) ? a.map((v, i) => mix(v, b[i], u)) : a && typeof a === 'object' ? Object.fromEntries(Object.keys(a).map((k) => [k, mix(a[k], b[k], u)])) : a + (b - a) * u);
-function pick(spec, table, lt) {
+export function pick(spec, table, lt) {
   if (typeof spec === 'string') return table[spec] || table.idle || table.calm;
   if (lt <= spec[0][0]) return table[spec[0][1]] || table.idle || table.calm;
   for (let i = 1; i < spec.length; i++) if (lt <= spec[i][0]) { const A = table[spec[i - 1][1]] || table.idle || table.calm, B = table[spec[i][1]] || table.idle || table.calm; return mix(A, B, ss((lt - spec[i - 1][0]) / (spec[i][0] - spec[i - 1][0] || 1e-6))); }
@@ -22,18 +22,18 @@ export const FACES = faces({
   determined: { bl: -4, bt: 14, eo: 0.9, sm: 0 }, angry: { bl: -8, bt: 22, eo: 0.85, sm: -0.6, mo: 0.18, trem: 0.4 }, happy: { bl: 8, bt: -2, eo: 0.95, sm: 1, mo: 0.12 },
   relieved: { bl: 4, bt: -8, eo: 0.8, sm: 0.7, mo: 0.08 }, surprised: { bl: 30, eo: 1.35, sm: 0, mo: 0.5 }, sad: { bl: 4, bt: -20, eo: 0.82, sm: -0.85, mo: 0 }, smirk: { bl: 0, bt: 9, eo: 0.8, sm: 0.6 },
 });
-const POSE0 = { aL: [10, 8], aR: [10, 8], lean: 0, tilt: 0, stance: 8, bend: 4, walk: 0, wave: 0, hop: 0, jit: 0 };
+const POSE0 = { aL: [10, 8], aR: [10, 8], lean: 0, tilt: 0, stance: 8, bend: 4, walk: 0, wave: 0, hop: 0, jit: 0, fwd: 0 };
 const poses = (o) => Object.fromEntries(Object.entries(o).map(([k, v]) => [k, { ...POSE0, ...v }]));
 export const POSES = poses({
   idle: {}, relax: { aL: [14, 10], aR: [14, 10], tilt: 3 }, slump: { aL: [6, 6], aR: [6, 6], tilt: 9, lean: 4 },
   brace: { aL: [78, -28], aR: [78, -28], stance: 34, bend: 48 }, panic: { aL: [38, 152], aR: [38, 152], stance: 16, bend: 18, tilt: 6, jit: 1 },
-  reach: { aR: [112, -12], aL: [14, 8], lean: 5, stance: 10 }, halt: { aL: [28, 140], aR: [28, 140], lean: -3, stance: 12 },
-  phone: { aR: [60, 150], aL: [18, 12], tilt: -4 }, drink: { aR: [58, 152], aL: [18, 12], tilt: -6 }, point: { aR: [100, -5], aL: [10, 8], lean: 4 },
+  reach: { fwd: 0.55, aR: [112, -12], aL: [14, 8], lean: 5, stance: 10 }, halt: { aL: [28, 140], aR: [28, 140], lean: -3, stance: 12 },
+  phone: { fwd: 0.4, aR: [60, 150], aL: [18, 12], tilt: -4 }, drink: { aR: [58, 152], aL: [18, 12], tilt: -6 }, point: { aR: [100, -5], aL: [10, 8], lean: 4 },
   open: { aL: [108, 20], aR: [108, 20], stance: 12 }, cheer: { aL: [160, 10], aR: [160, 10], stance: 12, hop: 1 },
-  shake: { aR: [38, 24], aL: [10, 8], lean: 2 }, walk: { walk: 1, stance: 6, aL: [15, 10], aR: [15, 10] },
+  shake: { fwd: 0.7, aR: [38, 24], aL: [10, 8], lean: 2 }, walk: { walk: 1, stance: 6, aL: [15, 10], aR: [15, 10] },
   run: { walk: 1.8, stance: 4, lean: 11, aL: [35, 95], aR: [35, 95] }, hands: { aL: [120, 70], aR: [120, 70], tilt: 4 },
   cower: { aL: [150, 125], aR: [150, 125], stance: 30, bend: 60, lean: -6, tilt: 9, jit: 0.6 }, think: { aR: [55, 155], aL: [10, 8], tilt: 7 },
-  shrug: { aL: [72, 100], aR: [72, 100], tilt: 5 }, wave: { aR: [150, 30], aL: [10, 8], wave: 1, tilt: 3 },
+  shrug: { fwd: 0.2, aL: [72, 100], aR: [72, 100], tilt: 5 }, wave: { aR: [150, 30], aL: [10, 8], wave: 1, tilt: 3 },
 });
 
 /** how open the speaker's mouth is at time t (0..1), driven by the word timings */
@@ -122,12 +122,17 @@ function drawHead(o, F, P, t, ta, look) {
  * o: { t, lt, x, y(ground), s, dir, pose, mood, look(lt)=>[x,y], talk, hold(x,y), sc(style.character), outfit{top,color,hat,skin,hair,female,faceless}, seed }
  * pose / mood: a name or [[localTime, name], ...] keyframes blended smoothly.
  */
-export function drawChar(o) {
+export function compose(o) {
   const sc = { head: 'skin', outline: 10, limbs: INK, limbW: 20, hands: 'glove', face: 'full', blush: true, ...(o.sc || {}) }, of = o.outfit || {};
   const skin = of.skin || '#E8B48C', headFill = sc.head === 'white' ? '#FFFDF7' : sc.head === 'black' ? '#141116' : skin, headShade = sc.head === 'white' ? '#DAD3C6' : sc.head === 'black' ? '#1F1A21' : shade(skin, -0.16);
   const shirt = of.color || '#D6452F', top = of.top || 'tee';
   o = { s: 0.85, dir: 1, seed: 0, lt: 0, pose: 'idle', mood: 'calm', hairColor: sc.head === 'black' ? '#0E0A0D' : INK, ...o, sc, shirt, top, hat: of.hat || 'none', hair: sc.head === 'black' ? 'none' : of.hair || 'short', faceless: !!of.faceless, headFill, headShade, skin };
   if (top === 'cloak') { o.headFill = '#ECE7DB'; o.headShade = '#CFC9B9'; o.faceless = true; o.hat = 'hood'; }
+  return o;
+}
+
+export function drawChar(o) {
+  o = compose(o);
   const { t, lt, x, y, s, dir, seed } = o, P = pick(o.pose, POSES, lt), F = pick(o.mood, FACES, lt), ta = o.talk ? talkAt(t) : 0;
   const look = o.look ? o.look(lt) : [Math.sin(t * 0.8 + seed) * 0.35, Math.sin(t * 0.53 + seed * 2) * 0.2];
   const ph = t * 6.6 * Math.max(1, P.walk) + seed, pants = sc.head === 'skin' ? (of.pants || '#2B3350') : sc.limbs, limbCol = sc.limbs, LW = sc.limbW;
@@ -177,4 +182,10 @@ export function drawChar(o) {
     else if (sc.hands === 'mitten') { ellipse(A.h[0] + hc * 8, A.h[1] + hs * 8, 22, 19, longSleeve ? limbCol : limbCol, null, 0, ang); ellipse(A.h[0] + A.side * 10, A.h[1] - 10, 9, 11, limbCol); }
   }
   ctx.restore();
+}
+
+/** draw the animated face (eyes, brows, mouth) into a square canvas, for the 3D head decal */
+export function faceTexture(cv, F, o, t, ta, look) {
+  const c = cv.getContext('2d'), main = ctx; c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, cv.width, cv.height); c.translate(cv.width / 2, cv.height / 2 + 6); const k = cv.width / 2 / 122; c.scale(k, k);
+  setCtx(c); try { drawFace(F, o, t, ta, look); } finally { setCtx(main); }
 }
