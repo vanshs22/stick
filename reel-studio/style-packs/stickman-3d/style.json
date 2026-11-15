@@ -1,84 +1,89 @@
 {
- "id": "stickman-3d",
- "name": "3D stickman",
- "family": "3d",
- "description": "Simple expressive stick figures acting in bright minimal studio sets. Comedy, 'what if' and survival explainers.",
- "tokens": {
-  "colors": {
-   "bg": "#E8E8EC",
-   "ink": "#111111",
-   "ink2": "#111111",
-   "muted": "#777777",
-   "card": "#FFFFFF",
-   "accent": "#E8512A",
-   "accentSoft": "#E8512A33",
-   "good": "#4E9A5B",
-   "bad": "#C94A3A"
+  "id": "stickman-3d",
+  "name": "3D stickman",
+  "family": "3d",
+  "description": "Simple expressive stick figures acting in bright minimal studio sets. Comedy, 'what if' and survival explainers.",
+  "tokens": {
+    "colors": {
+      "bg": "#F1EBDF",
+      "ink": "#17171D",
+      "ink2": "#17171D",
+      "muted": "#7a746a",
+      "card": "#FFFFFF",
+      "accent": "#E8512A",
+      "accentSoft": "#E8512A33",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 260,
+      "content_bottom": 1340
+    },
+    "chrome": "sticker"
   },
-  "fonts": {
-   "sans": "Inter",
-   "serif": "InstrumentSerif",
-   "mono": "JetBrainsMono"
+  "effects": {
+    "dots": 0.5,
+    "vignette": 0.12
   },
-  "safe_zone": {
-   "top": 180,
-   "bottom": 1380,
-   "caption_y": 1440,
-   "right_margin": 120
-  }
- },
- "effects": {
-  "vignette": 0.1
- },
- "rules": [
-  "White round head, black limbs, big readable face; pose and mood carry the joke.",
-  "Bright flat studio; one prop per shot.",
-  "Exaggerate poses (panic, cheer, shrug); hold them for a beat.",
-  "Cut on action; whip transition into a surprise.",
-  "Captions big, low, one accent word."
- ],
- "components": [
-  "Scene3D",
-  "BigStat",
-  "Versus",
-  "Highlight",
-  "KineticList",
-  "Stamp",
-  "CommentBox"
- ],
- "camera_language": "Medium and close; punch-in on the punchline.",
- "typography": "Heavy sans, black on light.",
- "transitions": [
-  "cut",
-  "whip",
-  "zoom"
- ],
- "audio_direction": "bed, boing/pop on gags, thud on falls",
- "pitfalls": [
-  "Faces too small to read.",
-  "Idle poses for more than 2 s.",
-  "Props floating in front of the face."
- ],
- "references": [
-  "reference videos (stickman shorts)"
- ],
- "defaults": {
-  "captions": "word-pop",
-  "shot_seconds": [
-   1.5,
-   3
+  "rules": [
+    "White round head, black limbs, big readable face; pose and mood carry the joke.",
+    "Bright flat studio; one prop per shot.",
+    "Exaggerate poses (panic, cheer, shrug); hold them for a beat.",
+    "Cut on action; whip transition into a surprise.",
+    "Captions big, low, one accent word."
   ],
-  "music": "bed",
-  "scene3d": {
-   "set": "studio",
-   "light": "studio",
-   "characters": [
-    {
-     "variant": "stick",
-     "pose": "idle",
-     "mood": "happy"
+  "components": [
+    "Scene3D",
+    "BigStat",
+    "Versus",
+    "Highlight",
+    "KineticList",
+    "Stamp",
+    "CommentBox"
+  ],
+  "camera_language": "Medium and close; punch-in on the punchline.",
+  "typography": "Heavy sans, black on light.",
+  "transitions": [
+    "cut",
+    "whip",
+    "zoom"
+  ],
+  "audio_direction": "bed, boing/pop on gags, thud on falls",
+  "pitfalls": [
+    "Faces too small to read.",
+    "Idle poses for more than 2 s.",
+    "Props floating in front of the face."
+  ],
+  "references": [
+    "reference videos (stickman shorts)"
+  ],
+  "defaults": {
+    "captions": "word-pop",
+    "shot_seconds": [
+      1.5,
+      3
+    ],
+    "music": "bed",
+    "scene3d": {
+      "set": "studio",
+      "light": "studio",
+      "characters": [
+        {
+          "variant": "stick",
+          "pose": "idle",
+          "mood": "happy"
+        }
+      ],
+      "bg": "#F1EBDF"
     }
-   ]
   }
- }
 }

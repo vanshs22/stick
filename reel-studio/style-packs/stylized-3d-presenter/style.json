@@ -1,110 +1,111 @@
 {
- "id": "stylized-3d-presenter",
- "name": "Stylized 3D presenter",
- "family": "3d",
- "description": "Faceted low-poly person at a desk at night, city bokeh, little helper creatures. Dialogue and tech-story comedy.",
- "tokens": {
-  "colors": {
-   "bg": "#070A1C",
-   "ink": "#FFFFFF",
-   "ink2": "#FFFFFF",
-   "muted": "#9aa6d6",
-   "card": "#12162f",
-   "accent": "#F4CB3A",
-   "accentSoft": "#F4CB3A33",
-   "good": "#4E9A5B",
-   "bad": "#C94A3A"
-  },
-  "fonts": {
-   "sans": "Inter",
-   "serif": "InstrumentSerif",
-   "mono": "JetBrainsMono"
-  },
-  "safe_zone": {
-   "top": 180,
-   "bottom": 1380,
-   "caption_y": 1440,
-   "right_margin": 120,
-   "content_top": 330,
-   "content_bottom": 1120
-  },
-  "chrome": "glass"
- },
- "effects": {
-  "bokeh": true,
-  "vignette": 0.35,
-  "grain": 0.05
- },
- "rules": [
-  "Warm key light on the face, cool rim; the face is always readable (check luma).",
-  "Close-ups for emotion, medium with the desk for context, wide only to set the place.",
-  "Helpers (box, screen, cloud) react on key words; speech is the presenter's mouth.",
-  "Captions small and calm at the bottom; speaker changes shown in the caption colour.",
-  "Original characters only."
- ],
- "components": [
-  "Scene3D",
-  "Terminal",
-  "ChatBubbles",
-  "Typewriter",
-  "CommentBox",
-  "Highlight"
- ],
- "camera_language": "Slow push-ins; close-up on reactions; desk shot for 2-character beats.",
- "typography": "Phrase captions, serif accent.",
- "transitions": [
-  "cut",
-  "fade",
-  "dip"
- ],
- "audio_direction": "calm bed, keyboard type sounds, soft pop on helper reactions",
- "pitfalls": [
-  "Orange face from a warm light that is too strong.",
-  "Lower face lost in shadow.",
-  "Helpers hidden behind the desk."
- ],
- "references": [
-  "reference videos ref1, ref4"
- ],
- "defaults": {
-  "captions": "dialogue",
-  "shot_seconds": [
-   2,
-   4
-  ],
-  "music": "bed",
-  "scene3d": {
-   "set": "desk-night",
-   "light": "night",
-   "characters": [
-    {
-     "variant": "lowpoly",
-     "pose": "idle",
-     "mood": "calm",
-     "skin": "#F1CBA8",
-     "shirt": "#F4CB3A",
-     "hair": "#3a2418",
-     "glasses": true
-    }
-   ],
-   "creatures": [
-    {
-     "kind": "cloud",
-     "x": -0.5,
-     "y": 0.83,
-     "z": 0.9,
-     "scale": 0.8,
-     "color": "#4a46c9"
+  "id": "stylized-3d-presenter",
+  "name": "Stylized 3D presenter",
+  "family": "3d",
+  "description": "Faceted low-poly person at a desk at night, city bokeh, little helper creatures. Dialogue and tech-story comedy.",
+  "tokens": {
+    "colors": {
+      "bg": "#0d1536",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#9aa6d6",
+      "card": "#12162f",
+      "accent": "#F4CB3A",
+      "accentSoft": "#F4CB3A33",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
     },
-    {
-     "kind": "screen",
-     "x": -1.0,
-     "y": 0.83,
-     "z": 0.9,
-     "scale": 0.8,
-     "color": "#232329"
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 330,
+      "content_bottom": 1120
+    },
+    "chrome": "glass"
+  },
+  "effects": {
+    "bokeh": 10,
+    "vignette": 0.35,
+    "grain": 0.05
+  },
+  "rules": [
+    "Warm key light on the face, cool rim; the face is always readable (check luma).",
+    "Close-ups for emotion, medium with the desk for context, wide only to set the place.",
+    "Helpers (box, screen, cloud) react on key words; speech is the presenter's mouth.",
+    "Captions small and calm at the bottom; speaker changes shown in the caption colour.",
+    "Original characters only."
+  ],
+  "components": [
+    "Scene3D",
+    "Terminal",
+    "ChatBubbles",
+    "Typewriter",
+    "CommentBox",
+    "Highlight"
+  ],
+  "camera_language": "Slow push-ins; close-up on reactions; desk shot for 2-character beats.",
+  "typography": "Phrase captions, serif accent.",
+  "transitions": [
+    "cut",
+    "fade",
+    "dip"
+  ],
+  "audio_direction": "calm bed, keyboard type sounds, soft pop on helper reactions",
+  "pitfalls": [
+    "Orange face from a warm light that is too strong.",
+    "Lower face lost in shadow.",
+    "Helpers hidden behind the desk."
+  ],
+  "references": [
+    "reference videos ref1, ref4"
+  ],
+  "defaults": {
+    "captions": "dialogue",
+    "shot_seconds": [
+      2,
+      4
+    ],
+    "music": "bed",
+    "scene3d": {
+      "set": "desk-night",
+      "light": "night",
+      "characters": [
+        {
+          "variant": "lowpoly",
+          "pose": "idle",
+          "mood": "calm",
+          "skin": "#F1CBA8",
+          "shirt": "#F4CB3A",
+          "hair": "#3a2418",
+          "glasses": true
+        }
+      ],
+      "creatures": [
+        {
+          "kind": "cloud",
+          "x": -0.5,
+          "y": 0.83,
+          "z": 0.9,
+          "scale": 0.8,
+          "color": "#4a46c9"
+        },
+        {
+          "kind": "screen",
+          "x": -1.0,
+          "y": 0.83,
+          "z": 0.9,
+          "scale": 0.8,
+          "color": "#232329"
+        }
+      ],
+      "bg": "#0d1536"
     }
-   ]
   }
- }
 }

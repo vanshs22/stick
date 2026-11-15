@@ -1,85 +1,88 @@
 {
- "id": "roblox-inspired",
- "name": "Roblox-inspired world",
- "family": "3d",
- "description": "A bright blocky town in the sky with simple block characters; one huge yellow word at a time. Story and 'did you know' videos.",
- "tokens": {
-  "colors": {
-   "bg": "#8CC8F6",
-   "ink": "#111111",
-   "ink2": "#111111",
-   "muted": "#4a6a8a",
-   "card": "#FFFFFF",
-   "accent": "#FFE600",
-   "accentSoft": "#FFE60044",
-   "good": "#4E9A5B",
-   "bad": "#C94A3A"
+  "id": "roblox-inspired",
+  "name": "Roblox-inspired world",
+  "family": "3d",
+  "description": "A bright blocky town in the sky with simple block characters; one huge yellow word at a time. Story and 'did you know' videos.",
+  "tokens": {
+    "colors": {
+      "bg": "#8CC8F6",
+      "ink": "#111111",
+      "ink2": "#111111",
+      "muted": "#4a6a8a",
+      "card": "#FFFFFF",
+      "accent": "#FFE600",
+      "accentSoft": "#FFE60044",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 260,
+      "content_bottom": 1340
+    },
+    "caption": {
+      "fill": "#FFE600"
+    },
+    "chrome": "sticker"
   },
-  "fonts": {
-   "sans": "Inter",
-   "serif": "InstrumentSerif",
-   "mono": "JetBrainsMono"
-  },
-  "safe_zone": {
-   "top": 180,
-   "bottom": 1380,
-   "caption_y": 1440,
-   "right_margin": 120
-  },
-  "caption": {
-   "fill": "#FFE600"
-  }
- },
- "effects": {},
- "rules": [
-  "Original block characters and worlds; never recreate Roblox characters or logos.",
-  "One word on screen at a time, big, yellow, black outline-like shadow.",
-  "Camera moves every shot: tilt up, drift, orbit; shots 1 to 2.5 s.",
-  "The world itself tells the story: scale, height, contrast between places.",
-  "Bright sky colours; always readable."
- ],
- "components": [
-  "Scene3D",
-  "BigStat",
-  "BarChart",
-  "Timeline"
- ],
- "camera_language": "Dynamic: low-angle tilt-ups, orbit, drift; fov 36-60.",
- "typography": "One-word captions, 118 px.",
- "transitions": [
-  "whip",
-  "cut",
-  "zoom"
- ],
- "audio_direction": "light bed, whoosh on every camera move, pop on reveals",
- "pitfalls": [
-  "Too many words per caption.",
-  "Static camera.",
-  "Characters tiny in wide shots with nothing to see."
- ],
- "references": [
-  "reference video ref8"
- ],
- "defaults": {
-  "captions": "one-word",
-  "shot_seconds": [
-   1,
-   2.5
+  "effects": {},
+  "rules": [
+    "Original block characters and worlds; never recreate Roblox characters or logos.",
+    "One word on screen at a time, big, yellow, black outline-like shadow.",
+    "Camera moves every shot: tilt up, drift, orbit; shots 1 to 2.5 s.",
+    "The world itself tells the story: scale, height, contrast between places.",
+    "Bright sky colours; always readable."
   ],
-  "music": "bed",
-  "scene3d": {
-   "set": "block-world",
-   "light": "bright-sky",
-   "characters": [
-    {
-     "variant": "blocky",
-     "pose": "idle",
-     "mood": "happy",
-     "skin": "#F4C98C",
-     "shirt": "#2f7f4a",
-     "hair": "#3a2a1a"
+  "components": [
+    "Scene3D",
+    "BigStat",
+    "BarChart",
+    "Timeline"
+  ],
+  "camera_language": "Dynamic: low-angle tilt-ups, orbit, drift; fov 36-60.",
+  "typography": "One-word captions, 118 px.",
+  "transitions": [
+    "whip",
+    "cut",
+    "zoom"
+  ],
+  "audio_direction": "light bed, whoosh on every camera move, pop on reveals",
+  "pitfalls": [
+    "Too many words per caption.",
+    "Static camera.",
+    "Characters tiny in wide shots with nothing to see."
+  ],
+  "references": [
+    "reference video ref8"
+  ],
+  "defaults": {
+    "captions": "one-word",
+    "shot_seconds": [
+      1,
+      2.5
+    ],
+    "music": "bed",
+    "scene3d": {
+      "set": "block-world",
+      "light": "bright-sky",
+      "characters": [
+        {
+          "variant": "blocky",
+          "pose": "idle",
+          "mood": "happy",
+          "skin": "#F4C98C",
+          "shirt": "#2f7f4a",
+          "hair": "#3a2a1a"
+        }
+      ]
     }
-   ]
   }
- }
 }

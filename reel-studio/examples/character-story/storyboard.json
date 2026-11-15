@@ -250,8 +250,7 @@
   {
    "id": "S06",
    "line_ids": [
-    "L07",
-    "L08"
+    "L07"
    ],
    "visual_intent": "comment call to action",
    "shot_type": "ui",
@@ -273,7 +272,70 @@
      "anchor": "k",
      "offset": 0.4
     }
-   ]
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "happy sign-off",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "desk-night",
+    "characters": [
+     {
+      "variant": "lowpoly",
+      "glasses": true,
+      "skin": "#F1CBA8",
+      "shirt": "#F4CB3A",
+      "hair": "#3a2418",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.5,
+        "cheer"
+       ]
+      ],
+      "mood": "happy"
+     }
+    ],
+    "camera": {
+     "shot": "hero",
+     "move": "push"
+    }
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "at": "start",
+     "offset": 0.1,
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "SAVE THIS",
+     "color": "#F4CB3A",
+     "rotate": -5,
+     "x": 330,
+     "y": 420
+    }
+   ],
+   "speaker": "Me"
   }
  ]
 }

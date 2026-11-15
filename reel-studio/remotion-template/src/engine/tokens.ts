@@ -17,7 +17,7 @@ export const CHROME: string = (style as any).chrome || 'clean';
 /** named background colours a shot can switch to with `bg` (ref6 changes colour per section) */
 export const BGS: Record<string, string> = {paper: C.bg, ...((style as any).bgs || {})};
 export const PRESENTER = (style as any).presenter as undefined | Record<string, any>;
-export const CAPTION = {fill: '#fff', stroke: 'rgba(0,0,0,0.55)', ...((style as any).caption || {})} as {fill: string; stroke: string};
+export const CAPTION = {fill: '#fff', stroke: 'rgba(8,8,20,0.92)', ...((style as any).caption || {})} as {fill: string; stroke: string};
 export const STYLE_ID: string = (style as any).id;
 export const W = 1080;
 export const H = 1920;

@@ -1,15 +1,17 @@
 import React from 'react';
-import {AbsoluteFill} from 'remotion';
+import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {C, CHROME, F, SAFE} from '../engine/tokens';
 
 export const SHADOW = '0 1px 3px rgba(20,20,19,0.06), 0 14px 40px rgba(20,20,19,0.12), 0 40px 100px rgba(20,20,19,0.14)';
 
 /** content area between style.json safe_zone.content_top and content_bottom; cards are designed for ~1000 px and shrink to fit a smaller zone (packs with a presenter or step labels) */
 export const Zone: React.FC<{children: React.ReactNode; style?: React.CSSProperties}> = ({children, style}) => {
-  const zh = SAFE.content_bottom - SAFE.content_top, k = Math.min(1, zh / 1020);
+  const zh = SAFE.content_bottom - SAFE.content_top, k = Math.min(1, zh / 1020), fr = useCurrentFrame();
+  // cards are never frozen: slow float, tilt and push-in
+  const mv = `translateY(${Math.sin(fr / 21) * 9}px) rotate(${Math.sin(fr / 34) * 0.45}deg) scale(${k * (1 + (fr % 150) * 0.00022)})`;
   return (
     <AbsoluteFill style={{top: SAFE.content_top, height: 'auto', bottom: 1920 - SAFE.content_bottom, justifyContent: 'center', alignItems: 'center', padding: '0 70px', ...style}}>
-      <div style={{transform: `scale(${k})`, transformOrigin: 'center center'}}>{children}</div>
+      <div style={{transform: mv, transformOrigin: 'center center'}}>{children}</div>
     </AbsoluteFill>
   );
 };

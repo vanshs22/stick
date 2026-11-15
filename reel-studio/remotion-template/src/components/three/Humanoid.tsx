@@ -19,18 +19,19 @@ export const Humanoid: React.FC<HumanProps> = ({variant = 'voxel', x = 0, z = 0,
   skin = '#B07A50', shirt = '#333344', pants = '#26305c', hair = '#17110d', shoe = '#e8e8ea', hairStyle, beard = false, glasses = false, badge}) => {
   const P = poseAt(pose as any, lt), M = moodAt(mood as any, lt);
   const walk = P.walk ? Math.sin(t * 6 + seed) : 0, sway = Math.sin(t * 2.3 + seed) * 0.01;
-  const low = variant === 'lowpoly', stick = variant === 'stick', noir = variant === 'noir', limbR = variant === 'voxel' ? 0.052 : variant === 'blocky' ? 0.06 : stick ? 0.022 : low ? 0.042 : 0.05;
-  const round = low || stick || variant === 'blocky' || noir, bodyCol = noir ? '#16161b' : shirt, skinCol = noir ? '#16161b' : stick ? '#f4f1ea' : skin, pantsCol = noir ? '#16161b' : stick ? '#111' : pants;
-  const hs = variant === 'voxel' ? 0.44 : variant === 'blocky' ? 0.34 : low ? 0.4 : 0.34, bob = Math.abs(walk) * 0.03;
+  const low = variant === 'lowpoly', stick = variant === 'stick', noir = variant === 'noir', limbR = variant === 'voxel' ? 0.052 : variant === 'blocky' ? 0.06 : stick ? 0.04 : low ? 0.042 : 0.05;
+  const ink = '#17171d', scarf = stick && shirt === '#333344' ? '#F2C12E' : shirt;
+  const round = low || stick || variant === 'blocky' || noir, bodyCol = noir ? '#16161b' : stick ? '#17171d' : shirt, skinCol = noir ? '#16161b' : stick ? '#f4f1ea' : skin, pantsCol = noir ? '#16161b' : stick ? '#111' : pants;
+  const hs = variant === 'voxel' ? 0.44 : variant === 'blocky' ? 0.34 : low ? 0.4 : stick ? 0.42 : 0.34, bob = Math.abs(walk) * 0.03;
   const cv = useMemo(() => { const c = document.createElement('canvas'); c.width = c.height = 256; return c; }, []);
   const tex = useMemo(() => { const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; return tx; }, [cv]);
   drawFace(cv.getContext('2d')!, variant, M, talk, t, glasses); tex.needsUpdate = true;
   const arm = (side: 1 | -1, a: [number, number]) => (
-    <group position={[side * (variant === 'voxel' ? 0.27 : 0.23), 1.38, 0]} rotation={[side * walk * 0.5, 0, side * rad(a[0] + 3 * Math.sin(t * 2.3 + side))]}>
-      <Limb len={0.34} r={limbR} color={low || variant === 'voxel' ? bodyCol : skinCol} round={round} />
+    <group position={[side * (variant === 'voxel' ? 0.27 : stick ? 0.07 : 0.23), 1.38, 0]} rotation={[side * walk * 0.5, 0, side * rad(a[0] + 3 * Math.sin(t * 2.3 + side))]}>
+      <Limb len={0.34} r={limbR} color={low || variant === 'voxel' ? bodyCol : stick ? ink : skinCol} round={round} />
       <group position={[0, -0.34, 0]} rotation={[-rad(a[1]), 0, 0]}>
-        <Limb len={0.32} r={limbR * 0.92} color={skinCol} round={round} />
-        <mesh position={[0, -0.34, 0]}>{low ? <icosahedronGeometry args={[0.05, 0]} /> : stick ? <sphereGeometry args={[0.04, 10, 8]} /> : <boxGeometry args={[0.09, 0.09, 0.09]} />}{lam(skinCol)}</mesh>
+        <Limb len={0.32} r={limbR * 0.92} color={stick ? ink : skinCol} round={round} />
+        <mesh position={[0, -0.34, 0]}>{low ? <icosahedronGeometry args={[0.05, 0]} /> : stick ? <sphereGeometry args={[0.065, 12, 10]} /> : <boxGeometry args={[0.09, 0.09, 0.09]} />}{lam(skinCol)}</mesh>
       </group>
     </group>
   );
@@ -45,7 +46,8 @@ export const Humanoid: React.FC<HumanProps> = ({variant = 'voxel', x = 0, z = 0,
     <group position={[x, bob, z]} rotation={[0, rotY, 0]} scale={scale}>
       {leg(-1)}{leg(1)}
       <group rotation={[rad(P.lean) * 0.4, 0, rad(-P.tilt) * 0.3 + sway]}>
-        <mesh position={[0, 1.15, 0]}>{low ? <cylinderGeometry args={[0.2, 0.17, 0.56, 8]} /> : stick ? <cylinderGeometry args={[0.03, 0.03, 0.56, 8]} /> : noir ? <cylinderGeometry args={[0.2, 0.26, 0.7, 10]} /> : variant === 'blocky' ? <boxGeometry args={[0.46, 0.52, 0.22]} /> : <boxGeometry args={[0.44, 0.56, 0.24]} />}{lam(bodyCol)}</mesh>
+        <mesh position={[0, 1.15, 0]}>{low ? <cylinderGeometry args={[0.2, 0.17, 0.56, 8]} /> : stick ? <cylinderGeometry args={[0.055, 0.045, 0.56, 12]} /> : noir ? <cylinderGeometry args={[0.2, 0.26, 0.7, 10]} /> : variant === 'blocky' ? <boxGeometry args={[0.46, 0.52, 0.22]} /> : <boxGeometry args={[0.44, 0.56, 0.24]} />}{lam(bodyCol)}</mesh>
+        {stick ? <><mesh position={[0, 1.44, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.085, 0.04, 10, 22]} />{lam(scarf)}</mesh><mesh position={[0.09, 1.31, 0.06]} rotation={[0, 0, 0.2]}><boxGeometry args={[0.07, 0.24, 0.03]} />{lam(scarf)}</mesh></> : null}
         {badge ? <mesh position={[0.1, 1.2, 0.125]}><boxGeometry args={[0.07, 0.07, 0.01]} />{lam(badge)}</mesh> : null}
         {arm(-1, P.aL)}{arm(1, P.aR)}
         <group position={[0, 1.62, 0]} rotation={[0, Math.sin(t * 0.8 + seed) * 0.12, rad(-P.tilt) * 0.5]}>

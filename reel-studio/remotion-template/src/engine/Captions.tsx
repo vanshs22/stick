@@ -6,7 +6,7 @@ import type {Chunk, Timeline} from './types';
 
 type Pre = {size: number; weight: number; boxed: boolean; serif?: boolean};
 const PRESETS: Record<string, Pre> = {
-  'word-pop': {size: 64, weight: 800, boxed: false},
+  'word-pop': {size: 76, weight: 900, boxed: false},
   'one-word': {size: 118, weight: 900, boxed: false},
   boxed: {size: 62, weight: 800, boxed: true},
   phrase: {size: 58, weight: 500, boxed: false, serif: true},
@@ -50,7 +50,7 @@ export const Captions: React.FC<{timeline: Timeline; show?: boolean}> = ({timeli
     </div>);
   return (
     <div style={{position: 'absolute', left: 60, right: SAFE.right_margin, top: SAFE.caption_y, textAlign: 'center', fontWeight: pre.weight, fontSize: pre.size, lineHeight: 1.15, letterSpacing: '-0.01em'}}>
-      <div style={{display: 'inline-block', ...(pre.boxed ? {background: 'rgba(255,255,255,0.94)', borderRadius: 26, padding: '12px 30px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.18)'} : {textShadow: '0 4px 18px rgba(0,0,0,0.55)', WebkitTextStroke: `${Math.round(pre.size / 8)}px ${CAPTION.stroke}`, paintOrder: 'stroke fill'} as React.CSSProperties)}}>
+      <div style={{display: 'inline-block', ...(pre.boxed ? {background: 'rgba(255,255,255,0.94)', borderRadius: 26, padding: '12px 30px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.18)'} : {textShadow: '0 4px 18px rgba(0,0,0,0.55)', WebkitTextStroke: `${Math.round(pre.size / 6.5)}px ${CAPTION.stroke}`, paintOrder: 'stroke fill'} as React.CSSProperties)}}>
         {chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} />)}
       </div>
     </div>

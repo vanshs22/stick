@@ -44,7 +44,7 @@
      }
     ],
     "camera": {
-     "shot": "presenter",
+     "shot": "medium",
      "move": "push"
     }
    },
@@ -200,7 +200,7 @@
      }
     ],
     "camera": {
-     "shot": "presenter",
+     "shot": "medium",
      "move": "push"
     }
    },
@@ -240,8 +240,7 @@
   {
    "id": "S05",
    "line_ids": [
-    "L06",
-    "L07"
+    "L06"
    ],
    "visual_intent": "comment call to action",
    "shot_type": "ui",
@@ -269,6 +268,77 @@
      "text": "Comment to get every step",
      "n": 5,
      "of": 5
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "happy sign-off",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "starfield",
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.5,
+      "z": 0.5,
+      "scale": 1.1,
+      "color": "#F0683C"
+     }
+    ],
+    "characters": [
+     {
+      "variant": "voxel",
+      "skin": "#A8704A",
+      "shirt": "#5a5a72",
+      "hair": "#14100c",
+      "beard": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.5,
+        "cheer"
+       ]
+      ],
+      "mood": "happy"
+     }
+    ],
+    "camera": {
+     "shot": "hero",
+     "move": "push"
+    }
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "at": "start",
+     "offset": 0.1,
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "SAVE THIS",
+     "color": "#FFD84A",
+     "rotate": -5,
+     "x": 330,
+     "y": 420
     }
    ]
   }

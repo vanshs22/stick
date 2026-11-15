@@ -1,0 +1,287 @@
+{
+ "style_pack": "stickman-3d",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "the question",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [
+     {
+      "variant": "stick",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.9,
+        "think"
+       ]
+      ],
+      "mood": "worried"
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "n",
+     "line": "L01",
+     "word": "never"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "n",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// WHAT IF",
+     "right": "NO SLEEP"
+    }
+   ]
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "day one fine",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [
+     {
+      "variant": "stick",
+      "pose": "cheer",
+      "mood": "happy"
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "drift"
+    }
+   },
+   "anchors": [
+    {
+     "name": "f",
+     "line": "L02",
+     "word": "fine"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "sparkle",
+     "anchor": "f",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "DAY 1",
+     "color": "#F2C12E",
+     "rotate": -5,
+     "x": 320,
+     "y": 300
+    }
+   ]
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "day three hallucinations",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [
+     {
+      "variant": "stick",
+      "pose": [
+       [
+        0,
+        "slump"
+       ],
+       [
+        0.8,
+        "panic"
+       ]
+      ],
+      "mood": "scared"
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "cloud",
+      "x": 0.9,
+      "y": 1.5,
+      "z": 0.2,
+      "scale": 1.2,
+      "color": "#7a5cd1"
+     }
+    ],
+    "camera": {
+     "shot": "close",
+     "move": "orbit"
+    }
+   },
+   "anchors": [
+    {
+     "name": "t",
+     "line": "L03",
+     "word": "things"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "heartbeat",
+     "anchor": "t",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "DAY 3",
+     "color": "#F2C12E",
+     "rotate": 4,
+     "x": 320,
+     "y": 300
+    }
+   ]
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "day ten collapse",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [
+     {
+      "variant": "stick",
+      "pose": "cower",
+      "mood": "sad",
+      "x": 0.2
+     }
+    ],
+    "camera": {
+     "shot": "desk",
+     "move": "pull"
+    }
+   },
+   "anchors": [
+    {
+     "name": "b",
+     "line": "L04",
+     "word": "brain"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "thud",
+     "anchor": "b",
+     "gain": 0.6
+    }
+   ],
+   "transition_out": {
+    "type": "mask",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "DAY 10",
+     "color": "#E5322D",
+     "rotate": -4,
+     "x": 320,
+     "y": 300
+    }
+   ]
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "verdict",
+   "shot_type": "typography",
+   "component": "Stamp",
+   "props": {
+    "text": "NOT OPTIONAL",
+    "color": "#E5322D",
+    "rotate": -7,
+    "size": 120
+   },
+   "anchors": [
+    {
+     "name": "o",
+     "line": "L05",
+     "word": "optional"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "stamp",
+     "anchor": "o",
+     "gain": 0.7
+    }
+   ],
+   "transition_out": {
+    "type": "zoom",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "cta",
+   "shot_type": "typography",
+   "component": "EndCard",
+   "props": {
+    "headline": "Follow for more what ifs",
+    "accent": "what",
+    "cta": "Comment SLEEP",
+    "handle": "@reelstudio"
+   },
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   }
+  }
+ ]
+}

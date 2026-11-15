@@ -1,110 +1,111 @@
 {
- "id": "voxel-explainer",
- "name": "Voxel explainer",
- "family": "3d",
- "description": "Blocky voxel presenter and a little box creature on a deep-blue starfield, step chips and cards. Friendly tech explainer.",
- "tokens": {
-  "colors": {
-   "bg": "#22349F",
-   "ink": "#FFFFFF",
-   "ink2": "#FFFFFF",
-   "muted": "#B8C2FF",
-   "card": "#141D5F",
-   "accent": "#FFD84A",
-   "accentSoft": "#FFD84A33",
-   "good": "#4E9A5B",
-   "bad": "#C94A3A"
+  "id": "voxel-explainer",
+  "name": "Voxel explainer",
+  "family": "3d",
+  "description": "Blocky voxel presenter and a little box creature on a deep-blue starfield, step chips and cards. Friendly tech explainer.",
+  "tokens": {
+    "colors": {
+      "bg": "#1B1470",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#B8C2FF",
+      "card": "#141D5F",
+      "accent": "#FFD84A",
+      "accentSoft": "#FFD84A33",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 230,
+      "content_bottom": 1120
+    },
+    "chrome": "glass",
+    "caption": {
+      "fill": "#ffffff"
+    }
   },
-  "fonts": {
-   "sans": "Inter",
-   "serif": "InstrumentSerif",
-   "mono": "JetBrainsMono"
+  "effects": {
+    "bokeh": true,
+    "vignette": 0.25
   },
-  "safe_zone": {
-   "top": 180,
-   "bottom": 1380,
-   "caption_y": 1440,
-   "right_margin": 120,
-   "content_top": 230,
-   "content_bottom": 1120
-  },
-  "chrome": "glass",
-  "caption": {
-   "fill": "#ffffff"
-  }
- },
- "effects": {
-  "bokeh": true,
-  "vignette": 0.25
- },
- "rules": [
-  "A 3D voxel presenter in the lower half, cards in the upper half, captions at the bottom.",
-  "A companion creature reacts (hops) on the key word of the shot.",
-  "Step chips (STEP 1 .. n) appear top centre with the card.",
-  "Hero shirt must be lighter than the background (readability): check luma.",
-  "Yellow is the accent: one yellow word in captions."
- ],
- "components": [
-  "Scene3D",
-  "Terminal",
-  "BrowserWindow",
-  "CommentBox",
-  "Checklist",
-  "BigStat",
-  "KineticList"
- ],
- "camera_language": "Medium shot mostly, slow push; close only for reactions.",
- "typography": "Heavy sans, white with yellow accent.",
- "transitions": [
-  "cut",
-  "zoom",
-  "whip"
- ],
- "audio_direction": "upbeat groove, pop on card, tick on step chip, hop = boing",
- "pitfalls": [
-  "Dark shirt on dark background.",
-  "Creature cropped by the frame edge.",
-  "Cards covering the head."
- ],
- "references": [
-  "reference videos ref7, ref2"
- ],
- "defaults": {
-  "captions": "word-pop",
-  "shot_seconds": [
-   1.5,
-   3
+  "rules": [
+    "A 3D voxel presenter in the lower half, cards in the upper half, captions at the bottom.",
+    "A companion creature reacts (hops) on the key word of the shot.",
+    "Step chips (STEP 1 .. n) appear top centre with the card.",
+    "Hero shirt must be lighter than the background (readability): check luma.",
+    "Yellow is the accent: one yellow word in captions."
   ],
-  "music": "upbeat",
-  "scene3d": {
-   "set": "starfield",
-   "light": "studio",
-   "camera": {
-    "shot": "presenter",
-    "move": "push"
-   },
-   "characters": [
-    {
-     "variant": "voxel",
-     "x": -0.1,
-     "pose": "open",
-     "mood": "happy",
-     "skin": "#A8704A",
-     "shirt": "#5a5a72",
-     "hair": "#14100c",
-     "beard": true,
-     "badge": "#F2C12E"
+  "components": [
+    "Scene3D",
+    "Terminal",
+    "BrowserWindow",
+    "CommentBox",
+    "Checklist",
+    "BigStat",
+    "KineticList"
+  ],
+  "camera_language": "Medium shot mostly, slow push; close only for reactions.",
+  "typography": "Heavy sans, white with yellow accent.",
+  "transitions": [
+    "cut",
+    "zoom",
+    "whip"
+  ],
+  "audio_direction": "upbeat groove, pop on card, tick on step chip, hop = boing",
+  "pitfalls": [
+    "Dark shirt on dark background.",
+    "Creature cropped by the frame edge.",
+    "Cards covering the head."
+  ],
+  "references": [
+    "reference videos ref7, ref2"
+  ],
+  "defaults": {
+    "captions": "word-pop",
+    "shot_seconds": [
+      1.5,
+      3
+    ],
+    "music": "upbeat",
+    "scene3d": {
+      "set": "starfield",
+      "light": "studio",
+      "camera": {
+        "shot": "presenter",
+        "move": "push"
+      },
+      "characters": [
+        {
+          "variant": "voxel",
+          "x": -0.1,
+          "pose": "open",
+          "mood": "happy",
+          "skin": "#A8704A",
+          "shirt": "#5a5a72",
+          "hair": "#14100c",
+          "beard": true,
+          "badge": "#F2C12E"
+        }
+      ],
+      "creatures": [
+        {
+          "kind": "box",
+          "x": 0.8,
+          "z": 0.4,
+          "scale": 1.1,
+          "color": "#F0683C"
+        }
+      ],
+      "bg": "#1B1470"
     }
-   ],
-   "creatures": [
-    {
-     "kind": "box",
-     "x": 0.8,
-     "z": 0.4,
-     "scale": 1.1,
-     "color": "#F0683C"
-    }
-   ]
   }
- }
 }

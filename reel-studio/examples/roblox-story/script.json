@@ -1,0 +1,63 @@
+{
+ "title": "The tower in the sky",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "I built a tower in the sky.",
+   "beat": "hook",
+   "emphasis": [
+    "tower"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "Every block took one whole day.",
+   "beat": "setup",
+   "emphasis": [
+    "day"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "Then a storm rolled in.",
+   "beat": "twist",
+   "emphasis": [
+    "storm"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "The wind shook every floor.",
+   "beat": "twist",
+   "emphasis": [
+    "wind"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "I held on and kept building.",
+   "beat": "step",
+   "emphasis": [
+    "building"
+   ]
+  },
+  {
+   "id": "L06",
+   "text": "Now it touches the clouds.",
+   "beat": "proof",
+   "emphasis": [
+    "clouds"
+   ]
+  },
+  {
+   "id": "L07",
+   "text": "Follow for the next floor.",
+   "beat": "cta",
+   "emphasis": [
+    "Follow"
+   ]
+  }
+ ],
+ "est_seconds": 20
+}

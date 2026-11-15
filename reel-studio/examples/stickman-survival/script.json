@@ -1,0 +1,55 @@
+{
+ "title": "What if you never slept",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "What if you never slept again?",
+   "beat": "hook",
+   "emphasis": [
+    "never"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "Day one, you feel fine.",
+   "beat": "step",
+   "emphasis": [
+    "fine"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "Day three, you start seeing things.",
+   "beat": "step",
+   "emphasis": [
+    "things"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "Day ten, your brain shuts down.",
+   "beat": "twist",
+   "emphasis": [
+    "brain"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "Sleep is not optional.",
+   "beat": "proof",
+   "emphasis": [
+    "optional"
+   ]
+  },
+  {
+   "id": "L06",
+   "text": "Follow for more what ifs.",
+   "beat": "cta",
+   "emphasis": [
+    "Follow"
+   ]
+  }
+ ],
+ "est_seconds": 20
+}
