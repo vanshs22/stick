@@ -4,10 +4,12 @@
 //   node scripts/install.mjs                      global install in your home folder
 //   node scripts/install.mjs --into <project>     install only into one project folder
 //   node scripts/install.mjs --copy               copy instead of symlink (Windows / zip hand-off)
+//   (also installs the official Remotion agent skills; skip with --no-remotion)
 // Also writes ~/.reel-studio/toolkit (the toolkit path) so every skill can find its tools.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), a = process.argv.slice(2), into = a.includes('--into') ? path.resolve(a[a.indexOf('--into') + 1]) : null, copy = a.includes('--copy');
@@ -17,5 +19,6 @@ for (const b of bases) for (const [name, src] of skills) {
   const dst = path.join(root, b, name); fs.mkdirSync(path.dirname(dst), { recursive: true }); fs.rmSync(dst, { recursive: true, force: true });
   if (copy) fs.cpSync(src, dst, { recursive: true, filter: (f) => !/node_modules|reel-projects|[\\/]\.git([\\/]|$)/.test(f) }); else fs.symlinkSync(src, dst, 'dir');
 }
-fs.mkdirSync(path.join(os.homedir(), '.reel-studio'), { recursive: true }); fs.writeFileSync(path.join(os.homedir(), '.reel-studio/toolkit'), TK);
-console.log(`installed ${skills.length} skills (${copy ? 'copied' : 'linked'}) into ${bases.map((b) => path.join(root, b)).join(', ')}\ntoolkit path saved to ~/.reel-studio/toolkit\nnext: npx skills add remotion-dev/skills   then   node ${TK}/tools/doctor.mjs`);
+const RH = process.env.REEL_STUDIO_HOME || path.join(os.homedir(), '.reel-studio'); fs.mkdirSync(RH, { recursive: true }); fs.writeFileSync(path.join(RH, 'toolkit'), TK);
+if (!a.includes('--no-remotion')) { const r = spawnSync('node', [path.join(TK, 'scripts/install_remotion_skills.mjs'), ...(into ? ['--into', into] : [])], { encoding: 'utf8' }); console.log((r.stdout + r.stderr).trim()); }
+console.log(`installed ${skills.length} skills (${copy ? 'copied' : 'linked'}) into ${bases.map((b) => path.join(root, b)).join(', ')}\ntoolkit path saved to ~/.reel-studio/toolkit\nnext: node ${TK}/tools/doctor.mjs`);

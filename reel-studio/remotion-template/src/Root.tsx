@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Composition, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Composition, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import {Audio} from '@remotion/media';
 import timeline from './data/timeline.json';
 import type {Timeline} from './engine/types';
 import {C} from './engine/tokens';

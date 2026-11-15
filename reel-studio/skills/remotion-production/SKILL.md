@@ -5,7 +5,7 @@ description: Builds the video in Remotion (React) from the approved storyboard -
 
 # Remotion production
 
-Read the official `remotion-best-practices` skill too (installed with `npx skills add remotion-dev/skills`). The project is `$P/remotion/`.
+FIRST run `node $TK/tools/rs.mjs router markup timing sequencing` (the official Remotion rules, installed by `scripts/install.mjs`) and follow them. Never write Remotion code before reading them. The project is `$P/remotion/`.
 
 ## Setup
 `cd $P/remotion && npm install` once. The timeline comes from `src/data/timeline.json` (built by `tools/timing/build_timeline.mjs`; never edit by hand). Style tokens are in `src/data/style.json`.
@@ -39,3 +39,12 @@ Read the official `remotion-best-practices` skill too (installed with `npx skill
 - `useEnter(shot, anchor, delay)` gives the standard entrance and exit (`a`, `vis`, `out`, `lt`): use it in every new component.
 - Full test of the pipeline in one command: `bash $TK/scripts/e2e.sh <projectDir> [--no-voice] [--scale 0.5]` (project from `node $TK/tools/run_example.mjs <example> <name>`).
 - Preview galleries: `node $TK/tools/gallery.mjs $P --kind styles|typography|captions` -> `review/gallery-<kind>.jpg`.
+
+## Official rules we follow (from remotion-dev/skills)
+- Keep `useCurrentFrame()` in the smallest component that needs it; get `fps` from `useVideoConfig()` for every seconds-to-frames conversion; never CSS `transition`/`animation` or Tailwind animation classes.
+- Audio comes from `@remotion/media` (`import {Audio} from '@remotion/media'`), not from `remotion`.
+- Hand-drawn annotations (circle, underline, marker, box, strike, bracket) use `@remotion/rough-notation` with `progress` driven by `interpolate` (our `scribble` overlay and `Highlight` component do this). Scene changes with overlap use `TransitionSeries` from `@remotion/transitions` (read `transitions`); our `Transition` wrapper is the simple entrance version.
+- Duration or props that come from data: `calculateMetadata` (read `calculate-metadata`). Ours reads `src/data/timeline.json`; keep it in sync via `build_timeline.mjs`.
+- When the user can open a browser, start `npm run studio` for a live preview BEFORE the long render, and do not render the full video until the user asks or the stills are approved (`rs.mjs studio render`).
+- Before choosing a node's markup, read `timeline-structure` if the video will be edited in Studio afterwards.
+- Licence: free for individuals and small companies, paid above that (`rs.mjs license`); tell the user if their team may need one.

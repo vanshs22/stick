@@ -1,4 +1,5 @@
 import React from 'react';
+import {Highlight as RoughHighlight} from '@remotion/rough-notation';
 import {C, F} from '../engine/tokens';
 import {E, blink, mix, p, typed} from '../engine/anim';
 import {useEnter} from '../engine/time';
@@ -29,21 +30,16 @@ export const Stamp: React.FC<ShotProps> = ({shot, text = 'VERIFIED', anchor, col
   );
 };
 
-/** A sentence where one word gets a marker swipe. props: text, mark (the word), anchor (when the swipe starts), size (84). */
-export const Highlight: React.FC<ShotProps> = ({shot, text = '', mark = '', anchor, size = 84}) => {
+/** A sentence where one word gets a hand-drawn marker (official @remotion/rough-notation). props: text, mark (the word), anchor (when the marker is drawn), size (84), color (marker colour). */
+export const Highlight: React.FC<ShotProps> = ({shot, text = '', mark = '', anchor, size = 84, color}) => {
   const {lt, start, vis} = useEnter(shot, undefined, 0.1);
-  const a = p(lt, anchor && anchor in shot.anchors ? shot.anchors[anchor] - shot.start : start + 0.5, 0.45, E.outExpo);
+  const a = p(lt, anchor && anchor in shot.anchors ? shot.anchors[anchor] - shot.start : start + 0.5, 0.5, E.outExpo);
   return (
     <Zone>
-      <div style={{opacity: vis, fontFamily: F.sans, fontWeight: 800, fontSize: size, lineHeight: 1.18, color: C.ink, textAlign: 'center', letterSpacing: '-0.02em'}}>
+      <div style={{opacity: vis, fontFamily: F.sans, fontWeight: 800, fontSize: size, lineHeight: 1.25, color: C.ink, textAlign: 'center', letterSpacing: '-0.02em'}}>
         {String(text).split(' ').map((w, i) => {
           const hit = w.replace(/[^\w']/g, '').toLowerCase() === String(mark).toLowerCase();
-          return (
-            <span key={i} style={{position: 'relative', display: 'inline-block', marginRight: '0.25em'}}>
-              {hit ? <span style={{position: 'absolute', left: -8, bottom: 4, height: '46%', width: `${a * 108}%`, background: C.accentSoft, zIndex: 0, borderRadius: 8}} /> : null}
-              <span style={{position: 'relative', zIndex: 1, color: hit ? C.accent : C.ink}}>{w}</span>
-            </span>
-          );
+          return <span key={i} style={{display: 'inline-block', marginRight: '0.25em'}}>{hit ? <RoughHighlight color={color || C.accentSoft} progress={a}><span style={{color: C.accent}}>{w}</span></RoughHighlight> : w}</span>;
         })}
       </div>
     </Zone>

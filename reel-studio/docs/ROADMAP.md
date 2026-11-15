@@ -19,3 +19,6 @@ Original plan:
 
 ## Design pass (after milestone 2)
 Studied the reference frames again and added what was missing: an illustrated host (SVG, lip-sync, gestures), 14 overlay graphics (step chips and labels, stickers, tags, cursor with motion lines, scribbles, hearts, calendar, waveform, warning bar, progress card), sticker and glass window looks, per-shot background colours, headline and dialogue captions, repo, profile, ledger, file-list and end cards, a chart wall set, arch-eyed creatures, a close presenter camera, fine dot paper texture, coloured bokeh, and two more style packs (editorial-sticker, voxel-studio). Type-checks clean; nothing rendered yet.
+
+## Official Remotion skills (remotion-dev/skills)
+Installed by `scripts/install.mjs` (checkout in `~/.reel-studio/remotion-skills`, linked as `remotion-best-practices` for Claude Code, OpenCode and .agents). `tools/rs.mjs <topic>` prints any official rule; every skill of ours names the rules to read. The doctor treats a missing install as an error. We use their `@remotion/media` Audio, `@remotion/rough-notation` for hand-drawn annotations, and their rules for 3D, timing, captions, transitions, studio preview and rendering. Not vendored (no licence file in their repo); `--update` pulls the latest.

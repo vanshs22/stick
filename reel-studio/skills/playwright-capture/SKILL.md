@@ -23,3 +23,5 @@ Say what failed (login, geo block, 404, bot protection) and ask the user: use an
 - Every asset gets a manifest entry (source url, capture date, licence note). The final report lists them.
 - Third-party content is shown briefly as quoted evidence with the source named. Photos and logos only when licence allows or they are the subject of the point.
 - Screenshots go through the same safe-zone rule: the important part inside y 180-1380.
+
+To show a captured recording inside the video use `OffthreadVideo` and the official `embedding-videos`, `cropping` rules (`node $TK/tools/rs.mjs embedding-videos cropping`).

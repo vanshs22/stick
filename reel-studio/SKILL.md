@@ -12,7 +12,7 @@ No AI image or video generation, no paid credits. Nothing is shown to the user t
 `TK` = the toolkit folder: `$REEL_STUDIO`, else the path inside `~/.reel-studio/toolkit`. `P` = the project folder (it contains `.toolkit` and `state.json`).
 
 ## 0. First time on this computer
-1. `node $TK/tools/doctor.mjs`, fix every MISSING line (it prints the command). Then `npx skills add remotion-dev/skills` (the official Remotion skills; read `remotion-best-practices` before writing Remotion code).
+1. `node $TK/scripts/install.mjs` once (links these skills AND installs the OFFICIAL Remotion agent skills `remotion-dev/skills`), then `node $TK/tools/doctor.mjs` and fix every MISSING line (it prints the command).
 2. Read `$TK/memory/learnings.md` (lessons from earlier videos) and the creator profile if one exists: `$TK/creator/creator-profile.json`.
 3. New video: `node $TK/tools/new_project.mjs <name> --style <style-pack-id>`. Then `cd` into the project and `cd remotion && npm install` once.
 
@@ -55,3 +55,20 @@ If the user asks for changes, make them, show again, and do not re-ask what they
 
 ## 4. Never
 Upload or publish without being asked and confirmed. Spend the user's money or credits. Overwrite a project the user did not ask you to change. Say "done" about a video you have not watched as stills and checked with the tools.
+
+## Official Remotion rules (mandatory, read before writing Remotion code)
+`node $TK/tools/rs.mjs <topic>` prints the official rule (`rs.mjs list` shows all topics). Read `router` and `markup` first, then the topic for what you are doing:
+| doing | read |
+|---|---|
+| any Remotion code | `router`, `markup`, `timing`, `sequencing`, `timing-props`, `compositions`, `parameters`, `calculate-metadata` |
+| animation, effects | `effects`, `motion-blur`, `light-leaks`, `transitions`, `text-highlights` (hand-drawn circles, underlines, markers: `@remotion/rough-notation`) |
+| text and fonts | `google-fonts`, `local-fonts`, `measuring-text`, `arabic-text` |
+| 3D | `3d` |
+| captions | `captions`, `display-captions`, `transcribe-captions`, `import-srt-captions` |
+| audio, voice, sound | `audio`, `audio-visualization`, `sfx`, `voiceover`, `silence-detection` |
+| media | `images`, `embedding-videos`, `gifs`, `lottie`, `cropping`, `video-editing`, `video-matting`, `multimedia` |
+| multi-scene structure | `multi-scene-video`, `connected-compositions`, `interactivity`, `timeline-structure` |
+| maps (real geography, routes, flyovers) | `maps`, `maps-maplibre`, `maps-mapbox`, `maps-maptiler`, `maps-static-map`, `maps-cesium` |
+| preview and render | `studio`, `render`, `rendering` |
+| licence questions | `license` |
+Where our rules and the official ones differ, the official ones win.

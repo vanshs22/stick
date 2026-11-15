@@ -1,6 +1,6 @@
 # Quickstart (5 minutes)
 
-1. `node scripts/install.mjs` then `npx skills add remotion-dev/skills`.
+1. `node scripts/install.mjs` (installs this toolkit's skills and the official Remotion skills `remotion-dev/skills`).
 2. `node tools/doctor.mjs` and run the fix commands it prints (Python voice tools, ffmpeg, Chrome).
 3. Edit `creator/creator-profile.json` (niche, audience, tone, things to avoid).
 4. Open your agent in an empty folder and say:

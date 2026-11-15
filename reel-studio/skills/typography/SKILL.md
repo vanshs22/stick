@@ -20,3 +20,5 @@ cinematic bold (heavy sans, tight), editorial serif (sans line + italic serif ac
 
 ## Verify
 Render stills with the longest real text, not the sample. Look for clipping, overlaps, orphan words, and a caption that covers the headline.
+
+Official rules: `node $TK/tools/rs.mjs google-fonts local-fonts measuring-text text-highlights arabic-text`. Fit text with `measuring-text` instead of guessing sizes; right-to-left and Arabic text needs `arabic-text`.

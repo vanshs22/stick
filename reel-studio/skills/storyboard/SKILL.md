@@ -47,3 +47,5 @@ A strong shot = one main component + a few graphics on top + the right host or c
 - `speaker`: a name tag above dialogue captions (3D story packs).
 - Real proof first: RepoCard / ProofCard / ProfileCard for a named repo, page or creator; scribble circle on the number that matters (star count, price, views).
 - Look at `$TK/reference-library/_frames/ref*.jpg` (4 frames per reference) before designing a shot to see how the references layer these graphics.
+
+Official rules for structure: `node $TK/tools/rs.mjs multi-scene-video sequencing transitions video-editing video-matting connected-compositions`. Real maps (not our simple RouteMap): `rs.mjs maps` and its technique files.

@@ -23,3 +23,5 @@ Write `review/visual-critic.json` (schema `critic-report`, critic `visual`). Eve
 
 ## Loop
 Fix, re-render only the affected stills, re-check. Max 3 rounds; then list what is left for the user. Score = 100 - 25/blocker - 10/major - 3/minor; `pass` >= 80 and no blocker.
+
+Colour and grading problems: `node $TK/tools/rs.mjs color-correction effects`.

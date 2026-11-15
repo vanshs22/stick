@@ -6,8 +6,8 @@ checks its own frames and audio with critics, and stops at each gate for your ap
 
 ## Install
 ```
-node scripts/install.mjs            # links the skills into ~/.claude/skills, ~/.config/opencode/skills and ~/.agents/skills
-npx skills add remotion-dev/skills  # the official Remotion agent skills
+node scripts/install.mjs            # links these skills AND installs the official Remotion agent skills (remotion-dev/skills)
+node tools/rs.mjs list              # the official Remotion rules, readable by any agent
 node tools/doctor.mjs               # tells you what else to install
 ```
 Then open any folder in your agent and ask: "Use reel-studio to make a 40 s reel about ...".

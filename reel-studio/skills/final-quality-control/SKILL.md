@@ -26,3 +26,5 @@ Give the user: the video path, the contact sheet, three lines on what is stronge
 ## Deliver (after approval)
 Write into `$P/renders/`: `cover.jpg` (best opening frame: `ffmpeg -ss <t> -i video -frames:v 1 cover.jpg`, chosen from the sheet), `post.txt` (title, caption, 5-8 hashtags, the CTA line), `sources.md` (every source and asset with licence), `production-report.md` (brief, style, tools versions, QA numbers, critic rounds, what changed after feedback). If the file is > 35 MB also make a share copy: `ffmpeg -i in.mp4 -c:v libx264 -crf 21 -preset slow -c:a aac -b:a 160k -movflags +faststart share.mp4`.
 Then ask for one line of feedback and write it to `$TK/memory/learnings.md`. Publish or upload ONLY if the user asks, and confirm title and visibility first.
+
+Rendering options and codecs: `node $TK/tools/rs.mjs render rendering`. Licence note for the user: `rs.mjs license`.

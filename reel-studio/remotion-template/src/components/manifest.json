@@ -68,7 +68,7 @@
   },
   "Highlight": {
    "category": "text",
-   "description": "A sentence where one word gets a marker swipe.",
+   "description": "A sentence where one word gets a hand-drawn marker (rough-notation).",
    "props": {
     "text": "string (required)",
     "mark": "the word to mark (required)",
@@ -529,7 +529,7 @@
   "tags": "{items:[{text,color}], x, y, anchor}: pills with dots ('free', 'open source')",
   "callout": "{text, x, y, rotate, anchor}: white speech label",
   "cursor": "{from:[x,y], to:[x,y], dur, anchor}: arrow cursor with motion lines, then a click ripple",
-  "scribble": "{kind:'circle'|'underline', x, y, w, h, color, anchor}: hand-drawn red circle or underline",
+  "scribble": "{kind:'circle'|'underline'|'highlight'|'box'|'strike'|'crossed'|'bracket', x, y, w, h, color, anchor}: hand-drawn annotation around a region (official @remotion/rough-notation)",
   "hearts": "{x, y, count, anchor}: hearts floating up",
   "calendar": "{month, day, weekday, x, y, anchor}",
   "waveform": "{x, y, bars, color}: audio bars that move with the voice",

@@ -41,3 +41,5 @@ After 3 critic rounds on the same finding, stop and show it to the user with two
 
 ## After the video
 Ask for one line of feedback ("what would you change?"). Append it to `$TK/memory/learnings.md` (what, which style, which stage) and to the creator profile's `feedback_history`.
+
+When the user can open a browser, offer the live Studio preview (`cd $P/remotion && npm run studio`, official rule `rs.mjs studio`) so they can scrub the video themselves at the gates.

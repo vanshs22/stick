@@ -29,3 +29,5 @@ Run `node $TK/tools/qa/audio_check.mjs $P/data/mix.wav` and judge by the numbers
 - SFX critic: each sound has a visual cause; no more than 4 in a second; levels soft (nothing harsh above 5 kHz); no identical effect twice within 2 s.
 - Mix: loudness within 1.5 LUFS of target, true peak <= -1.0, no clipping, no silence over 1.5 s.
 Findings use `fix_target` audio (re-run mix) or storyboard (move/remove a sound).
+
+Official rules: `node $TK/tools/rs.mjs audio audio-visualization sfx voiceover silence-detection`. Our mix is built outside Remotion (`mix.py`) and played as one `<Audio>` track from `@remotion/media`; use `audio-visualization` for waveforms and bars that react to the real audio, and `silence-detection` to trim dead air from an own recording.

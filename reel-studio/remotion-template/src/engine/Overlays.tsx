@@ -1,4 +1,5 @@
 import React from 'react';
+import {Box, Bracket, Circle, CrossedOff, Highlight as RoughHighlight, StrikeThrough, Underline} from '@remotion/rough-notation';
 import {C, F} from './tokens';
 import {E, SPR, clamp, mix, p, rnd, sp} from './anim';
 import {atLocal, talkAt, useShotTime} from './time';
@@ -44,10 +45,11 @@ const One: React.FC<{o: Overlay; shot: Shot}> = ({o, shot}) => {
         {k < 1 ? [0, 1, 2].map((i) => <div key={i} style={{position: 'absolute', left: x - 36 - i * 18, top: y + 20 + i * 9, width: 40 - i * 8, height: 4, borderRadius: 2, background: '#141413', opacity: 0.5 - i * 0.12}} />) : null}
         {click > 0 && click < 1 ? <div style={{position: 'absolute', left: x - 6, top: y - 6, width: 20 + click * 90, height: 20 + click * 90, marginLeft: -(click * 45), marginTop: -(click * 45), borderRadius: '50%', border: `4px solid ${C.accent}`, opacity: 1 - click}} /> : null}</>; }}</T>;
     case 'scribble': return <T o={o} shot={shot}>{({lt, s}) => {
-      const w = o.w || 300, h = o.h || 120, k = p(lt, s, 0.55, E.outExpo), x = (o.x ?? 540) - w / 2, y = (o.y ?? 700) - h / 2, len = 2 * (w + h) * 1.2;
-      return <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>{o.kind === 'underline'
-        ? <path d={`M${x} ${y + h} q${w * 0.25} -10 ${w * 0.5} 0 t${w * 0.5} -6`} fill="none" stroke={o.color || '#E5322D'} strokeWidth={9} strokeLinecap="round" strokeDasharray={w * 1.3} strokeDashoffset={w * 1.3 * (1 - k)} />
-        : <ellipse cx={x + w / 2} cy={y + h / 2} rx={w / 2 + 14} ry={h / 2 + 12} fill="none" stroke={o.color || '#E5322D'} strokeWidth={8} strokeLinecap="round" transform={`rotate(-3 ${x + w / 2} ${y + h / 2})`} strokeDasharray={len} strokeDashoffset={len * (1 - k)} />}</svg>; }}</T>;
+      const w = o.w || 300, h = o.h || 120, k = p(lt, s, 0.55, E.outExpo), col = o.color || '#E5322D', kind = o.kind || 'circle', inner = <div style={{width: w, height: h}} />;
+      const common = {color: col, progress: k, strokeWidth: o.strokeWidth || 7};
+      return <div style={{position: 'absolute', left: (o.x ?? 540) - w / 2, top: (o.y ?? 700) - h / 2, width: w, height: h}}>
+        {kind === 'underline' ? <Underline {...common}>{inner}</Underline> : kind === 'highlight' ? <RoughHighlight color={o.color || 'rgba(255,236,79,0.6)'} progress={k}>{inner}</RoughHighlight> : kind === 'box' ? <Box {...common}>{inner}</Box> : kind === 'strike' ? <StrikeThrough {...common}>{inner}</StrikeThrough> : kind === 'crossed' ? <CrossedOff {...common}>{inner}</CrossedOff> : kind === 'bracket' ? <Bracket {...common}>{inner}</Bracket> : <Circle {...common}>{inner}</Circle>}
+      </div>; }}</T>;
     case 'hearts': return <T o={o} shot={shot}>{({lt, s}) => (
       <div>{Array.from({length: o.count || 7}).map((_, i) => { const k = (lt - s - i * 0.12) / 1.4; if (k < 0 || k > 1) return null; return <div key={i} style={{position: 'absolute', left: (o.x ?? 540) + Math.sin(k * 6 + i) * 60 + (rnd(i) - 0.5) * 120, top: (o.y ?? 900) - k * 360, fontSize: 40 + rnd(i + 3) * 30, opacity: 1 - k * k, color: '#E5322D'}}>♥</div>; })}</div>)}</T>;
     case 'calendar': return <T o={o} shot={shot}>{({a}) => (

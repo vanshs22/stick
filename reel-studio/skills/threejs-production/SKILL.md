@@ -8,6 +8,7 @@ description: Builds 3D shots with three.js inside Remotion - characters, rooms, 
 Use 3D when depth, lighting, a place or acting carries the idea. Otherwise use 2D (cheaper, sharper).
 
 ## Setup inside Remotion
+Read the official rule first: `node $TK/tools/rs.mjs 3d` (ThreeCanvas needs width and height, proper lighting, and every animation driven by `useCurrentFrame()`).
 `import {ThreeCanvas} from '@remotion/three'`. Wrap the scene in `<ThreeCanvas width height camera={{position:[0,1.5,5], fov:35}}>`. All motion is a pure function of `frame` (`useCurrentFrame()`): positions, rotations, camera, light intensity, blinks. Never use `useFrame()`, clocks, random or physics engines.
 
 ## Look rules (learned the hard way)
