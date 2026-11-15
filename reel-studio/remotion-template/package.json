@@ -1,0 +1,27 @@
+{
+  "name": "reel-studio-project",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "still": "remotion still src/index.ts Reel",
+    "render": "remotion render src/index.ts Reel"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^8.17.10",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/google-fonts": "^4.0.535",
+    "@remotion/motion-blur": "^4.0.535",
+    "@remotion/paths": "^4.0.535",
+    "@remotion/shapes": "^4.0.535",
+    "@remotion/three": "^4.0.535",
+    "@remotion/transitions": "^4.0.535",
+    "@types/react": "^18.3.31",
+    "@types/three": "^0.170.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.535",
+    "three": "^0.170.0",
+    "typescript": "^5.9.3"
+  }
+}

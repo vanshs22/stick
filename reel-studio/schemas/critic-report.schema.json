@@ -1,0 +1,100 @@
+{
+ "type": "object",
+ "required": [
+  "critic",
+  "target",
+  "verdict",
+  "score",
+  "findings"
+ ],
+ "properties": {
+  "critic": {
+   "type": "string",
+   "minLength": 1
+  },
+  "target": {
+   "type": "string",
+   "minLength": 1
+  },
+  "verdict": {
+   "type": "string",
+   "enum": [
+    "pass",
+    "revise",
+    "fail"
+   ]
+  },
+  "score": {
+   "type": "number",
+   "minimum": 0,
+   "maximum": 100
+  },
+  "findings": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "severity",
+     "evidence",
+     "expected",
+     "fix",
+     "fix_target"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "severity": {
+      "type": "string",
+      "enum": [
+       "blocker",
+       "major",
+       "minor"
+      ]
+     },
+     "shot_id": {
+      "type": "string"
+     },
+     "line_id": {
+      "type": "string"
+     },
+     "timestamp_sec": {
+      "type": "number"
+     },
+     "evidence": {
+      "type": "string",
+      "minLength": 1
+     },
+     "expected": {
+      "type": "string",
+      "minLength": 1
+     },
+     "fix": {
+      "type": "string",
+      "minLength": 1
+     },
+     "fix_target": {
+      "type": "string",
+      "enum": [
+       "research",
+       "script",
+       "storyboard",
+       "assets",
+       "code",
+       "audio",
+       "render",
+       "style"
+      ]
+     }
+    }
+   }
+  },
+  "checked_at": {
+   "type": "string"
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "critic-report"
+}

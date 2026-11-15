@@ -1,0 +1,80 @@
+{
+ "type": "object",
+ "required": [
+  "title",
+  "language",
+  "lines"
+ ],
+ "properties": {
+  "title": {
+   "type": "string",
+   "minLength": 1
+  },
+  "language": {
+   "type": "string",
+   "minLength": 1
+  },
+  "lines": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "text",
+     "beat"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^L\\d{2,3}$"
+     },
+     "text": {
+      "type": "string",
+      "minLength": 1
+     },
+     "beat": {
+      "type": "string",
+      "enum": [
+       "hook",
+       "stakes",
+       "setup",
+       "step",
+       "mechanism",
+       "proof",
+       "objection",
+       "twist",
+       "cta",
+       "save"
+      ]
+     },
+     "claims": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "emphasis": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "pause_after": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2
+     },
+     "visual_hint": {
+      "type": "string"
+     }
+    }
+   },
+   "minItems": 4
+  },
+  "est_seconds": {
+   "type": "number"
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "script"
+}

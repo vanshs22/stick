@@ -1,0 +1,6 @@
+{
+  "id": "default",
+  "colors": {"bg": "#FAF9F5", "ink": "#141413", "ink2": "#3D3D3A", "muted": "#8C8A82", "card": "#FFFFFF", "accent": "#D97757", "accentSoft": "#F6E3D9", "good": "#4E9A5B", "bad": "#C94A3A"},
+  "fonts": {"sans": "Inter", "serif": "InstrumentSerif", "mono": "JetBrainsMono"},
+  "safe_zone": {"top": 180, "bottom": 1380, "caption_y": 1440, "right_margin": 120}
+}

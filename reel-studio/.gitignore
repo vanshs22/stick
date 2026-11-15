@@ -1,0 +1,6 @@
+node_modules/
+reel-projects/
+projects/
+.cache/
+reference-analysis/
+*.raw.mp4

@@ -1,0 +1,144 @@
+{
+ "type": "object",
+ "required": [
+  "topic",
+  "angle",
+  "claims",
+  "sources"
+ ],
+ "properties": {
+  "topic": {
+   "type": "string",
+   "minLength": 1
+  },
+  "angle": {
+   "type": "string",
+   "minLength": 1
+  },
+  "claims": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "text",
+     "status"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^C\\d+$"
+     },
+     "text": {
+      "type": "string",
+      "minLength": 1
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "verified",
+       "unverified",
+       "opinion"
+      ]
+     },
+     "source_ids": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "sources": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "url",
+     "title",
+     "captured_at"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^SRC\\d+$"
+     },
+     "url": {
+      "type": "string",
+      "minLength": 1
+     },
+     "title": {
+      "type": "string",
+      "minLength": 1
+     },
+     "captured_at": {
+      "type": "string",
+      "minLength": 1
+     },
+     "type": {
+      "type": "string"
+     },
+     "notes": {
+      "type": "string"
+     },
+     "license": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "evidence_to_capture": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "url",
+     "what"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "url": {
+      "type": "string",
+      "minLength": 1
+     },
+     "what": {
+      "type": "string",
+      "minLength": 1
+     },
+     "actions": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "hook_ideas": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "competitor_notes": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "limitations": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "research"
+}

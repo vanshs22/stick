@@ -1,0 +1,85 @@
+{
+ "type": "object",
+ "required": [
+  "voice",
+  "music",
+  "mix"
+ ],
+ "properties": {
+  "voice": {
+   "type": "object",
+   "required": [
+    "engine"
+   ],
+   "properties": {
+    "engine": {
+     "type": "string",
+     "minLength": 1
+    },
+    "voice": {
+     "type": "string"
+    },
+    "speed": {
+     "type": "number"
+    },
+    "pronunciations": {
+     "type": "object"
+    }
+   }
+  },
+  "music": {
+   "type": "object",
+   "required": [
+    "direction"
+   ],
+   "properties": {
+    "direction": {
+     "type": "string",
+     "minLength": 1
+    },
+    "file": {
+     "type": "string"
+    },
+    "bed": {
+     "type": "string",
+     "enum": [
+      "bed",
+      "tension",
+      "upbeat",
+      "none",
+      "file"
+     ]
+    },
+    "gain_db": {
+     "type": "number"
+    }
+   }
+  },
+  "mix": {
+   "type": "object",
+   "required": [
+    "target_lufs",
+    "true_peak_db"
+   ],
+   "properties": {
+    "target_lufs": {
+     "type": "number",
+     "minimum": -23,
+     "maximum": -9
+    },
+    "true_peak_db": {
+     "type": "number",
+     "maximum": 0
+    },
+    "duck_db": {
+     "type": "number"
+    }
+   }
+  },
+  "notes": {
+   "type": "string"
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "audio-plan"
+}

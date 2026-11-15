@@ -1,0 +1,147 @@
+{
+ "type": "object",
+ "required": [
+  "title",
+  "topic",
+  "platform",
+  "duration_sec",
+  "language",
+  "style_pack"
+ ],
+ "properties": {
+  "title": {
+   "type": "string",
+   "minLength": 1
+  },
+  "topic": {
+   "type": "string",
+   "minLength": 1
+  },
+  "platform": {
+   "type": "string",
+   "enum": [
+    "instagram-reels",
+    "tiktok",
+    "youtube-shorts",
+    "youtube",
+    "linkedin",
+    "x"
+   ]
+  },
+  "aspect": {
+   "type": "string",
+   "enum": [
+    "9:16",
+    "16:9",
+    "1:1",
+    "4:5"
+   ]
+  },
+  "duration_sec": {
+   "type": "number",
+   "minimum": 10,
+   "maximum": 180
+  },
+  "language": {
+   "type": "string",
+   "minLength": 1
+  },
+  "audience": {
+   "type": "string"
+  },
+  "goal": {
+   "type": "string"
+  },
+  "style_pack": {
+   "type": "string",
+   "minLength": 1
+  },
+  "voice": {
+   "type": "object",
+   "required": [
+    "engine"
+   ],
+   "properties": {
+    "engine": {
+     "type": "string",
+     "enum": [
+      "kokoro",
+      "own-recording",
+      "captions-only"
+     ]
+    },
+    "voice": {
+     "type": "string"
+    },
+    "speed": {
+     "type": "number",
+     "minimum": 0.7,
+     "maximum": 1.6
+    },
+    "own_recording": {
+     "type": "string"
+    }
+   }
+  },
+  "music": {
+   "type": "object",
+   "required": [],
+   "properties": {
+    "direction": {
+     "type": "string"
+    },
+    "file": {
+     "type": "string"
+    }
+   }
+  },
+  "captions": {
+   "type": "object",
+   "required": [],
+   "properties": {
+    "preset": {
+     "type": "string"
+    }
+   }
+  },
+  "cta": {
+   "type": "object",
+   "required": [],
+   "properties": {
+    "keyword": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    }
+   }
+  },
+  "constraints": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "reference_videos": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "approvals": {
+   "type": "object",
+   "required": [],
+   "properties": {
+    "mode": {
+     "type": "string",
+     "enum": [
+      "ask",
+      "auto"
+     ]
+    }
+   }
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "production-brief"
+}
