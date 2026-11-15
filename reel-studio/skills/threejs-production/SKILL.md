@@ -27,3 +27,9 @@ Few lights (3-4), no shadows unless they carry the story, geometry reuse (`useMe
 2. Render 3 stills (start, middle, end of the shot), look at them, fix composition and light.
 3. Only then render the full video.
 Milestone 2 adds ready character and set modules (stick, voxel, low-poly, blocky, noir rooms) to reuse.
+
+## The `Scene3D` component (Milestone 2)
+One component draws a whole 3D shot. Props: `set` (starfield, desk-night, block-world, noir-room, studio), `light` (studio, night, noir, golden, bright-sky), `characters` (variant voxel | blocky | lowpoly | stick | noir; `pose` and `mood` as a name or keyframes `[[0,"idle"],[1.2,"cheer"]]`; the first character's mouth follows the real word times), `creatures` (box, screen, cloud; `kickAnchor` = hop on that spoken word), `camera` (`shot` wide|medium|close|desk, `move` push|pull|drift|orbit|static, `fov`).
+Poses: idle relax slump point open cheer think shrug wave panic brace cower phone reach halt walk. Moods: calm happy scared worried angry sad surprised relieved smirk.
+Pack starting points are in each 3D style pack's `defaults.scene3d`. Add a new set, character look or pose in `src/components/three/` (Sets.tsx, Humanoid.tsx, rig.ts) and keep it a pure function of time.
+After the first still, ALWAYS run `node $TK/tools/qa/frame_stats.mjs` on it: dark 3D scenes were the biggest quality failure in earlier work.

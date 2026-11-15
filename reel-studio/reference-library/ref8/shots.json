@@ -1,0 +1,93 @@
+{
+ "video": "SnapInsta.to_AQP8YVbVa62lr97-NYxGy0Tt3xtnWuIosnjA4FZWZs4gTWAJABygEocSXJSxKf1gYfRx6iabz3P3R5NLFwR_JreMNKJ_Lq9Fml0QUOs (1).mov",
+ "duration": 28.72,
+ "shots": 12,
+ "avg_shot_sec": 2.39,
+ "cuts_per_10s": 4.18,
+ "list": [
+  {
+   "n": 1,
+   "start": 0,
+   "end": 3.77,
+   "seconds": 3.77,
+   "frame": "shot_01.jpg"
+  },
+  {
+   "n": 2,
+   "start": 3.77,
+   "end": 6.57,
+   "seconds": 2.8,
+   "frame": "shot_02.jpg"
+  },
+  {
+   "n": 3,
+   "start": 6.57,
+   "end": 8.47,
+   "seconds": 1.9,
+   "frame": "shot_03.jpg"
+  },
+  {
+   "n": 4,
+   "start": 8.47,
+   "end": 11.3,
+   "seconds": 2.83,
+   "frame": "shot_04.jpg"
+  },
+  {
+   "n": 5,
+   "start": 11.3,
+   "end": 12.87,
+   "seconds": 1.57,
+   "frame": "shot_05.jpg"
+  },
+  {
+   "n": 6,
+   "start": 12.87,
+   "end": 15.03,
+   "seconds": 2.17,
+   "frame": "shot_06.jpg"
+  },
+  {
+   "n": 7,
+   "start": 15.03,
+   "end": 17.9,
+   "seconds": 2.87,
+   "frame": "shot_07.jpg"
+  },
+  {
+   "n": 8,
+   "start": 17.9,
+   "end": 19.53,
+   "seconds": 1.63,
+   "frame": "shot_08.jpg"
+  },
+  {
+   "n": 9,
+   "start": 19.53,
+   "end": 20.23,
+   "seconds": 0.7,
+   "frame": "shot_09.jpg"
+  },
+  {
+   "n": 10,
+   "start": 20.23,
+   "end": 25.2,
+   "seconds": 4.97,
+   "frame": "shot_10.jpg"
+  },
+  {
+   "n": 11,
+   "start": 25.2,
+   "end": 27.07,
+   "seconds": 1.87,
+   "frame": "shot_11.jpg"
+  },
+  {
+   "n": 12,
+   "start": 27.07,
+   "end": 28.72,
+   "seconds": 1.65,
+   "frame": "shot_12.jpg"
+  }
+ ]
+}

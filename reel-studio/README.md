@@ -20,9 +20,19 @@ Then open any folder in your agent and ask: "Use reel-studio to make a 40 s reel
 | `tools/` | scripts the agent runs: state, validate, timing, voice, sound, capture, reference analysis, QA |
 | `schemas/` | the JSON contracts between stages (`python3 scripts/make_schemas.py` regenerates them) |
 | `remotion-template/` | the Remotion project every video starts from |
-| `style-packs/` | the look of each style: rules, tokens, components |
+| `style-packs/` | 8 style packs: rules, tokens, components, defaults |
+| `examples/` | 4 small test videos (brief, script, storyboard, audio plan) |
+| `reference-library/` | shot analyses of the 8 supplied reference videos |
 | `creator/` | your creator profile (niche, audience, tone, what to avoid) |
 | `memory/` | lessons the agent appends after every video |
 | `docs/` | roadmap, critics, project files |
 
 Status: see `docs/ROADMAP.md`.
+
+## Test everything (after install)
+```
+node tools/run_example.mjs software-explainer test1
+bash scripts/e2e.sh reel-projects/test1 --no-voice --scale 0.5   # quick: estimated timing, half size
+bash scripts/e2e.sh reel-projects/test1                          # full: Kokoro voice + Whisper timing
+```
+Examples: software-explainer, character-story, motion-graphics, voxel-howto.

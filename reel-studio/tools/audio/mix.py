@@ -10,7 +10,7 @@ track, any format ffmpeg reads). The music ducks under the voice.
 Sound rules (STYLE.md): every effect is soft and rounded, nothing above ~5 kHz, no ticks / hats / glitches / beeps.
 Cue types: whoosh slide pop plop gulp boing bubbles sizzle sparkle thud slam tock zip alarm  (+ gain, dur)
 """
-import json, subprocess, sys
+import json, os, subprocess, sys
 from pathlib import Path
 import numpy as np
 from scipy import signal

@@ -1,0 +1,65 @@
+{
+ "title": "The three blues",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "The client wants to launch tomorrow.",
+   "beat": "hook",
+   "emphasis": [
+    "tomorrow"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "So I asked my AI helper for a hand.",
+   "beat": "setup",
+   "emphasis": [
+    "helper"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "It built the login page in one minute.",
+   "beat": "step",
+   "emphasis": [
+    "minute"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "Then it asked about the three different blues.",
+   "beat": "twist",
+   "emphasis": [
+    "blues"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "I had no answer.",
+   "beat": "twist"
+  },
+  {
+   "id": "L06",
+   "text": "Lesson: write the design down first.",
+   "beat": "proof",
+   "emphasis": [
+    "design"
+   ]
+  },
+  {
+   "id": "L07",
+   "text": "Comment BLUES and I will send the checklist.",
+   "beat": "cta",
+   "emphasis": [
+    "BLUES"
+   ]
+  },
+  {
+   "id": "L08",
+   "text": "Save this for your next launch.",
+   "beat": "save"
+  }
+ ],
+ "est_seconds": 23
+}

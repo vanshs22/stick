@@ -1,0 +1,421 @@
+{
+ "components": {
+  "TitleCard": {
+   "category": "text",
+   "description": "Headline whose words rise out of a mask; one accent word in italic serif.",
+   "props": {
+    "text": "string (required)",
+    "accent": "the word to colour",
+    "anchor": "anchor that starts it"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "text"
+   ]
+  },
+  "BigStat": {
+   "category": "text",
+   "description": "A big number that counts up with a label.",
+   "props": {
+    "value": "number (required)",
+    "prefix": "string",
+    "suffix": "string",
+    "label": "string",
+    "anchor": "anchor that starts the count"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "value"
+   ]
+  },
+  "Typewriter": {
+   "category": "text",
+   "description": "Text typed letter by letter with a blinking cursor.",
+   "props": {
+    "text": "string (required)",
+    "anchor": "start word",
+    "cps": "letters per second, 28",
+    "mono": "boolean, true",
+    "size": "px, 52"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "text"
+   ]
+  },
+  "Stamp": {
+   "category": "text",
+   "description": "A verdict stamp that slams in (VERIFIED, WRONG, NOT A GUARANTEE).",
+   "props": {
+    "text": "string (required)",
+    "anchor": "slam word",
+    "color": "hex",
+    "rotate": "deg, -8",
+    "size": "px, 120"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "text"
+   ]
+  },
+  "Highlight": {
+   "category": "text",
+   "description": "A sentence where one word gets a marker swipe.",
+   "props": {
+    "text": "string (required)",
+    "mark": "the word to mark (required)",
+    "anchor": "swipe word",
+    "size": "px, 84"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "text",
+    "mark"
+   ]
+  },
+  "KineticList": {
+   "category": "text",
+   "description": "Items that pop in one by one.",
+   "props": {
+    "items": "string[] (required)",
+    "anchorPrefix": "'item' -> anchors item0,item1...",
+    "size": "px, 62"
+   },
+   "anchors": [
+    "item0",
+    "item1",
+    "..."
+   ],
+   "required": [
+    "items"
+   ]
+  },
+  "BrowserWindow": {
+   "category": "ui",
+   "description": "A browser window that swings in with a REAL screenshot (or a skeleton). Optional slow zoom to a spot.",
+   "props": {
+    "url": "string",
+    "title": "string",
+    "image": "path inside public/, e.g. assets/repo.png",
+    "anchor": "swing-in word",
+    "zoom": "{x,y,scale} fractions"
+   },
+   "anchors": [
+    "any"
+   ],
+   "evidence": true
+  },
+  "Terminal": {
+   "category": "ui",
+   "description": "Dark terminal that types commands; lines starting with > are output.",
+   "props": {
+    "lines": "string[] (required)",
+    "prompt": "'$'",
+    "anchor": "first command word",
+    "cps": "30"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "lines"
+   ]
+  },
+  "PhoneFrame": {
+   "category": "ui",
+   "description": "A phone showing a post or a screenshot, likes count up.",
+   "props": {
+    "title": "string",
+    "text": "string (italic accent text)",
+    "image": "public path",
+    "likes": "number",
+    "anchor": "start word"
+   },
+   "anchors": [
+    "any"
+   ]
+  },
+  "ChatBubbles": {
+   "category": "ui",
+   "description": "A chat conversation; bubbles appear in turn.",
+   "props": {
+    "messages": "[{from:'you'|'ai', text}] (required)",
+    "anchorPrefix": "'m' -> m0,m1..."
+   },
+   "anchors": [
+    "m0",
+    "m1",
+    "..."
+   ],
+   "required": [
+    "messages"
+   ]
+  },
+  "NotebookPage": {
+   "category": "ui",
+   "description": "Ruled notebook page with an italic title and bullets (calm explainer look).",
+   "props": {
+    "title": "string (required)",
+    "bullets": "string[]",
+    "anchorPrefix": "'b' -> b0,b1..."
+   },
+   "anchors": [
+    "b0",
+    "b1",
+    "..."
+   ],
+   "required": [
+    "title"
+   ]
+  },
+  "CommentBox": {
+   "category": "ui",
+   "description": "The 'Comment WORD' call to action: types the keyword, flips to Posted, shows the reward line.",
+   "props": {
+    "keyword": "string (required)",
+    "anchor": "start word",
+    "reward": "string"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "keyword"
+   ]
+  },
+  "BarChart": {
+   "category": "data",
+   "description": "Bars that grow with values counting up; one highlighted.",
+   "props": {
+    "bars": "[{label,value}] (required)",
+    "unit": "string",
+    "highlight": "index",
+    "title": "string",
+    "anchor": "start word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "bars"
+   ]
+  },
+  "LineChart": {
+   "category": "data",
+   "description": "A line that draws itself with a final value counter.",
+   "props": {
+    "points": "number[] (required)",
+    "label": "string",
+    "unit": "string",
+    "anchor": "start word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "points"
+   ]
+  },
+  "Timeline": {
+   "category": "data",
+   "description": "Horizontal timeline with dated events.",
+   "props": {
+    "events": "[{date,label}] (required)",
+    "anchorPrefix": "'e' -> e0,e1..."
+   },
+   "anchors": [
+    "e0",
+    "e1",
+    "..."
+   ],
+   "required": [
+    "events"
+   ]
+  },
+  "Checklist": {
+   "category": "data",
+   "description": "Items that tick off one by one.",
+   "props": {
+    "items": "string[] (required)",
+    "anchorPrefix": "'c' -> c0,c1..."
+   },
+   "anchors": [
+    "c0",
+    "c1",
+    "..."
+   ],
+   "required": [
+    "items"
+   ]
+  },
+  "Versus": {
+   "category": "data",
+   "description": "Two things face to face with a VS badge.",
+   "props": {
+    "left": "string (required)",
+    "right": "string (required)",
+    "badge": "'VS'",
+    "leftSub": "string",
+    "rightSub": "string",
+    "anchor": "start word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "left",
+    "right"
+   ]
+  },
+  "RouteMap": {
+   "category": "data",
+   "description": "Parchment map with a route that draws itself and labelled stops.",
+   "props": {
+    "points": "[{x:0..1,y:0..1,label}] (required)",
+    "title": "string"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "points"
+   ]
+  },
+  "ProofCard": {
+   "category": "evidence",
+   "description": "REAL proof: a captured screenshot, slow zoom to the key region, hand-drawn circle, source named.",
+   "props": {
+    "image": "public path (required)",
+    "source": "string (required)",
+    "caption": "string",
+    "highlight": "{x,y,w,h} fractions of the image",
+    "anchor": "circle word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "image",
+    "source"
+   ],
+   "evidence": true
+  },
+  "EvidenceCard": {
+   "category": "evidence",
+   "description": "A case file, polaroid or ticket with title, lines, redacted words and a stamp.",
+   "props": {
+    "variant": "'case-file'|'polaroid'|'ticket'",
+    "title": "string (required)",
+    "lines": "string[]",
+    "stamp": "string",
+    "redact": "string[] words to black out",
+    "image": "public path (polaroid)",
+    "anchor": "start word"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "title"
+   ]
+  },
+  "Scene3D": {
+   "category": "3d",
+   "description": "A full 3D shot: set + light rig + characters + creatures + camera, all driven by the frame and the real word times (mouth moves with speech).",
+   "props": {
+    "set": "starfield|desk-night|block-world|noir-room|studio",
+    "light": "studio|night|noir|golden|bright-sky",
+    "characters": "[{variant:'voxel'|'blocky'|'lowpoly'|'stick'|'noir', x,z,rotY, pose, mood, speaks, skin,shirt,pants,hair,beard,glasses,badge, pose2+poseAnchor}]",
+    "creatures": "[{kind:'box'|'screen'|'cloud', x,y,z,scale,color,kickAnchor}]",
+    "camera": "{shot:'wide'|'medium'|'close'|'desk', move:'push'|'pull'|'drift'|'orbit'|'static', fov}",
+    "bg": "hex"
+   },
+   "anchors": [
+    "any (poseAnchor, kickAnchor)"
+   ],
+   "poses": [
+    "idle",
+    "relax",
+    "slump",
+    "point",
+    "open",
+    "cheer",
+    "think",
+    "shrug",
+    "wave",
+    "panic",
+    "brace",
+    "cower",
+    "phone",
+    "reach",
+    "halt",
+    "walk"
+   ],
+   "moods": [
+    "calm",
+    "happy",
+    "scared",
+    "worried",
+    "angry",
+    "sad",
+    "surprised",
+    "relieved",
+    "smirk"
+   ]
+  }
+ },
+ "transitions": [
+  "cut",
+  "fade",
+  "dip",
+  "slide",
+  "whip",
+  "wipe",
+  "mask",
+  "swing",
+  "zoom"
+ ],
+ "sfx": [
+  "whoosh",
+  "swish",
+  "pop",
+  "tick",
+  "type",
+  "stamp",
+  "ding",
+  "count",
+  "thud",
+  "slam",
+  "boing",
+  "zip",
+  "sparkle",
+  "tock",
+  "plop",
+  "gulp",
+  "bubbles",
+  "sizzle",
+  "inhale",
+  "heartbeat",
+  "alarm",
+  "slide"
+ ],
+ "caption_presets": [
+  "word-pop",
+  "one-word",
+  "boxed",
+  "phrase",
+  "typewriter",
+  "karaoke"
+ ],
+ "effects": "style.json 'effects': {grain, vignette, bokeh, rain, halftone, paper}"
+}

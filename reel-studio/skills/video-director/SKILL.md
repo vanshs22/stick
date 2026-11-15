@@ -23,6 +23,9 @@ Offer the caption look at the same time (see captions skill: word-pop, one-word,
 Recommend one pack and say why in one sentence. The user's choice is saved in `brief.json` (`style_pack`, `captions.preset`).
 Never mix two style packs in one video unless the user asks.
 
+## Galleries for the style gate (Milestone 2)
+Run once the project exists and `npm install` was done in `$P/remotion`: `node $TK/tools/gallery.mjs $P --kind styles` (one card per style pack), `--kind typography` (5 text looks), `--kind captions` (6 caption presets). Show the sheets (`review/gallery-*.jpg`, tile order is printed) and let the user choose by looking.
+
 ## Gates: how to stop properly
 1. `node $TK/tools/state.mjs request $P <stage>`.
 2. Say what you made in 3-6 plain lines. Give the exact file or image to look at.

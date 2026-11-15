@@ -13,6 +13,6 @@ if (fs.existsSync(P)) { console.error(`${P} already exists: choose another name,
 for (const d of ['research', 'script', 'storyboard', 'audio', 'assets', 'data', 'review', 'renders']) fs.mkdirSync(path.join(P, d), { recursive: true });
 fs.cpSync(path.join(TK, 'remotion-template'), path.join(P, 'remotion'), { recursive: true });
 const sp = opt('style') && path.join(TK, 'style-packs', opt('style'), 'style.json');
-if (sp) { if (!fs.existsSync(sp)) { console.error(`no style pack "${opt('style')}" (looked for ${sp})`); process.exit(2); } const s = JSON.parse(fs.readFileSync(sp, 'utf8')); fs.writeFileSync(path.join(P, 'remotion/src/data/style.json'), JSON.stringify({ id: s.id, ...s.tokens }, null, 1)); }
+if (sp) { if (!fs.existsSync(sp)) { console.error(`no style pack "${opt('style')}" (looked for ${sp})`); process.exit(2); } const s = JSON.parse(fs.readFileSync(sp, 'utf8')); fs.writeFileSync(path.join(P, 'remotion/src/data/style.json'), JSON.stringify({ id: s.id, ...s.tokens, effects: s.effects || {} }, null, 1)); }
 fs.writeFileSync(path.join(P, 'assets/manifest.json'), JSON.stringify({ assets: [] }, null, 1)); fs.writeFileSync(path.join(P, '.toolkit'), TK);
 init(P, a.includes('--auto')); console.log(`project: ${P}\ntoolkit: ${TK}\nnext   : write ${path.join(P, 'brief.json')} (schema: production-brief), then follow the stages in state.json`);

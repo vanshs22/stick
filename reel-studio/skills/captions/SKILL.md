@@ -16,7 +16,7 @@ Captions come from real word times: `data/timeline.json` -> `captions.chunks` (b
 | phrase | calm phrase at a time | 5 | documentary |
 | typewriter | letters type on | 4 | terminal, noir |
 | karaoke | whole phrase, current word lit | 4 | music-like pacing |
-(Milestone 2 adds the last three as components; until then use word-pop, one-word or boxed.)
+
 
 ## Choose with the user
 Render one still per preset using the same real line and show them side by side (typography skill). Save the choice: `brief.json` `captions.preset`, then rebuild the timeline with `--preset`.
@@ -32,3 +32,5 @@ Render one still per preset using the same real line and show them side by side 
 1. `build_timeline.mjs` printed the chunk count and no errors.
 2. Still at a busy shot and at the start/end of a chunk: nothing clipped, accent visible, no overlap with headlines.
 3. Out of sync? The words.json times are wrong (rerun `words.py`); never shift captions by hand.
+
+All six presets now exist (word-pop, one-word, boxed, phrase, typewriter, karaoke). Preview them with `node $TK/tools/gallery.mjs $P --kind captions`.

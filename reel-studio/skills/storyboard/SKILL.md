@@ -31,3 +31,10 @@ For every script line ask: what does this sentence COMMUNICATE, and what is the 
 1. Timing without a voice: `node $TK/tools/audio/build_tts_input.mjs $P` then `TTS_SCRIPT=data/tts.json python3 $TK/tools/audio/estimate.py $P`, then `node $TK/tools/timing/build_timeline.mjs $P`.
 2. `node $TK/tools/preview_shots.mjs $P` renders one still per shot and a contact sheet at `review/storyboard.jpg`. Look at it yourself first.
 3. At the gate show the sheet plus a table: shot, narration, visual intent, component, anchor words. Ask for approval or per-shot changes ("replace S04 with a real screenshot").
+
+## Components, manifest and checks (Milestone 2)
+- Pick components ONLY from `$P/remotion/src/components/manifest.json` (props, required props, anchors, what each is for). 21 components: text (TitleCard, BigStat, Typewriter, Stamp, Highlight, KineticList), ui (BrowserWindow, Terminal, PhoneFrame, ChatBubbles, NotebookPage, CommentBox), data (BarChart, LineChart, Timeline, Checklist, Versus, RouteMap), evidence (ProofCard, EvidenceCard), 3d (Scene3D).
+- Transitions: cut, fade, dip, slide, whip, wipe, mask, swing, zoom. Sounds: only those in the manifest.
+- Check before building: `node $TK/tools/check_storyboard.mjs $P` (unknown components, missing props, unknown sounds, missing screenshots, shot-type runs).
+- Use the style pack's `defaults` (captions, shot seconds, and for 3D packs a `scene3d` starting point) and its `components` list first.
+- Examples to copy from: `$TK/examples/*/storyboard.json` (software explainer, character story, motion graphics, voxel how-to).

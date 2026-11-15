@@ -1,0 +1,16 @@
+{
+ "video": "SnapInsta.to_AQP8H-MRZC__5J4KHYYzAXTMfV9pjL5ynTpJNQMevXXyiDCBv2EKfARbe4y6RfZu3zZl-GHxeqhk1CcIaMMmmR9_y5uCqBRhTwYTGks.mp4",
+ "duration": 43.16,
+ "shots": 1,
+ "avg_shot_sec": 43.16,
+ "cuts_per_10s": 0.23,
+ "list": [
+  {
+   "n": 1,
+   "start": 0,
+   "end": 43.16,
+   "seconds": 43.16,
+   "frame": "shot_01.jpg"
+  }
+ ]
+}

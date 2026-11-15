@@ -1,0 +1,73 @@
+{
+ "title": "Videos from React code",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "You can make videos with React code.",
+   "beat": "hook",
+   "emphasis": [
+    "React"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "No editor, no timeline, no credits.",
+   "beat": "stakes",
+   "emphasis": [
+    "credits"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "Here is how it works.",
+   "beat": "setup"
+  },
+  {
+   "id": "L04",
+   "text": "Step one, create a project.",
+   "beat": "step",
+   "emphasis": [
+    "one"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "Step two, describe a scene as a component.",
+   "beat": "step",
+   "emphasis": [
+    "component"
+   ]
+  },
+  {
+   "id": "L06",
+   "text": "Step three, press render and get an MP4.",
+   "beat": "step",
+   "emphasis": [
+    "MP4"
+   ]
+  },
+  {
+   "id": "L07",
+   "text": "It is free for individuals and small teams.",
+   "beat": "proof",
+   "emphasis": [
+    "free"
+   ]
+  },
+  {
+   "id": "L08",
+   "text": "Comment REACT and I will send you the starter.",
+   "beat": "cta",
+   "emphasis": [
+    "REACT"
+   ]
+  },
+  {
+   "id": "L09",
+   "text": "Save this so you can come back to it.",
+   "beat": "save"
+  }
+ ],
+ "est_seconds": 27
+}

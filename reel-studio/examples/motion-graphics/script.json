@@ -1,0 +1,60 @@
+{
+ "title": "Three caption mistakes",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "Most captions fail in three ways.",
+   "beat": "hook",
+   "emphasis": [
+    "three"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "One, they are too small to read.",
+   "beat": "step",
+   "emphasis": [
+    "small"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "Two, they sit on top of the face.",
+   "beat": "step",
+   "emphasis": [
+    "face"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "Three, they highlight the wrong word.",
+   "beat": "step",
+   "emphasis": [
+    "wrong"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "The fix: big, low, one accent word.",
+   "beat": "proof",
+   "emphasis": [
+    "accent"
+   ]
+  },
+  {
+   "id": "L06",
+   "text": "Comment CAPTIONS for the checklist.",
+   "beat": "cta",
+   "emphasis": [
+    "CAPTIONS"
+   ]
+  },
+  {
+   "id": "L07",
+   "text": "Save this for your next edit.",
+   "beat": "save"
+  }
+ ],
+ "est_seconds": 19
+}

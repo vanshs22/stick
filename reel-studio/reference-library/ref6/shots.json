@@ -1,0 +1,23 @@
+{
+ "video": "SnapInsta.to_AQOYj758wdJG17sAvEFHTZhRzwzqNzn-UD8VybR0p3wlW_FYjAReMhluqD-piPDyvcaOP0UaSH4bGw-LvN9F5sDVpj5J1oK-LZMYJQY.mp4",
+ "duration": 48.43,
+ "shots": 2,
+ "avg_shot_sec": 24.22,
+ "cuts_per_10s": 0.41,
+ "list": [
+  {
+   "n": 1,
+   "start": 0,
+   "end": 24.43,
+   "seconds": 24.43,
+   "frame": "shot_01.jpg"
+  },
+  {
+   "n": 2,
+   "start": 24.43,
+   "end": 48.43,
+   "seconds": 24,
+   "frame": "shot_02.jpg"
+  }
+ ]
+}

@@ -33,3 +33,9 @@ Read the official `remotion-best-practices` skill too (installed with `npx skill
 - Preview: `npm run studio`. Draft: `npx remotion render src/index.ts Reel out/draft.mp4 --scale=0.5 --concurrency=2`.
 - Final: `npx remotion render src/index.ts Reel out/final.mp4 --crf=16`, then audio is already in (the mix is `public/audio/mix.wav`). Copy to `$P/renders/<name>.mp4`.
 - 3D shots on a computer without a GPU render with software GL: slower. Use `--concurrency=2` on small machines and tell the user the expected time first.
+
+## Ready-made pieces (Milestone 2)
+- Components live in `src/components/*.tsx` (text, uikit, data, evidence, Scene3D) and are documented in `manifest.json`. Transitions: `src/engine/Transition.tsx` (entrance chosen by the previous shot's `transition_out.type`). Atmosphere: `src/engine/Effects.tsx` (style.json `effects`: grain, vignette, bokeh, rain, halftone, paper). Captions: 6 presets in `src/engine/Captions.tsx`.
+- `useEnter(shot, anchor, delay)` gives the standard entrance and exit (`a`, `vis`, `out`, `lt`): use it in every new component.
+- Full test of the pipeline in one command: `bash $TK/scripts/e2e.sh <projectDir> [--no-voice] [--scale 0.5]` (project from `node $TK/tools/run_example.mjs <example> <name>`).
+- Preview galleries: `node $TK/tools/gallery.mjs $P --kind styles|typography|captions` -> `review/gallery-<kind>.jpg`.

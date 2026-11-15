@@ -5,7 +5,10 @@ Main skill + 15 stage skills, JSON contracts, approval-gate state machine, timin
 reference and research tools, Playwright capture, Remotion template (router, captions, safe zones, anim helpers, 2 starter components), installer, doctor.
 NOT yet run end to end: nothing here has rendered a video. Milestone 2 ends with the first full test.
 
-## Milestone 2 - the hands (next)
+## Milestone 2 - the hands (done, not yet rendered)
+Type-checks with `tsc` (0 errors). Audio chain, timeline, cues and storyboard checks smoke-tested on all four examples with estimated timing. NOT yet rendered: run `scripts/e2e.sh` first.
+
+Original plan:
 - Component library: text (rolling headline, typewriter, counters, stamps, highlighter), UI (browser, terminal, window swing, phone, chat, notebook, comment box),
   data (charts, timelines, checklists, versus, maps), evidence (case file, polaroid, ticket, redaction, annotations), captions (typewriter, karaoke, phrase), transitions, effects.
 - three.js modules: characters (stick, voxel, low-poly, blocky, noir human, creature), environments, lighting rigs, camera moves.

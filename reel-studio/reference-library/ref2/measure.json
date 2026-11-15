@@ -1,0 +1,57 @@
+{
+  "file": "r2.mp4",
+  "size": [
+    720,
+    1280
+  ],
+  "aspect": "9:16",
+  "fps": 30.0,
+  "duration": 53.0,
+  "cuts_per_10s": 2.08,
+  "cut_times": [
+    5.5,
+    11.5,
+    15.5,
+    18.67,
+    21.67,
+    25.83,
+    28.67,
+    35.17,
+    40.5,
+    44.5,
+    47.17
+  ],
+  "motion_mean": 7.81,
+  "motion_p90": 14.85,
+  "saturation": 0.197,
+  "brightness": 0.622,
+  "edge_density": 0.082,
+  "palette": [
+    {
+      "hex": "#C5CACF",
+      "share": 0.349
+    },
+    {
+      "hex": "#B1B2B2",
+      "share": 0.243
+    },
+    {
+      "hex": "#111419",
+      "share": 0.24
+    },
+    {
+      "hex": "#F3F4F4",
+      "share": 0.072
+    },
+    {
+      "hex": "#426D60",
+      "share": 0.048
+    },
+    {
+      "hex": "#AB463B",
+      "share": 0.047
+    }
+  ],
+  "audio_rms": 0.1179,
+  "audio_active_share": 0.9
+}

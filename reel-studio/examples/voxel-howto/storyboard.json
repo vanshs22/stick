@@ -1,0 +1,215 @@
+{
+ "style_pack": "voxel-explainer",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01",
+    "L02"
+   ],
+   "visual_intent": "voxel presenter greets, creature hops",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "starfield",
+    "characters": [
+     {
+      "variant": "voxel",
+      "pose": [
+       [
+        0,
+        "open"
+       ],
+       [
+        1.5,
+        "point"
+       ]
+      ],
+      "mood": "happy",
+      "skin": "#A8704A",
+      "shirt": "#5a5a72",
+      "hair": "#14100c",
+      "beard": true,
+      "badge": "#F2C12E"
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.8,
+      "z": 0.4,
+      "scale": 1.1,
+      "color": "#F0683C",
+      "kickAnchor": "code"
+     }
+    ],
+    "camera": {
+     "shot": "medium",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "code",
+     "line": "L02",
+     "word": "code"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boing",
+     "anchor": "code",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "terminal opens",
+   "shot_type": "screen-demo",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "open terminal"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "t",
+     "line": "L03",
+     "word": "terminal"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "t"
+    }
+   ],
+   "transition_out": {
+    "type": "zoom",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "one line typed",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "make a 30 second video"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "t",
+     "line": "L04",
+     "word": "line"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "t",
+     "dur": 1.0
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "presenter waits",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "starfield",
+    "characters": [
+     {
+      "variant": "voxel",
+      "pose": "think",
+      "mood": "smirk",
+      "skin": "#A8704A",
+      "shirt": "#5a5a72",
+      "hair": "#14100c",
+      "beard": true
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.8,
+      "z": 0.4,
+      "scale": 1.1,
+      "color": "#F0683C",
+      "kickAnchor": "enter"
+     }
+    ],
+    "camera": {
+     "shot": "medium",
+     "move": "drift"
+    }
+   },
+   "anchors": [
+    {
+     "name": "enter",
+     "line": "L05",
+     "word": "enter"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "enter"
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L06",
+    "L07"
+   ],
+   "visual_intent": "comment call to action",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "VIDEO"
+   },
+   "anchors": [
+    {
+     "name": "k",
+     "line": "L06",
+     "word": "VIDEO"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "k",
+     "offset": 0.4
+    }
+   ]
+  }
+ ]
+}

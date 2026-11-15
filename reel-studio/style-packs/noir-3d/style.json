@@ -1,0 +1,85 @@
+{
+ "id": "noir-3d",
+ "name": "Noir 3D",
+ "family": "3d",
+ "description": "Dark rooms with ONE light, faceless figures, typewriter dates and evidence cards. Quiet and uneasy.",
+ "tokens": {
+  "colors": {
+   "bg": "#050508",
+   "ink": "#EDE6D6",
+   "ink2": "#EDE6D6",
+   "muted": "#8A8578",
+   "card": "#14141A",
+   "accent": "#D32F2F",
+   "accentSoft": "#D32F2F33",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1440,
+   "right_margin": 120
+  }
+ },
+ "effects": {
+  "grain": 0.12,
+  "vignette": 0.5
+ },
+ "rules": [
+  "One light source per scene; everything else falls into darkness.",
+  "Red means the subject. Nothing else is red except evidence marks (stamp, circle, string).",
+  "No faces, no gore, no weapons shown; facts checked against primary sources and listed.",
+  "Slow: 3 to 5 s shots, push-ins and drifts only; longer pauses between sentences.",
+  "Captions typewriter, sentence case, cream with one red word."
+ ],
+ "components": [
+  "Scene3D",
+  "EvidenceCard",
+  "Typewriter",
+  "Stamp",
+  "ProofCard",
+  "Timeline",
+  "TitleCard"
+ ],
+ "camera_language": "Slow push-in or drift; wide lens (fov 55+) in dark rooms; never inside the light cone.",
+ "typography": "Mono typewriter, cream, dates top-left.",
+ "transitions": [
+  "fade",
+  "dip",
+  "cut"
+ ],
+ "audio_direction": "tension drone, one hard hit at the turn, quiet room tone, no cheerful sounds",
+ "pitfalls": [
+  "Camera inside the light cone gives a flat brown frame.",
+  "Seats or walls between camera and subject.",
+  "Too tight on a dark doorway reads as an empty frame."
+ ],
+ "references": [
+  "faceless-shorts night-file"
+ ],
+ "defaults": {
+  "captions": "typewriter",
+  "shot_seconds": [
+   3,
+   5
+  ],
+  "music": "tension",
+  "scene3d": {
+   "set": "noir-room",
+   "light": "noir",
+   "characters": [
+    {
+     "variant": "noir",
+     "pose": "idle",
+     "mood": "calm"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "style_pack": "editorial-notebook",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "headline",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "props": {
+    "text": "Captions fail in three ways",
+    "accent": "three"
+   },
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02",
+    "L03",
+    "L04"
+   ],
+   "visual_intent": "three mistakes tick in",
+   "shot_type": "diagram",
+   "component": "Checklist",
+   "props": {
+    "items": [
+     "Too small to read",
+     "On top of the face",
+     "Wrong word highlighted"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L02",
+     "word": "small"
+    },
+    {
+     "name": "c1",
+     "line": "L03",
+     "word": "face"
+    },
+    {
+     "name": "c2",
+     "line": "L04",
+     "word": "wrong"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "c0"
+    },
+    {
+     "type": "tick",
+     "anchor": "c1"
+    },
+    {
+     "type": "tick",
+     "anchor": "c2"
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "bad versus good",
+   "shot_type": "diagram",
+   "component": "Versus",
+   "props": {
+    "left": "small + centred",
+    "right": "big + low + one accent",
+    "badge": "VS"
+   },
+   "anchors": [
+    {
+     "name": "v",
+     "line": "L05",
+     "word": "fix"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "v"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L06",
+    "L07"
+   ],
+   "visual_intent": "comment call to action",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "CAPTIONS"
+   },
+   "anchors": [
+    {
+     "name": "k",
+     "line": "L06",
+     "word": "CAPTIONS"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "k",
+     "offset": 0.4
+    }
+   ]
+  }
+ ]
+}

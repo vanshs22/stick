@@ -1,0 +1,257 @@
+{
+ "style_pack": "editorial-notebook",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "headline",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "props": {
+    "text": "Make videos with React code",
+    "accent": "React"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.15
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "three negatives pop in",
+   "shot_type": "typography",
+   "component": "KineticList",
+   "props": {
+    "items": [
+     "No editor",
+     "No timeline",
+     "No credits"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "item0",
+     "line": "L02",
+     "word": "editor"
+    },
+    {
+     "name": "item1",
+     "line": "L02",
+     "word": "timeline"
+    },
+    {
+     "name": "item2",
+     "line": "L02",
+     "word": "credits"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "item0"
+    },
+    {
+     "type": "pop",
+     "anchor": "item1"
+    },
+    {
+     "type": "pop",
+     "anchor": "item2"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03",
+    "L04"
+   ],
+   "visual_intent": "terminal creates the project",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "npx create-video@latest",
+     "> Project created"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "go",
+     "line": "L04",
+     "word": "create"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "go",
+     "dur": 1.2
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "a scene is a component",
+   "shot_type": "diagram",
+   "component": "NotebookPage",
+   "props": {
+    "title": "A scene is a component",
+    "bullets": [
+     "text",
+     "shapes",
+     "motion"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "b0",
+     "line": "L05",
+     "word": "describe"
+    },
+    {
+     "name": "b1",
+     "line": "L05",
+     "word": "scene"
+    },
+    {
+     "name": "b2",
+     "line": "L05",
+     "word": "component"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "b0"
+    },
+    {
+     "type": "tick",
+     "anchor": "b1"
+    },
+    {
+     "type": "tick",
+     "anchor": "b2"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "render command",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "npx remotion render",
+     "> out/video.mp4 written"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "r",
+     "line": "L06",
+     "word": "render"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "r",
+     "dur": 1.0
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "licence verdict",
+   "shot_type": "typography",
+   "component": "Stamp",
+   "props": {
+    "text": "Free for small teams",
+    "color": "#4E9A5B",
+    "size": 90
+   },
+   "anchors": [
+    {
+     "name": "s",
+     "line": "L07",
+     "word": "free"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "stamp",
+     "anchor": "s"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L08",
+    "L09"
+   ],
+   "visual_intent": "comment call to action",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "REACT"
+   },
+   "anchors": [
+    {
+     "name": "k",
+     "line": "L08",
+     "word": "REACT"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "k",
+     "offset": 0.4
+    }
+   ]
+  }
+ ]
+}
