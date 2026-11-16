@@ -1,0 +1,10 @@
+# Automatic critics for paper-atlas (they measure; they do not judge looks)
+
+## check_storyboard
+warn  S03: ProofCard shows real proof: set evidence.required and source_id
+warn  S08: ProofCard shows real proof: set evidence.required and source_id
+warn  S11: 3 shots in a row of type typography: vary the visuals
+storyboard OK (11 shots, 3 warning(s))
+
+## storyboard critic
+storyboard: pass (100/100) after 6 check(s), 0 blocker / 0 major / 0 minor -> review/critics/storyboard.json

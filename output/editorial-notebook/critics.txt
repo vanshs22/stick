@@ -1,0 +1,8 @@
+# Automatic critics for editorial-notebook (they measure; they do not judge looks)
+
+## check_storyboard
+warn  S11: 3 shots in a row of type typography: vary the visuals
+storyboard OK (11 shots, 1 warning(s))
+
+## storyboard critic
+storyboard: pass (100/100) after 6 check(s), 0 blocker / 0 major / 0 minor -> review/critics/storyboard.json

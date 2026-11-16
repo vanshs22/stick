@@ -1,0 +1,27 @@
+# Automatic critics for voxel-studio (they measure; they do not judge looks)
+
+## check_storyboard
+storyboard OK (11 shots, 0 warning(s))
+
+## storyboard critic
+MINOR   S01  [camera] legacy Scene3D shot
+          evidence: Scene3D uses primitive characters
+          expected: Stage3D with a cinematography spec
+          fix [storyboard]: Rebuild this shot with Stage3D (see docs/CINEMATOGRAPHY.md)
+MINOR   S02  [camera] legacy Scene3D shot
+          evidence: Scene3D uses primitive characters
+          expected: Stage3D with a cinematography spec
+          fix [storyboard]: Rebuild this shot with Stage3D (see docs/CINEMATOGRAPHY.md)
+MINOR   S05  [camera] legacy Scene3D shot
+          evidence: Scene3D uses primitive characters
+          expected: Stage3D with a cinematography spec
+          fix [storyboard]: Rebuild this shot with Stage3D (see docs/CINEMATOGRAPHY.md)
+MINOR   S09  [camera] legacy Scene3D shot
+          evidence: Scene3D uses primitive characters
+          expected: Stage3D with a cinematography spec
+          fix [storyboard]: Rebuild this shot with Stage3D (see docs/CINEMATOGRAPHY.md)
+MINOR   S11  [camera] legacy Scene3D shot
+          evidence: Scene3D uses primitive characters
+          expected: Stage3D with a cinematography spec
+          fix [storyboard]: Rebuild this shot with Stage3D (see docs/CINEMATOGRAPHY.md)
+storyboard: pass (90/100) after 6 check(s), 0 blocker / 0 major / 5 minor -> review/critics/storyboard.json

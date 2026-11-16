@@ -1,0 +1,12 @@
+# Automatic critics for voxel-explainer (they measure; they do not judge looks)
+
+## check_storyboard
+cinematography: pass (98/100): 5 Stage3D shots, 1 camera movements, 0 blocker(s), 0 major, 1 minor -> /projects/sandbox/rp/acc/ss-work/voxel-explainer/review/cinematography-critic.json
+storyboard OK (11 shots, 0 warning(s))
+
+## storyboard critic
+MINOR   S09  [camera] movement outlasts the shot
+          evidence: 3.50 s in a 2.50 s shot
+          expected: start + duration <= shot length
+          fix [storyboard]: Shorten the movement
+storyboard: pass (98/100) after 6 check(s), 0 blocker / 0 major / 1 minor -> review/critics/storyboard.json

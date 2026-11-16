@@ -1,0 +1,348 @@
+{
+ "style_pack": "paper-atlas",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "the opening question as a headline",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "props": {
+    "text": "What if making a video was as simple as writing a web page?",
+    "accent": "web page",
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "What"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "before and now on a timeline",
+   "shot_type": "typography",
+   "component": "Timeline",
+   "props": {
+    "events": [
+     {
+      "date": "Before",
+      "label": "timeline + clips"
+     },
+     {
+      "date": "Now",
+      "label": "just code"
+     }
+    ],
+    "anchorPrefix": "a"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "timeline"
+    },
+    {
+     "name": "a1",
+     "line": "L02",
+     "word": "code"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "the real docs page with the core-idea sentence: 'a frame number and a blank canvas'",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "props": {
+    "image": "assets/web/fundamentals/page.png",
+    "source": "remotion.dev/docs: The core idea",
+    "caption": "a frame number and a blank canvas",
+    "highlight": {
+     "x": 0.03,
+     "y": 0.53,
+     "w": 0.94,
+     "h": 0.16
+    },
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "Remotion"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "swing",
+     "gain": 0.3
+    }
+   ],
+   "preview_at": 0.8
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "the one hook as a line of code, typed as the hook is named",
+   "shot_type": "screen-demo",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "const frame = useCurrentFrame();"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "go",
+     "line": "L04",
+     "word": "hook"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "go",
+     "dur": 1.2
+    }
+   ]
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "a case file for the idea",
+   "shot_type": "typography",
+   "component": "EvidenceCard",
+   "props": {
+    "variant": "case-file",
+    "title": "Each frame differs",
+    "lines": [
+     "frame 0",
+     "frame 1",
+     "frame 2"
+    ],
+    "stamp": "ANIMATION",
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "Change"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "the four properties as stops on a route",
+   "shot_type": "typography",
+   "component": "RouteMap",
+   "props": {
+    "title": "What a video is",
+    "points": [
+     {
+      "x": 0.15,
+      "y": 0.8,
+      "label": "width x height"
+     },
+     {
+      "x": 0.4,
+      "y": 0.55,
+      "label": "fps"
+     },
+     {
+      "x": 0.65,
+      "y": 0.35,
+      "label": "length"
+     },
+     {
+      "x": 0.85,
+      "y": 0.15,
+      "label": "whole video"
+     }
+    ]
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "the one render command, typed on its spoken name",
+   "shot_type": "screen-demo",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "npx remotion render"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "go",
+     "line": "L07",
+     "word": "remotion"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "go",
+     "dur": 1.2
+    }
+   ]
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "the real GitHub page: description and star count",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "props": {
+    "image": "assets/web/github/page.png",
+    "source": "github.com/remotion-dev/remotion",
+    "caption": "73.5k stars",
+    "highlight": {
+     "x": 0.03,
+     "y": 0.5,
+     "w": 0.5,
+     "h": 0.08
+    },
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L08",
+     "word": "Over"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "swing",
+     "gain": 0.3
+    }
+   ],
+   "preview_at": 0.8
+  },
+  {
+   "id": "S09",
+   "line_ids": [
+    "L09"
+   ],
+   "visual_intent": "the verdict stamp",
+   "shot_type": "typography",
+   "component": "Stamp",
+   "props": {
+    "text": "A FUNCTION OF TIME",
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L09",
+     "word": "function"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S10",
+   "line_ids": [
+    "L10"
+   ],
+   "visual_intent": "the call to action as a clean end card",
+   "shot_type": "typography",
+   "component": "EndCard",
+   "props": {
+    "headline": "Videos are code now",
+    "accent": "code",
+    "cta": "Comment REMOTION"
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S11",
+   "line_ids": [
+    "L11"
+   ],
+   "visual_intent": "closing line as a headline",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "props": {
+    "text": "Save this for your next project",
+    "accent": "next project",
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L11",
+     "word": "Save"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}
