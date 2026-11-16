@@ -16,6 +16,8 @@ bash install.sh [--skip-models] [--minimal] [--no-venv] [--into <project>]     #
 ```
 Both call `scripts/setup.mjs`, which: creates `.venv` and installs `requirements.txt`; sets up ffmpeg; runs `npm install` in the toolkit and in `remotion-template` (shared by every project); fetches Chrome; downloads the Kokoro voice; links the skills into your agent's folders and installs the official `remotion-dev/skills`; creates `.env` from `.env.example`; prints the doctor report. It is safe to run again. `--minimal` skips Whisper, OpenCV and yt-dlp.
 
+Optional: remocn's own agent skill and MCP server (not required, `tools/remocn.mjs` already does search and install): `npx skills add Remocn/remocn`, or add `https://remocn.dev/mcp` to your MCP client.
+
 Optional research tool (works without keys): `pip install git+https://github.com/Panniantong/Agent-Reach` (the PyPI package of the same name is a different project).
 
 ## Which agent

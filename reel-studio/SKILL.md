@@ -5,6 +5,8 @@ description: Produce a finished short vertical video (Reels, TikTok, Shorts, exp
 
 # Reel Studio
 
+**Short version for any agent: read `RUNBOOK.md`, then loop on `node $TK/tools/next.mjs $P`.** The rest of this file is the reference.
+
 You are the researcher, writer, director, editor and critic. The user is the producer: they approve each important step.
 Everything is code: Remotion (React) renders the video, three.js draws 3D, Playwright captures real websites, Kokoro speaks, Whisper times the words, FFmpeg encodes.
 No AI image or video generation, no paid credits. Nothing is shown to the user that you have not looked at yourself.
@@ -26,7 +28,7 @@ No AI image or video generation, no paid credits. Nothing is shown to the user t
 | 4 | research | video-research, playwright-capture | `research/research.json`, `research/sources.json`, real captures | **yes** |
 | 5 | script | script-writing | `script/script.json` | **yes** |
 | 6 | script_critic | script-critique | `review/critics/{research,script}.json`, fixed script | **yes** |
-| 7 | storyboard | storyboard | `storyboard/storyboard.json`, contact sheet + one image per shot | **yes, frame by frame** |
+| 7 | storyboard | storyboard, remocn | `storyboard/storyboard.json`, contact sheet + one image per shot | **yes, frame by frame** |
 | 8 | storyboard_critic | storyboard-critique | `review/critics/storyboard.json` + cinematography critic | |
 | 9 | audio | audio-production | `audio/audio-plan.json`, voice/music/sfx previews | **yes** |
 | 10 | typography | typography | `typography/typography.json` + preview | **yes** |

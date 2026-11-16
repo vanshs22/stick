@@ -30,6 +30,7 @@ Then ask for one line of feedback and write it to `$TK/memory/learnings.md`. Pub
 Rendering options and codecs: `node $TK/tools/rs.mjs render rendering`. Licence note for the user: `rs.mjs license`.
 
 ## Final pass (v2)
+0. A half-size build is a preview. Deliver only a scale-1 build: `node $TK/tools/build_video.mjs $P` (the final critic reports a preview as minor so you cannot forget).
 1. `node $TK/tools/critique.mjs $P stage:render` (frames, whole-video and final delivery critics, reference similarity) and open `review/final.jpg`.
 2. Findings name shots: `node $TK/tools/fix_plan.mjs $P`, fix, then re-render ONLY those shots: `node $TK/tools/render_segments.mjs $P --shots S03` (cached by content hash) and `node $TK/tools/assemble.mjs $P`.
 3. The user can reject, replace a shot, change music, captions, a transition or the pacing: `node $TK/tools/state.mjs change $P <kind> --shot S03 --note "..."`.

@@ -7,6 +7,9 @@ description: Turns an approved script into a shot-by-shot storyboard with visual
 
 Output: `storyboard/storyboard.json` (schema `storyboard`). Validate: `node $TK/tools/validate.mjs storyboard $P/storyboard/storyboard.json`.
 
+## Start from a working draft
+`node $TK/tools/scaffold_storyboard.mjs $P` writes a VALID first storyboard from your script, the style pack and your real captures (one shot per line, evidence shots matched to their claims' sources, commands as a Terminal, the CTA as an end card, camera angles that pass the critic). It is a baseline: improve every shot (poses, framing, anchors, a better component, remocn) and remove `"draft"`.
+
 ## Think before each shot
 For every script line ask: what does this sentence COMMUNICATE, and what is the most effective way to show it? Options, in order of preference when they fit:
 1. Real evidence: a captured page, repo, dashboard, document (`shot_type` screen-demo / evidence; see playwright-capture).
@@ -33,8 +36,13 @@ For every script line ask: what does this sentence COMMUNICATE, and what is the 
 3. At the gate show the sheets and ask per frame. The user approves each frame with `state.mjs frame $P S03 approve|reject|replace`; the storyboard gate cannot be approved while a frame is open. `storyboard_critic` in `state.mjs` is the automatic check: `node $TK/tools/critique.mjs $P storyboard` (it includes the cinematography critic); run it before you request the gate.
 4. Stills show one moment. Cards that build up are shown finished automatically; overlays (stickers, tags) need `preview_at` (0 to 1 of the shot) on the overlay or the shot or they are missing in the still.
 
-## Need a component we do not have?
-Search the remocn registry before hand-building an animation: `node $TK/tools/remocn.mjs search "<what the shot must do>"`, then follow `skills/remocn`. It becomes a `RemocnBlock` shot. Simulated app screens are illustrations, never evidence.
+## Choose the component for each shot: ours, then remocn, then the better looking one
+remocn (900+ ready-made components, see `skills/remocn`) is part of the normal toolbox, not a last resort. For EVERY shot that is not a character or a real capture:
+1. Write down what the shot must do in one phrase ("a title that resolves from a blur", "three short claims popping in", "a terminal typing a command", "a calm background behind text").
+2. Take our best candidate from `manifest.json` / the pack's `components`.
+3. Run `node $TK/tools/remocn.mjs search "<that phrase>" --max 5` (add `--vibe` for the pack's mood: tech, premium, clean...). If a remocn result has a `use:` note that fits the shot and its mood matches the pack, install it (`remocn.mjs add <name> --project $P`), put both in a quick still (`storyboard_review.mjs --only <shot>`), OPEN the images and keep the one that looks better and reads clearer at phone size.
+4. If remocn is unreachable or nothing fits, use ours and say so in the shot's `visual_intent`. Keep the choice (and why) in the `visual_intent` so the user sees it on the contact sheet.
+Rules that never bend: real evidence stays a real capture (never a remocn simulation); remocn text and sample data are replaced by our script's words; the component must fit 9:16 (check `scale`, `fontSize`); a pack's own look wins over a flashy remocn effect.
 
 ## Components, manifest and checks (Milestone 2)
 - Pick components ONLY from `$P/remotion/src/components/manifest.json` (props, required props, anchors, what each is for). 29 components (`Stage3D` is the 3D shot; `Scene3D` is legacy): text (TitleCard, BigStat, Typewriter, Stamp, Highlight, KineticList), ui (BrowserWindow, Terminal, PhoneFrame, ChatBubbles, NotebookPage, CommentBox), data (BarChart, LineChart, Timeline, Checklist, Versus, RouteMap), evidence (ProofCard, EvidenceCard), 3d (Scene3D).

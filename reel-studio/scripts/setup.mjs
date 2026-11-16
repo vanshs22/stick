@@ -58,6 +58,9 @@ if (has('--skip-models')) warn('skipped (--skip-models). Later: python tools/aud
 else if (PYX && fs.existsSync(path.join(process.env.REEL_HOME || path.join(os.homedir(), '.reel-studio'), 'kokoro/kokoro-v1.0.onnx'))) ok('Kokoro model files present');
 else if (PYX) { console.log('  downloading Kokoro (about 340 MB, once)...'); const r = sh(PYX[0], [...PYX.slice(1), path.join(TK, 'tools/audio/voice.py'), '--download'], { stdio: 'inherit' }); r.status ? (warn('download failed: run it again later (python tools/audio/voice.py --download)'), need.push('kokoro-models')) : ok('Kokoro models'); }
 
+step('5b remocn component index (optional)');
+{ const r = sh('node', [path.join(TK, 'tools/remocn.mjs'), 'search', 'title', '--max', '1', '--refresh']); r.status ? warn('could not fetch the remocn index (needs network; remocn is optional, search works from the cache once fetched)') : ok('remocn index cached (900+ components, MIT)'); }
+
 step('6 agent skills');
 let r = sh('node', [path.join(TK, 'scripts/install.mjs'), ...(has('--into') ? ['--into', a[a.indexOf('--into') + 1]] : []), ...(has('--no-remotion-skills') ? ['--no-remotion'] : [])], { stdio: 'inherit' }); if (r.status) { warn('skill install failed'); need.push('skills'); }
 if (!fs.existsSync(path.join(TK, '.env'))) { fs.copyFileSync(path.join(TK, '.env.example'), path.join(TK, '.env')); ok('.env created from .env.example (all optional)'); }

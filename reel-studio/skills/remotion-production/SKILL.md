@@ -8,7 +8,7 @@ description: Builds the video in Remotion (React) from the approved storyboard -
 FIRST run `node $TK/tools/rs.mjs router markup timing sequencing` (the official Remotion rules, installed by `scripts/install.mjs`) and follow them. Never write Remotion code before reading them. The project is `$P/remotion/`.
 
 ## Setup
-`cd $P/remotion && npm install` once. The timeline comes from `src/data/timeline.json` (built by `tools/timing/build_timeline.mjs`; never edit by hand). Style tokens are in `src/data/style.json`.
+Build with ONE command: `node $TK/tools/build_video.mjs $P --scale 0.5` (preview) or without `--scale` (delivery): voice, word timing, timeline, sound cues, mix, per-shot render (cached by content), assemble, loudness QA. Re-run it after any fix; `--shots S03,S05` forces only those shots. No per-project `npm install` (packages are shared). The timeline comes from `src/data/timeline.json` (built by `tools/timing/build_timeline.mjs`; never edit by hand). Style tokens are in `src/data/style.json`.
 
 ## Animation rules (these prevent flicker and wrong timing)
 - Time comes ONLY from `useShotTime(shot)` (local seconds `lt`, film seconds `t`). Animate with `interpolate`, `spring`, and the helpers in `src/engine/anim.ts` (`p`, `sp`, `env`, `track`, `typed`).

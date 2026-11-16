@@ -37,6 +37,13 @@ await t('remocn: the registry index parses and search ranks by use-for text (off
   const e = parseIndex(sample); if (e.length !== 2 || e[0].name !== 'soft-blur-in' || e[1].deps[0] !== '@remocn/caret' || e[0].length !== '60f') throw new Error('index not parsed: ' + JSON.stringify(e));
   if (score(e[0], 'headline reveal') <= score(e[1], 'headline reveal')) throw new Error('search ranking wrong');
 });
+await t('next + scaffold: a fresh project asks for intake; a script becomes a valid draft storyboard', async () => {
+  const P = path.join(tmp, 'nx'); sh('node', [path.join(TK, 'tools/new_project.mjs'), 'nx', '--dir', tmp]); const n1 = sh('node', [path.join(TK, 'tools/next.mjs'), P]); if (!/NEXT: intake/.test(n1)) throw new Error('next.mjs did not ask for intake: ' + n1.slice(0, 120));
+  fs.writeFileSync(path.join(P, 'brief.json'), JSON.stringify({ title: 'T', topic: 't', platform: 'instagram-reels', duration_sec: 20, language: 'en', style_pack: 'stickman-3d', cta: { keyword: 'GO' } }));
+  fs.mkdirSync(path.join(P, 'script'), { recursive: true }); fs.writeFileSync(path.join(P, 'script/script.json'), JSON.stringify({ title: 'T', language: 'en', lines: [{ id: 'L01', text: 'Why is this so hard?', beat: 'hook' }, { id: 'L02', text: 'Run npx remotion render now.', beat: 'step' }, { id: 'L03', text: 'Comment GO for the link.', beat: 'cta' }] }));
+  sh('node', [path.join(TK, 'tools/scaffold_storyboard.mjs'), P]); const sb = JSON.parse(fs.readFileSync(path.join(P, 'storyboard/storyboard.json'), 'utf8')), man = JSON.parse(fs.readFileSync(path.join(TK, 'remotion-template/src/components/manifest.json'), 'utf8')).components;
+  if (sb.shots.length !== 3 || sb.shots.some((x) => !man[x.component])) throw new Error('bad draft: ' + sb.shots.map((x) => x.component)); if (sb.shots[1].component !== 'Terminal' || sb.shots[2].component !== 'EndCard') throw new Error('expected Terminal then EndCard, got ' + sb.shots.map((x) => x.component));
+});
 await t('vision critic refuses to claim it looked when it did not', () => {
   const P = path.join(tmp, 'vis'), sb = path.join(P, 'review/storyboard'); fs.mkdirSync(sb, { recursive: true });
   for (const n of ['S01', 'S02', 'S03']) sh('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'color=c=gray:s=32x32:d=0.1', '-frames:v', '1', path.join(sb, `${n}.png`)]);
