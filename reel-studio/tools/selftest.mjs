@@ -12,6 +12,7 @@ const sh = (cmd, args, o) => { const r = run(cmd, args, o); if (r.status) throw 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'reel-selftest-'));
 
 await t('approval workflow (gates, stale approvals, receipts)', () => sh('node', [path.join(TK, 'tools/selftest_state.mjs')]).trim().split('\n').pop());
+await t('pipeline end-to-end: approval chain, final fingerprints, delivery profile, audio gates, visual critic, assets, readiness', () => sh('node', [path.join(TK, 'tools/selftest_pipeline.mjs')]).trim().split('\n').pop());
 await t('cinematography solver and critic', () => sh('node', [path.join(TK, 'tools/selftest_cinematography.mjs')]).trim().split('\n').pop());
 await t('example projects are present', () => {
   const ex = fs.readdirSync(path.join(TK, 'examples')).filter((d) => fs.existsSync(path.join(TK, 'examples', d, 'storyboard.json')) || fs.existsSync(path.join(TK, 'examples', d, 'storyboard/storyboard.json')));

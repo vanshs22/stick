@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { TK, rd } from './lib/pipeline.mjs';
+import { defaultApproach } from './lib/approach.mjs';
 
 const a = process.argv.slice(2), P = path.resolve(a[0] || ''), out = path.join(P, 'storyboard/storyboard.json');
 if (!a[0] || !fs.existsSync(path.join(P, 'script/script.json')) || !fs.existsSync(path.join(P, 'brief.json'))) { console.error('usage: scaffold_storyboard.mjs <project> [--force]   (needs brief.json and script/script.json)'); process.exit(2); }
@@ -68,5 +69,7 @@ script.lines.forEach((l, i) => {
   const c2 = twoD++ % 2 === 0 && l.beat === 'hook' ? ['TitleCard', { text: l.text.replace(/[?.!]+$/, '?').length < 90 ? l.text : words(l.text).slice(0, 12).join(' '), accent: key, anchor: 'a0' }] : ['Highlight', { text: l.text, mark: key, anchor: 'a0', size: 80 }];
   shots.push({ ...base, visual_intent: intent('the sentence as a card with the key word marked'), shot_type: 'typography', component: c2[0], props: c2[1], anchors: [{ name: 'a0', line: l.id, word: key || first }] });
 });
+const vc = fs.existsSync(path.join(P, 'storyboard/visual-concept.json')) ? rd(path.join(P, 'storyboard/visual-concept.json')) : null;
+for (const s of shots) { const e = vc?.lines?.find((x) => x.line_id === s.line_ids?.[0]); s.approach = e?.approach || defaultApproach(s.component, s); s.why_renderer = `DRAFT: ${s.component} for a ${s.approach} shot. Say why this renderer shows THIS idea better than the alternatives.`; }   // the visual critic refuses DRAFT reasons
 fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, JSON.stringify({ style_pack: brief.style_pack, shots }, null, 1));
 console.log(`draft storyboard: ${shots.length} shots -> ${out}\n  ${shots.map((s) => `${s.id} ${s.component}`).join(', ')}\n  real captures used: ${usedCap} of ${caps.length}\nnext: node ${TK}/tools/check_storyboard.mjs ${P}   then   node ${TK}/tools/storyboard_review.mjs ${P}   and OPEN the sheets. Improve every shot; this is a baseline, not the result.`);

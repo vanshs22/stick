@@ -4,7 +4,7 @@
 //   node tools/choose.mjs <P> typography <number|set-id>        -> typography/typography.json
 //   node tools/choose.mjs <P> captions --preset word-pop [--position bottom|middle|top|<y>] [--scale 1] [--highlight color|underline|box|none]
 //   node tools/choose.mjs <P> layout <1-9>                      (the numbers of `gallery.mjs --kind layout`)
-//   node tools/choose.mjs <P> voice --voice am_michael --speed 1.05 [--pace calm|brisk] [--music bed|upbeat|tension|none|<file>] [--sfx soft|none|punchy] [--pron "ffmpeg=eff eff em peg;yt-dlp=why tee dee el pee"]
+//   node tools/choose.mjs <P> voice --voice am_michael --speed 1.05 [--pace calm|brisk] [--music bed|upbeat|tension|none|<file>] [--sfx soft|none|punchy] [--mode narrated|narrated_music|music_only|silent|custom] [--pron "ffmpeg=eff eff em peg;yt-dlp=why tee dee el pee"]
 import fs from 'node:fs';
 import path from 'node:path';
 import { TK, rd } from './lib/pipeline.mjs';
@@ -32,5 +32,8 @@ if (what === 'style') {
   const c = { voice: opt('voice', 'am_michael'), speed: +opt('speed', 1.0), pace: opt('pace', 'calm'), music: opt('music', 'bed'), sfx: opt('sfx', 'soft'), pronunciations: Object.fromEntries((opt('pron', '') || '').split(';').filter(Boolean).map((x) => x.split('='))), chosen_at: now };
   w('audio/voice-choice.json', c);
   const f = path.join(P, 'audio/audio-plan.json'); if (fs.existsSync(f)) { const ap = rd(f); delete ap.status;   // a DRAFT plan becomes the user's choice
-     ap.voice = { ...(ap.voice || {}), engine: ap.voice?.engine || 'kokoro', voice: c.voice, speed: c.speed, pronunciations: c.pronunciations }; ap.music = { ...(ap.music || {}), bed: c.music }; fs.writeFileSync(f, JSON.stringify(ap, null, 1)); console.log('updated audio/audio-plan.json'); }
+     ap.voice = { ...(ap.voice || {}), engine: ap.voice?.engine || 'kokoro', voice: c.voice, speed: c.speed, pronunciations: c.pronunciations }; ap.music = { ...(ap.music || {}), bed: c.music }; ap.mode = opt('mode', ap.mode || (ap.voice.engine === 'captions-only' ? (c.music === 'none' ? 'silent' : 'music_only') : (c.music === 'none' ? 'narrated' : 'narrated_music'))); fs.writeFileSync(f, JSON.stringify(ap, null, 1)); console.log('updated audio/audio-plan.json'); }
+} else if (what === 'mode') {   // choose.mjs <P> mode narrated|narrated_music|music_only|silent|custom
+  const m = process.argv[4]; if (!['narrated', 'narrated_music', 'music_only', 'silent', 'custom'].includes(m)) { console.error('mode must be narrated, narrated_music, music_only, silent or custom'); process.exit(2); }
+  const f = path.join(P, 'audio/audio-plan.json'), ap = rd(f); ap.mode = m; fs.writeFileSync(f, JSON.stringify(ap, null, 1)); console.log(`audio mode: ${m}${m === 'silent' ? ' (intentionally silent: no audio is required or checked)' : ' (a missing mix or narration will FAIL the build)'}`);
 } else { console.error('unknown choice kind'); process.exit(2); }

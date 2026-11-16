@@ -45,7 +45,7 @@ Ask for one line of feedback ("what would you change?"). Append it to `$TK/memor
 When the user can open a browser, offer the live Studio preview (`cd $P/remotion && npm run studio`, official rule `rs.mjs studio`) so they can scrub the video themselves at the gates.
 
 ## Do not change the toolkit to get a look
-A production run uses the toolkit as it is: pack defaults, storyboard fields, tools. Do not edit `remotion-template/`, `tools/` or `style-packs/` inside a video job. If something is broken or missing, stop, tell the user what and why, and (only if they agree) make ONE toolkit change with a line in `memory/learnings.md` and a run of `node tools/selftest.mjs`. A look problem (face covered, text cut off, caption on the host) is first a storyboard choice: another pose, framing, anchor or capture size.
+A production run uses the toolkit as it is: pack defaults, storyboard fields, tools. Do not edit `remotion-template/`, `tools/` or `style-packs/` in PRODUCTION mode (a video job). When the user asks you to improve the toolkit itself you are in TOOLKIT DEVELOPMENT mode and may (see RUNBOOK.md, two operating modes). If something is broken or missing, stop, tell the user what and why, and (only if they agree) make ONE toolkit change with a line in `memory/learnings.md` and a run of `node tools/selftest.mjs`. A look problem (face covered, text cut off, caption on the host) is first a storyboard choice: another pose, framing, anchor or capture size.
 
 ## Order of the first steps (so approvals do not go stale)
 1. `node $TK/tools/new_project.mjs <name> --dir <parent folder> --style <pack-id>` creates the folders and `state.json`. `--style` does NOT write `brief.json` or the style selection.

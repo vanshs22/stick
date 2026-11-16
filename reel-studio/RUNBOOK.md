@@ -3,6 +3,11 @@
 You need a shell and file access (Claude Code, OpenCode, Codex, Cursor, Kiro, Cline, Aider ...). A plain chat window without a shell cannot run this toolkit.
 `TK` = this folder. `P` = the project folder.
 
+## Two operating modes (decide which one you are in, from the user's task)
+**Production mode** (the user wants a VIDEO): the toolkit is a fixed instrument. Change project files only: brief, script, storyboard, assets, audio plan, typography, captions. Do not edit `tools/`, `remotion-template/`, `style-packs/`, `schemas/` or `skills/`. If the toolkit itself is wrong, stop, tell the user what and why, and offer to switch mode.
+**Toolkit development mode** (the user asks you to improve, fix or extend the toolkit): you are authorised to edit `tools/`, `remotion-template/`, `style-packs/`, `schemas/`, `skills/`, installers and tests. Rules there: find the root cause (grep every caller), fix the shared code once, add or extend a self-test or regression fixture for each bug (`tools/selftest*.mjs`), run `node tools/selftest.mjs` before you stop, keep `docs/REPAIR_LOG.md` and `CHANGELOG.md` current, and report what is implemented, what is tested and what is unverified. Never mark something verified that you did not run.
+In both modes the approval gates stay real: no one approves for the user.
+
 ## The loop
 1. `node $TK/tools/next.mjs $P` prints the ONE next step: the skill to read, the exact commands, what "good" looks like.
 2. Do it. Read the named skill file (`skills/<name>/SKILL.md`) only when `next` names it.
@@ -20,12 +25,12 @@ The craft skills decide how good the result is: `script-writing` (story), `desig
 ## Five rules that matter most
 1. Look at pictures before you say they are good: open the contact sheets and frames. If you cannot see images, say so; do not claim you looked.
 2. Real facts only: every claim has a source in `research/research.json`; evidence is a real capture (`capture_web.mjs --expect`), never a drawing.
-3. Do not edit the toolkit (`tools/`, `remotion-template/`, `style-packs/`). Fix a bad look in the storyboard (pose, framing, anchor, component, capture size).
+3. In PRODUCTION mode do not edit the toolkit (`tools/`, `remotion-template/`, `style-packs/`): fix a bad look in the storyboard (pose, framing, anchor, component, capture size). In TOOLKIT DEVELOPMENT mode fixing the toolkit is the job (see the two modes above).
 4. Start the storyboard from `scaffold_storyboard.mjs`, then improve each shot; for each non-character shot also try `remocn.mjs search` and keep what looks better.
 5. After any fix rebuild with `build_video.mjs`: only the changed shots re-render.
 
 ## If a tool fails
-Read its last lines, fix the input it names, run it again. If the toolkit itself is wrong, stop and tell the user what and why; do not hide it.
+Read its last lines, fix the input it names, run it again. If the toolkit itself is wrong: in production mode stop and tell the user what and why (do not hide it); in toolkit development mode fix it at the root and add a regression check.
 
 ## Good to know
 - TEST projects (`new_project.mjs ... --test`, needs `REEL_TEST_MODE=1`) skip the approval gates and say TEST in every receipt: use them for dry runs, never for a real delivery.

@@ -78,6 +78,17 @@
   },
   "notes": {
    "type": "string"
+  },
+  "mode": {
+   "type": "string",
+   "enum": [
+    "narrated",
+    "narrated_music",
+    "music_only",
+    "silent",
+    "custom"
+   ],
+   "description": "What audio the finished video must have. 'silent' = intentionally no audio; every other mode FAILS the build when its audio is missing."
   }
  },
  "$schema": "http://json-schema.org/draft-07/schema#",

@@ -5,7 +5,7 @@ description: Produce a finished short vertical video (Reels, TikTok, Shorts, exp
 
 # Reel Studio
 
-**Short version for any agent: read `RUNBOOK.md`, then loop on `node $TK/tools/next.mjs $P`.** The rest of this file is the reference.
+**Short version for any agent: read `RUNBOOK.md` (it defines the two operating modes: production and toolkit development), then loop on `node $TK/tools/next.mjs $P`.** The rest of this file is the reference.
 
 You are the researcher, writer, director, editor and critic. The user is the producer: they approve each important step.
 Everything is code: Remotion (React) renders the video, three.js draws 3D, Playwright captures real websites, Kokoro speaks, Whisper times the words, FFmpeg encodes.
@@ -28,23 +28,25 @@ No AI image or video generation, no paid credits. Nothing is shown to the user t
 | 4 | research | video-research, playwright-capture | `research/research.json`, `research/sources.json`, real captures | **yes** |
 | 5 | script | script-writing (story craft) | `script/script.json` | **yes** |
 | 6 | script_critic | script-critique | `review/critics/{research,script}.json`, fixed script | **yes** |
-| 7 | storyboard | storyboard, design-craft, remocn | `storyboard/storyboard.json`, contact sheet + one image per shot | **yes, frame by frame** |
-| 8 | storyboard_critic | storyboard-critique | `review/critics/storyboard.json` + cinematography critic | |
-| 9 | audio | audio-production, edit-craft | `audio/audio-plan.json`, voice/music/sfx previews | **yes** |
-| 10 | typography | typography, design-craft | `typography/typography.json` + preview | **yes** |
-| 11 | captions | captions, edit-craft | `typography/captions.json` + animated preview | **yes** |
-| 12 | assets | playwright-capture, reference-analysis | `assets/manifest.json` | |
-| 13 | production | remotion-production, threejs-production | go/no-go for the full render | **yes** |
-| 14 | build | remotion-production | `renders/<name>.mp4` (per-shot clips, cached) | |
-| 15 | visual_critic | visual-critique, design-craft, edit-craft | `review/critics/*.json` (frames, video, vision) | |
-| 16 | audio_critic | audio-production | `review/critics/{voice,music,sfx}.json` | |
-| 17 | final | final-quality-control | `renders/<name>.mp4`, `review/critics/final.json` | **yes** |
-| 18 | deliver | final-quality-control, edit-craft (`package_post.mjs`) | cover, captions text, `state.mjs seal` receipt | |
+| 7 | visual_concept | storyboard, design-craft | `storyboard/visual-concept.json`: for EVERY line, the kind of picture (screenshot, designed UI, motion graphics, 3D character, 3D demonstration, metaphor, data viz, evidence card, combo) and what it adds that the words do not (`tools/visual_concept.mjs`, critic `visual`) | **yes** |
+| 8 | storyboard | storyboard, design-craft, remocn | `storyboard/storyboard.json` (each shot: `approach` + `why_renderer`), contact sheet + one still per shot | **yes, frame by frame (each still is fingerprinted)** |
+| 9 | storyboard_critic | storyboard-critique | `review/critics/{storyboard,visual}.json` + cinematography critic | |
+| 10 | assets | playwright-capture, reference-analysis | `assets/asset-selection.json` + `review/assets-sheet.jpg` (`tools/assets_review.mjs`): characters, worlds, real captures with provenance, labelled recreations, remocn, voice, music, fonts, with licences | **yes** |
+| 11 | audio | audio-production, edit-craft | `audio/audio-plan.json` (with `mode`), voice/music/sfx previews | **yes** |
+| 12 | typography | typography, design-craft | `typography/typography.json` + preview | **yes** |
+| 13 | captions | captions, edit-craft | `typography/captions.json` + animated preview | **yes** |
+| 14 | production | remotion-production, threejs-production | `review/readiness.json` (`tools/readiness.mjs`): measured go/no-go for the full render | **yes** |
+| 15 | build | remotion-production | `renders/<name>.mp4` (per-shot clips, cached), `<name>.qa.json` | |
+| 16 | visual_critic | visual-critique, design-craft, edit-craft | `review/critics/*.json` (frames, video, vision) | |
+| 17 | audio_critic | audio-production | `review/critics/{voice,music,sfx}.json` | |
+| 18 | editorial_critic | final-quality-control, edit-craft | the film judged as an edited sequence: `review/critics/final.json` + vision (transitions) | |
+| 19 | final | final-quality-control | the MP4, its QA report, the contact sheet, captions and the production report: ALL fingerprinted | **yes** |
+| 20 | deliver | final-quality-control, edit-craft (`package_post.mjs`) | cover, post text, `state.mjs seal` receipt bound to the MP4's sha256 | |
 
 Per stage: `state.mjs check $P <stage>` first (fails if an earlier gate is open) -> `start` -> work -> `done`.
 At a gate: `request`, show the result in plain words plus the image or file to look at, ask ONE clear question, then STOP. Only after the user answers: `approve --quote "<their words>"`. The approval is tied to the files you showed; edit one and it goes stale.
 Storyboard: each frame is approved or changed on its own (`state.mjs frame`, `tools/storyboard_review.mjs`, `storyboard_alts.mjs`, `storyboard_edit.mjs`).
-If the user says "run through to X", you may record the early gates (intake to script_critic only) with `approve --delegated --quote "<their instruction>"`. The receipt shows them as DELEGATED. Storyboard, audio, typography, captions, production and final are never delegable.
+If the user says "run through to X", you may record the early gates (intake to script_critic only) with `approve --delegated --quote "<their instruction>"`. The receipt shows them as DELEGATED. Visual concept, storyboard, assets, audio, typography, captions, production and final are never delegable.
 Final changes (reject, replace a shot, change music, captions, transition, pacing): `state.mjs change`, then `fix_plan.mjs`, then only the affected shots are re-rendered.
 
 ## 2. Rules
@@ -92,4 +94,4 @@ Upload or publish without being asked and confirmed. Spend the user's money or c
 Where our rules and the official ones differ, the official ones win.
 
 ## Rule: use the toolkit, do not rewrite it
-Get the look from the style pack, the storyboard fields and the recipes in `skills/storyboard`, `skills/playwright-capture` and `skills/threejs-production`. Editing toolkit source during a video job is a last resort that needs the user's OK (see `skills/video-director`).
+Get the look from the style pack, the storyboard fields and the recipes in `skills/storyboard`, `skills/playwright-capture` and `skills/threejs-production`. In PRODUCTION mode do not edit toolkit source (stop and tell the user instead). In TOOLKIT DEVELOPMENT mode (the user asked you to improve the toolkit) you may and must, with tests: see the two operating modes at the top of `RUNBOOK.md`.

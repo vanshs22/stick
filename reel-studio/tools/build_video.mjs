@@ -22,6 +22,7 @@ step('check storyboard', 'node', [path.join(TK, 'tools/check_storyboard.mjs'), P
 step('narration input', 'node', [path.join(TK, 'tools/audio/build_tts_input.mjs'), P]);
 const ttsHash = crypto.createHash('sha1').update(fs.readFileSync(path.join(P, 'data/tts.json'))).digest('hex'), hf = path.join(P, 'data/.voice.hash');
 const needVoice = !a.includes('--estimate') && (!fs.existsSync(path.join(P, 'data/narration.wav')) || !fs.existsSync(hf) || fs.readFileSync(hf, 'utf8') !== ttsHash);   // same text + voice + pronunciations = same narration
+if (a.includes('--estimate')) fs.writeFileSync(path.join(P, 'data/.estimate'), 'estimate build: no narration, NOT a delivery render\n'); else fs.rmSync(path.join(P, 'data/.estimate'), { force: true });
 if (a.includes('--estimate')) step('estimated timing (no voice)', PY, [path.join(TK, 'tools/audio/estimate.py'), '.']);
 else if (needVoice) { step('voice (Kokoro, local)', PY, [path.join(TK, 'tools/audio/voice.py'), '.']); const wr = step('word timing (Whisper, local)', PY, [path.join(TK, 'tools/audio/words.py'), '.']); if (/spreading words|spread inside/.test((wr.stdout || '') + (wr.stderr || ''))) console.error('\nWARNING: Whisper was not available, so caption and anchor times are SPREAD inside each line (about 0.1-0.2 s off). Fix: install it (bash install.sh) and delete data/narration.wav, then rebuild.\n'); fs.writeFileSync(hf, ttsHash); }
 else console.log('== voice: unchanged, reusing data/narration.wav');
@@ -33,4 +34,4 @@ const scale = opt('scale', '1'), seg = ['--scale', scale, ...(opt('shots') ? ['-
 step('render shots (cached per shot)', 'node', [path.join(TK, 'tools/render_segments.mjs'), P, ...seg], { timeout: 7200000 });
 step('assemble + loudness', 'node', [path.join(TK, 'tools/assemble.mjs'), P, name]);
 const out = path.join(P, `renders/${name}.mp4`); const qa = (() => { try { return rd(path.join(P, `renders/${name}.qa.json`)); } catch { return null; } })();
-console.log(`\nDONE ${path.relative(process.cwd(), out)}${qa ? '  QA: ' + (qa.checks || []).filter((c) => !c.ok).map((c) => c.name).join(', ') || 'all checks ok' : ''}\nnext: node ${path.join(TK, 'tools/critique.mjs')} ${P} all   then   node ${path.join(TK, 'tools/qa/contact_sheet.mjs')} ${out} ${P}/review/final.jpg --every 1   and LOOK at it`);
+console.log(`\nDONE ${path.relative(process.cwd(), out)}${qa ? '  QA: ' + ((qa.checks || []).filter((c) => !c.ok).map((c) => `${c.level === 'warn' ? 'warn' : 'FAIL'} ${c.name}`).join(', ') || 'all checks ok') + (qa.preview ? '  (PREVIEW: not a delivery render)' : '') : ''}\nnext: node ${path.join(TK, 'tools/critique.mjs')} ${P} all   then   node ${path.join(TK, 'tools/qa/contact_sheet.mjs')} ${out} ${P}/review/final.jpg --every 1   and LOOK at it`);

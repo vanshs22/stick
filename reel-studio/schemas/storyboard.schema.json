@@ -197,6 +197,35 @@
      },
      "notes": {
       "type": "string"
+     },
+     "approach": {
+      "type": "string",
+      "enum": [
+       "screenshot",
+       "designed-ui",
+       "motion-graphics",
+       "character-3d",
+       "physical-3d",
+       "metaphor-env",
+       "data-viz",
+       "evidence-card",
+       "combo"
+      ],
+      "description": "What kind of picture carries the line."
+     },
+     "why_renderer": {
+      "type": "string",
+      "description": "Why this renderer/component suits the idea (the critic rejects DRAFT or empty reasons)."
+     },
+     "layers": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "For approach 'combo': the layers combined (e.g. 3d character, real capture, 2d overlay)."
+     },
+     "deviation_reason": {
+      "type": "string"
      }
     }
    },
