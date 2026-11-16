@@ -104,5 +104,15 @@ const critic = async (sb, vc) => { const D = path.join(tmp, 'v' + Math.random().
 { const D = path.join(tmp, 'rdy'); fs.cpSync(P, D, { recursive: true }); const ap = JSON.parse(fs.readFileSync(path.join(D, 'audio/audio-plan.json'))); delete ap.mode; ap.status = 'DRAFT'; fs.writeFileSync(path.join(D, 'audio/audio-plan.json'), JSON.stringify(ap));
   const r = node('readiness.mjs', D); const j = JSON.parse(fs.readFileSync(path.join(D, 'review/readiness.json'))); ok('readiness fails on a DRAFT audio plan with no declared mode', r.status !== 0 && j.checks.some((c) => !c.ok && /audio mode/.test(c.name)) && j.checks.some((c) => !c.ok && /DRAFT/.test(c.name)), r.stdout); }
 
+// ---------- 7. research without Agent-Reach, and analytics that never invent data ----------
+{ const D = path.join(tmp, 'res'); fs.mkdirSync(D, { recursive: true }); fs.writeFileSync(path.join(D, 'brief.json'), '{}');
+  let r = node('research/import_sources.mjs', D, '--text', 'Retry-After tells clients how long to wait.', '--title', 'User notes'); const src = JSON.parse(fs.readFileSync(path.join(D, 'research/sources.json'))).sources;
+  ok('manual import records a user-supplied source with provenance (no Agent-Reach needed)', r.status === 0 && src[0].via === 'user-supplied' && src[0].channel === 'manual' && !!src[0].retrieved_at && fs.existsSync(path.join(D, src[0].page)), r.stdout + r.stderr);
+  r = node('research/import_sources.mjs', D, '--url', 'http://127.0.0.1:1/x', '--fetch', '--title', 'Down'); const s2 = JSON.parse(fs.readFileSync(path.join(D, 'research/sources.json'))).sources;
+  ok('a page that cannot be fetched is recorded as user-listed, never as fetched', s2.at(-1).via === 'user-listed', JSON.stringify(s2.at(-1)));
+  r = node('research/search.mjs', D, 'rate limits', '--user-said', 'yes'); ok('search without Agent-Reach says what to do instead (install flag or manual import)', /import_sources|--with-agent-reach/.test(r.stdout + r.stderr), r.stdout + r.stderr);
+  fs.writeFileSync(path.join(D, 'a.csv'), 'title,views,likes\nA,100,5\nB,200,9\nC,150,7\n'); r = node('analytics/analyze.mjs', '--csv', path.join(D, 'a.csv'), '--out', D);
+  ok('analytics with fewer than 5 videos says the sample is too small instead of inventing a pattern', /too few to compare|too small/i.test(r.stdout + r.stderr), r.stdout + r.stderr); }
+
 fs.rmSync(tmp, { recursive: true, force: true });
 if (fails) { console.error(`\n${fails} of ${n} pipeline checks FAILED`); process.exit(1); } console.log(`\nPIPELINE SELFTEST PASSED: ${n} checks (approval chain, invalidation, final fingerprints, delivery profile, audio gates, visual critic, assets, readiness)`);

@@ -56,6 +56,7 @@ await t('ffmpeg works (and a 1 s test clip can be made)', () => { sh('ffmpeg', [
 if (full) {
   await t('voice sample (Kokoro)', () => { const P = path.join(tmp, 'v'); fs.mkdirSync(path.join(P, 'data'), { recursive: true }); fs.writeFileSync(path.join(P, 'data/tts.json'), JSON.stringify({ lines: [{ id: 'L01', text: 'This is a test of the voice.' }] })); sh(PY, [path.join(TK, 'tools/audio/voice.py'), '.'], { cwd: P, env: { ...process.env, TTS_SCRIPT: 'data/tts.json' } }); if (!fs.existsSync(path.join(P, 'data/narration.wav'))) throw new Error('no narration.wav'); });
   await t('Playwright capture (local page): actions, scroll, wait, recording, provenance, honest failures', () => sh('node', [path.join(TK, 'tools/selftest_capture.mjs')]).trim().split('\n').pop());
+  await t('reference ingestion: MP4, MOV, image, website, repo, video URL (known material)', () => sh('node', [path.join(TK, 'tools/selftest_reference.mjs')], { timeout: 900000 }).trim().split('\n').filter(Boolean).pop());
   await t('HTML/GSAP + HyperFrames + remocn adapters: deterministic frames through the real renderer', () => sh('node', [path.join(TK, 'tools/selftest_hyperframes.mjs')], { timeout: 1500000 }).trim().split('\n').filter(Boolean).pop());
   await t('one rendered 3D still (stickman-3d example)', () => {
     sh('node', [path.join(TK, 'tools/run_example.mjs'), 'experiment-stick', 'st', '--dir', tmp], { env: { ...process.env, REEL_TEST_MODE: '1' } });
