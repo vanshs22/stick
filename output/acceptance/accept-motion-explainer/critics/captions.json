@@ -1,0 +1,29 @@
+{
+ "critic": "captions",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 98,
+ "assessment": "automatic",
+ "checks_run": [
+  "captions say what the narration says",
+  "chunk timing",
+  "reading speed",
+  "exactly one highlighted word per chunk (when the preset highlights)",
+  "placement inside the safe area",
+  "coverage"
+ ],
+ "findings": [
+  {
+   "id": "CAP01",
+   "severity": "minor",
+   "fix_target": "code",
+   "timestamp_sec": 14.46,
+   "problem": "caption is hard to read at this speed",
+   "evidence": "28 characters per second",
+   "expected": "24 or fewer",
+   "fix": "smaller chunks"
+  }
+ ],
+ "notes": [],
+ "checked_at": "2026-11-16T19:31:47.467Z"
+}

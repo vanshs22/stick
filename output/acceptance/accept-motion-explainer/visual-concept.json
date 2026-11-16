@@ -1,0 +1,36 @@
+{
+ "status": "ready",
+ "style_pack": "editorial-sticker",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Same page, two visits: eight hundred milliseconds, then forty.",
+   "approach": "data-viz",
+   "adds_information": "The two numbers side by side let the viewer measure the gap themselves."
+  },
+  {
+   "line_id": "L02",
+   "line": "The first visit fetches every file from a far away server.",
+   "approach": "motion-graphics",
+   "adds_information": "A three-node diagram draws the long trip to a far server, which the sentence can only name."
+  },
+  {
+   "line_id": "L03",
+   "line": "A cache keeps a copy close to you.",
+   "approach": "motion-graphics",
+   "adds_information": "The same diagram with a cache node inserted shows the architectural change."
+  },
+  {
+   "line_id": "L04",
+   "line": "So the second visit skips the trip, and is twenty times faster.",
+   "approach": "data-viz",
+   "adds_information": "A count-up stat card (real HyperFrames block) shows 20x climbing on the word twenty."
+  },
+  {
+   "line_id": "L05",
+   "line": "Save this, and comment CACHE.",
+   "approach": "designed-ui",
+   "adds_information": "An end card with the exact keyword makes the one ask unmissable."
+  }
+ ]
+}

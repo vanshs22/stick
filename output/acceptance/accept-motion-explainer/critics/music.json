@@ -1,0 +1,18 @@
+{
+ "critic": "music",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "mix exists",
+  "headroom and clipping",
+  "music ducks under the voice",
+  "mix report (measured before the master limiter): music level under speech, pre-master overs"
+ ],
+ "findings": [],
+ "notes": [
+  "Music taste (does it fit the mood?) needs a human ear. The beds are procedural: calm, upbeat or tension."
+ ],
+ "checked_at": "2026-11-16T19:32:56.216Z"
+}

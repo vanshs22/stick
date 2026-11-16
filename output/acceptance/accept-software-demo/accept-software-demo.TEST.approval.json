@@ -1,0 +1,133 @@
+{
+ "video": "accept-software-demo.mp4",
+ "video_sha256": "85b1c5ec7050afbea45cbb46b06170dceafd18e0441c573fe1a471c8228e6b53",
+ "qa": {
+  "file": "accept-software-demo.qa.json",
+  "sha256": "c0d9599d7957f11e95fbf865dd87ea33cf5262df78918f24c979e70b1c84f8a8",
+  "pass": true,
+  "preview": false,
+  "delivery_ready": true,
+  "measured": {
+   "width": 1080,
+   "height": 1920,
+   "fps": 30,
+   "duration": 16.7,
+   "size_mb": 6.69,
+   "has_audio": true
+  }
+ },
+ "sealed_at": "2026-11-16T19:28:12.927Z",
+ "test_project": true,
+ "approved_artifacts": {},
+ "approvals": {
+  "intake": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.552Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "style": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.556Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "topic": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.556Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "research": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "script": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "script_critic": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "visual_concept": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "storyboard": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "assets": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "audio": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "typography": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "captions": {
+   "status": "done",
+   "at": "2026-11-16T19:26:34.557Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "production": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "final": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  }
+ },
+ "revisions": 0
+}

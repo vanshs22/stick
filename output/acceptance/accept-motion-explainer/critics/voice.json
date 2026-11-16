@@ -1,0 +1,18 @@
+{
+ "critic": "voice",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "narration exists",
+  "no clipping",
+  "no unplanned gaps",
+  "pronunciation: what a speech recogniser hears vs the script (faster-whisper)"
+ ],
+ "findings": [],
+ "notes": [
+  "Whether the voice SOUNDS good (warmth, emphasis) needs a human ear: this critic checks clipping, gaps and intelligibility only."
+ ],
+ "checked_at": "2026-11-16T19:32:56.209Z"
+}

@@ -96,12 +96,13 @@
      }
     ],
     "camera": {
-     "framing": "wide",
+     "framing": "extreme-wide",
      "angle": "eye-level",
      "subject": "stage",
+     "distScale": 0.62,
      "offset": [
       0,
-      -0.2
+      -0.25
      ],
      "focus": {
       "target": "stage",
@@ -131,7 +132,7 @@
     },
     {
      "type": "bubble",
-     "emoji": "🤔",
+     "emoji": "\ud83e\udd14",
      "text": "WHAT?",
      "x": 770,
      "y": 1170,
@@ -206,7 +207,7 @@
       "image": "assets/web/fundamentals/page.png",
       "at": [
        0,
-       1.75,
+       2.1,
        -0.9
       ],
       "w": 2
@@ -264,7 +265,7 @@
     "type": "cut",
     "sound": "none"
    },
-   "visual_intent": "DRAFT: the real page \"GitHub - remotion-dev/remotion: 🎥 Make videos pro\" on a floating screen (proof)",
+   "visual_intent": "DRAFT: the real page \"GitHub - remotion-dev/remotion: \ud83c\udfa5 Make videos pro\" on a floating screen (proof)",
    "shot_type": "evidence",
    "component": "Stage3D",
    "props": {
@@ -315,7 +316,7 @@
       "image": "assets/web/github/page.png",
       "at": [
        0,
-       1.75,
+       2.1,
        -0.9
       ],
       "w": 2
@@ -426,13 +427,12 @@
      }
     ],
     "camera": {
-     "framing": "extreme-wide",
+     "framing": "wide",
      "angle": "eye-level",
      "subject": "stage",
-     "distScale": 0.62,
      "offset": [
       0,
-      -0.25
+      -0.2
      ],
      "focus": {
       "target": "stage",

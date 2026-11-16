@@ -1,0 +1,182 @@
+{
+ "id": "accept-software-demo",
+ "example": "accept-software-demo",
+ "style_pack": "editorial-notebook",
+ "rendered_at": "2026-11-16T19:41:02.783Z",
+ "toolkit_commit": "a4b0b60",
+ "scale": 1,
+ "test_project": true,
+ "note": "TEST project: no user approved this film; the receipt says TEST. Voice: Kokoro (local). Render: Remotion, software GL (no GPU).",
+ "qa": {
+  "pass": true,
+  "preview": false,
+  "delivery_ready": true,
+  "measured": {
+   "width": 1080,
+   "height": 1920,
+   "fps": 30,
+   "duration": 16.7,
+   "size_mb": 6.69,
+   "has_audio": true
+  },
+  "failed_checks": []
+ },
+ "shots": [
+  {
+   "id": "S01",
+   "start": 0,
+   "end": 3.92,
+   "component": "BrowserWindow"
+  },
+  {
+   "id": "S02",
+   "start": 3.92,
+   "end": 6.65,
+   "component": "Checklist"
+  },
+  {
+   "id": "S03",
+   "start": 6.65,
+   "end": 10.8,
+   "component": "Terminal"
+  },
+  {
+   "id": "S04",
+   "start": 10.8,
+   "end": 13.42,
+   "component": "ProofCard"
+  },
+  {
+   "id": "S05",
+   "start": 13.42,
+   "end": 16.69,
+   "component": "EndCard"
+  }
+ ],
+ "critics": [
+  {
+   "critic": "captions",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "final",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "frames",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "music",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "reference",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "research",
+   "verdict": "fail",
+   "score": 75,
+   "blocker": 1,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "script",
+   "verdict": "pass",
+   "score": 98,
+   "blocker": 0,
+   "major": 0,
+   "minor": 1,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "sfx",
+   "verdict": "revise",
+   "score": 90,
+   "blocker": 0,
+   "major": 1,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "storyboard",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "video",
+   "verdict": "pass",
+   "score": 96,
+   "blocker": 0,
+   "major": 0,
+   "minor": 2,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "visual",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  },
+  {
+   "critic": "voice",
+   "verdict": "pass",
+   "score": 100,
+   "blocker": 0,
+   "major": 0,
+   "minor": 0,
+   "assessment": "automatic"
+  }
+ ],
+ "capture_provenance": [
+  {
+   "id": "SRC1-1",
+   "url": "https://www.remotion.dev/",
+   "captured_at": "2026-11-16T19:26:38.274Z",
+   "sha256": "9bc2f50bf90c1916",
+   "kind": "real"
+  },
+  {
+   "id": "SRC2-2",
+   "url": "https://www.remotion.dev/docs/cli/render",
+   "captured_at": "2026-11-16T19:26:42.354Z",
+   "sha256": "cf3f3b46c4f6fdd3",
+   "kind": "real"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "critic": "final",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "format",
+  "duration",
+  "black and frozen picture",
+  "audio",
+  "approvals"
+ ],
+ "findings": [],
+ "notes": [
+  "TEST project: nothing here was approved by a user."
+ ],
+ "checked_at": "2026-11-16T19:31:56.843Z"
+}

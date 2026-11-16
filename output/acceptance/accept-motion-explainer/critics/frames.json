@@ -1,0 +1,18 @@
+{
+ "critic": "frames",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "exposure, contrast, emptiness",
+  "text away from the platform buttons and the top bar",
+  "3D shots: caption band vs the actor head (camera maths)"
+ ],
+ "findings": [],
+ "notes": [
+  "frames taken from the rendered film (accept-motion-explainer.mp4), one per shot",
+  "Looks good? Is the composition beautiful? Those need eyes: tools/critique.mjs vision --packet composition"
+ ],
+ "checked_at": "2026-11-16T19:31:53.640Z"
+}

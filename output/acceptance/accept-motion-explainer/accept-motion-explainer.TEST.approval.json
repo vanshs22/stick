@@ -1,0 +1,133 @@
+{
+ "video": "accept-motion-explainer.mp4",
+ "video_sha256": "a0f528bccc8e98889fc891e40d5df131b047e3a302de6c684835d1ae5c5df956",
+ "qa": {
+  "file": "accept-motion-explainer.qa.json",
+  "sha256": "4554b23ae5487fc1857fd843b2264a5b010ae810fc8f1911d6099491f2545ad5",
+  "pass": true,
+  "preview": false,
+  "delivery_ready": true,
+  "measured": {
+   "width": 1080,
+   "height": 1920,
+   "fps": 30,
+   "duration": 17.4,
+   "size_mb": 4.83,
+   "has_audio": true
+  }
+ },
+ "sealed_at": "2026-11-16T19:31:57.852Z",
+ "test_project": true,
+ "approved_artifacts": {},
+ "approvals": {
+  "intake": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.726Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "style": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.730Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "topic": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.730Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "research": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.730Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "script": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.730Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "script_critic": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.731Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "visual_concept": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "storyboard": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.731Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "assets": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "audio": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.731Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "typography": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.731Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "captions": {
+   "status": "done",
+   "at": "2026-11-16T19:30:31.731Z",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "production": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  },
+  "final": {
+   "status": "pending",
+   "quote": null,
+   "by": null,
+   "choice": null,
+   "fingerprints": {}
+  }
+ },
+ "revisions": 0
+}

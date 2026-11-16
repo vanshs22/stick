@@ -1,0 +1,149 @@
+{
+ "pass": true,
+ "preview": false,
+ "estimate": false,
+ "delivery_ready": true,
+ "profile": {
+  "platform": "instagram-reels",
+  "aspect": "9:16",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "min_sec": 3,
+  "max_sec": 90,
+  "max_mb": null,
+  "target_sec": 15,
+  "audio_mode": "narrated_music",
+  "audio_required": true,
+  "narration_required": true,
+  "loudness_lufs": -14,
+  "true_peak_db": -1.5,
+  "source": "platform preset (instagram-reels)"
+ },
+ "checks": [
+  {
+   "name": "file decodes without errors",
+   "ok": true,
+   "note": "clean",
+   "level": "ok"
+  },
+  {
+   "name": "resolution",
+   "ok": true,
+   "note": "1080x1920 (expected 1080x1920)",
+   "level": "ok"
+  },
+  {
+   "name": "aspect ratio",
+   "ok": true,
+   "note": "0.563 (expected 0.563)",
+   "level": "ok"
+  },
+  {
+   "name": "frame rate",
+   "ok": true,
+   "note": "30 fps (expected 30)",
+   "level": "ok"
+  },
+  {
+   "name": "duration >= 3 s",
+   "ok": true,
+   "note": "16.7 s",
+   "level": "ok"
+  },
+  {
+   "name": "duration <= 90 s",
+   "ok": true,
+   "note": "16.7 s",
+   "level": "ok"
+  },
+  {
+   "name": "duration near the brief's 15 s (within 30 percent)",
+   "ok": true,
+   "note": "16.7 s",
+   "level": "ok"
+  },
+  {
+   "name": "audio stream present (mode: narrated_music)",
+   "ok": true,
+   "note": "yes",
+   "level": "ok"
+  },
+  {
+   "name": "audio is not silent",
+   "ok": true,
+   "note": "mean -17.7 dB",
+   "level": "ok"
+  },
+  {
+   "name": "loudness",
+   "ok": true,
+   "note": "-14.3 LUFS (target -14)",
+   "level": "ok"
+  },
+  {
+   "name": "true peak",
+   "ok": true,
+   "note": "-1.3 dBTP (limit -1)",
+   "level": "ok"
+  },
+  {
+   "name": "mix does not clip before normalising",
+   "ok": true,
+   "note": "mix peak -1.060412 dBFS",
+   "level": "ok"
+  },
+  {
+   "name": "no black frames",
+   "ok": true,
+   "note": "0 black stretch(es)",
+   "level": "ok"
+  },
+  {
+   "name": "no frozen picture",
+   "ok": true,
+   "note": "0 frozen stretch(es) > 2.2 s",
+   "level": "ok"
+  },
+  {
+   "name": "no gaps or overlaps in the shot timeline",
+   "ok": true,
+   "note": "5 shots, contiguous",
+   "level": "ok"
+  },
+  {
+   "name": "every shot has a rendered clip",
+   "ok": true,
+   "note": "5/5 clips",
+   "level": "ok"
+  },
+  {
+   "name": "film length matches the timeline",
+   "ok": true,
+   "note": "video 16.70 s, timeline 16.69 s",
+   "level": "ok"
+  },
+  {
+   "name": "caption timing (ordered, no overlap, inside the film)",
+   "ok": true,
+   "note": "14 chunks",
+   "level": "ok"
+  },
+  {
+   "name": "captions inside the safe zone",
+   "ok": true,
+   "note": "caption y 1280 px, safe 180-1380",
+   "level": "ok"
+  }
+ ],
+ "loudness_before": -16.87,
+ "video": "accept-software-demo.mp4",
+ "measured": {
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 16.7,
+  "size_mb": 6.69,
+  "has_audio": true
+ }
+}

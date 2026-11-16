@@ -1,0 +1,13 @@
+{
+ "critic": "reference",
+ "target": "accept-software-demo",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [],
+ "findings": [],
+ "notes": [
+  "No video references in this project: nothing to compare. (Add one with tools/reference/ingest.mjs.)"
+ ],
+ "checked_at": "2026-11-16T19:28:11.764Z"
+}

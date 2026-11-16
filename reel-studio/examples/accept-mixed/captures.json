@@ -21,12 +21,16 @@
   "viewport": "480x486",
   "actions": [
    {
+    "do": "wait",
+    "ms": 1200
+   },
+   {
     "do": "scroll",
-    "y": 300
+    "y": 250
    },
    {
     "do": "wait",
-    "ms": 700
+    "ms": 900
    },
    {
     "do": "screenshot",
@@ -34,7 +38,7 @@
    }
   ],
   "expect": [
-   "stars"
+   "watching"
   ]
  }
 ]

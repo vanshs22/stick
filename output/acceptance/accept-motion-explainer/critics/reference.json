@@ -1,0 +1,13 @@
+{
+ "critic": "reference",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [],
+ "findings": [],
+ "notes": [
+  "No video references in this project: nothing to compare. (Add one with tools/reference/ingest.mjs.)"
+ ],
+ "checked_at": "2026-11-16T19:31:56.844Z"
+}

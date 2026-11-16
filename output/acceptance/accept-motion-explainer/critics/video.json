@@ -1,0 +1,20 @@
+{
+ "critic": "video",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "planned cuts vs detected cuts (glitches and missing cuts)",
+  "hook (first 3 seconds)",
+  "ending",
+  "colour continuity inside a scene",
+  "pacing",
+  "captions present"
+ ],
+ "findings": [],
+ "notes": [
+  "Is the edit coherent and moving? Count the measurable things here, then look at the contact sheet yourself (tools/critique.mjs vision --packet video)."
+ ],
+ "checked_at": "2026-11-16T19:31:56.842Z"
+}

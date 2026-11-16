@@ -1,0 +1,16 @@
+{
+ "critic": "visual",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "visual-concept.json covers every script line with an approach and the information the picture adds",
+  "every shot names its approach and why this renderer suits it"
+ ],
+ "findings": [],
+ "notes": [
+  "Does the picture actually look right and explain the line? That needs eyes: run the vision critics (tools/critique.mjs <P> vision --packet composition)."
+ ],
+ "checked_at": "2026-11-16T19:31:47.465Z"
+}

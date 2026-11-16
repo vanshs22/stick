@@ -1,0 +1,23 @@
+{
+ "critic": "research",
+ "target": "accept-software-demo",
+ "verdict": "fail",
+ "score": 75,
+ "assessment": "automatic",
+ "checks_run": [
+  "research.json exists and has claims"
+ ],
+ "findings": [
+  {
+   "id": "RES01",
+   "severity": "blocker",
+   "fix_target": "research",
+   "problem": "no research/research.json",
+   "evidence": "file missing",
+   "expected": "claims with sources",
+   "fix": "run the research stage"
+  }
+ ],
+ "notes": [],
+ "checked_at": "2026-11-16T19:28:02.168Z"
+}

@@ -1,0 +1,20 @@
+{
+ "critic": "storyboard",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "every script line is in exactly one shot, in order",
+  "shot variety and evidence",
+  "shot lengths are workable",
+  "overlay and text positions stay in the safe area",
+  "transitions are motivated",
+  "cinematography critic"
+ ],
+ "findings": [],
+ "notes": [
+  "Does each frame look good? That needs eyes: run the vision critics (tools/critique.mjs vision --packet composition|character|environment)."
+ ],
+ "checked_at": "2026-11-16T19:31:47.463Z"
+}

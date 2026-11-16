@@ -1,0 +1,40 @@
+{
+ "critic": "video",
+ "target": "accept-software-demo",
+ "verdict": "pass",
+ "score": 96,
+ "assessment": "automatic",
+ "checks_run": [
+  "planned cuts vs detected cuts (glitches and missing cuts)",
+  "hook (first 3 seconds)",
+  "ending",
+  "colour continuity inside a scene",
+  "pacing",
+  "captions present"
+ ],
+ "findings": [
+  {
+   "id": "VID01",
+   "severity": "minor",
+   "fix_target": "storyboard",
+   "timestamp_sec": 11.2,
+   "problem": "the last shot is held very long",
+   "evidence": "5.5s",
+   "expected": "end within about 3.5 s of the final line",
+   "fix": "trim or add motion/payoff"
+  },
+  {
+   "id": "VID02",
+   "severity": "minor",
+   "fix_target": "script",
+   "problem": "the CTA keyword is not in the last captions",
+   "evidence": "REMOTION",
+   "expected": "the call to action lands near the end",
+   "fix": "move the CTA line"
+  }
+ ],
+ "notes": [
+  "Is the edit coherent and moving? Count the measurable things here, then look at the contact sheet yourself (tools/critique.mjs vision --packet video)."
+ ],
+ "checked_at": "2026-11-16T19:28:11.763Z"
+}

@@ -67,9 +67,9 @@
       "id": "box",
       "kind": "giftbox",
       "at": [
-       -1.8,
+       1.5,
        0,
-       -1.4
+       -0.5
       ],
       "voxel": true
      }
@@ -197,9 +197,9 @@
       "id": "box",
       "kind": "giftbox",
       "at": [
-       1.6,
+       1.5,
        0,
-       -0.4
+       -0.5
       ],
       "voxel": true
      }
@@ -353,7 +353,7 @@
    "overlays": [
     {
      "type": "bubble",
-     "emoji": "📝",
+     "emoji": "\ud83d\udcdd",
      "text": "ORDER",
      "anchor": "a0",
      "x": 300,
@@ -397,7 +397,7 @@
       "id": "table",
       "kind": "sidetable",
       "at": [
-       0.6,
+       0.7,
        0,
        0.35
       ],
@@ -407,7 +407,7 @@
       "id": "box",
       "kind": "giftbox",
       "at": [
-       0.6,
+       0.7,
        0.57,
        0.35
       ],

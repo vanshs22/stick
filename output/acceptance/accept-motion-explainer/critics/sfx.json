@@ -1,0 +1,15 @@
+{
+ "critic": "sfx",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "cues exist",
+  "every effect is tied to a visual or narrative event",
+  "no repetition"
+ ],
+ "findings": [],
+ "notes": [],
+ "checked_at": "2026-11-16T19:32:56.216Z"
+}

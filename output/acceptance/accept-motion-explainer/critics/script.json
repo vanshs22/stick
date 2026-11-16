@@ -1,0 +1,32 @@
+{
+ "critic": "script",
+ "target": "accept-motion-explainer",
+ "verdict": "pass",
+ "score": 98,
+ "assessment": "automatic",
+ "checks_run": [
+  "script.json exists",
+  "hook",
+  "pace",
+  "clarity: sentence length and jargon",
+  "claims have evidence",
+  "call to action",
+  "repetition"
+ ],
+ "findings": [
+  {
+   "id": "SCR01",
+   "severity": "minor",
+   "fix_target": "script",
+   "line_id": "L01",
+   "problem": "hook has no question, number, claim or personal story marker",
+   "evidence": "Same page, two visits: eight hundred milliseconds, then forty.",
+   "expected": "a reason to keep watching",
+   "fix": "sharpen the first line"
+  }
+ ],
+ "notes": [
+  "Judgement rubric for the agent (not measurable): is the hook specific and surprising? does every line move the story? is it original (not a rewrite of a reference)? would a stranger share it? Put the answers in review/critics/script.agent.json via tools/critique.mjs --agent."
+ ],
+ "checked_at": "2026-11-16T19:31:47.424Z"
+}

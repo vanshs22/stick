@@ -1,0 +1,25 @@
+{
+ "critic": "sfx",
+ "target": "accept-software-demo",
+ "verdict": "revise",
+ "score": 90,
+ "assessment": "automatic",
+ "checks_run": [
+  "cues exist",
+  "every effect is tied to a visual or narrative event",
+  "no repetition"
+ ],
+ "findings": [
+  {
+   "id": "SFX01",
+   "severity": "major",
+   "fix_target": "storyboard",
+   "problem": "transition whooshes on most cuts",
+   "evidence": "3 transition sounds in 5 shots",
+   "expected": "a transition sound only where the motion has weight",
+   "fix": "set transition_out.sound to none on plain cuts"
+  }
+ ],
+ "notes": [],
+ "checked_at": "2026-11-16T19:28:05.972Z"
+}
