@@ -15,7 +15,7 @@ No AI image or video generation, no paid credits. Nothing is shown to the user t
 1. `bash install.sh` (Windows: `.\install.ps1`). It builds `.venv`, installs the Python and Node packages, fetches Chrome and the free voice, and installs these skills plus the OFFICIAL Remotion agent skills. Then `node $TK/tools/selftest.mjs` must print "All ... checks passed".
 2. `node $TK/tools/doctor.mjs` lists anything missing with the command that fixes it. Tell the user plainly what is missing; do not work around it silently.
 3. Read `$TK/memory/learnings.md` (lessons from earlier videos) and `$TK/creator/creator-profile.json`.
-4. New video: `node $TK/tools/new_project.mjs <name> --style <style-pack-id>`. The Remotion packages are shared from the toolkit, so there is no per-project `npm install`.
+4. New video: `node $TK/tools/new_project.mjs <name> --dir <parent folder> --style <style-pack-id>`, then write `brief.json` and run `choose.mjs <P> style <id>` before you request intake (see `skills/video-director`). The Remotion packages are shared from the toolkit, so there is no per-project `npm install`.
 
 ## 1. The stages (state.json tracks them; use `tools/state.mjs`, never skip a gate)
 | # | stage | read this skill | you produce | user gate |

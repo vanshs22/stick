@@ -43,7 +43,7 @@
     "Captions: bold white with a dark outline, one accent word."
   ],
   "components": [
-    "Scene3D",
+    "Stage3D",
     "BigStat",
     "Versus",
     "Highlight",

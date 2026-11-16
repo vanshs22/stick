@@ -27,3 +27,5 @@ When a line fails, rewrite that line and any neighbour that depends on it. Show 
 
 ## Tools (v2)
 `node $TK/tools/critique.mjs $P stage:research` and `... stage:script` run the automatic checks: sources exist and load, no claim without a source, hook length and type (a greeting is rejected), words per minute, sentence length, repeated lines, factual-looking lines without a claim id, CTA present. They cannot judge whether a claim is TRUE or the story is good: read the sources, and answer the judgement rubric printed in the report.
+
+Manual items the tool does not check: that each cited claim exists in the research and is `verified` (read the sources), that the script is not a rewrite of a reference, and whether it is interesting. Say these were done by you.

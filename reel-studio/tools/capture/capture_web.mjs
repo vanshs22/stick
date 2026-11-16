@@ -38,11 +38,20 @@ let browser; try { browser = await chromium.launch({ executablePath: findChrome(
 const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: +opt('scale', 1) || 1, ...(rec ? { recordVideo: { dir: out, size: { width: w, height: h } } } : {}) }), page = await ctx.newPage(); let status = null;
 try {
   const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 }); status = resp?.status() ?? null; if (resp && status >= 400) throw new Error(`HTTP ${status}`); await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(1200);
-  for (const s of [...actions, ...expects]) {
+  for (const s of actions.flatMap((x) => (x.do === 'screenshot' ? [...expects.map((e) => ({ ...e })), x] : [x]))) {
     log.push(s);
     if (s.do === 'goto') await page.goto(s.url, { waitUntil: 'domcontentloaded' }); else if (s.do === 'click') await page.click(s.selector, { timeout: 8000 }); else if (s.do === 'type') await page.fill(s.selector, s.text);
     else if (s.do === 'scroll') await page.mouse.wheel(0, s.y || 600); else if (s.do === 'wait') await page.waitForTimeout(s.ms || 600);
-    else if (s.do === 'expect') { const found = s.selector ? (await page.locator(s.selector).first().innerText({ timeout: 5000 }).catch(() => '')).includes(s.text) : (await page.locator('body').innerText()).includes(s.text); s.passed = found; if (!found) throw new Error(`expected text not on the page: "${s.text}"`); }
+    else if (s.do === 'expect') {   // the text must be IN the picture: in the DOM, inside the viewport and not hidden behind a sticky header or overlay
+      const full = a.includes('--full'), r = await page.evaluate(({ text, sel, full }) => {
+        const root = sel ? document.querySelector(sel) : document.body; if (!root) return { found: false };
+        const norm = (t) => t.replace(/\s+/g, ' ').toLowerCase(), want = norm(text); const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        for (let n = w.nextNode(); n; n = w.nextNode()) { if (!norm(n.textContent).includes(want)) continue; const el = n.parentElement; const rg = document.createRange(); rg.selectNodeContents(n); const b = rg.getBoundingClientRect(); if (!b.width) continue;
+          const inView = full || (b.top >= 0 && b.bottom <= innerHeight && b.left >= 0 && b.right <= innerWidth), top = document.elementFromPoint(Math.min(innerWidth - 1, Math.max(0, b.left + Math.min(b.width, 40) / 2)), Math.min(innerHeight - 1, Math.max(0, b.top + b.height / 2))), covered = !top || !(el.contains(top) || top.contains(el)); return { found: true, inView, covered, top: Math.round(b.top), bottom: Math.round(b.bottom) }; }
+        const dom = norm(root.innerText || '').includes(want); return { found: false, dom };
+      }, { text: s.text, sel: s.selector || null, full });
+      s.passed = !!(r.found && r.inView && !r.covered); s.detail = r;
+      if (!s.passed) throw new Error(r.found ? `the text "${s.text}" is on the page but ${!r.inView ? `outside the frame (y ${r.top} to ${r.bottom}, frame height ${h})` : 'hidden behind another element (sticky header or overlay)'}: scroll less or more, or use --full` : `expected text not on the page: "${s.text}"${r.dom ? ' (it is in the page text but split across elements: quote a shorter phrase)' : ''}`); }
     else if (s.do === 'highlight') { const el = page.locator(s.selector).first(); await el.scrollIntoViewIfNeeded(); const bb = await el.boundingBox(); if (!bb) throw new Error(`no box for ${s.selector}`); highlights[s.name || s.selector] = { x: +(bb.x / w).toFixed(4), y: +(bb.y / h).toFixed(4), w: +(bb.width / w).toFixed(4), h: +(bb.height / h).toFixed(4) }; }
     else if (s.do === 'screenshot') { const f = path.join(out, `${s.name || 'shot' + files.length}.png`); await page.screenshot({ path: f, fullPage: a.includes('--full') || !!s.full }); files.push(f); }
   }

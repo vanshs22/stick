@@ -19,7 +19,7 @@ Transitions: cut, fade, dip
 Sound: calm bed, keyboard type sounds, soft pop on helper reactions
 
 ## Components
-Scene3D, Terminal, ChatBubbles, Typewriter, CommentBox, Highlight
+Stage3D, Terminal, ChatBubbles, Typewriter, CommentBox, Highlight
 
 ## Pitfalls
 - Orange face from a warm light that is too strong.
@@ -29,7 +29,51 @@ Scene3D, Terminal, ChatBubbles, Typewriter, CommentBox, Highlight
 ## References (technique only, never copied)
 reference videos ref1, ref4
 
-## 3D starting point (Scene3D props)
+## 3D starting point (Stage3D)
+The pack supplies the costume, world and look (`defaults.stage3d` in style.json), so `look` can stay empty. Copy `examples/experiment-*` for a full shot.
 ```json
-{"set": "desk-night", "light": "night", "characters": [{"variant": "lowpoly", "pose": "idle", "mood": "calm", "skin": "#F1CBA8", "shirt": "#F4CB3A", "hair": "#3a2418", "glasses": true}], "creatures": [{"kind": "cloud", "x": -0.5, "y": 0.83, "z": 0.9, "scale": 0.8, "color": "#4a46c9"}, {"kind": "screen", "x": -1.0, "y": 0.83, "z": 0.9, "scale": 0.8, "color": "#232329"}]}
+{
+ "component": "Stage3D",
+ "props": {
+  "world": "home-studio",
+  "worldOpts": {},
+  "cast": [
+   {
+    "id": "hero",
+    "kind": "human",
+    "look": {},
+    "at": [
+     -0.1,
+     0.2
+    ],
+    "rotY": 0.25,
+    "pose": [
+     [
+      0,
+      "idle"
+     ],
+     [
+      0.6,
+      "explain-wide"
+     ]
+    ],
+    "mood": "happy",
+    "speaks": true
+   }
+  ],
+  "camera": {
+   "framing": "medium",
+   "angle": "three-quarter",
+   "az": -14,
+   "subject": "hero",
+   "focus": {
+    "target": "hero",
+    "aperture": 0.004
+   },
+   "movement": {
+    "type": "static"
+   }
+  }
+ }
+}
 ```

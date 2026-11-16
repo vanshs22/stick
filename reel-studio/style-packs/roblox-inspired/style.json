@@ -43,7 +43,7 @@
     "Keep the camera low-key: moves only for reveals."
   ],
   "components": [
-    "Scene3D",
+    "Stage3D",
     "BigStat",
     "BarChart",
     "Timeline"

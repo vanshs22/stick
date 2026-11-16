@@ -28,7 +28,7 @@ Scene3D, BigStat, BarChart, LineChart, Versus, Checklist, Timeline
 ## References (technique only, never copied)
 reference video ref2
 
-## 3D starting point (Scene3D props)
+## 3D starting point (LEGACY Scene3D props: new work uses voxel-explainer + Stage3D)
 ```json
 {"set": "studio", "light": "studio", "wall": true, "characters": [{"variant": "voxel", "pose": "open", "mood": "calm", "skin": "#B8643A", "shirt": "#1d2a52", "hair": "#22160f", "badge": "#F2C12E"}]}
 ```

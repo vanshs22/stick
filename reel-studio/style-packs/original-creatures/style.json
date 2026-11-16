@@ -46,7 +46,7 @@
     "Captions: bold white, thick dark outline, one amber word."
   ],
   "components": [
-    "Scene3D",
+    "Stage3D",
     "ChatBubbles",
     "BigStat",
     "Versus",

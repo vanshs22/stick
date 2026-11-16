@@ -19,7 +19,7 @@ Transitions: cut, whip, zoom
 Sound: bed, boing/pop on gags, thud on falls
 
 ## Components
-Scene3D, BigStat, Versus, Highlight, KineticList, Stamp, CommentBox
+Stage3D, BigStat, Versus, Highlight, KineticList, Stamp, CommentBox
 
 ## Pitfalls
 - Faces too small to read.
@@ -29,7 +29,60 @@ Scene3D, BigStat, Versus, Highlight, KineticList, Stamp, CommentBox
 ## References (technique only, never copied)
 reference videos (stickman shorts)
 
-## 3D starting point (Scene3D props)
+## 3D starting point (Stage3D)
+The pack supplies the costume, world and look (`defaults.stage3d` in style.json), so `look` can stay empty. Copy `examples/experiment-*` for a full shot.
 ```json
-{"set": "studio", "light": "studio", "characters": [{"variant": "stick", "pose": "idle", "mood": "happy"}]}
+{
+ "component": "Stage3D",
+ "props": {
+  "world": "home-studio",
+  "worldOpts": {
+   "day": true,
+   "wall": "#EFE8DC",
+   "wood": "#C9A070",
+   "accent": "#E8512A",
+   "sofa": [
+    -0.1,
+    -2.7
+   ]
+  },
+  "cast": [
+   {
+    "id": "hero",
+    "kind": "stick",
+    "look": {},
+    "at": [
+     -0.1,
+     0.2
+    ],
+    "rotY": 0.25,
+    "pose": [
+     [
+      0,
+      "idle"
+     ],
+     [
+      0.6,
+      "explain-wide"
+     ]
+    ],
+    "mood": "happy",
+    "speaks": true
+   }
+  ],
+  "camera": {
+   "framing": "medium",
+   "angle": "three-quarter",
+   "az": -14,
+   "subject": "hero",
+   "focus": {
+    "target": "hero",
+    "aperture": 0.004
+   },
+   "movement": {
+    "type": "static"
+   }
+  }
+ }
+}
 ```

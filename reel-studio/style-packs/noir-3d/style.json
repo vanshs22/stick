@@ -39,7 +39,7 @@
     "Keep exposure low and bloom on the one practical light only."
   ],
   "components": [
-    "Scene3D",
+    "Stage3D",
     "EvidenceCard",
     "Typewriter",
     "Stamp",

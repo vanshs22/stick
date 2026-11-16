@@ -30,3 +30,8 @@ Output: `script/script.json` (schema `script`). Validate it: `node $TK/tools/val
 - Opening with context ("Today we will talk about..."). Open with the point.
 - Lines that only make sense with the previous line's picture.
 - Claims with no visual proof available. Cut them or change the evidence plan.
+
+## What the critic checks (so you do not guess)
+- Hook: a question, a number or a personal opening ("What if...", "I...", "Why..."); a greeting is rejected. Each line that states a number or a fact lists its claim ids in `claims`.
+- A `cta` beat is only needed when the brief has a CTA keyword; with no CTA, end on `save` or the payoff.
+- Words: about 2.4 per second of the target length (80 words is about 33 s); speed above 1.0 shortens it.

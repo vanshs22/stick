@@ -32,3 +32,9 @@ The angle in one sentence, the 5-8 key claims with their status, the evidence yo
 - `node $TK/tools/research/competitors.mjs $P "<topic>" [--user-said "..."]` collects what similar videos do (titles, length, hook style) into `research/competitors.json` and `opportunities.md`.
 - Real evidence: `tools/capture/capture_web.mjs` (see playwright-capture). Reference videos: see reference-analysis.
 - `node $TK/tools/critique.mjs $P research` before asking the user to approve the research.
+
+## `topic/topic.json` (the topic gate)
+`{"chosen": "<the topic>", "shortlist": ["<3 candidates>"], "reason": "<why this one: visual, true, checkable>"}`. Required before the gate can be requested.
+
+## Sources the critic accepts
+A claim is verified with two independent domains OR one source whose `type` says `primary` or `official` (set it in `research/research.json` sources[].type). Every claim lists `source_ids` that exist in `sources`. Script lines list the claim ids in `claims`.

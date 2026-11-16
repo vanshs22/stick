@@ -19,7 +19,7 @@ Transitions: cut, zoom, whip
 Sound: upbeat bed, boing on hops, pop on text
 
 ## Components
-Scene3D, ChatBubbles, BigStat, Versus, Highlight, CommentBox
+Stage3D, ChatBubbles, BigStat, Versus, Highlight, CommentBox
 
 ## Pitfalls
 - Copying a famous mascot.
@@ -29,7 +29,51 @@ Scene3D, ChatBubbles, BigStat, Versus, Highlight, CommentBox
 ## References (technique only, never copied)
 reference videos ref1, ref4, ref7 (creature idea only)
 
-## 3D starting point (Scene3D props)
+## 3D starting point (Stage3D)
+The pack supplies the costume, world and look (`defaults.stage3d` in style.json), so `look` can stay empty. Copy `examples/experiment-*` for a full shot.
 ```json
-{"set": "studio", "light": "studio", "characters": [{"variant": "stick", "pose": "think", "mood": "worried", "x": -0.7}], "creatures": [{"kind": "box", "x": 0.4, "z": 0.5, "scale": 1.6, "color": "#2FA3A0"}, {"kind": "cloud", "x": 1.0, "z": 0.3, "scale": 1.4, "color": "#E8643C"}]}
+{
+ "component": "Stage3D",
+ "props": {
+  "world": "workshop",
+  "worldOpts": {},
+  "cast": [
+   {
+    "id": "hero",
+    "kind": "critter",
+    "look": {},
+    "at": [
+     -0.1,
+     0.2
+    ],
+    "rotY": 0.25,
+    "pose": [
+     [
+      0,
+      "idle"
+     ],
+     [
+      0.6,
+      "explain-wide"
+     ]
+    ],
+    "mood": "happy",
+    "speaks": true
+   }
+  ],
+  "camera": {
+   "framing": "medium",
+   "angle": "three-quarter",
+   "az": -14,
+   "subject": "hero",
+   "focus": {
+    "target": "hero",
+    "aperture": 0.004
+   },
+   "movement": {
+    "type": "static"
+   }
+  }
+ }
+}
 ```

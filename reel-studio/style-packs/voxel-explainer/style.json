@@ -46,7 +46,7 @@
     "Captions: bold white with a thick dark outline and one yellow word."
   ],
   "components": [
-    "Scene3D",
+    "Stage3D",
     "Terminal",
     "BrowserWindow",
     "CommentBox",

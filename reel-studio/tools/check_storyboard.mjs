@@ -20,7 +20,7 @@ for (const s of sb.shots) {
   if (s.transition_out?.type && !man.transitions.includes(s.transition_out.type)) errs.push(`${s.id}: unknown transition "${s.transition_out.type}" (${man.transitions.join(', ')})`);
   for (const f of s.sfx || []) if (!man.sfx.includes(f.type)) errs.push(`${s.id}: unknown sound "${f.type}"`);
   if (s.transition_out?.sound && s.transition_out.sound !== 'none' && !man.sfx.includes(s.transition_out.sound)) errs.push(`${s.id}: unknown transition sound "${s.transition_out.sound}"`);
-  for (const k of ['image']) { const f = s.props?.[k]; if (f && !fs.existsSync(path.join(P, 'remotion/public', f))) errs.push(`${s.id}: ${k} "${f}" not found in remotion/public (copy the capture there)`); }
+  for (const k of ['image']) { const f = s.props?.[k]; if (f && !fs.existsSync(path.join(P, 'remotion/public', f)) && !(/^assets[\\/]/.test(f) && fs.existsSync(path.join(P, f)))) errs.push(`${s.id}: ${k} "${f}" not found (captures live in $P/assets/<id>/ and are published to remotion/public/assets by storyboard_review.mjs)`); }
   if (m.evidence && m.required?.includes('image') && !s.evidence?.required) warns.push(`${s.id}: ${s.component} shows real proof: set evidence.required and source_id`);
   if (s.shot_type === prev) run++; else run = 1; prev = s.shot_type; if (run >= 3) warns.push(`${s.id}: ${run} shots in a row of type ${s.shot_type}: vary the visuals`);
 }

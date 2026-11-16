@@ -44,7 +44,7 @@
     "No gore, no horror lighting; blown highlights only for a magic object and only briefly."
   ],
   "components": [
-    "Scene3D",
+    "Stage3D",
     "Terminal",
     "ChatBubbles",
     "Typewriter",

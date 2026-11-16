@@ -19,7 +19,7 @@ Transitions: whip, cut, zoom
 Sound: light bed, whoosh on every camera move, pop on reveals
 
 ## Components
-Scene3D, BigStat, BarChart, Timeline
+Stage3D, BigStat, BarChart, Timeline
 
 ## Pitfalls
 - Too many words per caption.
@@ -29,7 +29,51 @@ Scene3D, BigStat, BarChart, Timeline
 ## References (technique only, never copied)
 reference video ref8
 
-## 3D starting point (Scene3D props)
+## 3D starting point (Stage3D)
+The pack supplies the costume, world and look (`defaults.stage3d` in style.json), so `look` can stay empty. Copy `examples/experiment-*` for a full shot.
 ```json
-{"set": "block-world", "light": "bright-sky", "characters": [{"variant": "blocky", "pose": "idle", "mood": "happy", "skin": "#F4C98C", "shirt": "#2f7f4a", "hair": "#3a2a1a"}]}
+{
+ "component": "Stage3D",
+ "props": {
+  "world": "block-yard",
+  "worldOpts": {},
+  "cast": [
+   {
+    "id": "hero",
+    "kind": "blocky",
+    "look": {},
+    "at": [
+     -0.1,
+     0.2
+    ],
+    "rotY": 0.25,
+    "pose": [
+     [
+      0,
+      "idle"
+     ],
+     [
+      0.6,
+      "explain-wide"
+     ]
+    ],
+    "mood": "happy",
+    "speaks": true
+   }
+  ],
+  "camera": {
+   "framing": "medium",
+   "angle": "three-quarter",
+   "az": -14,
+   "subject": "hero",
+   "focus": {
+    "target": "hero",
+    "aperture": 0.004
+   },
+   "movement": {
+    "type": "static"
+   }
+  }
+ }
+}
 ```
