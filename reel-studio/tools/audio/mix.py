@@ -116,10 +116,22 @@ def count(d=0.9, **_):
         c = tick() * (0.6 + 0.4 * k / d); i = int(k * SR); x[i:i + len(c)] += c; k += step; step = max(0.045, step * 0.93)
     return x
 
+def riser(d=1.2, **_):
+    """a rising noise + tone sweep that ends at its loudest: put it so it ENDS on the reveal word (the cue time is its start)"""
+    t = tt(d); k = (t / d) ** 2.2; n = noise(d); x = bp(n, 300, 5200) * k * 0.5 + np.sin(2 * np.pi * (180 + 900 * (t / d) ** 2) * t) * k * 0.25
+    return x / (np.abs(x).max() + 1e-9) * 0.6
+def boom(**_):
+    d = 1.1; t = tt(d); x = np.sin(2 * np.pi * (46 + 70 * np.exp(-t * 14)) * t) * env(len(t), 0.003, 3.2) + lp(noise(d), 300) * env(len(t), 0.001, 7) * 0.35
+    return np.tanh(1.4 * x) * 0.9
+def zap(d=0.45, **_):
+    t = tt(d); x = np.sin(2 * np.pi * (2400 * np.exp(-t * 5) + 260) * t) * env(len(t), 0.001, 6) * 0.5 + hp(noise(d), 3000) * env(len(t), 0.001, 12) * 0.25
+    return lp(x, 7000) * 0.7
+def blip(**_): d = 0.1; t = tt(d); return (np.sin(2 * np.pi * 880 * t) + 0.25 * np.sin(2 * np.pi * 1320 * t)) * env(len(t), 0.001, 10) * 0.35
+
 FX = dict(inhale=inhale, heartbeat=heartbeat, whoosh=whoosh, slide=slide, pop=pop, plop=plop, gulp=gulp, boing=boing, bubbles=bubbles, sizzle=sizzle,
-          sparkle=sparkle, thud=thud, slam=slam, tock=tock, zip=zip_, alarm=alarm, swish=swish, tick=tick, stamp=stamp, type=type_, ding=ding, count=count)
+          sparkle=sparkle, thud=thud, slam=slam, tock=tock, zip=zip_, alarm=alarm, swish=swish, tick=tick, stamp=stamp, type=type_, ding=ding, count=count, riser=riser, boom=boom, zap=zap, blip=blip)
 LEVEL = dict(inhale=-15, heartbeat=-8, whoosh=-17, slide=-19, pop=-14, plop=-15, gulp=-11, boing=-15, bubbles=-21, sizzle=-18, sparkle=-17,
-             thud=-11, slam=-9, tock=-18, zip=-14, alarm=-17, swish=-15, tick=-17, stamp=-9, type=-20, ding=-18, count=-20)
+             thud=-11, slam=-9, tock=-18, zip=-14, alarm=-17, swish=-15, tick=-17, stamp=-9, type=-20, ding=-18, count=-20, riser=-19, boom=-10, zap=-17, blip=-19)
 
 
 # ---------- the music bed: soft pad + plucked arpeggio, 100 BPM, I–vi–IV–V ----------

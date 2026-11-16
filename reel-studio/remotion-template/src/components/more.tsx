@@ -79,9 +79,11 @@ export const RepoCard: React.FC<ShotProps> = ({shot, repo = 'owner/project', des
 /** Closing card. props: headline, accent (word), cta ("Comment WORD"), handle. */
 export const EndCard: React.FC<ShotProps> = ({shot, headline = '', accent = '', cta = '', handle = ''}) => {
   const {a, lt} = useEnter(shot, undefined, 0.05), words = String(headline).split(' ');
+  const lum = (hex: string) => { const m = /^#?([0-9a-f]{6})/i.exec(hex || ''); if (!m) return 0; const n = parseInt(m[1], 16); return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
+  const plate = lum(C.ink) > 0.55 ? 'rgba(10,8,22,0.62)' : 'rgba(255,255,255,0.82)';   // light text gets a dark plate, dark text a light plate: readable on a bright or a busy backdrop
   return (
     <AbsoluteFill style={{background: `linear-gradient(170deg, ${C.bg}, ${C.accentSoft || C.bg})`, justifyContent: 'center', alignItems: 'center', paddingBottom: 220, opacity: clamp(a * 2)}}>
-      <div style={{fontFamily: F.serif, fontSize: 124, textAlign: 'center', lineHeight: 1.05, color: C.ink, padding: '0 80px'}}>{words.map((w, i) => { const hi = w.toLowerCase().replace(/[^\w]/g, '') === String(accent).toLowerCase(); const k = p(lt, 0.15 + i * 0.08, 0.5, E.outExpo); return <span key={i} style={{display: 'inline-block', marginRight: '0.25em', opacity: k, transform: `translateY(${(1 - k) * 40}px)`, color: hi ? C.accent : C.ink, fontStyle: hi ? 'italic' : 'normal'}}>{w}</span>; })}</div>
+      <div style={{fontFamily: F.serif, fontSize: 124, textAlign: 'center', lineHeight: 1.05, color: C.ink, padding: '34px 56px 40px', margin: '0 40px', borderRadius: 44, background: plate, boxShadow: '0 18px 60px rgba(0,0,0,0.25)', backdropFilter: 'blur(6px)'}}>{words.map((w, i) => { const hi = w.toLowerCase().replace(/[^\w]/g, '') === String(accent).toLowerCase(); const k = p(lt, 0.15 + i * 0.08, 0.5, E.outExpo); return <span key={i} style={{display: 'inline-block', marginRight: '0.25em', opacity: k, transform: `translateY(${(1 - k) * 40}px)`, color: hi ? C.accent : C.ink, fontStyle: hi ? 'italic' : 'normal'}}>{w}</span>; })}</div>
       {cta ? <div style={{marginTop: 60, transform: `scale(${mix(0.7, 1, p(lt, 0.8, 0.4, E.outBack))})`}}><Pill tone="dark" size={54}>{cta}</Pill></div> : null}
       {handle ? <div style={{marginTop: 40, fontFamily: F.mono, fontWeight: 600, fontSize: 32, color: C.muted}}>{handle}</div> : null}
     </AbsoluteFill>

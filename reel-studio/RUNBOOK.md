@@ -9,6 +9,14 @@ You need a shell and file access (Claude Code, OpenCode, Codex, Cursor, Kiro, Cl
 3. Run `next.mjs` again. Repeat until it says all stages are done.
 At a user gate `next.mjs` says "ASK THE USER and STOP". Ask one clear question with the files to look at, wait, then record their own words with `state.mjs approve --quote`. Never approve for them.
 
+## The gate protocol (real projects)
+1. `next.mjs` says `request approval`: run `state.mjs request <P> <stage> --question "<one clear question>"`. It writes `review/approvals/<stage>.md` and prints STOP.
+2. Show the user the files it lists (images first) and ask that ONE question. Do nothing else until they answer.
+3. Their answer is the quote: `state.mjs approve <P> <stage> --quote "<their exact words>"`. For the storyboard the user decides each frame (`state.mjs frame <P> S03 approve|reject|replace`); `next.mjs` lists every command.
+4. If they ask for changes: make them, re-run the stage's checks, `request` again. Editing an approved file makes the approval stale on purpose.
+5. `start`/`done` bookkeeping is automatic: you never call them.
+The craft skills decide how good the result is: `script-writing` (story), `design-craft` (frames), `edit-craft` (pace, sound, captions, packaging). Read them when `next.mjs` names them.
+
 ## Five rules that matter most
 1. Look at pictures before you say they are good: open the contact sheets and frames. If you cannot see images, say so; do not claim you looked.
 2. Real facts only: every claim has a source in `research/research.json`; evidence is a real capture (`capture_web.mjs --expect`), never a drawing.

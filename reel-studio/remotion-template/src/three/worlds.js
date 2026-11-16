@@ -200,5 +200,28 @@ export function noirRoom(E, o = {}) {
     update(t) { dust.forEach((m, i) => { m.position.set(-0.8 + rnd(i) * 2.2 + Math.sin(t * 0.3 + i) * 0.15, 0.4 + ((rnd(i + 5) * 4.2 + t * (0.03 + rnd(i) * 0.04)) % 4.2), 0.2 + rnd(i + 9) * 2.2 + Math.cos(t * 0.25 + i) * 0.15); }); } };
 }
 
-export const WORLDS = { 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
+
+/** "Neon stage": a dark glossy stage under coloured spotlights in front of a bokeh city at night. The characters stand at the front, big set pieces (neonprops.js) float behind them. */
+export function neonStage(E, o = {}) {
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#0b0716'); scene.environment = E.envMap; scene.environmentIntensity = 0.2; scene.fog = new THREE.FogExp2('#150b2a', 0.03);
+  const warm = o.accent || '#FF9A4D', violet = o.violet || '#8a63ff', pink = o.pink || '#FF5CA8';
+  const floor = shadow(new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshPhysicalMaterial({ color: '#0f0a20', roughness: 0.18, metalness: 0.5, clearcoat: 1, clearcoatRoughness: 0.1 }))); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -8); scene.add(floor);
+  const grid = new THREE.GridHelper(60, 60, violet, violet); grid.position.set(0, 0.004, -8); grid.material.transparent = true; grid.material.opacity = 0.3; grid.material.toneMapped = false; scene.add(grid);
+  // the city: dark towers with thousands of lit windows. The depth of field turns them into bokeh.
+  const sky = document.createElement('canvas'); sky.width = 1536; sky.height = 640; const c = sky.getContext('2d'); const g0 = c.createLinearGradient(0, 0, 0, 640); g0.addColorStop(0, '#1b1038'); g0.addColorStop(1, '#3a1a4a'); c.fillStyle = g0; c.fillRect(0, 0, 1536, 640);
+  for (let i = 0, x = -20; x < 1560; i++) { const w = 60 + rnd(i) * 120, h = 160 + rnd(i + 7) * 380; c.fillStyle = ['#150d2c', '#1a1033', '#120b26'][i % 3]; c.fillRect(x, 640 - h, w, h);
+    for (let wy = 640 - h + 14; wy < 626; wy += 22) for (let wx = x + 8; wx < x + w - 10; wx += 16) { const r = rnd(wx * 0.37 + wy * 1.7 + i); if (r > 0.62) { c.fillStyle = r > 0.93 ? pink : r > 0.8 ? '#FFD27A' : r > 0.7 ? warm : violet; c.globalAlpha = 0.55 + rnd(wx + wy) * 0.45; c.fillRect(wx, wy, 8, 11); } } c.globalAlpha = 1; x += w + 6; }
+  const st = new THREE.CanvasTexture(sky); st.colorSpace = THREE.SRGBColorSpace; const city = new THREE.Mesh(new THREE.PlaneGeometry(52, 21.7), new THREE.MeshBasicMaterial({ map: st, toneMapped: false, fog: false })); city.position.set(0, 9.5, -19); scene.add(city);
+  // spotlight cones (visible light beams)
+  const cones = []; [[-3.2, violet, 0.5], [3.4, warm, -0.45], [0.2, pink, 0.1]].forEach(([x, col, rz], i) => { const m = new THREE.Mesh(new THREE.ConeGeometry(2.4, 11, 40, 1, true), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.075, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, toneMapped: false, fog: false })); m.position.set(x, 5.2, -4.5 - i); m.rotation.z = rz; scene.add(m); cones.push(m); });
+  const stageRing = new THREE.Mesh(new THREE.RingGeometry(2.1, 2.2, 80), new THREE.MeshBasicMaterial({ color: warm, toneMapped: false, side: THREE.DoubleSide })); stageRing.rotation.x = -Math.PI / 2; stageRing.position.set(0, 0.012, 0.1); scene.add(stageRing);
+  const dust = []; for (let i = 0; i < 70; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.018, 6, 6), new THREE.MeshBasicMaterial({ color: i % 3 ? '#FFE0B0' : '#cdb9ff', toneMapped: false, transparent: true, opacity: 0.6 })); scene.add(m); dust.push(m); }
+  const rig = lightRig(scene, { key: '#FFC48F', keyI: 3.1, keyPos: [-3, 4.6, 5], rimCol: violet, rimI: 3.2, sky: '#6a4bb0', ground: '#1a0f33', hemiI: 0.55, shadowBox: 5, target: [0, 0.8, 0] }); rig.key.shadow.camera.far = 24; rig.key.shadow.camera.updateProjectionMatrix();
+  const pl = new THREE.PointLight(pink, 6, 12, 2); pl.position.set(2.5, 2.2, 2); scene.add(pl);
+  return { scene, look: { bloom: 0.7, bloomThreshold: 0.68, vignette: 0.42, grain: 0.03, warm: 0, exposure: 1.05 }, subjects: { stage: { pos: [0, 0, 0.3], height: 1.4, rotY: 0 }, city: { pos: [0, 9, -19], height: 18, rotY: 0 } },
+    update(t) { cones.forEach((m, i) => { m.material.opacity = 0.06 + Math.sin(t * 0.8 + i * 2) * 0.02; m.rotation.z += Math.sin(t * 0.3 + i) * 0.0006; }); stageRing.scale.setScalar(1 + Math.sin(t * 2) * 0.01);
+      dust.forEach((m, i) => { m.position.set(-4 + rnd(i) * 8 + Math.sin(t * 0.3 + i) * 0.2, 0.3 + ((rnd(i + 3) * 6 + t * (0.05 + rnd(i) * 0.08)) % 6), -3 + rnd(i + 9) * 6); }); } };
+}
+
+export const WORLDS = { 'neon-stage': neonStage, 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
 export function buildWorld(name, E, opts) { const b = WORLDS[name]; if (!b) throw new Error(`unknown world "${name}". Known: ${Object.keys(WORLDS).join(', ')}`); return b(E, opts || {}); }

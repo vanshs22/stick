@@ -21,7 +21,8 @@ if (!nm) { const sh = path.join(WORK, '_shared/remotion'); fs.mkdirSync(sh, { re
 let fail = 0;
 for (const id of packs) {
   const pk = rd(path.join(TK, 'style-packs', id, 'style.json')), cb = pk.meta?.combined;
-  const S = cb ? { ...SRC[cb.character], status: 'combined', strip: true } : SRC[id] || { ex: 'software-explainer', shots: 'S01,S04,S06', status: '2d' }, P = path.join(WORK, 'prev-' + id);
+  const findExample = (pid) => { for (const d of fs.readdirSync(path.join(TK, 'examples'))) { try { if (rd(path.join(TK, 'examples', d, 'storyboard.json')).style_pack === pid && /^experiment-/.test(d)) return { ex: d, shots: 'S01,S03,S05', status: 'stage3d' }; } catch { /* not an example */ } } return null; };   // a new pack with an experiment-* example needs no entry above
+  const S = cb ? { ...SRC[cb.character], status: 'combined', strip: true } : SRC[id] || findExample(id) || { ex: 'software-explainer', shots: 'S01,S04,S06', status: '2d' }, P = path.join(WORK, 'prev-' + id);
   fs.rmSync(P, { recursive: true, force: true });
   let r = run('node', [path.join(TK, 'tools/run_example.mjs'), S.ex, 'prev-' + id, '--dir', WORK]); if (r.status) { console.error(`${id}: ${r.stderr || r.stdout}`); fail++; continue; }
   if (S.strip) { const f = path.join(P, 'storyboard/storyboard.json'), sb = rd(f); for (const sh of sb.shots) if (sh.component === 'Stage3D') { delete sh.props.world; delete sh.props.worldOpts; delete sh.props.look; for (const c of sh.props.cast || []) delete c.look; } fs.writeFileSync(f, JSON.stringify(sb, null, 1)); }

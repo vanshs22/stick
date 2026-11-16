@@ -37,3 +37,40 @@ Output: `script/script.json` (schema `script`). Validate it: `node $TK/tools/val
 - Words: about 2.4 per second of the target length (80 words is about 33 s); speed above 1.0 shortens it.
 
 Put the call to action (the brief's CTA keyword) in the LAST TWO lines: the video critic looks for it in the last captions.
+
+# Story craft (what separates a script people finish from one they skip)
+Write like a top short-form writer, then cut. The script is for the EAR first, the screen second.
+
+## 1. One promise, one payoff
+- Write the promise in one sentence before line 1: "By the end you will know/feel/be able to ___". Every line either builds toward it or goes. The last beat must pay it off visibly (a result, an image, a number the viewer can repeat).
+- One idea per video. A second idea is a second video.
+
+## 2. The hook (first 1 to 3 seconds, 8 to 14 words)
+Pick ONE shape and make it concrete (a thing, a number, a name, never "a lot"):
+- **Contradiction**: "Your project works. So why does nobody use it?"
+- **Specific result**: "I cut my render from 14 minutes to 90 seconds." (only if true and sourced)
+- **Open question the viewer already has**: "Why does git branching feel instant?"
+- **Cost of ignoring**: "This one missing file costs you every new user."
+- **Pattern break / bold claim you then prove**: "A video is just a function."
+Never open with a greeting, a channel intro, "in this video", or context. If the first line could start any video, rewrite it. Say the hook out loud: if you stumble, simplify.
+The first frame shows the hook's subject, and the same words appear as text within 1 second.
+
+## 3. Retention structure: keep one thread open
+Stakes -> cause -> mechanism -> proof -> payoff -> next step. After the hook, each beat should end with a small open loop that the next beat closes ("Because nobody knows how to start it." -> "A README is a free tour guide."). Use "but", "so", "because", "until" between beats; avoid "and then" chains. Do not give the payoff away before the last third. Put the strongest proof in the middle, not at the end.
+Spacing: a surprise, a number, a reaction or a new picture about every 3 to 5 seconds (as a result of the story changing, not a timer).
+
+## 4. Spoken rhythm
+- Contractions, short words, one clause per sentence, 6 to 14 words, vary the length (a 3-word line after two long ones lands hard).
+- Numbers: say them the way people do ("forty", "a million"); one number per line.
+- Cut: filler ("really", "basically", "just"), hedges, throat-clearing, any line that repeats the one before. Keep the line the viewer would quote.
+- Write beats as lines a narrator can breathe between (0.2 to 0.3 s); a comma is a micro-pause; a full stop is a beat.
+- Every line needs a VISUAL (put it in `visual_hint`): if you cannot picture it, rewrite it or cut it.
+
+## 5. Voice and tone per style
+Match the pack: neon-stage explainers are quick, playful and punchy (hype but honest, never fake numbers); editorial packs are calm and exact; noir is sparse and dry; presenters are warm and direct. Address ONE viewer ("you"). Humour only if it serves the point.
+
+## 6. Ending
+Close the loop opened by the hook (echo its words), then ONE ask: the CTA keyword (the brief's) or "save this", never three asks. The last line is short. End the picture on a held, clean frame (no fade to nothing).
+
+## 7. Self-check before the critic
+Read it aloud with a stopwatch: length within 10 percent of the brief; the hook is under 3 seconds; every claim has a source id; no line over 22 words; the promise is paid off; cut 10 percent.

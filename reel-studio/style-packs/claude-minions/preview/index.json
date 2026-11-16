@@ -1,0 +1,11 @@
+{
+ "pack": "claude-minions",
+ "status": "stage3d",
+ "example": "experiment-cubes",
+ "shots": [
+  "S01",
+  "S03",
+  "S05"
+ ],
+ "rendered_at": "2026-11-16T13:48:09.778Z"
+}

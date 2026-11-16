@@ -74,7 +74,8 @@ for (const id of styles) {
   for (const d of ['script', 'research', 'audio', 'assets', 'topic', 'typography']) copyDir(path.join(src, d), path.join(P, d));
   for (const f of ['script/script.json']) { /* copied above */ }
   const brief = rd(path.join(src, 'brief.json')); brief.style_pack = id; fs.writeFileSync(path.join(P, 'brief.json'), JSON.stringify(brief, null, 1));
-  const sb = adapt(pack); fs.writeFileSync(path.join(P, 'storyboard/storyboard.json'), JSON.stringify(sb, null, 1));
+  let sb = adapt(pack); fs.writeFileSync(path.join(P, 'storyboard/storyboard.json'), JSON.stringify(sb, null, 1));
+  if (pack.defaults?.stage3d?.duo) { const r0 = run('node', [path.join(TK, 'tools/scaffold_storyboard.mjs'), P, '--force']); if (r0.status) console.error(r0.stderr); else sb = rd(path.join(P, 'storyboard/storyboard.json')); }   // duo packs (two characters on a stage) are built by the scaffold, not by swapping one character
   fs.mkdirSync(path.join(P, 'remotion'), { recursive: true });
   fs.cpSync(path.join(TK, 'remotion-template'), path.join(P, 'remotion'), { recursive: true, filter: (f) => !f.split(path.sep).includes('node_modules') });
   if (fs.existsSync(path.join(TK, 'remotion-template/node_modules'))) fs.symlinkSync(path.join(TK, 'remotion-template/node_modules'), path.join(P, 'remotion/node_modules'), 'dir');

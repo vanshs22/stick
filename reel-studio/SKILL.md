@@ -26,20 +26,20 @@ No AI image or video generation, no paid credits. Nothing is shown to the user t
 | 2 | style | video-director, typography | a style from the gallery (`tools/gallery.mjs`), stored in the brief | **yes** |
 | 3 | topic | video-research | topic shortlist | **yes** |
 | 4 | research | video-research, playwright-capture | `research/research.json`, `research/sources.json`, real captures | **yes** |
-| 5 | script | script-writing | `script/script.json` | **yes** |
+| 5 | script | script-writing (story craft) | `script/script.json` | **yes** |
 | 6 | script_critic | script-critique | `review/critics/{research,script}.json`, fixed script | **yes** |
-| 7 | storyboard | storyboard, remocn | `storyboard/storyboard.json`, contact sheet + one image per shot | **yes, frame by frame** |
+| 7 | storyboard | storyboard, design-craft, remocn | `storyboard/storyboard.json`, contact sheet + one image per shot | **yes, frame by frame** |
 | 8 | storyboard_critic | storyboard-critique | `review/critics/storyboard.json` + cinematography critic | |
-| 9 | audio | audio-production | `audio/audio-plan.json`, voice/music/sfx previews | **yes** |
-| 10 | typography | typography | `typography/typography.json` + preview | **yes** |
-| 11 | captions | captions | `typography/captions.json` + animated preview | **yes** |
+| 9 | audio | audio-production, edit-craft | `audio/audio-plan.json`, voice/music/sfx previews | **yes** |
+| 10 | typography | typography, design-craft | `typography/typography.json` + preview | **yes** |
+| 11 | captions | captions, edit-craft | `typography/captions.json` + animated preview | **yes** |
 | 12 | assets | playwright-capture, reference-analysis | `assets/manifest.json` | |
 | 13 | production | remotion-production, threejs-production | go/no-go for the full render | **yes** |
 | 14 | build | remotion-production | `renders/<name>.mp4` (per-shot clips, cached) | |
-| 15 | visual_critic | visual-critique | `review/critics/*.json` (frames, video, vision) | |
+| 15 | visual_critic | visual-critique, design-craft, edit-craft | `review/critics/*.json` (frames, video, vision) | |
 | 16 | audio_critic | audio-production | `review/critics/{voice,music,sfx}.json` | |
 | 17 | final | final-quality-control | `renders/<name>.mp4`, `review/critics/final.json` | **yes** |
-| 18 | deliver | final-quality-control | cover, captions text, `state.mjs seal` receipt | |
+| 18 | deliver | final-quality-control, edit-craft (`package_post.mjs`) | cover, captions text, `state.mjs seal` receipt | |
 
 Per stage: `state.mjs check $P <stage>` first (fails if an earlier gate is open) -> `start` -> work -> `done`.
 At a gate: `request`, show the result in plain words plus the image or file to look at, ask ONE clear question, then STOP. Only after the user answers: `approve --quote "<their words>"`. The approval is tied to the files you showed; edit one and it goes stale.

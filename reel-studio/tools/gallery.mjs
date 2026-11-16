@@ -44,7 +44,7 @@ if (kind === 'styles') {
     const out = sheet('typography', { kind: 'grid', title: 'Choose the type', subtitle: 'Headline, supporting line, UI label and caption. Animated: open the .mp4 files.', items: sets.map((s, i) => ({ n: i + 1, name: s.name, line: `${s.best_for}. ${s.headline.font} / ${s.supporting.font} / ${s.ui.font}`, imgs: [pub(path.join(OUT, `typography-${i + 1}.png`))] })), cols: 3 });
     console.log(`${out}\nvideos: ${sets.map((s, i) => `${i + 1}=typography-${i + 1}.mp4 (${s.id})`).join(' ')}`);
   } else {
-    const presets = ['word-pop', 'one-word', 'boxed', 'phrase', 'typewriter', 'karaoke', 'headline', 'dialogue'], cur = (() => { try { return rd(path.join(P, 'typography/captions.json')).preset; } catch { return null; } })() || brief.captions?.preset || 'word-pop';
+    const presets = ['word-pop', 'one-word', 'boxed', 'phrase', 'typewriter', 'karaoke', 'headline', 'dialogue', 'caps-plate'], cur = (() => { try { return rd(path.join(P, 'typography/captions.json')).preset; } catch { return null; } })() || brief.captions?.preset || 'word-pop';
     const mk = (preset) => { timing(P, { preset }); const tl = rd(path.join(P, 'data/timeline.json')); return { ...tl, shots: [], audio: '' }; };
     const tls = Object.fromEntries(presets.map((x) => [x, mk(x)])); timing(P, { preset: cur });
     if (kind === 'captions') {

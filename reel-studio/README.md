@@ -14,13 +14,13 @@ Then open your agent in an empty folder and say: *"Use reel-studio. Make a 40 se
 Intake, style, topic, research, script, script critic, storyboard, audio, typography, captions, production, final. Each step is an approval gate; the storyboard is approved frame by frame. Between steps, critics inspect the real output (script, research sources, storyboard, rendered frames, audio, captions, the whole video) and name the shot to fix, so one shot is re-rendered instead of the film. See [docs/WORKFLOW.md](docs/WORKFLOW.md).
 
 ## Styles
-Ten style packs with real preview stills (`node tools/gallery.mjs <project> --kind styles`): Voxel explainer, 3D stickman, Roblox-inspired, stylized 3D presenter, original creatures (the Pips), Noir 3D, Editorial notebook, Editorial sticker, Paper atlas and Voxel studio. You can compare two, combine a world with a character (`tools/combine_styles.mjs`), or give a reference and get a new pack (`tools/new_style_from_reference.mjs`). The choice is stored in the brief and drives the engine.
+Eleven style packs with real preview stills (`node tools/gallery.mjs <project> --kind styles`): Claude minions (a duo of original glossy cube mascots on a neon stage), Voxel explainer, 3D stickman, Roblox-inspired, stylized 3D presenter, original creatures (the Pips), Noir 3D, Editorial notebook, Editorial sticker, Paper atlas and Voxel studio, plus Claude minions (a duo of original glossy cube mascots on a neon stage). You can compare two, combine a world with a character (`tools/combine_styles.mjs`), or give a reference and get a new pack (`tools/new_style_from_reference.mjs`). The choice is stored in the brief and drives the engine.
 
 ## Folders
 | folder | what |
 |---|---|
 | `SKILL.md`, `AGENTS.md`, `CLAUDE.md` | entry points for agents |
-| `skills/` | 16 skills the agent loads when it reaches that stage |
+| `skills/` | 18 skills the agent loads when it reaches that stage |
 | `tools/` | state and approvals, galleries, storyboard review, audio, capture, research, reference analysis, critics, per-shot render, QA |
 | `remotion-template/` | the Remotion project every video starts from (Stage3D, 2D cards, captions, GSAP/HyperFrames adapters) |
 | `style-packs/` | styles: rules, tokens, characters, worlds, camera language, previews |

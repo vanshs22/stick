@@ -7,7 +7,14 @@
   "critter": 1.3,
   "voxel": 1.8,
   "giftbox": 0.26,
-  "sidetable": 0.55
+  "sidetable": 0.55,
+  "cube": 1.4,
+  "laptop": 0.7,
+  "trophy": 1.1,
+  "keywall": 3.0,
+  "pricestack": 1.6,
+  "neonring": 0.05,
+  "podium": 0.5
  },
  "worlds": {
   "home-studio": {
@@ -105,6 +112,26 @@
      -3.0
     ],
     "height": 1.2,
+    "rotY": 0
+   }
+  },
+  "neon-stage": {
+   "stage": {
+    "pos": [
+     0,
+     0,
+     0.3
+    ],
+    "height": 1.4,
+    "rotY": 0
+   },
+   "city": {
+    "pos": [
+     0,
+     9,
+     -19
+    ],
+    "height": 18,
     "rotY": 0
    }
   }

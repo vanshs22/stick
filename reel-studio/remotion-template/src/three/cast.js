@@ -8,6 +8,8 @@ import { gestureAt, moodAt, lifeLayer } from './gestures.js';
 import { rbox, cyl, ball, emissive, shadow } from './worlds.js';
 import { mat } from './world.js';
 import { Critter } from './critter.js';
+import { Cube } from './cube.js';
+import { NEON_PROPS } from './neonprops.js';
 import { Blocky } from './blocky.js';
 import { Stick3D } from './stick3d.js';
 import { VoxelPerson, VoxelMap, vmesh, VMAT } from './voxel.js';
@@ -99,9 +101,9 @@ function voxTable(e) {
   const g = new THREE.Group(), at = e.at || [0, 0, 0]; g.position.set(at[0], at[1], at[2]); const m = new VoxelMap().box(-4, 4, -4, 8, 1, 8, e.color || '#B98255'); for (const [x, z] of [[-3, -3], [2, -3], [-3, 2], [2, 2]]) m.box(x, 0, z, 1, 4, 1, '#7B5130'); vmesh(m, [0, 0, 0], g, [0, 0, 0], 0.04);
   return { id: e.id, group: g, height: 0.5, subject: () => ({ pos: [at[0], at[1], at[2]], height: 0.5, rotY: 0 }), update() {} };
 }
-const SIMPLE = { giftbox: (e) => (e.voxel ? voxGiftbox(e) : giftbox(e)), sidetable: (e) => (e.voxel ? voxTable(e) : sidetable(e)) };
+const SIMPLE = { ...NEON_PROPS, giftbox: (e) => (e.voxel ? voxGiftbox(e) : giftbox(e)), sidetable: (e) => (e.voxel ? voxTable(e) : sidetable(e)) };
 export function makeProp(e) { const b = SIMPLE[e.kind]; if (!b) throw new Error(`unknown prop "${e.kind}". Known: ${Object.keys(SIMPLE).join(', ')}`); return b(e); }
 const mk = (C) => (e) => { const b = new C({ ...(e.look || {}), scale: e.scale || 1 }); if (e.look?.noir && b.setAllMaterial) b.setAllMaterial(new THREE.MeshPhysicalMaterial({ color: e.look.noirColor || '#050507', roughness: 0.7, sheen: 0.6, sheenColor: new THREE.Color(e.look.rim || '#7a1e24'), sheenRoughness: 0.6 })); return rigActor(e, b); };
-const ACTORS = { human: mk(Human), critter: mk(Critter), blocky: mk(Blocky), stick: mk(Stick3D), voxel: mk(VoxelPerson) };
+const ACTORS = { human: mk(Human), critter: mk(Critter), cube: mk(Cube), blocky: mk(Blocky), stick: mk(Stick3D), voxel: mk(VoxelPerson) };
 export function makeActor(e) { const b = ACTORS[e.kind || 'human']; if (!b) throw new Error(`unknown character kind "${e.kind}". Known: ${Object.keys(ACTORS).join(', ')}`); return b(e); }
 export { v };
