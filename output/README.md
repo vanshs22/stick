@@ -10,3 +10,8 @@
 
 `*-contact-sheet.jpg` = one frame every 0.5 s. Rebuild: `reel-studio/examples/<name>` + `tools/run_example.mjs`, `scripts/e2e.sh`.
 No GPU here, so run with `REMOTION_GL=swangle`. Music and effect sounds are procedural (not auditioned by me).
+
+
+## Style contact sheets (same script in every style)
+One folder per style: `output/<style-id>/` with `overview.jpg` (all 11 frames), `storyboard-1.jpg` and `storyboard-2.jpg` (approval sheets), `frames/`, `storyboard.json`, `critics.txt`. Review notes and fixes: `STYLE_REVIEW.md`.
+Styles: editorial-notebook, editorial-sticker, noir-3d, original-creatures, paper-atlas, roblox-inspired, stickman-3d, stylized-3d-presenter, voxel-explainer, voxel-studio (legacy).

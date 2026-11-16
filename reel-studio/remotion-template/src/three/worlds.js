@@ -195,7 +195,7 @@ export function noirRoom(E, o = {}) {
   const spot = new THREE.SpotLight('#FFD9A0', 26, 12, 0.55, 0.6, 1.4); spot.position.set(0.4, 5.0, 2.4); spot.target.position.set(0, 0.3, 0.3); spot.castShadow = true; spot.shadow.mapSize.set(2048, 2048); spot.shadow.bias = -0.0004; spot.shadow.radius = 6; scene.add(spot, spot.target);
   const beam = new THREE.Mesh(new THREE.ConeGeometry(1.7, 5.3, 36, 1, true), new THREE.MeshBasicMaterial({ color: '#FFD9A0', transparent: true, opacity: 0.022, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })); beam.position.set(0.2, 2.65, 1.35); beam.rotation.set(0.2, 0, 0.07); scene.add(beam);
   const dust = []; for (let i = 0; i < 40; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.012, 6, 6), new THREE.MeshBasicMaterial({ color: '#FFE8C0', toneMapped: false, transparent: true, opacity: 0.55 })); scene.add(m); dust.push(m); }
-  const rim = new THREE.DirectionalLight('#B3262B', 0.9); rim.position.set(-3, 2.5, -3); scene.add(rim); scene.add(new THREE.HemisphereLight('#1a2030', '#050508', 0.14));
+  const rim = new THREE.DirectionalLight('#C8302F', 2.2); rim.position.set(-3, 2.5, -3); scene.add(rim); scene.add(new THREE.HemisphereLight('#27324a', '#0a0a10', 0.4));
   return { scene, look: { bloom: 0.5, bloomThreshold: 0.75, vignette: 0.55, grain: 0.05, warm: 0.0, exposure: 1.1 }, subjects: { board: { pos: [-1.2, 2.2, -3.3], height: 2.2, rotY: 0 }, desk: { pos: [1.5, 0.8, -2.3], height: 0.8, rotY: 0 } },
     update(t) { dust.forEach((m, i) => { m.position.set(-0.8 + rnd(i) * 2.2 + Math.sin(t * 0.3 + i) * 0.15, 0.4 + ((rnd(i + 5) * 4.2 + t * (0.03 + rnd(i) * 0.04)) % 4.2), 0.2 + rnd(i + 9) * 2.2 + Math.cos(t * 0.25 + i) * 0.15); }); } };
 }

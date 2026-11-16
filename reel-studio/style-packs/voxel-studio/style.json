@@ -2,7 +2,7 @@
   "id": "voxel-studio",
   "name": "Voxel studio",
   "family": "3d",
-  "description": "Light-grey studio with a wall of live charts, blocky characters and floating label chips. Data and finance explainers.",
+  "description": "LEGACY (old react-three-fiber Scene3D). Kept so old projects render. Use voxel-explainer for new work. Light-grey studio with a wall of live charts, blocky characters and floating label chips. Data and finance explainers.",
   "tokens": {
     "colors": {
       "bg": "#E4E4E8",
@@ -83,5 +83,6 @@
         }
       ]
     }
-  }
+  },
+  "legacy": true
 }

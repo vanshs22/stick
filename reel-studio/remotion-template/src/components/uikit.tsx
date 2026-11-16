@@ -27,7 +27,7 @@ export const Terminal: React.FC<ShotProps> = ({shot, lines = [], prompt = '$', a
   let t0 = start; const rows: React.ReactNode[] = [];
   (lines as string[]).forEach((ln, i) => {
     const isOut = ln.startsWith('>'), txt = isOut ? ln.slice(1).trim() : ln, dur = isOut ? 0.01 : txt.length / cps + 0.25, shown = isOut ? (lt >= t0 ? txt : '') : typed(txt, lt, t0, cps);
-    if (lt >= t0 || i === 0) rows.push(<div key={i} style={{color: isOut ? '#9aa0aa' : '#f2f2f2', minHeight: 50}}>{isOut ? '' : <span style={{color: C.accent}}>{prompt} </span>}{shown}{i === (lines as string[]).length - 1 || (lt < t0 + dur) ? <span style={{opacity: blink(lt), color: '#f2f2f2'}}>▌</span> : null}</div>);
+    if (lt >= t0 || i === 0) rows.push(<div key={i} style={{color: isOut ? '#9aa0aa' : '#f2f2f2', minHeight: 50}}>{isOut ? '' : <span style={{color: C.accent}}>{prompt} </span>}{shown}{i === (lines as string[]).length - 1 || (lt < t0 + dur) ? <span style={{opacity: blink(lt), display: 'inline-block', width: '0.55em', height: '1em', background: '#f2f2f2', verticalAlign: '-0.12em', marginLeft: 2}} /> : null}</div>);
     t0 += dur;
   });
   return <Zone><div style={swing(a, out)}><Win dark title="terminal" width={940} height={620}><div style={{padding: '34px 40px', fontFamily: F.mono, fontWeight: 600, fontSize: 40, lineHeight: 1.35}}>{rows}</div></Win></div></Zone>;

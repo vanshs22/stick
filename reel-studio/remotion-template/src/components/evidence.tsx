@@ -9,8 +9,9 @@ import {SHADOW, Skeleton, Zone} from './ui';
 /** REAL proof: a captured screenshot, a slow zoom to the important region, a hand-drawn circle, and the source named. props: image (path in public/), source, caption, highlight {x,y,w,h} (fractions of the image), anchor (when the circle is drawn). */
 export const ProofCard: React.FC<ShotProps> = ({shot, image, source = '', caption = '', highlight, anchor}) => {
   const {a, out, lt, d, start} = useEnter(shot, anchor, 0.1, SPR.soft, 0.4);
-  const H = highlight || {x: 0.1, y: 0.1, w: 0.5, h: 0.2}, zoom = mix(1, 1.45, p(lt, start + 0.2, Math.max(0.6, d - start - 0.6), E.inOut)), W = 940, HH = 1000;
-  const cx = (H.x + H.w / 2) * 100, cy = (H.y + H.h / 2) * 100, ring = p(lt, start + 0.25, 0.6, E.outExpo), per = 2 * (H.w * W + H.h * HH) * 1.3;
+  const H = highlight || {x: 0.1, y: 0.1, w: 0.5, h: 0.2}, W = 940, HH = 900, zMax = Math.max(1, Math.min(1.45, 0.88 / H.w, 0.88 / H.h)), zoom = mix(1, zMax, p(lt, start + 0.2, Math.max(0.6, d - start - 0.6), E.inOut));
+  const org = (c: number) => (zMax <= 1.001 ? 50 : Math.max(0, Math.min(1, (0.5 - c * zMax) / (1 - zMax))) * 100), cx = org(H.x + H.w / 2), cy = org(H.y + H.h / 2),   // origin that centres the highlight, never exposing the card edge
+   ring = p(lt, start + 0.25, 0.6, E.outExpo), per = 2 * (H.w * W + H.h * HH) * 1.3;
   return (
     <Zone><div style={{opacity: clamp(a * 1.6) * (1 - out), transform: `translateY(${(1 - a) * 50}px)`}}>
       <div style={{width: W, height: HH, borderRadius: 26, overflow: 'hidden', background: C.card, boxShadow: SHADOW, position: 'relative'}}>

@@ -17,7 +17,7 @@ const rem = (args) => { const r = run('npx', ['remotion', ...args, '--timeout=24
 const props = (name, o) => { const f = path.join(OUT, `_${name}.json`); fs.writeFileSync(f, JSON.stringify(o)); return f; };
 const sheet = (name, o, file = `${name}.jpg`) => { const png = path.join(OUT, `${name}.png`); rem(['still', 'src/index.ts', 'Sheet', png, `--props=${props(name, o)}`]); const j = path.join(OUT, file); const f = run('ffmpeg', ['-y', '-v', 'error', '-i', png, '-q:v', '3', j]); return f.status ? png : j; };
 const brief = rd(path.join(P, 'brief.json')), pub = (f) => copyPublic(P, [f])[0];
-const packs = fs.readdirSync(path.join(TK, 'style-packs')).filter((d) => fs.existsSync(path.join(TK, 'style-packs', d, 'style.json')) && d !== '_template').map((id) => ({ id, ...rd(path.join(TK, 'style-packs', id, 'style.json')) }));
+const packs = fs.readdirSync(path.join(TK, 'style-packs')).filter((d) => fs.existsSync(path.join(TK, 'style-packs', d, 'style.json')) && d !== '_template' && !rd(path.join(TK, 'style-packs', d, 'style.json')).legacy).map((id) => ({ id, ...rd(path.join(TK, 'style-packs', id, 'style.json')) }));
 const prev = (id) => ['01', '02', '03'].map((n) => path.join(TK, 'style-packs', id, 'preview', n + '.jpg')).filter(fs.existsSync);
 const first = (t) => String(t || '').split(/(?<=[.!?])\s/)[0].slice(0, 130);
 

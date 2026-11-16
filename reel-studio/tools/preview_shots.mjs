@@ -13,9 +13,11 @@ const R = path.join(P, 'remotion'), tl = JSON.parse(fs.readFileSync(path.join(P,
 if (!fs.existsSync(path.join(R, 'node_modules'))) { console.error(`run "npm install" in ${R} first`); process.exit(1); }
 let sbp = {}; try { sbp = Object.fromEntries(JSON.parse(fs.readFileSync(path.join(P, 'storyboard/storyboard.json'), 'utf8')).shots.map((x) => [x.id, x.preview_at])); } catch { /* no storyboard file: default time */ }   // preview_at: a shot may name the moment that shows its final state (e.g. after a zoom)
 const out = path.join(P, 'review/storyboard'); fs.mkdirSync(out, { recursive: true }); let fail = 0;
+const LATE = new Set(['FlowDiagram', 'KineticList', 'Timeline', 'Checklist', 'BigStat', 'NotebookPage', 'Typewriter', 'Terminal', 'Highlight', 'Stamp', 'BrowserWindow', 'ProofCard', 'RouteMap', 'EvidenceCard', 'Versus']);   // these build up over the shot: show the finished state, just before the exit fade
 for (const s of tl.shots) {
   if (only && !only.has(s.id)) continue;
-  const frame = Math.max(0, Math.min(Math.round(tl.duration * tl.fps) - 1, Math.round((s.start + (s.end - s.start) * (+(sbp[s.id] ?? at))) * tl.fps)));
+  const dur = s.end - s.start, t = sbp[s.id] != null ? s.start + dur * +sbp[s.id] : LATE.has(s.component) ? Math.max(s.start + 0.7 * dur, s.end - 0.5) : s.start + dur * at;
+  const frame = Math.max(0, Math.min(Math.round(tl.duration * tl.fps) - 1, Math.round(t * tl.fps)));
   const r = spawnSync('npx', ['remotion', 'still', 'src/index.ts', 'Reel', path.resolve(out, `${s.id}.png`), `--frame=${frame}`], { cwd: R, encoding: 'utf8' });
   if (r.status) { fail++; console.error(`${s.id} failed:\n${(r.stderr || r.stdout).slice(-600)}`); } else console.log(`${s.id} ${s.component} frame ${frame}`);
 }

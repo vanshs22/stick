@@ -102,7 +102,7 @@ export const RouteMap: React.FC<ShotProps> = ({shot, points = [], title = ''}) =
       <svg width={940} height={960} style={{position: 'absolute', inset: 0}}>
         <path d={d} fill="none" stroke="#B3261E" strokeWidth={9} strokeDasharray={`4 18`} strokeLinecap="round" opacity={0.25} />
         <path d={d} fill="none" stroke="#B3261E" strokeWidth={10} strokeLinecap="round" strokeDasharray={len} strokeDashoffset={len * (1 - k)} />
-        {Pt.map((q, i) => { const s = (i / Math.max(1, Pt.length - 1)) * 0.9; const v = clamp((k - s) * 8); return <g key={i} opacity={v}><circle cx={q.X} cy={q.Y} r={16} fill="#B3261E" /><text x={q.X + 26} y={q.Y + 12} fontFamily={F.sans} fontWeight={800} fontSize={38} fill="#3b2a12">{q.label}</text></g>; })}
+        {Pt.map((q, i) => { const s = (i / Math.max(1, Pt.length - 1)) * 0.9; const v = clamp((k - s) * 8); return <g key={i} opacity={v}><circle cx={q.X} cy={q.Y} r={16} fill="#B3261E" /><text x={q.X > 560 ? q.X - 26 : q.X + 26} textAnchor={q.X > 560 ? 'end' : 'start'} y={q.Y + 12} fontFamily={F.sans} fontWeight={800} fontSize={38} fill="#3b2a12">{q.label}</text></g>; })}
       </svg>
     </div></Zone>
   );

@@ -12,7 +12,7 @@ import { TK, rd } from './lib/pipeline.mjs';
 const a = process.argv.slice(2), P = path.resolve(a[0] || ''), what = a[1], opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? a[i + 1] : d; }, w = (f, o) => { fs.mkdirSync(path.dirname(path.join(P, f)), { recursive: true }); fs.writeFileSync(path.join(P, f), JSON.stringify(o, null, 1)); console.log(`wrote ${f}`); };
 if (!a[0] || !what || !fs.existsSync(path.join(P, 'brief.json'))) { console.error('usage: choose.mjs <projectDir> style|typography|captions|layout|voice ...'); process.exit(2); }
 const brief = rd(path.join(P, 'brief.json')), now = new Date().toISOString();
-const packs = fs.readdirSync(path.join(TK, 'style-packs')).filter((d) => fs.existsSync(path.join(TK, 'style-packs', d, 'style.json')) && d !== '_template');
+const packs = fs.readdirSync(path.join(TK, 'style-packs')).filter((d) => fs.existsSync(path.join(TK, 'style-packs', d, 'style.json')) && d !== '_template' && !rd(path.join(TK, 'style-packs', d, 'style.json')).legacy);
 if (what === 'style') {
   const v = a[2], id = /^\d+$/.test(v) ? packs[+v - 1] : v; if (!packs.includes(id)) { console.error(`unknown style "${v}". Known: ${packs.map((p, i) => `${i + 1}=${p}`).join(' ')}`); process.exit(1); }
   const pack = rd(path.join(TK, 'style-packs', id, 'style.json')); w('style-selection.json', { pack: id, name: pack.name, chosen_at: now, status: (fs.existsSync(path.join(TK, 'style-packs', id, 'preview/index.json')) ? rd(path.join(TK, 'style-packs', id, 'preview/index.json')).status : 'unknown'), combined_from: pack.meta?.combined || null, reference: pack.meta?.reference || null });
