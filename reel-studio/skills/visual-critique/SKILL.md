@@ -25,3 +25,7 @@ Write `review/visual-critic.json` (schema `critic-report`, critic `visual`). Eve
 Fix, re-render only the affected stills, re-check. Max 3 rounds; then list what is left for the user. Score = 100 - 25/blocker - 10/major - 3/minor; `pass` >= 80 and no blocker.
 
 Colour and grading problems: `node $TK/tools/rs.mjs color-correction effects`.
+
+## Tools (v2)
+Automatic: `node $TK/tools/critique.mjs $P frames` (blank, flat, clipped, off-safe-area frames) and `video` (unplanned cuts, hook, ending, colour jumps, pacing, captions present). Vision (needs your eyes): `critique.mjs $P vision --packet <character|environment|camera|composition|typography|ui|transitions|frames|video|reference>`; open every image listed in `packet.md`, fill `findings.template.json` with what you SAW, `--submit`. The tool rejects a submission that lists fewer images than required or none. No images? `--unavailable "<why>"`: the report then says the checks were not performed.
+Every finding has severity, timestamp, shot, evidence, problem, expected, fix target and action, so a fix_plan can re-render only the shot concerned.

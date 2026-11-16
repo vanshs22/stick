@@ -12,46 +12,61 @@ No AI image or video generation, no paid credits. Nothing is shown to the user t
 `TK` = the toolkit folder: `$REEL_STUDIO`, else the path inside `~/.reel-studio/toolkit`. `P` = the project folder (it contains `.toolkit` and `state.json`).
 
 ## 0. First time on this computer
-1. `node $TK/scripts/install.mjs` once (links these skills AND installs the OFFICIAL Remotion agent skills `remotion-dev/skills`), then `node $TK/tools/doctor.mjs` and fix every MISSING line (it prints the command).
-2. Read `$TK/memory/learnings.md` (lessons from earlier videos) and the creator profile if one exists: `$TK/creator/creator-profile.json`.
-3. New video: `node $TK/tools/new_project.mjs <name> --style <style-pack-id>`. Then `cd` into the project and `cd remotion && npm install` once.
+1. `bash install.sh` (Windows: `.\install.ps1`). It builds `.venv`, installs the Python and Node packages, fetches Chrome and the free voice, and installs these skills plus the OFFICIAL Remotion agent skills. Then `node $TK/tools/selftest.mjs` must print "All ... checks passed".
+2. `node $TK/tools/doctor.mjs` lists anything missing with the command that fixes it. Tell the user plainly what is missing; do not work around it silently.
+3. Read `$TK/memory/learnings.md` (lessons from earlier videos) and `$TK/creator/creator-profile.json`.
+4. New video: `node $TK/tools/new_project.mjs <name> --style <style-pack-id>`. The Remotion packages are shared from the toolkit, so there is no per-project `npm install`.
 
 ## 1. The stages (state.json tracks them; use `tools/state.mjs`, never skip a gate)
 | # | stage | read this skill | you produce | user gate |
 |---|---|---|---|---|
-| 1 | intake | video-director | `brief.json` | |
-| 2 | style | video-director, typography | chosen style pack, caption preset | **yes** |
+| 1 | intake | video-director | `brief.json` (goal, audience, length, platform, research options, CTA) | **yes** |
+| 2 | style | video-director, typography | a style from the gallery (`tools/gallery.mjs`), stored in the brief | **yes** |
 | 3 | topic | video-research | topic shortlist | **yes** |
-| 4 | research | video-research | `research/research.json`, evidence list | **yes** |
+| 4 | research | video-research, playwright-capture | `research/research.json`, `research/sources.json`, real captures | **yes** |
 | 5 | script | script-writing | `script/script.json` | **yes** |
-| 6 | script_critic | script-critique | `review/script-critic.json`, fixed script | |
-| 7 | storyboard | storyboard | `storyboard/storyboard.json` + frame previews | **yes** |
-| 8 | storyboard_critic | storyboard-critique | `review/storyboard-critic.json` | |
-| 9 | voice_captions | audio-production, captions | `audio/audio-plan.json`, voice sample, caption preset | **yes** |
-| 10 | assets | playwright-capture, reference-analysis | `assets/manifest.json` | |
-| 11 | build | remotion-production, threejs-production | the Remotion project, rendered stills | |
-| 12 | visual_critic | visual-critique | `review/visual-critic.json` | |
-| 13 | audio_critic | audio-production | `review/audio-critic.json` | |
-| 14 | final | final-quality-control | `renders/<name>.mp4`, `review/final-critic.json` | **yes** |
-| 15 | deliver | final-quality-control | cover, captions text, production report | |
+| 6 | script_critic | script-critique | `review/critics/{research,script}.json`, fixed script | **yes** |
+| 7 | storyboard | storyboard | `storyboard/storyboard.json`, contact sheet + one image per shot | **yes, frame by frame** |
+| 8 | storyboard_critic | storyboard-critique | `review/critics/storyboard.json` + cinematography critic | |
+| 9 | audio | audio-production | `audio/audio-plan.json`, voice/music/sfx previews | **yes** |
+| 10 | typography | typography | `typography/typography.json` + preview | **yes** |
+| 11 | captions | captions | `typography/captions.json` + animated preview | **yes** |
+| 12 | assets | playwright-capture, reference-analysis | `assets/manifest.json` | |
+| 13 | production | remotion-production, threejs-production | go/no-go for the full render | **yes** |
+| 14 | build | remotion-production | `renders/<name>.mp4` (per-shot clips, cached) | |
+| 15 | visual_critic | visual-critique | `review/critics/*.json` (frames, video, vision) | |
+| 16 | audio_critic | audio-production | `review/critics/{voice,music,sfx}.json` | |
+| 17 | final | final-quality-control | `renders/<name>.mp4`, `review/critics/final.json` | **yes** |
+| 18 | deliver | final-quality-control | cover, captions text, `state.mjs seal` receipt | |
 
-Per stage: `node $TK/tools/state.mjs check $P <stage>` first (it fails if an earlier gate is open) -> `start` -> do the work -> validate the JSON (`node $TK/tools/validate.mjs <schema> <file>`) -> `done`.
-At a gate: `request`, show the user the result in plain words plus the image or file to look at, ask ONE clear question, then STOP. Only after they say yes: `approve`.
-If the user asks for changes, make them, show again, and do not re-ask what they already approved.
+Per stage: `state.mjs check $P <stage>` first (fails if an earlier gate is open) -> `start` -> work -> `done`.
+At a gate: `request`, show the result in plain words plus the image or file to look at, ask ONE clear question, then STOP. Only after the user answers: `approve --quote "<their words>"`. The approval is tied to the files you showed; edit one and it goes stale.
+Storyboard: each frame is approved or changed on its own (`state.mjs frame`, `tools/storyboard_review.mjs`, `storyboard_alts.mjs`, `storyboard_edit.mjs`).
+If the user says "run through to X", you may record the early gates (intake to script_critic only) with `approve --delegated --quote "<their instruction>"`. The receipt shows them as DELEGATED. Storyboard, audio, typography, captions, production and final are never delegable.
+Final changes (reject, replace a shot, change music, captions, transition, pacing): `state.mjs change`, then `fix_plan.mjs`, then only the affected shots are re-rendered.
 
 ## 2. Rules
-- One message of questions at a time, with defaults filled in. "Just go" means defaults, but gates still apply unless `state.json` mode is `auto`.
+- One message of questions at a time, with defaults filled in. Gates still apply unless `state.json` mode is `auto`.
 - Never invent a fact, number, quote, screenshot or source. A claim without a source is `unverified` and gets removed or labelled.
-- If a real page cannot be captured, say so and ask. Never draw a fake and present it as the real thing.
-- Original work only: learn structure and technique from references, never copy their words, shots, characters or logos. Recognisable characters and brands are not recreated; make original ones.
-- Every JSON you write must pass `tools/validate.mjs`. Every timing comes from `data/timeline.json`, never from guesses.
-- Every visual event lands on a spoken word (word anchors). Every sound belongs to a visual event.
-- A critic finding names `fix_target`: change THAT stage (script, storyboard, code, audio), not everything. Maximum 3 rounds per critic, then show the user what is left.
-- Look at frames: `node $TK/tools/qa/contact_sheet.mjs`, then open the image. If you cannot view images, say so, run `tools/qa/frame_stats.mjs`, and ask the user to look at the sheet.
+- If a real page cannot be captured, say so and ask. Never draw a fake and present it as the real thing. Recreated UI is labelled as a recreation (`capture/register_recreation.mjs`).
+- Original work only: learn structure and technique from references, never copy their words, shots, characters or logos.
+- Camera work is directed, not scheduled: no cut-every-N-seconds rule and no automatic camera moves. Every move names why, from, to, target, duration, profile and curve; static shots are fine. `tools/check_cinematography.mjs` rejects unmotivated moves.
+- Every visual event lands on a spoken word (word anchors). Every sound belongs to a visual event; `build_cues.mjs` records which.
+- One timeline: Remotion. GSAP and HyperFrames blocks run inside it (seeked by the Remotion frame); they never get their own clock.
+- Critics read real output. Vision critics need you to open the images (`critique.mjs <P> vision --packet <name>`); if you cannot see images, run `--unavailable` and the report says those checks were not done. Never write "looked fine" without opening the file.
+- A finding names `fix_target`: change THAT stage. `fix_plan.mjs` groups findings and lists the smallest re-run. Maximum 3 rounds per critic, then show the user what is left.
 - Keep every decision in files, so the work can resume in a new session.
 
 ## 3. Commands you will use
-`doctor` · `new_project` · `state` · `validate` · `audio/build_tts_input` · `audio/voice.py` · `audio/words.py` · `timing/build_timeline` · `audio/build_cues` · `audio/mix.py` · `qa/contact_sheet` · `qa/frame_stats` · `qa/audio_check` · `qa/final_qa` · `reference/shots` · `research/search` · `capture/capture_web`. Each prints its usage when run without arguments.
+Run any tool without arguments for its usage.
+- Setup and health: `doctor` · `selftest` · `new_project` · `state` · `validate`
+- Style and choices: `gallery` (styles, typography, captions, layouts, `--compare`, `--detail`) · `choose` · `combine_styles` · `new_style_from_reference`
+- Research and evidence: `research/search` (Agent-Reach, optional) · `research/competitors` · `capture/capture_web` (real pages with provenance) · `capture/register_recreation` · `reference/ingest` (yt-dlp or a file) · `reference/analyze.py` · `reference/vision` · `reference/report`
+- Storyboard: `check_storyboard` · `check_cinematography` · `preview_shots` · `storyboard_review` · `storyboard_alts` · `storyboard_edit`
+- Audio: `audio/build_tts_input` · `audio/voice.py` · `audio/words.py` · `audio/build_cues` · `audio/mix.py` · `audio/preview_audio`
+- Build: `timing/build_timeline` · `render_segments` (per-shot, cached) · `assemble` · `qa/final_qa`
+- Critics: `critique.mjs <P> <research|script|storyboard|captions|audio|frames|video|reference|all|stage:x|vision ...>` · `fix_plan` · `qa/contact_sheet` · `qa/frame_stats` · `qa/audio_check`
+- Learning: `analytics/analyze` (optional creator analytics) · append lessons to `memory/learnings.md`
 
 ## 4. Never
 Upload or publish without being asked and confirmed. Spend the user's money or credits. Overwrite a project the user did not ask you to change. Say "done" about a video you have not watched as stills and checked with the tools.

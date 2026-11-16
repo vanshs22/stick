@@ -25,3 +25,6 @@ Say what failed (login, geo block, 404, bot protection) and ask the user: use an
 - Screenshots go through the same safe-zone rule: the important part inside y 180-1380.
 
 To show a captured recording inside the video use `OffthreadVideo` and the official `embedding-videos`, `cropping` rules (`node $TK/tools/rs.mjs embedding-videos cropping`).
+
+## Provenance and honesty (v2)
+`node $TK/tools/capture/capture_web.mjs <url> --out $P/assets/<name> --manifest $P/assets/manifest.json --id SRC1 [--expect "text that must be on the page"] [--actions actions.json] [--record]` uses (actions can `wait`, `expect`, `highlight` a selector, `screenshot`; see the script header) Playwright with Chrome. Each capture writes a provenance record (url, time, page title, whether the expected text was found, file hash) into `assets/manifest.json`. If the page blocks the capture, loads wrong or the expected text is missing, the tool says so and records the failure: tell the user and ask for a file or a different source. A redrawn page is never passed off as a screenshot: use `capture/register_recreation.mjs <manifest> --id REC1 --path <file> --label "Recreated interface, not the real site" --quote "<user words>"` so it is labelled "recreation" in the manifest and on screen.

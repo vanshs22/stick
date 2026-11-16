@@ -49,3 +49,16 @@ A strong shot = one main component + a few graphics on top + the right host or c
 - Look at `$TK/reference-library/_frames/ref*.jpg` (4 frames per reference) before designing a shot to see how the references layer these graphics.
 
 Official rules for structure: `node $TK/tools/rs.mjs multi-scene-video sequencing transitions video-editing video-matting connected-compositions`. Real maps (not our simple RouteMap): `rs.mjs maps` and its technique files.
+
+## Scene rules that keep it easy to follow (from the reel-maker recipe)
+1. The topic is always on screen: every shot has something that says what is happening (a prop, a label, a card), not only captions.
+2. No empty frames: a shot arrives with its main visual already showing; spoken words change things inside it (a reveal, a highlight) rather than starting from nothing.
+3. Show literally what is said: "three keys" means three keys, appearing as each is spoken.
+4. One idea per shot. A second idea is a second shot.
+5. Something always moves, calmly: no shake, glitch or flashing. A held shot is fine when the performance carries it.
+
+## Review and change tools (frame by frame)
+- `node $TK/tools/preview_shots.mjs $P` renders one still per shot; `node $TK/tools/storyboard_review.mjs $P` builds the contact sheet and one image per shot with the reason for each choice.
+- `node $TK/tools/storyboard_alts.mjs $P <shot>` renders alternatives (framing, angle, pose) for the user to pick from; `storyboard_edit.mjs` replaces a shot, swaps in a reference image, or applies the chosen alternative.
+- The user approves or rejects EACH frame: `node $TK/tools/state.mjs frame $P S03 approve|reject|replace`. The gate cannot be approved while a frame is open.
+- Run `node $TK/tools/check_storyboard.mjs $P` (components + cinematography critic) after every edit.

@@ -28,3 +28,9 @@ Write into `$P/renders/`: `cover.jpg` (best opening frame: `ffmpeg -ss <t> -i vi
 Then ask for one line of feedback and write it to `$TK/memory/learnings.md`. Publish or upload ONLY if the user asks, and confirm title and visibility first.
 
 Rendering options and codecs: `node $TK/tools/rs.mjs render rendering`. Licence note for the user: `rs.mjs license`.
+
+## Final pass (v2)
+1. `node $TK/tools/critique.mjs $P stage:render` (frames, whole-video and final delivery critics, reference similarity) and open `review/final.jpg`.
+2. Findings name shots: `node $TK/tools/fix_plan.mjs $P`, fix, then re-render ONLY those shots: `node $TK/tools/render_segments.mjs $P --shots S03` (cached by content hash) and `node $TK/tools/assemble.mjs $P`.
+3. The user can reject, replace a shot, change music, captions, a transition or the pacing: `node $TK/tools/state.mjs change $P <kind> --shot S03 --note "..."`.
+4. Deliver: `state.mjs seal $P renders/<name>.mp4` writes the receipt (who approved what, which gates were delegated). If the voice is AI-generated, remind the user to switch on the platform's AI label. Never claim a vision critic ran if you could not open the images.

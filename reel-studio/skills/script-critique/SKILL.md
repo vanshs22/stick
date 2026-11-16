@@ -24,3 +24,6 @@ Start at 100. Subtract 25 per blocker, 10 per major, 3 per minor. `pass` needs s
 
 ## Rewrite rule
 When a line fails, rewrite that line and any neighbour that depends on it. Show the user a short diff ("L04: before -> after, because ...") at the script gate, not the whole critic report.
+
+## Tools (v2)
+`node $TK/tools/critique.mjs $P stage:research` and `... stage:script` run the automatic checks: sources exist and load, no claim without a source, hook length and type (a greeting is rejected), words per minute, sentence length, repeated lines, factual-looking lines without a claim id, CTA present. They cannot judge whether a claim is TRUE or the story is good: read the sources, and answer the judgement rubric printed in the report.

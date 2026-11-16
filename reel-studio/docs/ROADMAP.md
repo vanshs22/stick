@@ -1,24 +1,12 @@
-# Roadmap
+# Status
 
-## Milestone 1 - the brain and the skeleton (this branch, done)
-Main skill + 15 stage skills, JSON contracts, approval-gate state machine, timing core (word-anchored), cue builder, audio tools, QA tools,
-reference and research tools, Playwright capture, Remotion template (router, captions, safe zones, anim helpers, 2 starter components), installer, doctor.
-NOT yet run end to end: nothing here has rendered a video. Milestone 2 ends with the first full test.
+| phase | what | state |
+|---|---|---|
+| 1 | audit, cinematography solver and critic, auto-camera removed, six-style experiment, rebuilt voxel and Pips | done, rendered and critiqued (`docs/EXPERIMENT.md`) |
+| 2 | approval workflow v2, galleries, previews for 10 packs, choose/combine, storyboard review/alts/edit, audio previews, reference analysis | done, each tool run on real input |
+| 3 | Stage3D film look, GSAP FlowDiagram, HyperFrames adapter, Playwright capture with provenance, Agent-Reach, yt-dlp, official Remotion skills | done; HyperFrames: one sample block only |
+| 4 | critics (automatic and vision protocol), fix plan, per-shot render and assemble, optional analytics | done, run on real renders and bad fixtures |
+| 5 | installers, doctor, selftest, docs, skills | done on Linux; Windows script not run on Windows |
+| acceptance | a full project through the IDE conversation | storyboard contact sheet first, then the user's approval, then audio to final |
 
-## Milestone 2 - the hands (done, not yet rendered)
-Type-checks with `tsc` (0 errors). Audio chain, timeline, cues and storyboard checks smoke-tested on all four examples with estimated timing. NOT yet rendered: run `scripts/e2e.sh` first.
-
-Original plan:
-- Component library: text (rolling headline, typewriter, counters, stamps, highlighter), UI (browser, terminal, window swing, phone, chat, notebook, comment box),
-  data (charts, timelines, checklists, versus, maps), evidence (case file, polaroid, ticket, redaction, annotations), captions (typewriter, karaoke, phrase), transitions, effects.
-- three.js modules: characters (stick, voxel, low-poly, blocky, noir human, creature), environments, lighting rigs, camera moves.
-- Style packs with rules, tokens, previews: editorial-notebook, noir-3d, voxel-explainer, stickman-3d, roblox-inspired, stylized-3d-presenter, paper-atlas, minimal-ui.
-- Preview galleries: styles, typography, captions.
-- Reference analyses of the supplied videos as shot libraries.
-- One example project per style, then the end-to-end tests in Claude Code and OpenCode (free model) with three different videos.
-
-## Design pass (after milestone 2)
-Studied the reference frames again and added what was missing: an illustrated host (SVG, lip-sync, gestures), 14 overlay graphics (step chips and labels, stickers, tags, cursor with motion lines, scribbles, hearts, calendar, waveform, warning bar, progress card), sticker and glass window looks, per-shot background colours, headline and dialogue captions, repo, profile, ledger, file-list and end cards, a chart wall set, arch-eyed creatures, a close presenter camera, fine dot paper texture, coloured bokeh, and two more style packs (editorial-sticker, voxel-studio). Type-checks clean; nothing rendered yet.
-
-## Official Remotion skills (remotion-dev/skills)
-Installed by `scripts/install.mjs` (checkout in `~/.reel-studio/remotion-skills`, linked as `remotion-best-practices` for Claude Code, OpenCode and .agents). `tools/rs.mjs <topic>` prints any official rule; every skill of ours names the rules to read. The doctor treats a missing install as an error. We use their `@remotion/media` Audio, `@remotion/rough-notation` for hand-drawn annotations, and their rules for 3D, timing, captions, transitions, studio preview and rendering. Not vendored (no licence file in their repo); `--update` pulls the latest.
+Known gaps: no GPU (slow renders); the agent cannot hear; face detection unavailable in OpenCV 5 headless; layout gallery never reviewed by a human; legacy `Scene3D` examples kept as regression tests; `custom` combined packs are generated on demand (none ships).

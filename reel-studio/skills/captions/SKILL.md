@@ -38,3 +38,6 @@ All six presets now exist (word-pop, one-word, boxed, phrase, typewriter, karaok
 Two more presets: `headline` (editorial packs: big top-left text, grey until spoken, red italic accent word; it IS the caption) and `dialogue` (3D story packs: top pill with the speaker tag from `shot.speaker`).
 
 Official rules: `node $TK/tools/rs.mjs captions display-captions transcribe-captions import-srt-captions text-highlights`. If the user brings an SRT, follow `import-srt-captions`; our `build_timeline.mjs` already builds chunks from real word times, so only use the official display patterns for ideas (karaoke, token highlight), not a second caption pipeline.
+
+## Tools (v2)
+Pick the preset with the user from `node $TK/tools/gallery.mjs $P --kind captions` (every preset animated with the real narration timing), then `node $TK/tools/choose.mjs $P captions --preset <name> [--position bottom|middle|top] [--scale 1] [--highlight color|underline|box|none]`. Pronunciation never changes what the caption says: captions show the script spelling, the voice gets the phonetic one. `node $TK/tools/critique.mjs $P captions` checks caption text against the narration, chunk timing, reading speed, one highlighted word per chunk, placement and coverage.

@@ -26,5 +26,7 @@ expect('later gates stay closed (script needs style, topic, research)', run('che
 fs.mkdirSync(path.join(dir, 'storyboard'), { recursive: true }); fs.writeFileSync(path.join(dir, 'storyboard/storyboard.json'), JSON.stringify({ shots: [{ id: 'S01' }, { id: 'S02' }] }));
 run('request', dir, 'storyboard'); expect('storyboard cannot be approved while frames are open', run('approve', dir, 'storyboard', '--quote', 'all good'), false);
 run('frame', dir, 'S01', 'approve'); run('frame', dir, 'S02', 'reject', '--note', 'wrong angle'); expect('a rejected frame reopens the storyboard', run('approve', dir, 'storyboard', '--quote', 'all good'), false);
+expect('delegation is refused for the storyboard (the user must look themselves)', run('approve', dir, 'storyboard', '--quote', 'run through everything', '--delegated'), false);
+expect('delegation is refused for the final', run('approve', dir, 'final', '--quote', 'run through everything', '--delegated'), false);
 expect('seal refuses an unapproved project', run('seal', dir, path.join(dir, 'v.mp4')), false);
 if (fails) { console.error(`${fails} shortcut(s) were NOT refused`); process.exit(1); } console.log('SELFTEST PASSED: every shortcut is refused');

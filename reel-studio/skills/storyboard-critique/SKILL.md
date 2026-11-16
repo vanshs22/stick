@@ -22,3 +22,8 @@ Inputs: `storyboard/storyboard.json`, `script/script.json`, `data/timeline.json`
 ## Score and verdict
 100 minus 25 per blocker, 10 per major, 3 per minor. `pass` >= 80, no blocker.
 Fix by editing the storyboard (not the script) unless a finding says `script`. Then rebuild the timeline and the stills and re-check.
+
+## Tools (v2)
+`node $TK/tools/critique.mjs $P storyboard` checks line coverage, shot variety, workable lengths, safe areas, motivated transitions and runs the cinematography critic. It measures; it does not judge taste. Then open the contact sheet and answer the vision rubric: `critique.mjs $P vision --packet composition` (also `camera`, `character`, `environment`), look at every listed image, fill `findings.template.json`, `--submit`. If you cannot see images, `--unavailable` and tell the user those checks were not done.
+Also check the five scene rules in the storyboard skill (topic on screen, no empty frames, show literally what is said, one idea per shot, calm motion).
+`node $TK/tools/fix_plan.mjs $P` turns the findings into the smallest set of changes.

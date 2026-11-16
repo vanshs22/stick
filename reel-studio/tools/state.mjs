@@ -19,6 +19,8 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 
 export const STAGES = ['intake', 'style', 'topic', 'research', 'script', 'script_critic', 'storyboard', 'storyboard_critic', 'audio', 'typography', 'captions', 'assets', 'production', 'build', 'visual_critic', 'audio_critic', 'final', 'deliver'];
+// Gates a user may hand over by saying e.g. "run through to the storyboard contact sheet". Everything that shapes what they will SEE or HEAR stays personal.
+export const DELEGABLE = ['intake', 'style', 'topic', 'research', 'script', 'script_critic'];
 export const GATES = ['intake', 'style', 'topic', 'research', 'script', 'script_critic', 'storyboard', 'audio', 'typography', 'captions', 'production', 'final'];
 export const ARTIFACTS = {
   intake: ['brief.json'], style: ['style-selection.json'], topic: ['topic/topic.json'], research: ['research/research.json'], script: ['script/script.json'],
@@ -59,7 +61,7 @@ if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1])))
       console.log(JSON.stringify(init(dir, { test }).mode));
     } else if (cmd === 'show') {
       const s = load(dir); console.log(`${s.project}  mode: ${s.mode}${s.mode === 'test' ? '  (TEST PROJECT: nothing here is approved by a user)' : ''}`);
-      for (const k of STAGES) { const st = s.stages[k]; console.log(`${k.padEnd(18)} ${String(st.status).padEnd(18)}${GATES.includes(k) ? (st.status === 'approved' ? `approved ${st.at} ${st.quote ? `"${st.quote.slice(0, 50)}"` : ''}` : '(needs your approval)') : ''}`); }
+      for (const k of STAGES) { const st = s.stages[k]; console.log(`${k.padEnd(18)} ${String(st.status).padEnd(18)}${GATES.includes(k) ? (st.status === 'approved' ? `approved${st.by === "user-delegation" ? " [DELEGATED]" : ""} ${st.at} ${st.quote ? `"${st.quote.slice(0, 50)}"` : ''}` : '(needs your approval)') : ''}`); }
       const fr = s.stages.storyboard.frames; if (fr) console.log('storyboard frames: ' + Object.entries(fr).map(([k, v]) => `${k}=${v.status}`).join(' '));
     } else if (cmd === 'start') set(dir, stage, 'in_progress');
     else if (cmd === 'done') set(dir, stage, 'done');
@@ -73,12 +75,13 @@ if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1])))
       fs.mkdirSync(path.join(dir, 'review/approvals'), { recursive: true }); fs.writeFileSync(path.join(dir, 'review/approvals', `${stage}.md`), md);
       console.log(`STOP: ask the user to approve "${stage}" (see review/approvals/${stage}.md) and wait for their answer. Do not continue.`);
     } else if (cmd === 'approve') {
+      const deleg = a.includes('--delegated'); if (deleg && !DELEGABLE.includes(stage)) { console.error(`"${stage}" cannot be delegated: the user must approve it themselves. Delegable: ${DELEGABLE.join(', ')}`); process.exit(1); }
       const s = load(dir), st = s.stages[stage]; if (!st) throw new Error(`unknown stage "${stage}"`);
       if (st.status !== 'awaiting_approval') { console.error(`"${stage}" is ${st.status}: it must be shown to the user with "request" first.`); process.exit(1); }
       const quote = opt(a, 'quote', ''); if (quote.trim().length < 2) { console.error('approve needs --quote "<what the user actually said>"'); process.exit(1); }
       if (stage === 'storyboard') { const fr = st.frames || {}, sb = JSON.parse(fs.readFileSync(path.join(dir, 'storyboard/storyboard.json'), 'utf8')), open = sb.shots.filter((x) => fr[x.id]?.status !== 'approved').map((x) => x.id); if (open.length) { console.error(`storyboard frames not approved one by one: ${open.join(', ')}. Use: state.mjs frame <dir> <shot> approve`); process.exit(1); } }
       for (const [f, h] of Object.entries(st.fingerprints || {})) if (sha(dir, f) !== h) { console.error(`${f} changed since it was shown to the user: request approval again.`); process.exit(1); }
-      set(dir, stage, 'approved', { by: 'user', quote, choice: opt(a, 'choice', null) });
+      set(dir, stage, 'approved', { by: deleg ? 'user-delegation' : 'user', quote, choice: opt(a, 'choice', null) });   // delegated = the user said "run through to X" and the quote is that instruction
     } else if (cmd === 'reject') {
       const note = opt(a, 'note', ''); if (!note) { console.error('reject needs --note "what to change"'); process.exit(1); }
       const s = load(dir); s.revisions.push({ at: now(), stage, kind: 'rejected', note }); s.stages[stage] = { ...s.stages[stage], status: 'changes_requested', at: now(), note }; save(dir, s);
@@ -96,7 +99,7 @@ if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1])))
     } else if (cmd === 'seal') {
       const video = a[2] || stage; const s = load(dir), open = openGate(dir, 'deliver'), finalOk = s.mode === 'test' || s.stages.final.status === 'approved';
       if (s.mode !== 'test' && (open || !finalOk)) { console.error(`cannot certify: ${open ? `"${open.gate}" is not approved (${open.why})` : '"final" is not approved'}`); process.exit(1); }
-      const receipt = { video: path.basename(video), sealed_at: now(), test_project: s.mode === 'test', approvals: Object.fromEntries(GATES.map((k) => [k, { status: s.stages[k].status, at: s.stages[k].at, quote: s.stages[k].quote || null, choice: s.stages[k].choice || null }])), revisions: s.revisions.length };
+      const receipt = { video: path.basename(video), sealed_at: now(), test_project: s.mode === 'test', approvals: Object.fromEntries(GATES.map((k) => [k, { status: s.stages[k].status, at: s.stages[k].at, quote: s.stages[k].quote || null, by: s.stages[k].by || null, choice: s.stages[k].choice || null }])), revisions: s.revisions.length };
       fs.writeFileSync(video.replace(/\.[^.]+$/, '') + (s.mode === 'test' ? '.TEST.approval.json' : '.approval.json'), JSON.stringify(receipt, null, 1)); console.log(s.mode === 'test' ? 'TEST receipt written (this video was NOT approved by a user)' : 'approval receipt written');
     } else { console.error('commands: init show start done request approve reject frame change check seal'); process.exit(2); }
   } catch (e) { console.error(e.message); process.exit(2); }

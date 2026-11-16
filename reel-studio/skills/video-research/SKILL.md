@@ -26,3 +26,9 @@ Verdict `pass` only with no blockers.
 
 ## Then show the user
 The angle in one sentence, the 5-8 key claims with their status, the evidence you will capture, and what you could not verify. Ask: "Approve this direction?"
+
+## Tools (v2)
+- `node $TK/tools/research/search.mjs $P "<query>" [--channels web,github,youtube]` (and `--read <url>` to save a page to `research/pages/`) uses Agent-Reach (no keys). Agent-Reach is OPTIONAL and per project: `brief.research.agent_reach` = yes / no / ask. On "ask", get the user's answer first and pass it with `--user-said "<their words>"`. Without it, use your own web search and record every URL in `research/sources.json`.
+- `node $TK/tools/research/competitors.mjs $P "<topic>" [--user-said "..."]` collects what similar videos do (titles, length, hook style) into `research/competitors.json` and `opportunities.md`.
+- Real evidence: `tools/capture/capture_web.mjs` (see playwright-capture). Reference videos: see reference-analysis.
+- `node $TK/tools/critique.mjs $P research` before asking the user to approve the research.

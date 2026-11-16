@@ -1,38 +1,37 @@
-# Reel Studio: a portable AI video-production toolkit
+# Reel Studio
 
-Give this folder to an AI coding agent (Claude Code, OpenCode with a free model, Cursor, Kiro...). Say "make a reel about X".
-The agent follows `SKILL.md`: it researches, writes, storyboards, builds the scenes in Remotion and three.js, records the voice, mixes the sound,
-checks its own frames and audio with critics, and stops at each gate for your approval.
+A toolkit that lets an AI coding agent (Claude Code, OpenCode with a free model, Cursor, Kiro, Codex) produce a finished short vertical video from a topic. The agent is the director and critic. The toolkit supplies the skills, the Remotion/three.js scene library, the tools and the critics. You approve the important steps.
 
-## Install
+Everything is code and free: Remotion renders, three.js draws 3D, GSAP and HyperFrames blocks animate inside the Remotion timeline, Playwright captures real websites, Kokoro speaks, Whisper times the words, FFmpeg encodes. No AI image or video generation and no paid keys.
+
 ```
-node scripts/install.mjs            # links these skills AND installs the official Remotion agent skills (remotion-dev/skills)
-node tools/rs.mjs list              # the official Remotion rules, readable by any agent
-node tools/doctor.mjs               # tells you what else to install
+bash install.sh          # Windows: .\install.ps1
+node tools/selftest.mjs  # must end with "All ... checks passed"
 ```
-Then open any folder in your agent and ask: "Use reel-studio to make a 40 s reel about ...".
+Then open your agent in an empty folder and say: *"Use reel-studio. Make a 40 second reel about <topic>."* Details: [QUICKSTART.md](QUICKSTART.md), [INSTALLATION.md](INSTALLATION.md), [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
-## What is in here
+## How a video is made
+Intake, style, topic, research, script, script critic, storyboard, audio, typography, captions, production, final. Each step is an approval gate; the storyboard is approved frame by frame. Between steps, critics inspect the real output (script, research sources, storyboard, rendered frames, audio, captions, the whole video) and name the shot to fix, so one shot is re-rendered instead of the film. See [docs/WORKFLOW.md](docs/WORKFLOW.md).
+
+## Styles
+Ten style packs with real preview stills (`node tools/gallery.mjs <project> --kind styles`): Voxel explainer, 3D stickman, Roblox-inspired, stylized 3D presenter, original creatures (the Pips), Noir 3D, Editorial notebook, Editorial sticker, Paper atlas and Voxel studio. You can compare two, combine a world with a character (`tools/combine_styles.mjs`), or give a reference and get a new pack (`tools/new_style_from_reference.mjs`). The choice is stored in the brief and drives the engine.
+
+## Folders
 | folder | what |
 |---|---|
-| `SKILL.md` | the entry skill: stages, gates, rules |
-| `skills/` | 15 focused skills the agent loads when it reaches that stage |
-| `tools/` | scripts the agent runs: state, validate, timing, voice, sound, capture, reference analysis, QA |
-| `schemas/` | the JSON contracts between stages (`python3 scripts/make_schemas.py` regenerates them) |
-| `remotion-template/` | the Remotion project every video starts from |
-| `style-packs/` | 8 style packs: rules, tokens, components, defaults |
-| `examples/` | 4 small test videos (brief, script, storyboard, audio plan) |
-| `reference-library/` | shot analyses of the 8 supplied reference videos |
-| `creator/` | your creator profile (niche, audience, tone, what to avoid) |
-| `memory/` | lessons the agent appends after every video |
-| `docs/` | roadmap, critics, project files |
+| `SKILL.md`, `AGENTS.md`, `CLAUDE.md` | entry points for agents |
+| `skills/` | 15 stage skills the agent loads when it reaches that stage |
+| `tools/` | state and approvals, galleries, storyboard review, audio, capture, research, reference analysis, critics, per-shot render, QA |
+| `remotion-template/` | the Remotion project every video starts from (Stage3D, 2D cards, captions, GSAP/HyperFrames adapters) |
+| `style-packs/` | styles: rules, tokens, characters, worlds, camera language, previews |
+| `schemas/` | JSON contracts between stages |
+| `examples/` | six same-script style experiments plus older examples (see `examples/README.md`) |
+| `docs/` | audit, cinematography, experiment, critics, workflow, integrations, reuse |
+| `memory/learnings.md` | lessons the agent reads first and appends to |
+| `creator/` | your profile (niche, audience, tone) and optional analytics |
 
-Status: see `docs/ROADMAP.md`.
-
-## Test everything (after install)
-```
-node tools/run_example.mjs software-explainer test1
-bash scripts/e2e.sh reel-projects/test1 --no-voice --scale 0.5   # quick: estimated timing, half size
-bash scripts/e2e.sh reel-projects/test1                          # full: Kokoro voice + Whisper timing
-```
-Examples: software-explainer, character-story, motion-graphics, voxel-howto.
+## Limits you should know
+- No GPU: renders work but slowly (software GL, about 14 minutes for 12 seconds at full size on a 4-core server). A desktop GPU is much faster.
+- The agent cannot hear. Voice and music checks are measurements; taste needs your ears. Vision critics run only if your model can view images, and say so when it cannot.
+- Some sites (YouTube from servers) block downloads; the tool explains and asks for a file.
+- `install.ps1` has not been run on Windows by the authors; it shares all logic with `install.sh` through `scripts/setup.mjs`.
