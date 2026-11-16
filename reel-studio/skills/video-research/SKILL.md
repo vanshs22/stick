@@ -38,3 +38,8 @@ The angle in one sentence, the 5-8 key claims with their status, the evidence yo
 
 ## Sources the critic accepts
 A claim is verified with two independent domains OR one source whose `type` says `primary` or `official` (set it in `research/research.json` sources[].type). Every claim lists `source_ids` that exist in `sources`. Script lines list the claim ids in `claims`.
+
+## Rules that cost a render cycle when missed
+- `captured_at` is today's date (`date -I`).
+- Numbers that are only illustrations (a counter, a price tag, a made-up speed) are not claims: label them ILLUSTRATIVE on screen, list them under `limitations` in research.json, never present them as facts. An unsourced claim, even an opinion, fails the critic: use `status: "opinion"` for opinions.
+- `--expect` matches plain text inside ONE element; it cannot span `<strong>`/`<code>`. Quote the first plain-text run of the sentence. Also capture the page TOP: intro sentences are the most quotable.

@@ -31,3 +31,6 @@ Open `review/final.jpg`. Count how many seconds each picture is on screen; find 
 
 ## 7. Final taste test
 Watch the contact sheet as if you were a stranger: would you stop on the first frame, understand the idea by the middle, and remember the last frame? If not, change the hook, cut a beat, or enlarge the payoff before you deliver.
+
+## Numbers to aim at (from the measured references)
+Neon-stage / tech-news pace: median shot 1.7 to 2.5 s, about 3.5 cuts per 10 s, camera static in at most 15 percent of shots, a plaque change every 1.5 to 3 s, a reaction close-up of the second character every 4th shot, loudness -14 LUFS, caption band at 80 to 90 percent of the frame. Calm editorial packs: far fewer cuts; trust the pack's STYLE.md. `critique.mjs reference` prints the measured pace and static share of your film next to the references: treat "(higher)" as a finding and fix it with moves, extra reaction shots and in-beat build-up, not by faking cuts.

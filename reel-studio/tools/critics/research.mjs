@@ -10,7 +10,7 @@ export async function run(P, o = {}) {
   r.check('every claim is sourced');
   for (const c of claims) {
     const used = [].concat(c.source_ids || c.sources || []);
-    if (!used.length && c.status !== 'unverified') r.add('major', { line_id: c.id, problem: 'claim without a source', evidence: `"${String(c.text || c.claim).slice(0, 90)}"`, expected: 'source_ids that exist, or status "unverified" (then it is removed or labelled)', fix: 'attach a source or drop the claim', fix_target: 'research' });
+    if (!used.length && c.status !== 'unverified' && c.status !== 'opinion') r.add('major', { line_id: c.id, problem: 'claim without a source', evidence: `"${String(c.text || c.claim).slice(0, 90)}"`, expected: 'source_ids that exist, or status "unverified" (then it is removed or labelled)', fix: 'attach a source or drop the claim', fix_target: 'research' });
     for (const u of used) if (!ids.has(u)) r.add('major', { line_id: c.id, problem: 'claim cites a source id that does not exist', evidence: u, expected: 'an id from research.json sources or research/sources.json', fix: 'fix the id', fix_target: 'research' });
     if (c.status === 'unverified') r.add('minor', { line_id: c.id, problem: 'unverified claim still in the research', evidence: String(c.text || c.claim).slice(0, 90), expected: 'removed from the script or labelled as unverified', fix: 'verify or remove', fix_target: 'research' });
   }

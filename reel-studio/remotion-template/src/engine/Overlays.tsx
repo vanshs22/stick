@@ -4,6 +4,7 @@ import {C, F} from './tokens';
 import {E, SPR, clamp, mix, p, rnd, sp} from './anim';
 import {atLocal, talkAt, useShotTime} from './time';
 import type {Overlay, Shot} from './types';
+import {REMOCN} from '../data/remocn-registry';
 
 /**
  * Graphics layered ON TOP of a shot's main component, each timed to a spoken word (anchor) or `at` seconds.
@@ -22,13 +23,13 @@ const pos = (o: Overlay, dx: number, dy: number): React.CSSProperties => ({posit
 const One: React.FC<{o: Overlay; shot: Shot}> = ({o, shot}) => {
   switch (o.type) {
     // ---- HUD pieces of the neon-stage look: a headline plaque, a counting number, an emoji thought bubble, a neon burst ----
-    case 'plaque': return <T o={{...o, at: o.at ?? 0}} shot={shot}>{({a, lt}) => (
+    case 'plaque': return <T o={{...o, at: o.at ?? 0}} shot={shot}>{({a, lt}) => { const steps = (o.texts || []).map((x: any) => ({t: x.anchor && x.anchor in shot.anchors ? atLocal(shot, x.anchor) : x.at ?? 0, text: x.text})).filter((x: any) => x.t <= lt).sort((m: any, n: any) => m.t - n.t), cur = steps[steps.length - 1], text = cur?.text ?? o.text, bump = cur ? Math.max(0, 1 - (lt - cur.t) / 0.25) * 0.06 : 0; return (
       <div style={{position: 'absolute', left: 0, right: 0, top: o.y ?? 150, display: 'flex', justifyContent: 'center', transform: `translateY(${(1 - a) * -30}px) scale(${0.92 + a * 0.08})`, opacity: clamp(a * 1.6)}}>
         <div style={{padding: '16px 34px 18px', borderRadius: 26, background: 'rgba(24,18,38,0.78)', border: `2px solid ${o.border || 'rgba(255,255,255,0.28)'}`, boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 0 18px rgba(255,255,255,0.05)', textAlign: 'center', maxWidth: 900}}>
           {o.kicker ? <div style={{fontFamily: F.mono, fontSize: 18, letterSpacing: '0.18em', color: o.kickerColor || 'rgba(255,255,255,0.55)', textTransform: 'uppercase', marginBottom: 6}}>{o.kicker}</div> : null}
-          <div style={{fontFamily: F.sans, fontWeight: 900, fontSize: o.size || 52, lineHeight: 1.05, color: '#fff', textTransform: o.caps === false ? 'none' : 'uppercase', letterSpacing: '0.01em', textShadow: '0 3px 0 rgba(0,0,0,0.35)'}}>{o.text}</div>
+          <div style={{fontFamily: F.sans, fontWeight: 900, fontSize: o.size || 52, lineHeight: 1.05, color: '#fff', textTransform: o.caps === false ? 'none' : 'uppercase', letterSpacing: '0.01em', textShadow: '0 3px 0 rgba(0,0,0,0.35)', transform: `scale(${1 + bump})`}}>{text}</div>
         </div>
-      </div>)}</T>;
+      </div>); }}</T>;
     case 'counter': return <T o={{...o, at: o.at ?? 0.3}} shot={shot}>{({lt, s, a}) => { const k = p(lt, s, o.dur || 1.6, E.outExpo), v = Math.round((o.from ?? 0) + ((o.to ?? 100) - (o.from ?? 0)) * k);
       return <div style={{position: 'absolute', left: 0, right: 0, top: o.y ?? 560, display: 'flex', justifyContent: 'center', opacity: clamp(a * 1.6), transform: `scale(${0.9 + a * 0.1})`}}><div style={{padding: '12px 36px 14px', borderRadius: 24, background: 'rgba(14,10,24,0.82)', border: '2px solid rgba(255,255,255,0.22)', textAlign: 'center', boxShadow: '0 8px 30px rgba(0,0,0,0.5)'}}>
         <div style={{fontFamily: F.sans, fontWeight: 900, fontSize: o.size || 76, color: o.color || '#fff', fontVariantNumeric: 'tabular-nums', lineHeight: 1.05}}>{(o.prefix || '') + v.toLocaleString('en-US') + (o.suffix || '')}</div>
@@ -40,6 +41,12 @@ const One: React.FC<{o: Overlay; shot: Shot}> = ({o, shot}) => {
       </div>)}</T>;
     case 'burst': return <T o={o} shot={shot}>{({lt, s}) => { const k = p(lt, s, 0.7, E.outExpo), n = o.count || 14, cx = o.x ?? 540, cy = o.y ?? 900;
       return <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 1 - p(lt, s + 0.35, 0.4, E.inCubic)}}>{Array.from({length: n}).map((_, i) => { const ang = (i / n) * Math.PI * 2 + 0.3, r0 = 60 + k * 90, r1 = r0 + 60 + k * (140 + (i % 3) * 60); return <line key={i} x1={cx + Math.cos(ang) * r0} y1={cy + Math.sin(ang) * r0} x2={cx + Math.cos(ang) * r1} y2={cy + Math.sin(ang) * r1} stroke={[o.color || '#FFB84D', '#FF5CA8', '#7DE3FF'][i % 3]} strokeWidth={9 - (i % 3) * 2} strokeLinecap="round" />; })}</svg>; }}</T>;
+    // a giant word that slams in on its anchor (KILLED, FREE, $0, #1): {text, x, y, size, rotate, color, shadow}
+    case 'impact': return <T o={o} shot={shot}>{({lt, s}) => { const k = p(lt, s, 0.3, E.outBack), dt = lt - s, shake = dt < 0.45 ? Math.sin(dt * 70) * (1 - dt / 0.45) * 12 : 0;
+      return <div style={{position: 'absolute', left: o.x ?? 540, top: o.y ?? 760, transform: `translate(-50%, -50%) translateX(${shake}px) rotate(${o.rotate ?? -6}deg) scale(${0.25 + 0.75 * k})`, opacity: clamp(k * 3), fontFamily: F.sans, fontWeight: 900, fontSize: o.size || 220, lineHeight: 1, color: o.color || '#fff', textTransform: 'uppercase', letterSpacing: '-0.02em', whiteSpace: 'nowrap', WebkitTextStroke: `${o.stroke ?? 12}px ${o.strokeColor || '#1b1233'}`, paintOrder: 'stroke fill', textShadow: `0 14px 0 ${o.shadow || '#FF5C7A'}, 0 26px 44px rgba(0,0,0,0.5)`}}>{o.text}</div>; }}</T>;
+    // a remocn component floating over the 3D stage (keeps the characters): {name, props, scale, x, y} x,y = pixel shift of its centre
+    case 'remocn': return <T o={{...o, at: o.at ?? 0}} shot={shot}>{() => { const C0 = REMOCN[o.name]; if (!C0) throw new Error(`overlay remocn: "${o.name}" is not installed (node tools/remocn.mjs add ${o.name} --project <P>)`);
+      return <div style={{position: 'absolute', inset: 0, transform: `translate(${o.x ?? 0}px, ${o.y ?? 0}px) scale(${o.scale ?? 0.7})`, transformOrigin: 'center center'}}><C0 {...(o.props || {})} /></div>; }}</T>;
     case 'label': return <T o={{...o, at: 0}} shot={shot}>{({lt}) => (
       <div style={{position: 'absolute', left: 64, right: 64, top: 118, display: 'flex', justifyContent: 'space-between', fontFamily: F.mono, fontWeight: 500, fontSize: 24, color: C.muted, opacity: clamp(lt / 0.3)}}>
         <span>{o.left}</span><span style={{color: o.rightAccent === false ? C.muted : C.accent}}>{o.right}</span></div>)}</T>;

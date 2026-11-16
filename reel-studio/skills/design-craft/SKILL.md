@@ -43,3 +43,6 @@ Open the pack's `STYLE.md` and obey its rules before your taste. Compare against
 
 ## 9. Self-check on every still (do it, with the image open)
 Focal point obvious? Text readable at thumbnail size and not on a face? Caption band free? Colours only from the pack? Anything cut off at an edge? Anything out of focus that should be sharp? Fix what fails; do not ship a frame you would scroll past.
+
+## Build-up beats (what makes a stage look produced)
+A beat is not one picture: it is a plaque that names it, a set piece that changes state (typing lines, a counter, boxes lighting one by one), a character reaction (bubble, pose) and a hit on the key word (impact word + burst + sound). Stagger them over the 2 to 4 seconds of the line. Pick a different set piece for every beat so the stage never repeats.

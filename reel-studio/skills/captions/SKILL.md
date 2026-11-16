@@ -43,3 +43,5 @@ Official rules: `node $TK/tools/rs.mjs captions display-captions transcribe-capt
 Pick the preset with the user from `node $TK/tools/gallery.mjs $P --kind captions` (every preset animated with the real narration timing), then `node $TK/tools/choose.mjs $P captions --preset <name> [--position bottom|middle|top] [--scale 1] [--highlight color|underline|box|none]`. Pronunciation never changes what the caption says: captions show the script spelling, the voice gets the phonetic one. `node $TK/tools/critique.mjs $P captions` checks caption text against the narration, chunk timing, reading speed, one highlighted word per chunk, placement and coverage.
 
 The caption gallery uses the real narration timing but sample words. If the user has no preference use the pack default preset (`defaults.captions` in style.json) and move on.
+
+`caps-plate` is the neon-stage default (small UPPERCASE words on a dark plate). Chunk length is fixed by the preset, so a reading-speed minor from the critic cannot be fixed in the storyboard: shorten the line or accept it.

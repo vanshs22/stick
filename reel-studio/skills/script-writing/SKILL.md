@@ -74,3 +74,6 @@ Close the loop opened by the hook (echo its words), then ONE ask: the CTA keywor
 
 ## 7. Self-check before the critic
 Read it aloud with a stopwatch: length within 10 percent of the brief; the hook is under 3 seconds; every claim has a source id; no line over 22 words; the promise is paid off; cut 10 percent.
+
+## Length arithmetic and pauses
+At voice speed 1.0 count about 2.6 words per second (2.4 for slow voices, 2.8 at speed 1.05). Aim for the brief's length minus 10 percent. A line that sits on a long visual (a screenshot, a counter, a remocn block) needs `pause_after` 0.3 to 1.0 s: a 2 s line cannot carry a 4 s animation. Hook length: 8 to 14 words. The CTA is the last or second-to-last line, one ask.

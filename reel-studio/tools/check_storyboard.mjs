@@ -10,7 +10,8 @@ import { syncProject } from './lib/pipeline.mjs';
 
 const P = process.argv[2]; if (!P) { console.error('usage: check_storyboard.mjs <projectDir>'); process.exit(2); }
 if (fs.existsSync(path.join(P, 'brief.json'))) { try { syncProject(path.resolve(P)); } catch (e) { console.error(`(could not refresh the project template: ${e.message.split('\n')[0]})`); } }   // the project copy of manifest/registry must be current
-const man = JSON.parse(fs.readFileSync(path.join(P, 'remotion/src/components/manifest.json'), 'utf8')), sb = JSON.parse(fs.readFileSync(path.join(P, 'storyboard/storyboard.json'), 'utf8'));
+const J = (f) => { try { return JSON.parse(fs.readFileSync(path.join(P, f), 'utf8')); } catch (e) { console.error(`ERROR cannot read ${f}: ${e.message}`); process.exit(1); } };
+const man = J('remotion/src/components/manifest.json'), sb = J('storyboard/storyboard.json');
 const reg = fs.readFileSync(path.join(P, 'remotion/src/components/registry.ts'), 'utf8'), errs = [], warns = [];
 let prev = '', run = 0;
 for (const s of sb.shots) {

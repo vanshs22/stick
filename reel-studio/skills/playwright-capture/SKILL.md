@@ -39,3 +39,6 @@ If the fact you need is below the fold (a star count, a price), add an action fi
 - The highlight stored in the manifest is the whole paragraph. Set `highlight` {x,y,w,h} (fractions of the image) on the `ProofCard` yourself from the picture, around the sentence you quote.
 - Open the PNG after every capture. After a re-capture use a new `--out` name: the image viewer caches by path and will show the old picture.
 - Scroll with a sticky header in mind (about 200 px worked on docs.python.org; 330 hid the sentence).
+
+## A sentence far down a long page
+Use a heading anchor, not a guessed scroll: `[{"do":"highlight","selector":"#<heading-id>"},{"do":"scroll","y":-60},{"do":"wait","ms":700},{"do":"screenshot","name":"page"}]` (the `highlight` action scrolls the element into view; MDN heading ids are snake_case like `fresh_and_stale_based_on_age`). `--expect` then proves the sentence is inside the picture, and the manifest stores WHERE it sits (`verification.expectations[].rect`, fractions of the image) so the stage `screen` prop highlights exactly that sentence.

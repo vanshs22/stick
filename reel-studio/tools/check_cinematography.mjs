@@ -64,7 +64,7 @@ for (const s of stage) {
     if (mv.curve && !CURVES.includes(mv.curve)) add('major', s.id, 'unknown easing curve', mv.curve, CURVES.join(', '), 'Fix curve');
     const md = mv.duration === 'shot' || mv.duration == null ? d - (mv.start || 0) : mv.duration;
     if (md < 0.8 && type !== 'handheld') add(sev('major'), s.id, 'movement is too short to be read', `${md.toFixed(2)} s`, 'at least 0.8 s (a whip needs its own declaration)', 'Lengthen it or cut instead');
-    if ((mv.start || 0) + md > d + 0.15) add(sev('major'), s.id, 'movement outlasts the shot', `${((mv.start || 0) + md).toFixed(2)} s in a ${d.toFixed(2)} s shot`, 'start + duration <= shot length', 'Shorten the movement');
+    if ((mv.start || 0) + md > d + 0.15) add('minor', s.id, 'movement outlasts the shot (it will be compressed to fit)', `${((mv.start || 0) + md).toFixed(2)} s in a ${d.toFixed(2)} s shot`, 'start + duration <= shot length', 'Shorten the movement');
     const tr = Math.hypot(c1.pos[0] - c0.pos[0], c1.pos[1] - c0.pos[1], c1.pos[2] - c0.pos[2]), speed = tr / Math.max(0.01, md);
     // the movement must do what its name says
     const fa = FRAMINGS[spec.framing].V * (mv.from?.distScale ?? spec.distScale ?? 1), fb = FRAMINGS[mv.to?.framing || spec.framing].V * (mv.to?.distScale ?? 1);

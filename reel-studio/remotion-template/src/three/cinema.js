@@ -84,7 +84,7 @@ export function cameraAt(spec, subjects, t, shotDur, aspect = 9 / 16) {
   const mv = spec.movement; let cam, focusSubject = spec.focus?.target || spec.subject;
   if (!mv || mv.type === 'static') cam = solvePose(base, subjects, aspect);
   else {
-    const start = mv.start ?? 0, dur = mv.duration === 'shot' || mv.duration == null ? shotDur - start : mv.duration;
+    const start = mv.start ?? 0, dur = mv.duration === 'shot' || mv.duration == null ? shotDur - start : Math.max(0.3, Math.min(mv.duration, shotDur - start));   // the real shot is only as long as its line: a longer move is compressed to finish with the shot
     const k = easeFn(mv.profile, mv.curve)((t - start) / Math.max(0.001, dur)), A = { ...base, ...(mv.from || {}) }, B = { ...base, ...(mv.to || {}) };
     if (['pan', 'tilt'].includes(mv.type)) { const a = solvePose(A, subjects, aspect), b = solvePose(B, subjects, aspect); cam = { pos: a.pos, look: v3(a.look, b.look, k), fov: lerp(a.fov, b.fov, k), roll: lerp(a.roll, b.roll, k) }; }
     else if (mv.type === 'pedestal') { const a = solvePose(A, subjects, aspect), b = solvePose(B, subjects, aspect); cam = { pos: v3(a.pos, b.pos, k), look: v3(a.look, b.look, k), fov: lerp(a.fov, b.fov, k), roll: a.roll }; }

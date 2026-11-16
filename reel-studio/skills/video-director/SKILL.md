@@ -51,3 +51,6 @@ A production run uses the toolkit as it is: pack defaults, storyboard fields, to
 1. `node $TK/tools/new_project.mjs <name> --dir <parent folder> --style <pack-id>` creates the folders and `state.json`. `--style` does NOT write `brief.json` or the style selection.
 2. Write `brief.json` yourself (required: title, topic, platform, duration_sec, language, style_pack; useful: audience, goal, voice, music, captions, cta, research), put the chosen `style_pack` in it, then `node $TK/tools/choose.mjs $P style <pack-id>`. Do this BEFORE you request the intake gate: approvals are tied to the files, and `choose.mjs` rewrites `brief.json`.
 3. Request and approve intake, then style. If the user said "run through to X", record the early gates with `state.mjs approve --delegated --quote "<their words>"`; the line "STOP: ask the user to approve" that `request` prints is expected and does not apply to those delegated gates (storyboard, audio, typography, captions, production and final always need the user).
+
+## TEST mode order (no human to approve)
+`REEL_TEST_MODE=1 new_project.mjs <name> --dir <parent> --style <pack> --test`, write the brief (put `style_pack` in it), `choose.mjs <P> style <pack>`, then loop `next.mjs`. Gates are not enforced and receipts say TEST: never use a TEST project for a delivery.

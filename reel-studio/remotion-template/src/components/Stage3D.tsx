@@ -37,6 +37,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
 
   useLayoutEffect(() => {
     const h = delayRender('stage3d', {timeoutInMilliseconds: 180000});
+    let doRender: (() => void) | null = null;
     try {
       const canvas = ref.current!;
       if (!S.current) {
@@ -48,6 +49,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
         S.current = {E, wd, actors, props, cam};
       }
       const {E, wd, actors, props, cam} = S.current;
+      doRender = () => {
       const talk = talkAt(t);
       const byId: Record<string, any> = {};
       [...actors, ...props].forEach((a: any) => (byId[a.id] = a));
@@ -60,7 +62,13 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
       const c = cameraAt(camera, subjects, lt, d, width / height);
       cam.fov = c.fov; cam.aspect = width / height; cam.position.set(...(c.pos as [number, number, number])); cam.up.set(0, 1, 0); cam.lookAt(...(c.look as [number, number, number])); if (c.roll) cam.rotateZ((c.roll * Math.PI) / 180); cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
       E.render(wd.scene, cam, {...wd.look, ...look, focus: c.focusDist, aperture: look?.aperture ?? c.aperture, t});
-    } finally { continueRender(h); }
+      };
+      doRender();
+    } finally {
+      // screen props load their picture asynchronously: hold the frame until every image is in, then draw it again
+      const waits = ((S.current?.props || []) as any[]).map((q) => q.ready).filter(Boolean);
+      if (waits.length && doRender && !S.current.loaded) Promise.all(waits).then(() => { S.current.loaded = true; doRender && doRender(); continueRender(h); }).catch(() => continueRender(h)); else continueRender(h);
+    }
   }, [t]);
   useEffect(() => () => { try { S.current?.E.renderer.dispose(); S.current?.E.renderer.forceContextLoss(); } catch (e) { /* ignore */ } }, []);
   return <AbsoluteFill style={{background: '#000'}}><canvas ref={ref} width={W} height={H} style={{width: '100%', height: '100%'}} /></AbsoluteFill>;

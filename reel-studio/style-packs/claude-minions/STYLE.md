@@ -21,3 +21,10 @@ Original glossy cube mascots ("cubies") on a dark neon stage with big glowing se
 - Set pieces: props3d kinds `laptop`, `trophy`, `keywall`, `pricestack`, `neonring`, `podium`.
 - Overlays: `plaque`, `counter`, `bubble`, `burst` (pixel positions on 1080x1920).
 - Captions preset `caps-plate`.
+
+## Pieces added after testing
+- Evidence: a floating `screen` prop with the capture and an automatic highlight (not a full-frame card); plaque names the source.
+- Overlays: `plaque` (with `texts` to change it inside the beat), `counter`, `bubble`, `burst`, `impact` (a giant slammed word), `remocn` (a remocn block floating over the stage).
+- Laptop `lines` type real text on the screen; `pricestack labels` are free text; `trophy number`.
+- Energy numbers: median shot 1.7 to 2.5 s, camera moving in 85 percent of shots, a plaque change every 1.5 to 3 s, a pink-cubie reaction shot every 4th shot.
+- Start from `scaffold_storyboard.mjs` (it builds duo shots with a set piece, plaque, counters and bubbles), then raise every beat.

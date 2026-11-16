@@ -7,6 +7,7 @@
 //   podium  a plain rounded block to stand things on                                    {at, color}
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { staticFile } from 'remotion';
 
 const rb = (w, h, d, r = 0.04) => new RoundedBoxGeometry(w, h, d, 4, r);
 const glossy = (color, extra = {}) => new THREE.MeshPhysicalMaterial({ color, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.1, ...extra });
@@ -17,16 +18,50 @@ const done = (e, g, at, height, update = () => {}) => ({ id: e.id, group: g, hei
 const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; };
 const ring = (parent, r, color, y = 0.012) => { const m = new THREE.Mesh(new THREE.RingGeometry(r, r + 0.07, 64), new THREE.MeshBasicMaterial({ color, toneMapped: false, side: THREE.DoubleSide })); m.rotation.x = -Math.PI / 2; m.position.y = y; parent.add(m); return m; };
 
+
+/** text typed onto a canvas screen: lines = ['$ curl -I site', '# comment', '> output', 'plain'] (colour by first character); cps = characters per second */
+function typedScreen(lines, w = 640, h = 420, cps = 38) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'), t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; let last = -1;
+  const total = lines.reduce((n, l) => n + l.length + 1, 0);
+  const draw = (lt, start = 0.3) => {
+    const k = Math.min(total, Math.max(0, Math.floor((lt - start) * cps))); if (k === last) return; last = k;
+    g.fillStyle = '#0d0b18'; g.fillRect(0, 0, w, h); g.font = '600 26px "JetBrains Mono", Menlo, monospace'; g.textBaseline = 'top'; let left = k;
+    lines.forEach((l, i) => { const n = Math.max(0, Math.min(l.length, left)); left -= l.length + 1; g.fillStyle = l[0] === '$' ? '#9be37d' : l[0] === '#' ? '#8e86ad' : l[0] === '>' ? '#7DE3FF' : '#f2eefc'; g.fillText(l.slice(0, n) + (n < l.length || (left < 0 && n === l.length && Math.floor(lt * 2) % 2 === 0 && i === lines.length - 1) ? '\u258c' : ''), 24, 22 + i * 40); });
+    t.needsUpdate = true;
+  };
+  draw(0); return { texture: t, draw };
+}
+const PHOTO = (url, mat, onLoad, tint = '#9c9c9c') => new Promise((res) => new THREE.TextureLoader().load(url, (t) => { t.colorSpace = THREE.SRGBColorSpace; mat.map = t; mat.color.set(tint); mat.needsUpdate = true; onLoad?.(t.image); res(); }, undefined, () => res()));   // a white page would bloom into a white blob: keep it under the bloom threshold
+
 function laptop(e) {
   const { g, at } = root(e), wood = glossy('#3a2a4a', { roughness: 0.5 });
   const deskParts = [put(g, rb(1.5, 0.09, 0.8, 0.03), wood, 0, 0.86, 0)]; for (const x of [-0.65, 0.65]) for (const z of [-0.3, 0.3]) deskParts.push(put(g, rb(0.09, 0.84, 0.09, 0.02), wood, x, 0.42, z));
   put(g, rb(0.78, 0.04, 0.54, 0.02), glossy('#8d8aa0', { metalness: 0.7 }), 0, 0.93, 0.04);
   const screen = tex(512, 340, (c, w, h) => { c.fillStyle = '#0d0b18'; c.fillRect(0, 0, w, h); const cols = ['#7DE3FF', '#FFB84D', '#FF5CA8', '#9be37d', '#b9a2ff']; for (let i = 0; i < 12; i++) { c.fillStyle = cols[(i * 7) % 5]; c.fillRect(34 + (i % 3) * 22, 30 + i * 24, 80 + ((i * 53) % 220), 11); } });
-  const scr = put(g, new THREE.PlaneGeometry(0.74, 0.5), new THREE.MeshBasicMaterial({ map: screen, toneMapped: false }), 0, 1.22, -0.2); scr.rotation.x = -0.12; put(g, rb(0.78, 0.54, 0.03, 0.02), glossy('#2a2438'), 0, 1.22, -0.225).rotation.x = -0.12;
+  const typed = e.lines ? typedScreen(e.lines, 640, 430, e.cps || 34) : null;
+  const scr = put(g, new THREE.PlaneGeometry(0.74, 0.5), new THREE.MeshBasicMaterial({ map: typed ? typed.texture : screen, toneMapped: false }), 0, 1.22, -0.2); scr.rotation.x = -0.12; put(g, rb(0.78, 0.54, 0.03, 0.02), glossy('#2a2438'), 0, 1.22, -0.225).rotation.x = -0.12;
   const r1 = ring(g, 0.92, e.color || '#b9a2ff'), r2 = ring(g, 1.1, e.color || '#b9a2ff', 0.01);
   if (e.desk === false) { for (const m of [...deskParts, r1, r2]) g.remove(m); for (const m of g.children) m.position.y -= 0.8; }   // a floating laptop: no desk, no floor rings
-  return done(e, g, at, 1.5, (lt, t) => { r1.material.opacity = 1; r1.scale.setScalar(1 + Math.sin(t * 2) * 0.02); r2.scale.setScalar(1 + Math.sin(t * 2 + 1) * 0.03); });
+  return done(e, g, at, 1.5, (lt, t) => { typed?.draw(lt, e.start ?? 0.3); r1.material.opacity = 1; r1.scale.setScalar(1 + Math.sin(t * 2) * 0.02); r2.scale.setScalar(1 + Math.sin(t * 2 + 1) * 0.03); });
 }
+
+/** a floating screen on the stage showing a real picture (a capture) and/or typed text: it keeps the duo in the frame. {image: 'assets/..png', lines: [...], w: 1.9, highlight: {x,y,w,h} (fractions), label} */
+function screenProp(e) {
+  const { g, at } = root(e), w = e.w || 1.9; let h = e.h || w * 0.78;
+  const frame = put(g, rb(w + 0.16, h + 0.16, 0.07, 0.05), glossy(e.frame || '#2a2438', { emissive: new THREE.Color(e.glow || '#8a63ff'), emissiveIntensity: 0.25 }));
+  const mat = new THREE.MeshBasicMaterial({ color: '#15101f', toneMapped: false }), plane = put(g, new THREE.PlaneGeometry(1, 1), mat, 0, 0, 0.045); plane.scale.set(w, h, 1);
+  const hl = new THREE.Group(); hl.position.z = 0.05; g.add(hl);
+  const mark = (img) => { const asp = img ? img.height / img.width : h / w; h = w * asp; plane.scale.set(w, h, 1); frame.scale.set(1, (h + 0.16) / (w * 0.78 + 0.16), 1);
+    if (e.highlight) { const H = e.highlight, cx = (H.x + H.w / 2 - 0.5) * w, cy = (0.5 - (H.y + H.h / 2)) * h, hw = H.w * w, hh = H.h * h, tk = 0.025, col = e.highlightColor || '#FF5C7A'; hl.clear();
+      for (const [x, y, ww, hh2] of [[0, hh / 2, hw, tk], [0, -hh / 2, hw, tk], [-hw / 2, 0, tk, hh], [hw / 2, 0, tk, hh]]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(ww, hh2), new THREE.MeshBasicMaterial({ color: col, toneMapped: false })); m.position.set(cx + x, cy + y, 0); hl.add(m); }
+      const fill = new THREE.Mesh(new THREE.PlaneGeometry(hw, hh), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.16, toneMapped: false })); fill.position.set(cx, cy, -0.001); hl.add(fill); } };
+  let ready = null, typed = null;
+  if (e.image) ready = PHOTO(staticFile(e.image), mat, mark); else mark(null);
+  if (e.lines) { typed = typedScreen(e.lines, 640, Math.round(640 * h / w), e.cps || 34); mat.map = typed.texture; mat.color.set('#bdbdbd'); }
+  const out = done(e, g, at, h + 0.2, (lt) => { typed?.draw(lt, e.start ?? 0.3); const k = Math.min(1, lt / 0.35); g.scale.setScalar((e.scale || 1) * (0.9 + 0.1 * (1 - Math.pow(1 - k, 3)))); g.position.y = at[1] + Math.sin(lt * 1.6) * 0.02; });
+  out.ready = ready; return out;
+}
+
 function trophy(e) {
   const { g, at } = root(e), gold = glossy('#FFC83D', { metalness: 0.9, roughness: 0.18, emissive: new THREE.Color('#aa7a10'), emissiveIntensity: 0.08 });
   const num = tex(256, 256, (c, w, h) => { c.fillStyle = '#4b3aa8'; c.fillRect(0, 0, w, h); c.fillStyle = '#fff'; c.font = '900 150px Inter, Arial, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('#' + (e.number || 1), w / 2, h / 2 + 8); });
@@ -51,4 +86,4 @@ function pricestack(e) {
 function neonring(e) { const { g, at } = root(e); const r = ring(g, e.radius || 1.4, e.color || '#FFB84D'); ring(g, (e.radius || 1.4) + 0.2, e.color || '#FFB84D', 0.011).material.opacity = 0.5; return done(e, g, at, 0.05, (lt, t) => { r.scale.setScalar(1 + Math.sin(t * 2.4) * 0.015); }); }
 function podium(e) { const { g, at } = root(e); put(g, rb(e.w || 1.2, e.h || 0.5, e.d || 1.0, 0.08), glossy(e.color || '#4b3aa8'), 0, (e.h || 0.5) / 2, 0); return done(e, g, at, e.h || 0.5); }
 
-export const NEON_PROPS = { laptop, trophy, keywall, pricestack, neonring, podium };
+export const NEON_PROPS = { laptop, trophy, keywall, pricestack, neonring, podium, screen: screenProp };

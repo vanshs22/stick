@@ -14,7 +14,8 @@
   "keywall": 3.0,
   "pricestack": 1.6,
   "neonring": 0.05,
-  "podium": 0.5
+  "podium": 0.5,
+  "screen": 1.6
  },
  "worlds": {
   "home-studio": {

@@ -28,3 +28,5 @@ Typography and captions are separate decisions, each previewed before approval. 
 Safe area (1080x1920): content between y 180 and 1380, captions at y 1440, nothing in the right 120 px (like/comment buttons) or the bottom 300. Render with `safeZones: true` to see the lines.
 
 The gallery previews use sample text, not your script. Show it to the user for the look; if the user has no preference, take the pack default and move on (do not spend more than one gallery round).
+
+The pack decides the plaque and caption fonts in some styles (claude-minions: Inter heavy, caps-plate): the typography choice then changes only the supporting text. Number 1 in the gallery is the pack default.

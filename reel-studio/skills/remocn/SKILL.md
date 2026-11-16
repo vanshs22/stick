@@ -36,3 +36,6 @@ Components read the composition size, so they adapt, but they keep 16:9 type siz
 ## If it fails
 Offline: `remocn.mjs` uses the cached index (`~/.reel-studio/remocn`) for search and says so; `add` needs the network. If a component does not fit, say so and build the shot from our own components. remocn is optional: the toolkit works without it.
 Optional extras from the remocn project: an MCP server at https://remocn.dev/mcp (search, docs, previews; read-only) that your agent may use instead of `remocn.mjs search`.
+
+## On 3D and stage packs (claude-minions and others with characters)
+A remocn block used as a whole shot has no characters and its own background, which looks like a hole on these packs. Use the `remocn` OVERLAY instead (see skills/storyboard "Stage packs"), scale 0.6 to 0.8, shifted off the duo. Values that worked: `terminal-simulator` fontSize 40, scale 0.75, y -250; compare with our `laptop` set piece with typed `lines` first, it is usually better on a stage. Try remocn where it adds something we lack (a text effect, a transition, a chat or code UI), render both in the same shot, and keep ours when it looks better: say so in `visual_intent`. In a short test two remocn comparisons are enough; do not force a worse shot into the film.

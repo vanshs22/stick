@@ -1,6 +1,7 @@
 // Shared helpers so every tool builds, times and renders a project the same way (no copy-pasted shell).
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -36,6 +37,7 @@ export function syncProject(P, { nodeModules = process.env.REEL_NODE_MODULES || 
 export function timing(P, { preset } = {}) {
   const env = { ...process.env, TTS_SCRIPT: 'data/tts.json' };
   let r = run('node', [path.join(TK, 'tools/audio/build_tts_input.mjs'), P]); if (r.status) throw new Error(r.stderr);
+  { const hf = path.join(P, 'data/.voice.hash'), tf = path.join(P, 'data/tts.json'); if (fs.existsSync(tf) && fs.existsSync(hf) && fs.readFileSync(hf, 'utf8') !== crypto.createHash('sha1').update(fs.readFileSync(tf)).digest('hex')) for (const f of ['data/lines.json', 'data/words.json']) fs.rmSync(path.join(P, f), { force: true }); }   // the script or voice changed: the old line/word times are stale
   if (!fs.existsSync(path.join(P, 'data/words.json')) || !fs.existsSync(path.join(P, 'data/narration.wav'))) { r = run(PY, [path.join(TK, 'tools/audio/estimate.py'), '.'], { cwd: P, env }); if (r.status) throw new Error(r.stderr || r.stdout); }
   r = run('node', [path.join(TK, 'tools/timing/build_timeline.mjs'), P, ...(preset ? ['--preset', preset] : [])]); if (r.status) throw new Error(r.stderr || r.stdout);
   return r.stdout.trim();

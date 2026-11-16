@@ -48,7 +48,7 @@ Rules that never bend: real evidence stays a real capture (never a remocn simula
 - Pick components ONLY from `$P/remotion/src/components/manifest.json` (props, required props, anchors, what each is for). 29 components (`Stage3D` is the 3D shot; `Scene3D` is legacy): text (TitleCard, BigStat, Typewriter, Stamp, Highlight, KineticList), ui (BrowserWindow, Terminal, PhoneFrame, ChatBubbles, NotebookPage, CommentBox), data (BarChart, LineChart, Timeline, Checklist, Versus, RouteMap), evidence (ProofCard, EvidenceCard), 3d (Scene3D).
 - Transitions: cut, fade, dip, slide, whip, wipe, mask, swing, zoom. Sounds: only those in the manifest.
 - Check before building: `node $TK/tools/check_storyboard.mjs $P` (unknown components, missing props, unknown sounds, missing screenshots, shot-type runs).
-- Use the style pack's `defaults` (captions, music, and for 3D packs `stage3d`: character kind, costume, world, look) and its `components` list first. 3D props that exist: `giftbox` and `sidetable` only; there is no laptop or screen prop, so show a command or a page with a Terminal or BrowserWindow card.
+- Use the style pack's `defaults` (captions, music, and for 3D packs `stage3d`: character kind, costume, world, look) and its `components` list first. 3D props: worlds with a room (workshop, home-studio, noir-room, block-yard, voxel-valley) have `giftbox` and `sidetable`. The **neon-stage** has `laptop` (optional `lines: [...]` typed on its screen, `desk: false` to float), `screen` (a floating screen showing a real `image` capture with an automatic `highlight`, or typed `lines`), `keywall`, `pricestack` (`labels` = any text), `trophy`, `neonring`, `podium`.
 - Examples to copy from: `$TK/examples/*/storyboard.json` (software explainer, character story, motion graphics, voxel how-to).
 
 ## Design layers (from the reference videos)
@@ -99,3 +99,19 @@ Official rules for structure: `node $TK/tools/rs.mjs multi-scene-video sequencin
 - **Highlight boxes** on `ProofCard`/`BrowserWindow`: draw them a little taller than the text, or the ellipse cuts through the last line.
 - **The scaffold is a baseline**: for blocky and voxel characters it already starts at `medium-wide`; check evidence shots really sit on the line that quotes the source, and that a Terminal shows the real command, not a paraphrase.
 - **remocn picks**: keep a remocn component only if it fits 9:16 (no clipped text), has no brand logo of its own, and can sit on a transparent background (`background: "transparent"`, `theme` props where offered; `scale`/`dy` in `RemocnBlock`). Otherwise keep ours and say why in `visual_intent`.
+
+## Stage packs (neon-stage / claude-minions): build-up inside one beat
+- **Real evidence ON the stage**: a `Stage3D` shot with the duo and a `screen` prop (`image: "assets/<id>/page.png"`, `highlight` = the fractions the capture tool recorded for your `--expect` text; the scaffold fills it) plus a `plaque` naming the source. Do NOT use `ProofCard`/`BrowserWindow`/remocn blocks as full-frame shots on a 3D pack: they show no characters and leave the lower half empty. Use at most one as a short insert.
+- **remocn on a 3D pack**: use the `remocn` OVERLAY (`{"type":"remocn","name":"claude-code","props":{...},"scale":0.7,"y":-250}`) so the duo stays in frame. Its natural length (see `remocn.mjs search`) must fit the line: set `pause_after` on the script line or its `speed` prop. Look at its FIRST frames (some blocks start empty for 0.4 s).
+- **Change something every 1 to 2 seconds** inside a beat: `plaque.texts: [{"at":0,"text":"..."},{"anchor":"word","text":"..."}]`, a `counter` ticking up on a number word, laptop `lines` typing, a `bubble` reaction, an `impact` word (KILLED, FREE, #1) with a `burst`. One static plaque and one static object per beat reads as slow.
+- Always check the beat's free vertical space: plaque top (y 170), set piece middle, duo low (y 1300+), counter at y 330 or beside the set piece, never over it.
+
+## Camera numbers that work (read before you write a move)
+- `camera.distScale` is ABSOLUTE (1.0 = the framing's own distance; `extreme-wide` needs 0.62 to 0.8 to keep a duo readable). `movement.from/to.distScale` are RELATIVE to the shot's base (1.0 = start distance, 0.86 = 14 percent closer).
+- Duo on a stage: `wide` with offset [0,-0.2] and `extreme-wide` with distScale 0.62 and offset [0,-0.25] put both characters in the lower third; alternate them between consecutive shots (that is the framing step the jump-cut rule wants). Never `medium-wide` for a duo (it crops them).
+- The critic's repeat/jump-cut rules look at the 3D shots in order and ignore cards in between.
+- A move longer than its shot is compressed to fit at render time (minor warning only). Shot length is known only after the voice: `storyboard_review` builds an estimated timing for you; trust the real build.
+
+## Writing the alt text and checking the scaffold
+- `visual_intent` is a note for the user; the post's alt text uses the shot field `alt` if present: write one clean sentence describing the picture ("Both cubies look up at a floating laptop") with no working notes.
+- `scaffold_storyboard.mjs` maps each real capture to the line whose claim cites its source, or whose words match the sentence the capture was verified to contain; check that on the sheet. It gives every 3D beat a set piece, a plaque, counters for numbers and a bubble for questions: replace the ones that do not carry the idea.

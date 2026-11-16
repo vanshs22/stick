@@ -611,9 +611,11 @@
     "warning": "{text, x, y, anchor}: yellow-bordered warning bar",
     "progress": "{name, to, w, x, y, dur, anchor}: file progress card",
     "backword": "{text, color, y, size}: huge glowing word behind everything",
-    "plaque": "headline plaque at the top: text (2-5 words), kicker (small line), y (px, 170), size (52), caps (true), border",
+    "plaque": "headline plaque at the top: text (2-5 words), texts [{anchor|at, text}] to change the plaque inside one shot, kicker (small line), y (px, 170), size (52), caps (true), border",
     "counter": "a number that counts up in a dark box: from, to, dur (1.6 s), prefix, suffix, label, y (px), size (76), color; starts on its anchor",
     "bubble": "a character's emoji thought bubble: emoji, text (1-3 words), x, y (px), size; pops on its anchor",
-    "burst": "neon streaks that punctuate ONE impact word: x, y (px), color, count (14); on its anchor"
+    "burst": "neon streaks that punctuate ONE impact word: x, y (px), color, count (14); on its anchor",
+    "impact": "{text, x, y (px), size (220), rotate (-6), color, shadow, anchor}: a giant outlined word that slams in with a shake on its anchor (KILLED, FREE, #1)",
+    "remocn": "{name, props, scale (0.7), x, y (px shift), anchor|at}: a remocn component floating over the 3D stage so the characters stay in frame"
   }
 }

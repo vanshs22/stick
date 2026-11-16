@@ -39,3 +39,6 @@ Official rules: `node $TK/tools/rs.mjs audio audio-visualization sfx voiceover s
 
 ## Running it (do not call tools with the system python)
 Use `node $TK/tools/build_video.mjs $P` (it makes the voice, word timing, sound cues and mix with the toolkit's own Python and Whisper). Do not run `voice.py`/`words.py`/`mix.py` by hand with `python3`: it has no numpy or Whisper and words.py then falls back to spreading word times inside each line (about 0.1-0.2 s off); build_video prints a WARNING when that happens, which means Whisper is missing: run `bash install.sh`, delete `data/narration.wav` and rebuild. `choose.mjs voice` records the user's choice and clears the DRAFT status of the plan.
+
+## No human present (TEST projects) and false alarms
+If nobody can choose, use the pack's example (`examples/experiment-*/audio-plan.json`) or `af_heart` at speed 1.0 to 1.05, the pack's music, and sfx `punchy` for neon-stage / `soft` otherwise; record it with `choose.mjs voice ...`. The voice critic's "possible mispronunciation" on spoken numbers ("three oh four" heard as 304) and spelling variants is a false positive: ignore it. For an energetic delivery pick speed 1.1 to 1.15 and keep lines short; the toolkit has one free local voice engine, say so if the user wants a character voice.
