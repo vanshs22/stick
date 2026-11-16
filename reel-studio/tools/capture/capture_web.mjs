@@ -16,6 +16,8 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const a = process.argv.slice(2), url = a.find((x) => /^https?:/.test(x)), opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? a[i + 1] : d; }, all = (k) => a.flatMap((x, i) => (x === '--' + k ? [a[i + 1]] : []));
 if (!url) { console.error('usage: capture_web.mjs <url> --out <dir> [--actions file] [--record] [--viewport WxH] [--manifest file] [--id SRC1] [--expect text] [--full]'); process.exit(2); }
+import os from 'node:os';
+if (!process.env.PLAYWRIGHT_BROWSERS_PATH) { const h = path.join(process.env.REEL_HOME || process.env.REEL_STUDIO_HOME || path.join(os.homedir(), '.reel-studio'), 'ms-playwright'); if (fs.existsSync(h)) process.env.PLAYWRIGHT_BROWSERS_PATH = h; }   // where scripts/setup.mjs put Playwright's recording ffmpeg
 async function loadPlaywright() {
   const tries = [process.env.REEL_NODE_MODULES && path.join(process.env.REEL_NODE_MODULES, 'playwright-core/index.mjs'), path.join(TK, 'node_modules/playwright-core/index.mjs'), path.join(process.cwd(), 'node_modules/playwright-core/index.mjs')].filter(Boolean);
   for (const f of tries) if (fs.existsSync(f)) return import(pathToFileURL(f).href);
@@ -35,6 +37,7 @@ const out = path.resolve(opt('out', 'assets/capture')), [w, h] = opt('viewport',
 const actions = opt('actions') ? JSON.parse(fs.readFileSync(opt('actions'), 'utf8')) : [{ do: 'screenshot', name: 'page' }], files = [], log = [], expects = all('expect').map((t) => ({ do: 'expect', text: t })), highlights = {};
 const fail = (msg) => { fs.writeFileSync(path.join(out, 'capture-failed.json'), JSON.stringify({ url, reason: msg, at: new Date().toISOString() }, null, 1)); console.error(`capture failed: ${msg}\nTell the user. Do not draw a fake of this page. Options: try another URL, a local copy the user provides, or (only with the user's explicit OK) a clearly labelled recreation via tools/capture/register_recreation.mjs.`); process.exit(1); };
 let browser; try { browser = await chromium.launch({ executablePath: findChrome(), args: ['--no-sandbox'] }); } catch (e) { fail(`no browser could be started (${e.message.split('\n')[0]}). Set CHROME_PATH or run npm install in a project.`); }
+if (rec && !fs.readdirSync(process.env.PLAYWRIGHT_BROWSERS_PATH || os.tmpdir()).some((d) => /^ffmpeg-/.test(d)) && !fs.existsSync(path.join(os.homedir(), '.cache/ms-playwright')) ) { console.error('screen recording (--record) needs Playwright\'s ffmpeg. Install it once: node scripts/setup.mjs (step 4b) or: PLAYWRIGHT_BROWSERS_PATH=~/.reel-studio/ms-playwright node node_modules/playwright-core/cli.js install ffmpeg\nScreenshots work without it.'); await browser.close(); process.exit(1); }
 const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: +opt('scale', 2) || 2, ...(rec ? { recordVideo: { dir: out, size: { width: w, height: h } } } : {}) }), page = await ctx.newPage(); let status = null;
 try {
   const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 }); status = resp?.status() ?? null; if (resp && status >= 400) throw new Error(`HTTP ${status}`); await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(1200);
@@ -57,6 +60,7 @@ try {
     else if (s.do === 'screenshot') { const f = path.join(out, `${s.name || 'shot' + files.length}.png`); await page.screenshot({ path: f, fullPage: a.includes('--full') || !!s.full }); files.push(f); }
   }
 } catch (e) { await browser.close(); fail(e.message); }
+if (!files.length && !rec) { await browser.close(); fail('the actions never took a screenshot (add {"do":"screenshot","name":"..."}): nothing was captured, so nothing was verified'); }
 const title = await page.title(), finalUrl = page.url(), ua = await page.evaluate(() => navigator.userAgent); await ctx.close(); await browser.close();
 if (rec) fs.readdirSync(out).filter((f) => f.endsWith('.webm')).forEach((f) => files.push(path.join(out, f)));
 const sha = (f) => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex').slice(0, 16);

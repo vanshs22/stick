@@ -54,6 +54,12 @@ if (fs.existsSync(path.join(T, 'node_modules/@remotion/renderer'))) {
   const r = sh('npx', ['remotion', 'browser', 'ensure'], { cwd: T }); r.status ? warn('could not fetch Chrome Headless Shell (Remotion downloads it on the first render too): ' + (r.stderr || r.stdout).slice(-200)) : ok('Chrome Headless Shell (Remotion)');
 }
 
+step('4b Playwright recording support (small ffmpeg build for screen recordings)');
+{ const pw = path.join(TK, 'node_modules/playwright-core/cli.js'), dst = path.join(process.env.REEL_HOME || path.join(os.homedir(), '.reel-studio'), 'ms-playwright');
+  if (!fs.existsSync(pw)) warn('playwright-core is not installed, so screenshots and recordings of real sites are unavailable');
+  else if (fs.existsSync(dst) && fs.readdirSync(dst).some((d) => /^ffmpeg-/.test(d))) ok('Playwright recording ffmpeg present');
+  else { const r = sh('node', [pw, 'install', 'ffmpeg'], { env: { ...process.env, PLAYWRIGHT_BROWSERS_PATH: dst } }); r.status ? warn('could not download Playwright\'s ffmpeg (needs network). Screenshots still work; screen recordings do not: ' + (r.stderr || '').trim().split('\n').pop()) : ok('Playwright recording ffmpeg installed'); } }
+
 step('5 voice models');
 if (has('--skip-models')) warn('skipped (--skip-models). Later: python tools/audio/voice.py --download');
 else if (PYX && fs.existsSync(path.join(process.env.REEL_HOME || path.join(os.homedir(), '.reel-studio'), 'kokoro/kokoro-v1.0.onnx'))) ok('Kokoro model files present');

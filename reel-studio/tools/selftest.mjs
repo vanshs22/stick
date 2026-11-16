@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Does this install work?  node tools/selftest.mjs [--full]
 // Fast (about 20 s): approval workflow, cinematography solver, example storyboards, critics on a good and a bad fixture, audio measurement.
-// --full adds: a voice sample (needs the Kokoro files) and one rendered 3D still (needs Chrome).
+// --full adds (need Chrome and the Kokoro files): a voice sample, Playwright capture on a local page, the HTML/GSAP/HyperFrames/remocn adapters, one rendered 3D still.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -55,6 +55,8 @@ await t('python side: numpy, scipy, opencv, pillow import', () => { sh(PY, ['-c'
 await t('ffmpeg works (and a 1 s test clip can be made)', () => { sh('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'color=c=red:s=64x64:d=1', path.join(tmp, 't.mp4')]); if (!fs.existsSync(path.join(tmp, 't.mp4'))) throw new Error('no output'); });
 if (full) {
   await t('voice sample (Kokoro)', () => { const P = path.join(tmp, 'v'); fs.mkdirSync(path.join(P, 'data'), { recursive: true }); fs.writeFileSync(path.join(P, 'data/tts.json'), JSON.stringify({ lines: [{ id: 'L01', text: 'This is a test of the voice.' }] })); sh(PY, [path.join(TK, 'tools/audio/voice.py'), '.'], { cwd: P, env: { ...process.env, TTS_SCRIPT: 'data/tts.json' } }); if (!fs.existsSync(path.join(P, 'data/narration.wav'))) throw new Error('no narration.wav'); });
+  await t('Playwright capture (local page): actions, scroll, wait, recording, provenance, honest failures', () => sh('node', [path.join(TK, 'tools/selftest_capture.mjs')]).trim().split('\n').pop());
+  await t('HTML/GSAP + HyperFrames + remocn adapters: deterministic frames through the real renderer', () => sh('node', [path.join(TK, 'tools/selftest_hyperframes.mjs')], { timeout: 1500000 }).trim().split('\n').filter(Boolean).pop());
   await t('one rendered 3D still (stickman-3d example)', () => {
     sh('node', [path.join(TK, 'tools/run_example.mjs'), 'experiment-stick', 'st', '--dir', tmp], { env: { ...process.env, REEL_TEST_MODE: '1' } });
     const P = path.join(tmp, 'st'); syncProject(P); timing(P); stills(P, ['S01']);
