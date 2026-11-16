@@ -32,6 +32,11 @@ await t('research critic: flags a claim with a missing source', async () => {
   const { run: r } = await import('./critics/research.mjs'); const log = console.log; console.log = () => {}; let out; try { out = await r(P, { online: false }); } finally { console.log = log; }
   if (!out.findings.some((f) => /does not exist/.test(f.problem))) throw new Error('missing-source claim not flagged');
 });
+await t('remocn: the registry index parses and search ranks by use-for text (offline sample)', async () => {
+  const { parseIndex, score } = await import('./remocn.mjs'); const sample = '## Typography\n\n| Component | Use for | Avoid for | Length | Vibe | Tier | Deps | Docs |\n|---|---|---|---|---|---|---|---|\n | `soft-blur-in` | A hero headline needs the soft reveal. | You want a hard exit. | 60f | premium | remocn | — | [docs](https://remocn.dev/docs/typography/soft-blur-in.md) | \n | `claude-code` | Depicting a coding-agent terminal. | Generic terminal. | 160f | tech | remocn | `@remocn/caret` | [docs](https://remocn.dev/docs/ai/claude-code.md) | \n';
+  const e = parseIndex(sample); if (e.length !== 2 || e[0].name !== 'soft-blur-in' || e[1].deps[0] !== '@remocn/caret' || e[0].length !== '60f') throw new Error('index not parsed: ' + JSON.stringify(e));
+  if (score(e[0], 'headline reveal') <= score(e[1], 'headline reveal')) throw new Error('search ranking wrong');
+});
 await t('vision critic refuses to claim it looked when it did not', () => {
   const P = path.join(tmp, 'vis'), sb = path.join(P, 'review/storyboard'); fs.mkdirSync(sb, { recursive: true });
   for (const n of ['S01', 'S02', 'S03']) sh('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'color=c=gray:s=32x32:d=0.1', '-frames:v', '1', path.join(sb, `${n}.png`)]);

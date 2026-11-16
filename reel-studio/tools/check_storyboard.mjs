@@ -6,13 +6,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { syncProject } from './lib/pipeline.mjs';
 
 const P = process.argv[2]; if (!P) { console.error('usage: check_storyboard.mjs <projectDir>'); process.exit(2); }
+if (fs.existsSync(path.join(P, 'brief.json'))) { try { syncProject(path.resolve(P)); } catch (e) { console.error(`(could not refresh the project template: ${e.message.split('\n')[0]})`); } }   // the project copy of manifest/registry must be current
 const man = JSON.parse(fs.readFileSync(path.join(P, 'remotion/src/components/manifest.json'), 'utf8')), sb = JSON.parse(fs.readFileSync(path.join(P, 'storyboard/storyboard.json'), 'utf8'));
 const reg = fs.readFileSync(path.join(P, 'remotion/src/components/registry.ts'), 'utf8'), errs = [], warns = [];
 let prev = '', run = 0;
 for (const s of sb.shots) {
   const m = man.components[s.component]; if (!m) { errs.push(`${s.id}: component "${s.component}" is not in manifest.json. Known: ${Object.keys(man.components).join(', ')}`); continue; }
+  if (s.component === 'RemocnBlock') { const nm = s.props?.name, inst = path.join(P, 'remotion/src/remocn', `${nm}.tsx`); if (nm && !fs.existsSync(inst)) errs.push(`${s.id}: remocn component "${nm}" is not installed: node tools/remocn.mjs add ${nm} --project ${P}`); }
   if (!new RegExp(`\\b${s.component}\\b`).test(reg)) errs.push(`${s.id}: "${s.component}" is in the manifest but not registered in registry.ts`);
   for (const r of m.required || []) if (s.props?.[r] == null) errs.push(`${s.id}: ${s.component} needs prop "${r}"`);
   for (const k of Object.keys(s.props || {})) if (!(k in m.props)) warns.push(`${s.id}: ${s.component} has no prop "${k}" (known: ${Object.keys(m.props).join(', ')})`);

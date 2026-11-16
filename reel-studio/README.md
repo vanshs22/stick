@@ -20,7 +20,7 @@ Ten style packs with real preview stills (`node tools/gallery.mjs <project> --ki
 | folder | what |
 |---|---|
 | `SKILL.md`, `AGENTS.md`, `CLAUDE.md` | entry points for agents |
-| `skills/` | 15 stage skills the agent loads when it reaches that stage |
+| `skills/` | 16 skills the agent loads when it reaches that stage |
 | `tools/` | state and approvals, galleries, storyboard review, audio, capture, research, reference analysis, critics, per-shot render, QA |
 | `remotion-template/` | the Remotion project every video starts from (Stage3D, 2D cards, captions, GSAP/HyperFrames adapters) |
 | `style-packs/` | styles: rules, tokens, characters, worlds, camera language, previews |

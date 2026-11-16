@@ -33,6 +33,9 @@ For every script line ask: what does this sentence COMMUNICATE, and what is the 
 3. At the gate show the sheets and ask per frame. The user approves each frame with `state.mjs frame $P S03 approve|reject|replace`; the storyboard gate cannot be approved while a frame is open. `storyboard_critic` in `state.mjs` is the automatic check: `node $TK/tools/critique.mjs $P storyboard` (it includes the cinematography critic); run it before you request the gate.
 4. Stills show one moment. Cards that build up are shown finished automatically; overlays (stickers, tags) need `preview_at` (0 to 1 of the shot) on the overlay or the shot or they are missing in the still.
 
+## Need a component we do not have?
+Search the remocn registry before hand-building an animation: `node $TK/tools/remocn.mjs search "<what the shot must do>"`, then follow `skills/remocn`. It becomes a `RemocnBlock` shot. Simulated app screens are illustrations, never evidence.
+
 ## Components, manifest and checks (Milestone 2)
 - Pick components ONLY from `$P/remotion/src/components/manifest.json` (props, required props, anchors, what each is for). 29 components (`Stage3D` is the 3D shot; `Scene3D` is legacy): text (TitleCard, BigStat, Typewriter, Stamp, Highlight, KineticList), ui (BrowserWindow, Terminal, PhoneFrame, ChatBubbles, NotebookPage, CommentBox), data (BarChart, LineChart, Timeline, Checklist, Versus, RouteMap), evidence (ProofCard, EvidenceCard), 3d (Scene3D).
 - Transitions: cut, fade, dip, slide, whip, wipe, mask, swing, zoom. Sounds: only those in the manifest.

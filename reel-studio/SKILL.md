@@ -62,6 +62,7 @@ Run any tool without arguments for its usage.
 - Setup and health: `doctor` · `selftest` · `new_project` · `state` · `validate`
 - Style and choices: `gallery` (styles, typography, captions, layouts, `--compare`, `--detail`) · `choose` · `combine_styles` · `new_style_from_reference`
 - Research and evidence: `research/search` (Agent-Reach, optional) · `research/competitors` · `capture/capture_web` (real pages with provenance) · `capture/register_recreation` · `reference/ingest` (yt-dlp or a file) · `reference/analyze.py` · `reference/vision` · `reference/report`
+- Components we lack: `remocn` (search/info/add from the remocn registry; see `skills/remocn`)
 - Storyboard: `check_storyboard` · `check_cinematography` · `preview_shots` · `storyboard_review` · `storyboard_alts` · `storyboard_edit`
 - Audio: `audio/build_tts_input` · `audio/voice.py` · `audio/words.py` · `audio/build_cues` · `audio/mix.py` · `audio/preview_audio`
 - Build: `timing/build_timeline` · `render_segments` (per-shot, cached) · `assemble` · `qa/final_qa`

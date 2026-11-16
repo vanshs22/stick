@@ -27,6 +27,7 @@ export function syncProject(P, { nodeModules = process.env.REEL_NODE_MODULES || 
   if (!fs.existsSync(nm)) { if (nodeModules && fs.existsSync(nodeModules)) fs.symlinkSync(path.resolve(nodeModules), nm, 'dir'); else { log('npm install in ' + R + ' ...'); const r = run('npm', ['install', '--no-audit', '--no-fund', '--loglevel=error'], { cwd: R }); if (r.status) throw new Error('npm install failed:\n' + (r.stderr || r.stdout).slice(-600)); } }
   const vend = path.join(R, 'public/vendor'); fs.mkdirSync(vend, { recursive: true }); const gs = path.join(nm, 'gsap/dist/gsap.min.js'); if (fs.existsSync(gs)) fs.copyFileSync(gs, path.join(vend, 'gsap.min.js'));   // local GSAP for HyperFrames-style blocks (no CDN at render time)
   if (fs.existsSync(path.join(P, 'assets'))) fs.cpSync(path.join(P, 'assets'), path.join(R, 'public/assets'), { recursive: true });   // captures and recreations are referenced as image: "assets/<path>"
+  { const rg = path.join(R, 'src/data/remocn-registry.ts'); if (!fs.existsSync(rg)) fs.copyFileSync(path.join(T, 'src/data/remocn-registry.ts'), rg); }   // filled by tools/remocn.mjs; never overwritten
   for (const f of ['hyperframes']) { const sd = path.join(T, 'public', f); if (fs.existsSync(sd)) fs.cpSync(sd, path.join(R, 'public', f), { recursive: true }); }
   return R;
 }
