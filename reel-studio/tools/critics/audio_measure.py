@@ -1,4 +1,5 @@
 """Measurements for the voice / music / sfx critics. Prints one JSON object.  python audio_measure.py <projectDir> [--no-whisper]"""
+import os as _os, pathlib as _pl; _b = _pl.Path(__file__).resolve().parents[2] / '.bin'; _os.environ['PATH'] = (str(_b) + _os.pathsep + _os.environ['PATH']) if _b.exists() else _os.environ['PATH']  # installer's ffmpeg fallback
 import json, re, sys, difflib, os, subprocess
 from pathlib import Path
 import numpy as np

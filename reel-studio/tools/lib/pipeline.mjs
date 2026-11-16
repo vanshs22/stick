@@ -5,13 +5,16 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+// .env (see .env.example) fills only variables that are not already set; .bin (written by the installer) holds an ffmpeg/ffprobe fallback
+try { for (const l of fs.readFileSync(path.join(TK, '.env'), 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*?)\s*$/); if (m && !m[1].startsWith('#') && process.env[m[1]] === undefined && m[2]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); } } catch { /* no .env: fine */ }
+if (fs.existsSync(path.join(TK, '.bin'))) process.env.PATH = path.join(TK, '.bin') + path.delimiter + process.env.PATH;
 export const PY = process.env.REEL_PY || (fs.existsSync(path.join(TK, '.venv/bin/python')) ? path.join(TK, '.venv/bin/python') : fs.existsSync(path.join(TK, '.venv/Scripts/python.exe')) ? path.join(TK, '.venv/Scripts/python.exe') : 'python3');
 export const run = (cmd, args, opt = {}) => spawnSync(cmd, args, { encoding: 'utf8', maxBuffer: 1 << 28, ...opt });
 export const rd = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 export const log = (...m) => console.log(...m);
 
 /** copy the Remotion template into <P>/remotion (code only; data stays), write the pack's style.json, link node_modules */
-export function syncProject(P, { nodeModules = process.env.REEL_NODE_MODULES } = {}) {
+export function syncProject(P, { nodeModules = process.env.REEL_NODE_MODULES || path.join(TK, 'remotion-template/node_modules') } = {}) {
   const R = path.join(P, 'remotion'), T = path.join(TK, 'remotion-template');
   const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
   for (const f of walk(path.join(T, 'src'))) { const rel = path.relative(T, f); if (rel.startsWith(path.join('src', 'data'))) continue; fs.mkdirSync(path.dirname(path.join(R, rel)), { recursive: true }); fs.copyFileSync(f, path.join(R, rel)); }

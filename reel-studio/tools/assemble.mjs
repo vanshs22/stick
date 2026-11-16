@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import './lib/pipeline.mjs';   // puts the installer's ffmpeg fallback on PATH
 const P = path.resolve(process.argv[2] || '.'), name = process.argv[3] || path.basename(P), seg = path.join(P, 'renders/segments');
 const idx = JSON.parse(fs.readFileSync(path.join(seg, 'index.json'), 'utf8')), miss = idx.shots.filter((s) => !s.ready);
 if (miss.length) { console.error(`clips missing for ${miss.map((s) => s.id).join(', ')}: run tools/render_segments.mjs first`); process.exit(1); }

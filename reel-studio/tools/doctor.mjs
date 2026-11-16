@@ -1,29 +1,31 @@
 #!/usr/bin/env node
-// "What is missing on this computer?" Run it first. Prints what works, what does not, and the exact command to fix each item.
-import { spawnSync } from 'node:child_process';
+// "What is missing on this computer?" Prints what works, what does not, and the exact command to fix each item. Exit 1 if a REQUIRED item is missing.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { TK, PY, run } from './lib/pipeline.mjs';   // PY = the toolkit's .venv python when it exists; PATH already includes .bin
 
-const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), run = (c, a) => spawnSync(c, a, { encoding: 'utf8' });
-const has = (c, a = ['--version']) => { const r = run(c, a); return !r.error && r.status === 0; }, py = (m) => has('python3', ['-c', `import ${m}`]);
-const HOME = process.env.REEL_STUDIO_HOME || path.join(os.homedir(), '.reel-studio'), PYH = process.env.REEL_HOME || process.env.FACELESS_HOME || path.join(os.homedir(), '.reel-studio'), items = [];
+const has = (c, a = ['--version']) => { const r = run(c, a); return !r.error && r.status === 0; }, py = (m) => has(PY, ['-c', `import ${m}`]);
+const HOME = process.env.REEL_HOME || process.env.REEL_STUDIO_HOME || path.join(os.homedir(), '.reel-studio'), items = [], win = process.platform === 'win32';
 const add = (name, ok, fix, need = 'required') => items.push({ name, ok: !!ok, need, fix: ok ? '' : fix });
-add('node >= 18', +process.versions.node.split('.')[0] >= 18, 'install Node 18+ (https://nodejs.org)');
-add('ffmpeg + ffprobe', has('ffmpeg', ['-version']) && has('ffprobe', ['-version']), 'install ffmpeg (brew install ffmpeg | apt install ffmpeg)');
-add('python3', has('python3'), 'install Python 3.10+');
-add('python: numpy scipy', py('numpy') && py('scipy'), `python3 -m venv ${PYH}/venv && ${PYH}/venv/bin/pip install numpy scipy kokoro-onnx faster-whisper soundfile`);
-add('kokoro-onnx (voice)', py('kokoro_onnx'), `${PYH}/venv/bin/pip install kokoro-onnx soundfile, then: python tools/audio/voice.py --download`);
-add('faster-whisper (word timing)', py('faster_whisper'), `${PYH}/venv/bin/pip install faster-whisper`);
-add('Kokoro model files', fs.existsSync(path.join(PYH, 'kokoro')), 'python tools/audio/voice.py --download (about 340 MB, once)');
-add('Chrome / Chromium', ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/Applications/Google Chrome.app'].some(fs.existsSync) || fs.existsSync(path.join(os.homedir(), '.cache/ms-playwright')), 'install Chrome, or: npx playwright install chromium (Remotion also downloads its own)');
-add('Playwright (real screenshots)', has('npx', ['--no-install', 'playwright', '--version']), 'npm i -D playwright && npx playwright install chromium', 'optional');
-add('Agent-Reach (research)', has('agent-reach', ['--help']), 'pip install agent-reach  (HOME must be writable)', 'optional');
-add('OpenCV (reference analysis)', py('cv2'), 'pip install opencv-python-headless', 'optional');
+const T = path.join(TK, 'remotion-template/node_modules'), setup = `${win ? '.\\install.ps1' : 'bash install.sh'}`;
+add('node >= 18', +process.versions.node.split('.')[0] >= 18, 'install Node 22 LTS (https://nodejs.org)');
+add('ffmpeg + ffprobe', has('ffmpeg', ['-version']) && has('ffprobe', ['-version']), `${setup} (uses a bundled ffmpeg), or: brew/apt/winget install ffmpeg`);
+add('python 3.9+', has(PY, ['-c', 'import sys;sys.exit(sys.version_info<(3,9))']), 'install Python 3.9+ from https://python.org, then ' + setup);
+add('python: numpy scipy pillow', py('numpy') && py('scipy') && py('PIL'), setup);
+add('kokoro-onnx (free local voice)', py('kokoro_onnx'), setup);
+add('Kokoro model files (~340 MB)', fs.existsSync(path.join(HOME, 'kokoro/kokoro-v1.0.onnx')), 'python tools/audio/voice.py --download');
+add('faster-whisper (word timing, pronunciation check)', py('faster_whisper'), setup, 'recommended');
+add('Remotion template packages', fs.existsSync(path.join(T, 'remotion')), `${setup}  (or: cd remotion-template && npm install)`);
+add('Chrome Headless Shell (render, screenshots)', fs.existsSync(path.join(T, '.remotion')) || fs.existsSync(path.join(os.homedir(), '.cache/puppeteer')) || ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'].some(fs.existsSync), 'cd remotion-template && npx remotion browser ensure');
+add('playwright-core (real website screenshots)', fs.existsSync(path.join(TK, 'node_modules/playwright-core')), 'npm install   (in the toolkit folder)', 'recommended');
+add('OpenCV (reference video analysis)', py('cv2'), setup, 'optional');
+add('yt-dlp (download reference videos)', py('yt_dlp') || has('yt-dlp'), setup, 'optional');
+add('Agent-Reach (research without keys)', has(process.env.AGENT_REACH_BIN || 'agent-reach', ['--help']), 'pip install git+https://github.com/Panniantong/Agent-Reach   (optional: the research stage works with web search or by hand)', 'optional');
 const skillDirs = [path.join(os.homedir(), '.claude/skills/reel-studio'), path.join(os.homedir(), '.config/opencode/skills/reel-studio'), path.join(os.homedir(), '.agents/skills/reel-studio'), '.claude/skills/reel-studio', '.opencode/skills/reel-studio', '.agents/skills/reel-studio'];
-add('toolkit installed as a skill', skillDirs.some(fs.existsSync), `node ${TK}/scripts/install.mjs`, 'recommended');
-add('official Remotion skills (remotion-dev/skills)', [path.join(HOME, 'remotion-skills/skills/remotion-best-practices/SKILL.md'), path.join(os.homedir(), '.agents/skills/remotion-best-practices/SKILL.md'), path.join(os.homedir(), '.claude/skills/remotion-best-practices/SKILL.md')].some(fs.existsSync), `node ${TK}/scripts/install_remotion_skills.mjs`);
-console.log(`toolkit: ${TK}\n`); for (const i of items) console.log(`${i.ok ? 'OK     ' : i.need === 'required' ? 'MISSING' : 'missing'}  ${i.name.padEnd(34)} ${i.fix}`);
-console.log('\nThe agent should be able to LOOK at images (contact sheets). If your model cannot, ask the user to look at review/*.jpg and rely on tools/qa/frame_stats.mjs.');
-const bad = items.filter((i) => !i.ok && i.need === 'required'); process.exit(bad.length ? 1 : 0);
+add('toolkit installed as a skill', skillDirs.some(fs.existsSync), `node ${path.join(TK, 'scripts/install.mjs')}   (or point your agent at AGENTS.md)`, 'recommended');
+add('official Remotion skills (remotion-dev/skills)', [path.join(HOME, 'remotion-skills/skills/remotion-best-practices/SKILL.md'), path.join(os.homedir(), '.agents/skills/remotion-best-practices/SKILL.md'), path.join(os.homedir(), '.claude/skills/remotion-best-practices/SKILL.md')].some(fs.existsSync), `node ${path.join(TK, 'scripts/install_remotion_skills.mjs')}`, 'recommended');
+console.log(`toolkit: ${TK}\npython : ${PY}\n`);
+for (const i of items) console.log(`${i.ok ? 'OK     ' : i.need === 'required' ? 'MISSING' : i.need === 'recommended' ? 'missing' : 'optional'}  ${i.name.padEnd(48)} ${i.fix}`);
+console.log('\nThe agent should be able to LOOK at images (contact sheets). If your model cannot, vision critics report "not performed" and you review review/*.jpg yourself.\nNo GPU? Set REMOTION_GL=swangle in .env (slow but works).');
+process.exit(items.some((i) => !i.ok && i.need === 'required') ? 1 : 0);

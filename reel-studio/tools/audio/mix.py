@@ -10,6 +10,7 @@ track, any format ffmpeg reads). The music ducks under the voice.
 Sound rules (STYLE.md): every effect is soft and rounded, nothing above ~5 kHz, no ticks / hats / glitches / beeps.
 Cue types: whoosh slide pop plop gulp boing bubbles sizzle sparkle thud slam tock zip alarm  (+ gain, dur)
 """
+import os as _os, pathlib as _pl; _b = _pl.Path(__file__).resolve().parents[2] / '.bin'; _os.environ['PATH'] = (str(_b) + _os.pathsep + _os.environ['PATH']) if _b.exists() else _os.environ['PATH']  # installer's ffmpeg fallback
 import json, os, subprocess, sys
 from pathlib import Path
 import numpy as np

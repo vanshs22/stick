@@ -2,6 +2,7 @@
 usage: python audio.py <video> [...]  -> refs/<stem>.audio.json
 Words/min and caption pace come from Whisper word times. SFX candidates = short loud bursts that fall OUTSIDE speech
 (a whoosh/hit/pop between words) found by high-band spectral flux; music = energy between words/bursts."""
+import os as _os, pathlib as _pl; _b = _pl.Path(__file__).resolve().parents[2] / '.bin'; _os.environ['PATH'] = (str(_b) + _os.pathsep + _os.environ['PATH']) if _b.exists() else _os.environ['PATH']  # installer's ffmpeg fallback
 import json, subprocess, sys
 from pathlib import Path
 import numpy as np

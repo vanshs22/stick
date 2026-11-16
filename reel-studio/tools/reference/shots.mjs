@@ -6,6 +6,7 @@
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import '../lib/pipeline.mjs';   // puts the installer's ffmpeg fallback on PATH
 
 const a = process.argv.slice(2), [src, out] = a, th = a.includes('--threshold') ? +a[a.indexOf('--threshold') + 1] : 0.3;
 if (!src || !out) { console.error('usage: shots.mjs <video> <outDir> [--threshold 0.3]'); process.exit(2); }

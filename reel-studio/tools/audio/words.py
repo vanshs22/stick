@@ -10,6 +10,7 @@ or missed share the time between their matched neighbours, by length. Also write
 No Whisper (not installed, or its model can't download)? After voice.py the line times are exact anyway, so each
 line's words are spread inside it by length, with pauses at commas and full stops (within ~0.1-0.2 s of the speech).
 """
+import os as _os, pathlib as _pl; _b = _pl.Path(__file__).resolve().parents[2] / '.bin'; _os.environ['PATH'] = (str(_b) + _os.pathsep + _os.environ['PATH']) if _b.exists() else _os.environ['PATH']  # installer's ffmpeg fallback
 import argparse, json, os, re, subprocess
 from difflib import SequenceMatcher
 from pathlib import Path

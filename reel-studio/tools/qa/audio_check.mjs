@@ -2,6 +2,7 @@
 // Measures the REAL audio of a video or wav (not the plan): loudness, true peak, clipping risk, long silences.
 //   node tools/qa/audio_check.mjs <file> [--lufs -14] [--tp -1.0]
 import { spawnSync } from 'node:child_process';
+import '../lib/pipeline.mjs';   // puts the installer's ffmpeg fallback on PATH
 
 const a = process.argv.slice(2), f = a[0], opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? +a[i + 1] : d; };
 if (!f) { console.error('usage: audio_check.mjs <video|wav>'); process.exit(2); }

@@ -4,6 +4,7 @@
 // Writes <out>.json with the time of every tile, so a problem on tile 17 can be traced to a timestamp.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import '../lib/pipeline.mjs';   // puts the installer's ffmpeg fallback on PATH
 
 const a = process.argv.slice(2), opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? +a[i + 1] : d; }, pos = a.filter((x, i) => !x.startsWith('--') && !(i && a[i - 1].startsWith('--')));
 const [src, out] = pos; if (!src || !out) { console.error('usage: contact_sheet.mjs <video|folder> <out.jpg> [--every 0.5] [--cols 8] [--width 216]'); process.exit(2); }

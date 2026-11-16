@@ -15,10 +15,18 @@ import { fileURLToPath } from 'node:url';
 const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), a = process.argv.slice(2), into = a.includes('--into') ? path.resolve(a[a.indexOf('--into') + 1]) : null, copy = a.includes('--copy');
 const root = into || os.homedir(), bases = into ? ['.claude/skills', '.opencode/skills', '.agents/skills'] : ['.claude/skills', '.config/opencode/skills', '.agents/skills'];
 const subs = fs.readdirSync(path.join(TK, 'skills')).filter((d) => fs.existsSync(path.join(TK, 'skills', d, 'SKILL.md'))), skills = [['reel-studio', TK], ...subs.map((d) => [d, path.join(TK, 'skills', d)])];
-for (const b of bases) for (const [name, src] of skills) {
-  const dst = path.join(root, b, name); fs.mkdirSync(path.dirname(dst), { recursive: true }); fs.rmSync(dst, { recursive: true, force: true });
-  if (copy) fs.cpSync(src, dst, { recursive: true, filter: (f) => !/node_modules|reel-projects|[\\/]\.git([\\/]|$)/.test(f) }); else fs.symlinkSync(src, dst, 'dir');
+const cp = (src, dst) => fs.cpSync(src, dst, { recursive: true, filter: (f) => !/node_modules|reel-projects|[\\/]\.git([\\/]|$)|[\\/]\.venv([\\/]|$)/.test(f) });
+const done = [], failed = [];
+for (const b of bases) {
+  try {
+    for (const [name, src] of skills) {
+      const dst = path.join(root, b, name); fs.mkdirSync(path.dirname(dst), { recursive: true }); fs.rmSync(dst, { recursive: true, force: true });
+      if (copy || process.platform === 'win32') cp(src, dst); else { try { fs.symlinkSync(src, dst, 'dir'); } catch { cp(src, dst); } }   // Windows: symlinks need admin rights, so copy
+    }
+    done.push(b);
+  } catch (e) { failed.push(`${b} (${e.code || e.message})`); }
 }
-const RH = process.env.REEL_STUDIO_HOME || path.join(os.homedir(), '.reel-studio'); fs.mkdirSync(RH, { recursive: true }); fs.writeFileSync(path.join(RH, 'toolkit'), TK);
+if (failed.length) console.log(`could not write: ${failed.join(', ')}. Those folders are read-only or missing here; use --into <project> or point your agent at AGENTS.md.`);
+const RH = process.env.REEL_STUDIO_HOME || path.join(os.homedir(), '.reel-studio'); try { fs.mkdirSync(RH, { recursive: true }); fs.writeFileSync(path.join(RH, 'toolkit'), TK); } catch { console.log(`could not save the toolkit path to ${RH} (read-only). Set REEL_STUDIO_HOME to a writable folder.`); }
 if (!a.includes('--no-remotion')) { const r = spawnSync('node', [path.join(TK, 'scripts/install_remotion_skills.mjs'), ...(into ? ['--into', into] : [])], { encoding: 'utf8' }); console.log((r.stdout + r.stderr).trim()); }
-console.log(`installed ${skills.length} skills (${copy ? 'copied' : 'linked'}) into ${bases.map((b) => path.join(root, b)).join(', ')}\ntoolkit path saved to ~/.reel-studio/toolkit\nnext: node ${TK}/tools/doctor.mjs`);
+console.log(`installed ${skills.length} skills into ${done.map((b) => path.join(root, b)).join(', ') || 'nowhere (see above)'}\ntoolkit path saved to ~/.reel-studio/toolkit\nnext: node ${TK}/tools/doctor.mjs`);

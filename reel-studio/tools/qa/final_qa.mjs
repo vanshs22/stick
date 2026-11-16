@@ -4,6 +4,7 @@
 //   node qa.mjs raw.mp4 final.mp4
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import '../lib/pipeline.mjs';   // puts the installer's ffmpeg fallback on PATH
 
 const [src, dst] = process.argv.slice(2), ff = (args) => spawnSync('ffmpeg', ['-hide_banner', '-nostats', ...args], { encoding: 'utf8', maxBuffer: 1 << 26 });
 const json = (t) => { const m = t.match(/\{[^{}]*"input_i"[^{}]*\}/s); return m ? JSON.parse(m[0]) : null; };

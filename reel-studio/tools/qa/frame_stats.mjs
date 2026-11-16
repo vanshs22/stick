@@ -4,6 +4,7 @@
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import '../lib/pipeline.mjs';   // puts the installer's ffmpeg fallback on PATH
 
 const a = process.argv.slice(2), opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? +a[i + 1] : d; }, args = a.filter((x, i) => !x.startsWith('--') && !(i && a[i - 1].startsWith('--')));
 const files = args.flatMap((p) => (fs.statSync(p).isDirectory() ? fs.readdirSync(p).filter((f) => /\.(jpe?g|png)$/i.test(f)).sort().map((f) => path.join(p, f)) : [p]));

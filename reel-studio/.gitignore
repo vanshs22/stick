@@ -1,9 +1,11 @@
+.bin/
 .cache/
+.env
 node_modules/
 projects/
+__pycache__/
 *.raw.mp4
 reel-projects/
 reference-analysis/
 .venv/
 .work/
-__pycache__/
