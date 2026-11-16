@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Everything you need to post the finished video, drafted from the project: cover frame, post caption, alt text, sources and a production report.
-//   node tools/package_post.mjs <project> [--video renders/<name>.mp4] [--cover-at 1.0]
+//   node tools/package_post.mjs <project> [--video renders/<name>.mp4] [--cover-at 1.0] [--tags a,b,c]
 // Writes renders/cover.jpg, renders/post.md, renders/report.md. The text is a DRAFT built from the script: read it and edit it (the first caption line is the hook).
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,13 +15,14 @@ if (!mp4) { console.error('no finished video in renders/: run tools/build_video.
 const L = script.lines, hook = L[0].text, cta = L.find((l) => l.beat === 'cta')?.text, body = L.filter((l) => !['hook', 'cta', 'save'].includes(l.beat)).slice(0, 5);
 
 // cover: the sharpest-looking early frame (try a few moments, keep the one with the most detail); the hook text is already on it
-const times = [+opt('cover-at', 1.0), 0.6, 1.4, 2.0].filter((t) => !tl || t < tl.duration), covers = [];
+// candidate moments: when the first caption chunks are fully spoken (no half-written caption on the cover), else fixed times
+const chunkEnds = (tl?.captions?.chunks || []).slice(0, 3).map((c) => +(c.t0 + 0.85 * (c.t1 - c.t0)).toFixed(2)), times = (a.includes('--cover-at') ? [+opt('cover-at', 1.0)] : [...chunkEnds, 1.0, 1.6]).filter((t) => !tl || t < tl.duration), covers = [];
 for (const [i, t] of times.entries()) { const f = path.join(rdir, `.cover${i}.jpg`); if (run('ffmpeg', ['-y', '-v', 'error', '-ss', String(t), '-i', mp4, '-frames:v', '1', '-q:v', '2', f]).status === 0 && fs.existsSync(f)) covers.push({ t, f, size: fs.statSync(f).size }); }
 covers.sort((x, y) => y.size - x.size); if (covers[0]) fs.copyFileSync(covers[0].f, path.join(rdir, 'cover.jpg')); for (const c of covers) fs.rmSync(c.f, { force: true });
 
 const stop = new Set('the a an and or of to in on for with this that your you is are it as at by from be was were have has not but so how why what makes make feel feels really just like more most very into over than then there their they them nobody works using used keeps keep gets get does about'.split(' '));
-const tags = [...new Set(`${brief.topic || ''} ${brief.title || ''} ${script.title || ''}`.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter((w) => w.length > 3 && !stop.has(w)))].slice(0, 4).map((w) => '#' + w);
-const post = `${hook}\n\n${body.map((l) => `- ${l.text}`).join('\n')}\n\n${cta || (brief.cta?.text ? brief.cta.text + '.' : 'Save this for later.')}\n\n${[...tags, '#shorts'].slice(0, 5).join(' ')}\n\n(Draft: edit the hashtags and wording. ${brief.voice?.engine ? 'The voice is AI-generated: switch on the platform\'s AI label.' : ''})\n`;
+const tags = opt('tags', '') ? opt('tags', '').split(',').map((w) => '#' + w.trim().replace(/^#/, '')).filter((w) => w.length > 1) : [...new Set(`${brief.topic || ''} ${brief.title || ''} ${script.title || ''}`.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter((w) => w.length > 3 && !stop.has(w)))].slice(0, 4).map((w) => '#' + w);
+const post = `${hook}\n\n${body.map((l) => `- ${l.text}`).join('\n')}\n\n${cta || (brief.cta?.text ? brief.cta.text + '.' : 'Save this for later.')}\n\n${[...tags, '#shorts'].slice(0, 5).join(' ')}\n\n(Draft: the hashtags are guessed from the title, so replace them (or run again with --tags a,b,c) and edit the wording. ${brief.voice?.engine ? 'The voice is AI-generated: switch on the platform\'s AI label.' : ''})\n`;
 const alt = (sb?.shots || []).map((s) => `- ${s.id}: ${String(s.alt || s.visual_intent || '').replace(/^DRAFT:\s*/, '').replace(/\s*\((hook|stakes|setup|step|mechanism|proof|objection|twist|cta|save)\)\s*$/, '')}`).join('\n');
 fs.writeFileSync(path.join(rdir, 'post.md'), `# Post draft\n\n## Caption\n${post}\n## Alt text (one line per shot; put a clean description in the shot field alt)\n${alt}\n\n## Cover\nrenders/cover.jpg (frame at ${covers[0]?.t ?? '?'} s)\n`);
 

@@ -205,7 +205,8 @@ export function noirRoom(E, o = {}) {
 export function neonStage(E, o = {}) {
   const scene = new THREE.Scene(); scene.background = new THREE.Color('#0b0716'); scene.environment = E.envMap; scene.environmentIntensity = 0.2; scene.fog = new THREE.FogExp2('#150b2a', 0.03);
   const warm = o.accent || '#FF9A4D', violet = o.violet || '#8a63ff', pink = o.pink || '#FF5CA8';
-  const floor = shadow(new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshPhysicalMaterial({ color: '#0f0a20', roughness: 0.18, metalness: 0.5, clearcoat: 1, clearcoatRoughness: 0.1 }))); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -8); scene.add(floor);
+  const floor = shadow(new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshPhysicalMaterial({ color: '#0f0a20', roughness: 0.16, metalness: 0.45, clearcoat: 1, clearcoatRoughness: 0.08, transparent: true, opacity: 0.84, depthWrite: false }))); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -8); floor.renderOrder = -2; scene.add(floor);
+  const disc = new THREE.Mesh(new THREE.CircleGeometry(2.6, 72), new THREE.MeshStandardMaterial({ color: '#2a1d52', roughness: 0.35, metalness: 0.2, transparent: true, opacity: 0.55, depthWrite: false })); disc.rotation.x = -Math.PI / 2; disc.position.set(0, 0.006, 0.1); disc.receiveShadow = true; disc.renderOrder = -1; scene.add(disc);
   const grid = new THREE.GridHelper(60, 60, violet, violet); grid.position.set(0, 0.004, -8); grid.material.transparent = true; grid.material.opacity = 0.3; grid.material.toneMapped = false; scene.add(grid);
   // the city: dark towers with thousands of lit windows. The depth of field turns them into bokeh.
   const sky = document.createElement('canvas'); sky.width = 1536; sky.height = 640; const c = sky.getContext('2d'); const g0 = c.createLinearGradient(0, 0, 0, 640); g0.addColorStop(0, '#1b1038'); g0.addColorStop(1, '#3a1a4a'); c.fillStyle = g0; c.fillRect(0, 0, 1536, 640);
@@ -217,8 +218,9 @@ export function neonStage(E, o = {}) {
   const stageRing = new THREE.Mesh(new THREE.RingGeometry(2.1, 2.2, 80), new THREE.MeshBasicMaterial({ color: warm, toneMapped: false, side: THREE.DoubleSide })); stageRing.rotation.x = -Math.PI / 2; stageRing.position.set(0, 0.012, 0.1); scene.add(stageRing);
   const dust = []; for (let i = 0; i < 70; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.018, 6, 6), new THREE.MeshBasicMaterial({ color: i % 3 ? '#FFE0B0' : '#cdb9ff', toneMapped: false, transparent: true, opacity: 0.6 })); scene.add(m); dust.push(m); }
   const rig = lightRig(scene, { key: '#FFC48F', keyI: 3.1, keyPos: [-3, 4.6, 5], rimCol: violet, rimI: 3.2, sky: '#6a4bb0', ground: '#1a0f33', hemiI: 0.55, shadowBox: 5, target: [0, 0.8, 0] }); rig.key.shadow.camera.far = 24; rig.key.shadow.camera.updateProjectionMatrix();
-  const pl = new THREE.PointLight(pink, 6, 12, 2); pl.position.set(2.5, 2.2, 2); scene.add(pl);
-  return { scene, look: { bloom: 0.7, bloomThreshold: 0.68, vignette: 0.42, grain: 0.03, warm: 0, exposure: 1.05 }, subjects: { stage: { pos: [0, 0, 0.3], height: 1.4, rotY: 0 }, city: { pos: [0, 9, -19], height: 18, rotY: 0 } },
+  const pl = new THREE.PointLight(pink, 2.6, 12, 2); pl.position.set(2.5, 2.2, 2); scene.add(pl);
+  const sp = new THREE.SpotLight('#FFD2A0', 70, 16, 0.62, 0.9, 1.6); sp.position.set(-3.2, 5.2, 4.2); sp.target.position.set(0, 0.4, 0.2); sp.castShadow = true; sp.shadow.mapSize.set(2048, 2048); sp.shadow.bias = -0.0003; sp.shadow.radius = 9; scene.add(sp, sp.target);   // a visible, soft shadow of each cubie on the stage
+  return { scene, reflect: true, look: { bloom: 0.7, bloomThreshold: 0.68, vignette: 0.42, grain: 0.03, warm: 0, exposure: 1.05 }, subjects: { stage: { pos: [0, 0, 0.3], height: 1.4, rotY: 0 }, city: { pos: [0, 9, -19], height: 18, rotY: 0 } },
     update(t) { cones.forEach((m, i) => { m.material.opacity = 0.06 + Math.sin(t * 0.8 + i * 2) * 0.02; m.rotation.z += Math.sin(t * 0.3 + i) * 0.0006; }); stageRing.scale.setScalar(1 + Math.sin(t * 2) * 0.01);
       dust.forEach((m, i) => { m.position.set(-4 + rnd(i) * 8 + Math.sin(t * 0.3 + i) * 0.2, 0.3 + ((rnd(i + 3) * 6 + t * (0.05 + rnd(i) * 0.08)) % 6), -3 + rnd(i + 9) * 6); }); } };
 }

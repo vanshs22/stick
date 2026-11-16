@@ -23,7 +23,9 @@ const PresenterLayer: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / TL.fps, sh = TL.shots.find((s) => t >= s.start && t < s.end);
   if (!sh || sh.presenter?.hidden || ['Scene3D', 'Stage3D'].includes(sh.component)) return null;
-  const enter = Math.min(1, (t - sh.start) / 0.35);
+  // the host fades in once (film start, or after a shot without a host); between host shots it stays put
+  const i = TL.shots.indexOf(sh), pv = i > 0 ? TL.shots[i - 1] : null, carried = pv && !pv.presenter?.hidden && !['Scene3D', 'Stage3D'].includes(pv.component);
+  const enter = carried ? 1 : Math.min(1, (t - sh.start) / 0.35);
   return <AbsoluteFill style={{opacity: enter, transform: `translateY(${(1 - enter) * 60}px)`}}><Presenter pose={sh.presenter?.pose || 'idle'} mood={sh.presenter?.mood || 'calm'} /></AbsoluteFill>;
 };
 

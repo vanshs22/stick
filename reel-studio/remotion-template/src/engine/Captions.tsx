@@ -1,6 +1,6 @@
 import React from 'react';
 import {useCurrentFrame, useVideoConfig} from 'remotion';
-import {C, CAPTION, F, SAFE, TYPO} from './tokens';
+import {BGS, C, CAPTION, F, SAFE, TYPO} from './tokens';
 import capCfg from '../data/captions.json';
 const CC = capCfg as any;
 /** where the captions sit: bottom (pack default), middle or top of the safe area, or an exact y */
@@ -10,7 +10,9 @@ const HI_DEFAULT = (TYPO.highlight?.mode || 'color') as string;
 import {E, clamp, p} from './anim';
 import type {Chunk, Timeline} from './types';
 
-type Pre = {size: number; weight: number; boxed: boolean; serif?: boolean; upper?: boolean; plate?: boolean};
+/** true when a #rrggbb background is dark enough that ink text on it is unreadable */
+const isDark = (c?: string) => { const m = /^#([0-9a-f]{6})/i.exec(c || ''); if (!m) return false; const n = parseInt(m[1], 16); return (0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5; };
+type Pre = {dark?: boolean; size: number; weight: number; boxed: boolean; serif?: boolean; upper?: boolean; plate?: boolean};
 const PRESETS: Record<string, Pre> = {
   'word-pop': {size: 76, weight: 900, boxed: false},
   'one-word': {size: 118, weight: 900, boxed: false},
@@ -26,7 +28,7 @@ const PRESETS: Record<string, Pre> = {
 const Word: React.FC<{w: Chunk['words'][number]; t: number; pre: Pre; preset: string; last: boolean; index: number; hi?: string}> = ({w, t, pre, preset, last, index, hi: HI = 'color'}) => {
   const a = p(t, w.t - 0.02, 0.26, E.outCubic);
   const lit = preset === 'karaoke' ? (t >= w.t ? 1 : 0) : 0;
-  const color = preset === 'headline' ? (w.hi ? C.accent : t >= w.t ? C.ink : C.muted) : preset === 'dialogue' ? (w.hi ? C.accent : '#fff') : preset === 'karaoke' ? (lit ? C.accent : pre.boxed ? C.ink : '#fff') : w.hi ? C.accent : pre.boxed ? C.ink : CAPTION.fill;
+  const color = preset === 'headline' ? (w.hi ? C.accent : t >= w.t ? (pre.dark ? '#F5F3EA' : C.ink) : (pre.dark ? 'rgba(245,243,234,0.45)' : C.muted)) : preset === 'dialogue' ? (w.hi ? C.accent : '#fff') : preset === 'karaoke' ? (lit ? C.accent : pre.boxed ? C.ink : '#fff') : w.hi ? C.accent : pre.boxed ? C.ink : CAPTION.fill;
   const vis = preset === 'karaoke' || preset === 'headline' ? 1 : preset === 'phrase' ? p(t, w.t - 0.25, 0.4, E.outCubic) : a;
   if (preset === 'typewriter') {
     const n = Math.floor(clamp((t - w.t) / 0.22) * w.w.length);
@@ -49,7 +51,8 @@ export const Captions: React.FC<{timeline: Timeline; show?: boolean; preset?: st
   const chunk = timeline.captions.chunks.find((c) => t >= c.t0 - 0.01 && t < c.t1);
   if (!chunk) return null;
   const preset = presetIn || CC.preset || timeline.captions.preset, pre0 = PRESETS[preset] || PRESETS['word-pop'], pre = {...pre0, size: Math.round(pre0.size * (scIn ?? CAP_SCALE))};
-  const speaker = timeline.shots.find((sh) => t >= sh.start && t < sh.end)?.speaker;
+  const sh0 = timeline.shots.find((sh) => t >= sh.start && t < sh.end), speaker = sh0?.speaker;
+  pre.dark = isDark(sh0?.bg ? BGS[sh0.bg] || sh0.bg : C.bg);
   if (preset === 'headline') return <div style={{position: 'absolute', left: 64, right: 120, top: 190, textAlign: 'left', fontWeight: 500, fontSize: 84, lineHeight: 1.12, letterSpacing: '-0.02em'}}>{chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} hi={hiMode} />)}</div>;
   if (preset === 'dialogue') return (
     <div style={{position: 'absolute', left: 70, right: 70, top: 170, textAlign: 'center', lineHeight: 1.2, fontSize: 52}}>

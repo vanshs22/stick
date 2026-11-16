@@ -45,10 +45,15 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
         const E = makeEngine(canvas, {w: W, h: H, samples: dpr < 0.75 ? 0 : 2, shadowSize: QUALITY.shadow});
         const wd = buildWorld(world, E, worldOpts), actors = cast.map((c) => makeActor(c)), props = props3d.map((p) => makeProp(p));
         [...actors, ...props].forEach((a: any) => wd.scene.add(a.group));
+        // glossy floor: a faded upside-down copy of every character and small set piece under it (kept in sync each frame)
+        const mirrors: any[] = [];
+        if (wd.reflect) [...actors, ...props].forEach((a: any) => { if (['keywall', 'neonring', 'screen'].includes(a.kind)) return; const copy = a.group.clone(true), wrap = new THREE.Group(); wrap.scale.y = -1; wrap.add(copy);
+          copy.traverse((o: any) => { if (o.isMesh) { const fade = (m: any) => { const c = m.clone(); c.transparent = true; c.opacity = (m.opacity ?? 1) * 0.2; c.depthWrite = false; return c; }; o.material = Array.isArray(o.material) ? o.material.map(fade) : fade(o.material); o.castShadow = false; o.receiveShadow = false; o.renderOrder = 0; } });
+          wd.scene.add(wrap); mirrors.push({src: a.group, copy}); });
         const cam = new THREE.PerspectiveCamera(30, width / height, 0.05, 120);
-        S.current = {E, wd, actors, props, cam};
+        S.current = {E, wd, actors, props, cam, mirrors};
       }
-      const {E, wd, actors, props, cam} = S.current;
+      const {E, wd, actors, props, cam, mirrors} = S.current;
       doRender = () => {
       const talk = talkAt(t);
       const byId: Record<string, any> = {};
@@ -57,6 +62,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
       actors.forEach((a: any, i: number) => a.update(lt, t, cast[i].speaks === false ? 0 : cast[i].speaks || i === 0 ? talk : 0, ctx));
       props.forEach((p: any) => p.update(lt, t));
       wd.update?.(t, lt);
+      (mirrors || []).forEach((m: any) => { const a: THREE.Object3D[] = [], b: THREE.Object3D[] = []; m.src.traverse((o: any) => a.push(o)); m.copy.traverse((o: any) => b.push(o)); a.forEach((o, i) => { const q = b[i]; if (!q) return; q.position.copy(o.position); q.quaternion.copy(o.quaternion); q.scale.copy(o.scale); q.visible = o.visible; }); });
       const subjects: Entry = {...wd.subjects};
       [...actors, ...props].forEach((a: any) => (subjects[a.id] = a.subject()));
       const c = cameraAt(camera, subjects, lt, d, width / height);

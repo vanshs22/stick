@@ -35,7 +35,7 @@ Render one still per preset using the same real line and show them side by side 
 
 All six presets now exist (word-pop, one-word, boxed, phrase, typewriter, karaoke). Preview them with `node $TK/tools/gallery.mjs $P --kind captions`.
 
-Two more presets: `headline` (editorial packs: big top-left text, grey until spoken, red italic accent word; it IS the caption) and `dialogue` (3D story packs: top pill with the speaker tag from `shot.speaker`).
+Two more presets: `headline` (editorial packs: big top-left text, grey until spoken, red italic accent word; it IS the caption: do not also show a TitleCard or text card with the same words, and keep the top 400 px of the frame free for it; on a dark `bg` it switches to light ink by itself) and `dialogue` (3D story packs: top pill with the speaker tag from `shot.speaker`).
 
 Official rules: `node $TK/tools/rs.mjs captions display-captions transcribe-captions import-srt-captions text-highlights`. If the user brings an SRT, follow `import-srt-captions`; our `build_timeline.mjs` already builds chunks from real word times, so only use the official display patterns for ideas (karaoke, token highlight), not a second caption pipeline.
 

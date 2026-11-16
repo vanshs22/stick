@@ -23,9 +23,11 @@ export const atLocal = (shot: Shot, name: string, fallbackOffset = 0) => at(shot
  */
 export const useEnter = (shot: Shot, anchor?: string, delay = 0.1, cfg: SpringCfg = SPR.soft, exit = 0.3) => {
   const {lt, d, fps, t} = useShotTime(shot);
-  const start = anchor && anchor in shot.anchors ? atLocal(shot, anchor) : delay;
-  const a = sp(lt, start, fps, cfg);
-  const out = p(lt, d - exit, exit * 0.9, E.inCubic);
+  // no dead time: unanchored entrances start within 0.06 s of the cut, exits take at most 0.12 s, and the first shot is never blank at frame 0
+  const start = anchor && anchor in shot.anchors ? atLocal(shot, anchor) : Math.min(delay, 0.06);
+  const ex = Math.min(exit, 0.12);
+  const a = Math.max(sp(lt, start, fps, cfg), shot.start < 0.05 ? 0.4 : 0);
+  const out = p(lt, d - ex, ex, E.inCubic);
   return {a, out, vis: clamp(a * 1.6) * (1 - out), lt, d, start, fps, t};
 };
 

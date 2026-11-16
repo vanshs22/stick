@@ -28,3 +28,8 @@ Original glossy cube mascots ("cubies") on a dark neon stage with big glowing se
 - Laptop `lines` type real text on the screen; `pricestack labels` are free text; `trophy number`.
 - Energy numbers: median shot 1.7 to 2.5 s, camera moving in 85 percent of shots, a plaque change every 1.5 to 3 s, a pink-cubie reaction shot every 4th shot.
 - Start from `scaffold_storyboard.mjs` (it builds duo shots with a set piece, plaque, counters and bubbles), then raise every beat.
+
+## Depth and shadows (how the cubies get volume)
+- Each cubie has a gradient-mapped body, a darker back-face rim shell, eye sockets and a soft contact-shadow blob under it. Glow scales with the body lightness so pale colours do not blow out.
+- The neon stage has a translucent mirror floor (`reflect: true`: mirrored clones of the actors and props follow every frame), a stage disc, and a shadow-casting spotlight. A pink point light adds the rim colour.
+- Keep the duo in the lower third (`wide` / `extreme-wide` framings): the reflection then shows under them.

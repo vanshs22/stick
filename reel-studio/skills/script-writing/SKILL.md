@@ -8,7 +8,7 @@ description: Writes the narration of a short video - hook, story arc, proof, obj
 Output: `script/script.json` (schema `script`). Validate it: `node $TK/tools/validate.mjs script $P/script/script.json`.
 
 ## Shape (adapt; do not force every beat)
-1. `hook` (line 1, at most 11 words): a bold specific claim, a number, a question or a surprise. It must be visualisable in the first second.
+1. `hook` (line 1, 8 to 14 words; the critic fails it above 16): a bold specific claim, a number, a question or a surprise. It must be visualisable in the first second.
 2. `stakes` or `twist`: why it matters, or what is unexpected.
 3. `setup`: "Here is how it works" (one line).
 4. `step` / `mechanism` lines: one idea per line.
@@ -18,7 +18,7 @@ Output: `script/script.json` (schema `script`). Validate it: `node $TK/tools/val
 ## Rules
 - Speak, do not write. Short words, contractions, no jargon without a picture. About 12 words per line is a good default for fast explainers; calmer styles (documentary, noir) may use longer, flowing sentences split at natural pauses. Follow the style pack.
 - A line is a cut: the picture can change at every line. Split long sentences at commas or "and", keep the sentence flowing in the voice.
-- Length: about 2.4 words per second. 40 s is about 95 words. Put the count in `est_seconds`.
+- Length: 2.4 to 2.6 words per second at voice speed 1.0 (see "Length arithmetic"). 40 s is about 100 words. Put the count in `est_seconds`.
 - Numbers as they are spoken ("forty thousand"). Names that TTS may mispronounce go to the audio plan pronunciations.
 - Every factual line lists its `claims` ids from the research. A line with no claim is opinion or narration. No claim may be `unverified`.
 - `emphasis`: the 1-2 words the caption should highlight (the surprising or the number).
