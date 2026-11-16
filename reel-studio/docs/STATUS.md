@@ -29,3 +29,7 @@ Written at the end of the production-readiness pass. "Tested" means a command wa
 6. **The agent's vision review** of the final films is partial: the contact sheets of the two finished films were looked at; the 3D films were not yet.
 7. Per-style character quality still has known gaps: presenter hair is a helmet in extreme close-up; voxel eyes are large; no real skeletal-animation models (all characters are procedural, with real articulated rigs but not modelled assets).
 8. Sub-agent re-test with a cheap model on the new gates (visual_concept, assets, production) has not been run.
+
+## Listening (added after the status above)
+- `tools/audio/ears.py <project>` (free, built in, tested on both finished films): measured listening transcript (`review/ears/timeline.md`), a picture (`sheet.png`), flags (late first word, dead air, level jumps, cues masked, music too close to the voice, hot mix) and `listen/` with short clips plus a one-minute CHECKLIST for the moments only a person can judge. It does not judge taste.
+- `tools/audio/earshot.mjs <project>` wraps https://github.com/Leonxlnx/earshot (describe, timeline, critique against professional films). **Not run**: the build sandbox could not reach that repository, and it needs `uv` and about 1.1 GB of models. Install on your machine: `uv tool install "earshot[mcp] @ git+https://github.com/Leonxlnx/earshot" && earshot doctor --fetch`. Command syntax follows its README and may need adjusting on first run.
