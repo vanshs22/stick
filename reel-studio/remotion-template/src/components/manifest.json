@@ -485,6 +485,39 @@
    "required": [
     "camera"
    ]
+  },
+  "HtmlBlock": {
+   "category": "overlay",
+   "description": "Plays a HyperFrames-style HTML block (HTML + CSS + paused GSAP timeline on window.__timelines) seeked by the Remotion frame: ONE clock. Use for ready-made registry blocks (lower thirds, kinetic type, transitions) where they beat rebuilding them.",
+   "props": {
+    "src": "path in public/, e.g. hyperframes/lower-third.html (required)",
+    "id": "timeline id (default: first)",
+    "vars": "{key: text} fills {{key}} in the block",
+    "at": "seconds into the shot when it starts"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "src"
+   ]
+  },
+  "FlowDiagram": {
+   "category": "data",
+   "description": "A vertical flow of steps animated with GSAP (seeked by the Remotion frame): each step pops on its spoken word, the arrow draws just before.",
+   "props": {
+    "nodes": "string[] (required)",
+    "anchorPrefix": "'n' -> anchors n0,n1...",
+    "title": "string"
+   },
+   "anchors": [
+    "n0",
+    "n1",
+    "..."
+   ],
+   "required": [
+    "nodes"
+   ]
   }
  },
  "transitions": [

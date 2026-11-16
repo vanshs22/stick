@@ -6,3 +6,4 @@ reel-projects/
 reference-analysis/
 .venv/
 .work/
+__pycache__/

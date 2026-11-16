@@ -1,0 +1,9 @@
+{
+  "name": "reel-studio-toolkit",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Toolkit-level dependencies (capture, analytics). Remotion dependencies live in remotion-template/package.json and are installed per project.",
+  "scripts": { "selftest": "node tools/selftest.mjs", "doctor": "node tools/doctor.mjs" },
+  "dependencies": { "playwright-core": "^1.50.0" }
+}

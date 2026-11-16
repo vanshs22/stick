@@ -83,9 +83,9 @@ if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1])))
       const note = opt(a, 'note', ''); if (!note) { console.error('reject needs --note "what to change"'); process.exit(1); }
       const s = load(dir); s.revisions.push({ at: now(), stage, kind: 'rejected', note }); s.stages[stage] = { ...s.stages[stage], status: 'changes_requested', at: now(), note }; save(dir, s);
     } else if (cmd === 'frame') {
-      const [, , shot, verb] = a; if (!['approve', 'reject', 'replace'].includes(verb)) { console.error('frame <dir> <shot> approve|reject|replace [--note]'); process.exit(2); }
-      const s = load(dir), sb = s.stages.storyboard; sb.frames = sb.frames || {}; sb.frames[shot] = { status: verb === 'approve' ? 'approved' : verb === 'reject' ? 'rejected' : 'replace_requested', at: now(), note: opt(a, 'note', '') };
-      if (verb !== 'approve') { s.revisions.push({ at: now(), stage: 'storyboard', kind: `frame-${verb}`, shot, note: opt(a, 'note', '') }); if (sb.status === 'approved' || sb.status === 'awaiting_approval') sb.status = 'changes_requested'; }
+      const [, , shot, verb] = a; if (!['approve', 'reject', 'replace', 'pending'].includes(verb)) { console.error('frame <dir> <shot> approve|reject|replace|pending [--note]'); process.exit(2); }
+      const s = load(dir), sb = s.stages.storyboard; sb.frames = sb.frames || {}; sb.frames[shot] = { status: verb === 'approve' ? 'approved' : verb === 'reject' ? 'rejected' : verb === 'pending' ? 'pending' : 'replace_requested', at: now(), note: opt(a, 'note', '') };
+      if (verb !== 'approve') { if (verb === 'pending') { s.revisions.push({ at: now(), stage: 'storyboard', kind: 'frame-edited', shot, note: opt(a, 'note', '') }); if (sb.status === 'approved') sb.status = 'changes_requested'; save(dir, s); process.exit(0); } s.revisions.push({ at: now(), stage: 'storyboard', kind: `frame-${verb}`, shot, note: opt(a, 'note', '') }); if (sb.status === 'approved' || sb.status === 'awaiting_approval') sb.status = 'changes_requested'; }
       save(dir, s);
     } else if (cmd === 'change') {
       const kind = stage, note = opt(a, 'note', ''); if (!['replace-shot', 'music', 'captions', 'transition', 'pacing', 'fix'].includes(kind) || !note) { console.error('change <dir> replace-shot|music|captions|transition|pacing|fix [--shot S03] --note "..."'); process.exit(2); }

@@ -18,5 +18,5 @@ export const ShotRouter: React.FC<{shot: Shot}> = ({shot}) => {
     );
   }
   const Backdrop = BACKDROP && !['Scene3D', 'Stage3D'].includes(shot.component) ? REGISTRY.Stage3D : null;
-  return <>{Backdrop ? <Backdrop shot={shot} world={BACKDROP!.world} worldOpts={BACKDROP!.worldOpts} cast={[]} camera={BACKDROP!.camera} look={{aperture: 0.02, maxblur: 0.02, ...(BACKDROP!.look || {})}} /> : null}<Comp shot={shot} {...shot.props} /><Overlays shot={shot} /></>;
+  return <>{Backdrop ? <Backdrop shot={shot} world={BACKDROP!.world} worldOpts={BACKDROP!.worldOpts} cast={[]} camera={BACKDROP!.camera} look={{aperture: 0.02, maxblur: 0.02, ...(BACKDROP!.look || {})}} /> : null}<Comp shot={shot} {...shot.props} /><Overlays shot={shot} />{((shot as any).blocks || []).map((b: any, i: number) => { const B = REGISTRY.HtmlBlock; return <B key={i} shot={shot} {...b} />; })}</>;
 };

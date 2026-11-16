@@ -5,6 +5,7 @@ export type Shot = {
   start: number; // seconds, film time
   end: number;
   component: string;
+  blocks?: {src: string; id?: string; vars?: Record<string, string>; at?: number}[]; // HyperFrames-style overlay blocks (HtmlBlock) on top of any shot
   props: Record<string, any>;
   lines: string[];
   anchors: Record<string, number>; // name -> film time of the spoken word

@@ -78,5 +78,6 @@ export const sheetHeight = (p: SheetProps): number => {
   if (p.kind === 'grid') { const cols = p.cols || 2, w = (1080 - 96 - (cols - 1) * 20) / cols, nI = Math.max(1, Math.min(4, Math.max(...(p.items || []).map((x) => (x.imgs || []).length), 1))), tw = (w - 32 - (nI - 1) * 8) / nI, th = Math.min(560, tw * 1.78); return Math.max(1920, Math.round(190 + Math.ceil(n / cols) * (th + 150 + 20) + 40)); }
   if (p.kind === 'storyboard') return Math.max(1920, 190 + Math.ceil(n / 2) * 558 + 40);
   if (p.kind === 'detail') return 2200; if (p.kind === 'compare') return 2400;
+  if (p.kind === 'alts') return 1180;
   return 1920;
 };

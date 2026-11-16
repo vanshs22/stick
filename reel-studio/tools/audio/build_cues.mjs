@@ -11,10 +11,12 @@ const rd = (f) => JSON.parse(fs.readFileSync(path.join(P, f), 'utf8')), tl = rd(
 const mixSrc = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'mix.py'), 'utf8');
 const KNOWN = new Set([...mixSrc.match(/^FX = dict\(([\s\S]*?)\)\nLEVEL/m)[1].matchAll(/(\w+?)_?=/g)].map((m) => m[1])), errs = [], cues = [], DUR = { type: 1.2, count: 0.9, alarm: 1.2, whoosh: 0.38, swish: 0.3 };
 sb.shots.forEach((s, k) => {
-  const sh = tl.shots[k], add = (type, t, gain = 0.7, dur) => { if (!KNOWN.has(type)) { errs.push(`shot ${s.id}: unknown sound "${type}". Known: ${[...KNOWN].join(', ')}`); return; } cues.push({ t: +Math.max(0, t).toFixed(3), type, gain, ...((dur || DUR[type]) ? { dur: dur || DUR[type] } : {}) }); };
-  (s.sfx || []).forEach((e) => { let t = e.at === 'end' ? sh.end : sh.start; if (e.anchor) { if (!(e.anchor in sh.anchors)) { errs.push(`shot ${s.id}: sfx "${e.type}" uses anchor "${e.anchor}" that the shot does not define`); return; } t = sh.anchors[e.anchor]; } add(e.type, t + (e.offset || 0), e.gain ?? 0.7, e.dur); });
-  const tr = s.transition_out; if (tr?.sound && tr.sound !== 'none' && k + 1 < tl.shots.length) add(tr.sound, tl.shots[k + 1].start - 0.02, 0.6);
+  let EV = ''; const sh = tl.shots[k], add = (type, t, gain = 0.7, dur) => { if (!KNOWN.has(type)) { errs.push(`shot ${s.id}: unknown sound "${type}". Known: ${[...KNOWN].join(', ')}`); return; } cues.push({ t: +Math.max(0, t).toFixed(3), type, gain, shot: s.id, event: EV, ...((dur || DUR[type]) ? { dur: dur || DUR[type] } : {}) }); };
+  (s.sfx || []).forEach((e) => { let t = e.at === 'end' ? sh.end : sh.start; EV = e.anchor ? `word anchor "${e.anchor}"` : `shot ${e.at === 'end' ? 'end' : 'start'}${e.why ? ': ' + e.why : ''}`; if (e.anchor) { if (!(e.anchor in sh.anchors)) { errs.push(`shot ${s.id}: sfx "${e.type}" uses anchor "${e.anchor}" that the shot does not define`); return; } t = sh.anchors[e.anchor]; } add(e.type, t + (e.offset || 0), e.gain ?? 0.7, e.dur); });
+  const tr = s.transition_out; if (tr?.sound && tr.sound !== 'none' && k + 1 < tl.shots.length) EV = `transition ${tr.type} to ${tl.shots[k + 1].id}${tr.why ? ': ' + tr.why : ''}`; if (tr?.sound && tr.sound !== 'none' && k + 1 < tl.shots.length) add(tr.sound, tl.shots[k + 1].start - 0.02, 0.6);
 });
+let dirn = 'soft'; try { dirn = rd('audio/voice-choice.json').sfx || 'soft'; } catch { /* default */ }
+if (dirn === 'none') cues.length = 0; else if (dirn === 'punchy') cues.forEach((c) => { c.gain = Math.min(1.3, +(c.gain * 1.35).toFixed(2)); });
 cues.sort((x, y) => x.t - y.t);
 // guard rails: no pile-ups (more than 4 sounds in 1 s), no sound inside the last 0.2 s
 for (let i = 0; i < cues.length; i++) { const n = cues.filter((c) => c.t >= cues[i].t && c.t < cues[i].t + 1).length; if (n > 4) { errs.push(`${n} sounds inside one second at ${cues[i].t}s: remove some`); break; } }

@@ -22,6 +22,8 @@ export function syncProject(P, { nodeModules = process.env.REEL_NODE_MODULES } =
   for (const f of ['typography.json', 'captions.json']) { const src = path.join(P, 'typography', f); const dst = path.join(R, 'src/data', f); if (fs.existsSync(src)) fs.copyFileSync(src, dst); else if (!fs.existsSync(dst)) fs.copyFileSync(path.join(T, 'src/data', f), dst); }
   const nm = path.join(R, 'node_modules');
   if (!fs.existsSync(nm)) { if (nodeModules && fs.existsSync(nodeModules)) fs.symlinkSync(path.resolve(nodeModules), nm, 'dir'); else { log('npm install in ' + R + ' ...'); const r = run('npm', ['install', '--no-audit', '--no-fund', '--loglevel=error'], { cwd: R }); if (r.status) throw new Error('npm install failed:\n' + (r.stderr || r.stdout).slice(-600)); } }
+  const vend = path.join(R, 'public/vendor'); fs.mkdirSync(vend, { recursive: true }); const gs = path.join(nm, 'gsap/dist/gsap.min.js'); if (fs.existsSync(gs)) fs.copyFileSync(gs, path.join(vend, 'gsap.min.js'));   // local GSAP for HyperFrames-style blocks (no CDN at render time)
+  for (const f of ['hyperframes']) { const sd = path.join(T, 'public', f); if (fs.existsSync(sd)) fs.cpSync(sd, path.join(R, 'public', f), { recursive: true }); }
   return R;
 }
 
@@ -40,3 +42,11 @@ export function stills(P, only, at = 0.7) {
   const r = run('node', args, { env: { ...process.env, REMOTION_GL: process.env.REMOTION_GL || 'angle' } }); return { ok: !r.status, out: (r.stdout + r.stderr).trim() };
 }
 export function copyPublic(P, files) { const d = path.join(P, 'remotion/public/gallery'); fs.mkdirSync(d, { recursive: true }); return files.map((f) => { const m = f.split(path.sep).join('/').match(/style-packs\/([^/]+)\/preview\/([^/]+)$/), n = m ? `${m[1]}-${m[2]}` : path.basename(f); fs.copyFileSync(f, path.join(d, n)); return `gallery/${n}`; }); }
+
+/** a small jpg for sheets (ffmpeg); returns the jpg path (or the png if ffmpeg is missing) */
+export function thumb(png, jpg, w = 540) { const r = run('ffmpeg', ['-y', '-v', 'error', '-i', png, '-vf', `scale=${w}:-2`, '-q:v', '3', jpg]); return r.status ? png : jpg; }
+export function deepMerge(a, b) { if (b === null) return undefined; if (Array.isArray(b) || typeof b !== 'object') return b; const o = { ...(a && typeof a === 'object' && !Array.isArray(a) ? a : {}) }; for (const [k, v] of Object.entries(b)) { const m = deepMerge(o[k], v); if (m === undefined) delete o[k]; else o[k] = m; } return o; }
+export function setPath(obj, p, v) { const ks = p.split('.'); let o = obj; ks.slice(0, -1).forEach((k) => { o = o[k] = o[k] ?? {}; }); o[ks.at(-1)] = v; }
+
+/** find a helper binary: env override, the toolkit venv, then PATH */
+export function bin(name, envVar) { const c = [process.env[envVar || name.toUpperCase().replace(/-/g, '_')], path.join(TK, '.venv/bin', name), path.join(TK, '.venv/Scripts', name + '.exe')].filter(Boolean); return c.find((f) => fs.existsSync(f)) || name; }
