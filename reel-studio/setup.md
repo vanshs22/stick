@@ -50,7 +50,7 @@ Delivery limits (length, size, loudness) come from `brief.delivery` or the platf
 - **Toolkit development mode** (improve the toolkit): the agent may edit them, must add tests and run `node tools/selftest.mjs`. Details at the top of `RUNBOOK.md`.
 
 ## 6. Examples and finished films
-`examples/` has 20 ready projects. Run one end to end as a TEST project (no approvals, receipts say TEST):
+`examples/` has 19 ready projects. Run one end to end as a TEST project (no approvals, receipts say TEST):
 ```
 node tools/acceptance.mjs accept-motion-explainer --work ./work --stage all
 ```
