@@ -333,7 +333,7 @@
   },
   "Scene3D": {
    "category": "3d",
-   "description": "A full 3D shot: set + light rig + characters + creatures + camera, all driven by the frame and the real word times (mouth moves with speech).",
+   "description": "LEGACY (R3F, primitive characters). Kept so old projects still render; new work uses Stage3D.",
    "props": {
     "set": "starfield|desk-night|block-world|noir-room|studio",
     "light": "studio|night|noir|golden|bright-sky",
@@ -466,6 +466,25 @@
    ],
    "required": [
     "headline"
+   ]
+  },
+  "Stage3D": {
+   "category": "3d",
+   "description": "A directed 3D shot with the film-look engine (soft shadows, depth of field, bloom). Characters are sculpted/rigged (kind human|critter|blocky|stick), the world is a named environment, and the camera is a motivated cinematography spec.",
+   "props": {
+    "world": "home-studio|... (src/three/worlds.js)",
+    "worldOpts": "object",
+    "cast": "[{id,kind,look,at:[x,z],rotY,pose:[[t,gesture]],mood:[[t,mood]],lookAt:id,reach:[{target,side,from,to}],speaks}]",
+    "props3d": "[{id,kind:'giftbox',at:[x,y,z],open:[startSec,durSec]}]",
+    "camera": "{framing, angle, subject, offset, movement:{type,why,from,to,target,duration,start,profile,curve,focus}} (docs/CINEMATOGRAPHY.md)",
+    "look": "{bloom,aperture,exposure,vignette,grain}"
+   },
+   "anchors": [
+    "any"
+   ],
+   "required": [
+    "world",
+    "camera"
    ]
   }
  },

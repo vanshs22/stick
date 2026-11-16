@@ -6,6 +6,7 @@ import {BrowserWindow, ChatBubbles, CommentBox, NotebookPage, PhoneFrame, Termin
 import {BarChart, Checklist, LineChart, RouteMap, Timeline, Versus} from './data';
 import {EvidenceCard, ProofCard} from './evidence';
 import {Scene3D} from './Scene3D';
+import {Stage3D} from './Stage3D';
 import {EndCard, FileList, Ledger, ProfileCard, RepoCard} from './more';
 import type {ShotProps} from '../engine/types';
 
@@ -18,5 +19,5 @@ export const REGISTRY: Record<string, React.FC<ShotProps>> = {
   TitleCard, BigStat, Typewriter, Stamp, Highlight, KineticList,
   BrowserWindow, Terminal, PhoneFrame, ChatBubbles, NotebookPage, CommentBox,
   BarChart, LineChart, Timeline, Checklist, Versus, RouteMap,
-  ProofCard, EvidenceCard, Scene3D, FileList, Ledger, ProfileCard, RepoCard, EndCard,
+  ProofCard, EvidenceCard, Scene3D, Stage3D, FileList, Ledger, ProfileCard, RepoCard, EndCard,
 };

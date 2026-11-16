@@ -1,0 +1,63 @@
+import React, {useEffect, useLayoutEffect, useRef} from 'react';
+import {AbsoluteFill, delayRender, continueRender, useVideoConfig} from 'remotion';
+import * as THREE from 'three';
+import {talkAt, useShotTime} from '../engine/time';
+import type {ShotProps} from '../engine/types';
+// @ts-ignore (plain JS modules from the faceless-shorts engine, adapted)
+import {makeEngine, QUALITY} from '../three/engine.js';
+// @ts-ignore
+import {buildWorld} from '../three/worlds.js';
+// @ts-ignore
+import {makeActor, makeProp} from '../three/cast.js';
+// @ts-ignore
+import {cameraAt} from '../three/cinema.js';
+
+/**
+ * A directed 3D shot rendered with the film-look engine (soft shadows, depth of field, bloom, tone mapping).
+ * props:
+ *  world: 'home-studio' | ...        worldOpts: {...}
+ *  cast: [{id, kind:'human'|'critter'|'blocky'|'stick', look:{...}, at:[x,z], rotY, pose:[[t,'gesture']...], mood:[[t,'mood']...], lookAt:'id', reach:[{target,side,from,to}], speaks}]
+ *  props3d: [{id, kind:'giftbox', at:[x,y,z], open:[startSec, durSec]}]
+ *  camera: the cinematography spec (framing, angle, subject, movement{type, why, from, to, target, duration, profile, curve, focus}) — see docs/CINEMATOGRAPHY.md
+ *  look: {bloom, aperture, exposure, vignette, grain}
+ * Everything is a pure function of the Remotion frame.
+ */
+type Entry = Record<string, any>;
+export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; cast?: Entry[]; props3d?: Entry[]; camera?: Entry; look?: Entry}> = ({shot, world = 'home-studio', worldOpts, cast = [], props3d = [], camera = {framing: 'medium', subject: cast[0]?.id}, look}) => {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const {width, height} = useVideoConfig();
+  const {t, lt, d} = useShotTime(shot);
+  const dpr = typeof window !== 'undefined' ? Math.min(1, window.devicePixelRatio || 1) : 1;
+  const W = Math.round(width * dpr), H = Math.round(height * dpr);
+  const S = useRef<any>(null);
+
+  useLayoutEffect(() => {
+    const h = delayRender('stage3d', {timeoutInMilliseconds: 180000});
+    try {
+      const canvas = ref.current!;
+      if (!S.current) {
+        QUALITY.shadow = dpr < 0.75 ? 1024 : 2048;
+        const E = makeEngine(canvas, {w: W, h: H, samples: dpr < 0.75 ? 0 : 2, shadowSize: QUALITY.shadow});
+        const wd = buildWorld(world, E, worldOpts), actors = cast.map((c) => makeActor(c)), props = props3d.map((p) => makeProp(p));
+        [...actors, ...props].forEach((a: any) => wd.scene.add(a.group));
+        const cam = new THREE.PerspectiveCamera(30, width / height, 0.05, 120);
+        S.current = {E, wd, actors, props, cam};
+      }
+      const {E, wd, actors, props, cam} = S.current;
+      const talk = talkAt(t);
+      const byId: Record<string, any> = {};
+      [...actors, ...props].forEach((a: any) => (byId[a.id] = a));
+      const ctx = {target: (id: string, off?: number[]) => { const s = byId[id] ? byId[id].subject() : wd.subjects[id]; const p = new THREE.Vector3(s.pos[0], s.pos[1] + s.height * 0.7, s.pos[2]); if (off) p.add(new THREE.Vector3(...off)); return p; }};
+      actors.forEach((a: any, i: number) => a.update(lt, t, cast[i].speaks === false ? 0 : cast[i].speaks || i === 0 ? talk : 0, ctx));
+      props.forEach((p: any) => p.update(lt, t));
+      wd.update?.(t, lt);
+      const subjects: Entry = {...wd.subjects};
+      [...actors, ...props].forEach((a: any) => (subjects[a.id] = a.subject()));
+      const c = cameraAt(camera, subjects, lt, d, width / height);
+      cam.fov = c.fov; cam.aspect = width / height; cam.position.set(...(c.pos as [number, number, number])); cam.up.set(0, 1, 0); cam.lookAt(...(c.look as [number, number, number])); if (c.roll) cam.rotateZ((c.roll * Math.PI) / 180); cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
+      E.render(wd.scene, cam, {...wd.look, ...look, focus: c.focusDist, aperture: look?.aperture ?? c.aperture, t});
+    } finally { continueRender(h); }
+  }, [t]);
+  useEffect(() => () => { try { S.current?.E.renderer.dispose(); S.current?.E.renderer.forceContextLoss(); } catch (e) { /* ignore */ } }, []);
+  return <AbsoluteFill style={{background: '#000'}}><canvas ref={ref} width={W} height={H} style={{width: '100%', height: '100%'}} /></AbsoluteFill>;
+};
