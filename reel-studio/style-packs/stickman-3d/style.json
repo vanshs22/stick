@@ -2,7 +2,7 @@
   "id": "stickman-3d",
   "name": "3D stickman",
   "family": "3d",
-  "description": "Simple expressive stick figures acting in bright minimal studio sets. Comedy, 'what if' and survival explainers.",
+  "description": "A true 3D stickman: glossy ink-black articulated body with real joints, white gloves and shoes, a coloured scarf and a big expressive face, acting in a bright airy loft. 'What if', survival and life-story explainers.",
   "tokens": {
     "colors": {
       "bg": "#F1EBDF",
@@ -35,11 +35,12 @@
     "vignette": 0.12
   },
   "rules": [
-    "White round head, black limbs, big readable face; pose and mood carry the joke.",
-    "Bright flat studio; one prop per shot.",
-    "Exaggerate poses (panic, cheer, shrug); hold them for a beat.",
-    "Cut on action; whip transition into a surprise.",
-    "Captions big, low, one accent word."
+    "The body is the acting: every beat has a full-body pose from the gesture library, joints visible.",
+    "Ink-black glossy body, white gloves/shoes, ONE accent colour (the scarf) that matches the caption highlight.",
+    "Bright high-key room with soft shadows; keep exposure at or below 0.9 so the white gloves do not clip.",
+    "Face: big white eyes with moving pupils, brows, a smile arc or an open mouth; blink every 3 s.",
+    "Feet are planted on the floor with a real shadow; the figure never floats.",
+    "Captions: bold white with a dark outline, one accent word."
   ],
   "components": [
     "Scene3D",
@@ -50,7 +51,7 @@
     "Stamp",
     "CommentBox"
   ],
-  "camera_language": "Medium and close; punch-in on the punchline.",
+  "camera_language": "Wide to show the whole body acting (the silhouette is the performance); medium for talking; close-up on the face for the joke or the reaction. The camera stays low-key: moves are rare and each one is a reveal.",
   "typography": "Heavy sans, black on light.",
   "transitions": [
     "cut",
@@ -59,31 +60,66 @@
   ],
   "audio_direction": "bed, boing/pop on gags, thud on falls",
   "pitfalls": [
-    "Faces too small to read.",
-    "Idle poses for more than 2 s.",
-    "Props floating in front of the face."
+    "Ball joints stack at the hips in wide poses: keep legs at least 18 degrees apart.",
+    "Over-the-shoulder crops the head: acceptable, but keep the hand and the object in the lower two thirds.",
+    "High-key lighting hazes distant shots: lower exposure and raise vignette."
   ],
   "references": [
     "reference videos (stickman shorts)"
   ],
   "defaults": {
     "captions": "word-pop",
-    "shot_seconds": [
-      1.5,
-      3
-    ],
     "music": "bed",
-    "scene3d": {
-      "set": "studio",
-      "light": "studio",
-      "characters": [
-        {
-          "variant": "stick",
-          "pose": "idle",
-          "mood": "happy"
+    "stage3d": {
+      "world": "home-studio",
+      "worldOpts": {
+        "day": true,
+        "wall": "#EFE8DC",
+        "wood": "#C9A070",
+        "accent": "#E8512A",
+        "sofa": [
+          -0.1,
+          -2.7
+        ]
+      },
+      "cast": {
+        "stick": {
+          "scarf": "#E8512A"
         }
-      ],
-      "bg": "#F1EBDF"
+      },
+      "look": {
+        "exposure": 0.88,
+        "bloom": 0.12
+      }
+    },
+    "backdrop": {
+      "world": "home-studio",
+      "worldOpts": {
+        "day": true,
+        "wall": "#EFE8DC",
+        "wood": "#C9A070",
+        "accent": "#E8512A",
+        "sofa": [
+          -0.1,
+          -2.7
+        ]
+      },
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "window",
+        "offset": [
+          0,
+          -0.05
+        ],
+        "movement": {
+          "type": "static"
+        }
+      },
+      "look": {
+        "aperture": 0.02,
+        "exposure": 0.88
+      }
     }
   }
 }

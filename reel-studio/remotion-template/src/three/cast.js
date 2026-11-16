@@ -10,6 +10,7 @@ import { mat } from './world.js';
 import { Critter } from './critter.js';
 import { Blocky } from './blocky.js';
 import { Stick3D } from './stick3d.js';
+import { VoxelPerson, VoxelMap, vmesh, VMAT } from './voxel.js';
 
 const D = THREE.MathUtils.degToRad, ease = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
 const v = (a) => new THREE.Vector3(...a);
@@ -79,9 +80,28 @@ function sidetable(e) {
   else { cyl(0.3, 0.3, 0.04, mat({ color: c, roughness: 0.45 }), 0, 0.53, 0, g); cyl(0.035, 0.05, 0.5, mat({ color: '#2a2f3a', metalness: 0.6, roughness: 0.35 }), 0, 0.27, 0, g); cyl(0.2, 0.2, 0.03, mat({ color: '#2a2f3a', metalness: 0.6, roughness: 0.35 }), 0, 0.015, 0, g); }
   return { id: e.id, group: g, height: 0.55, subject: () => ({ pos: [at[0], at[1], at[2]], height: 0.55, rotY: 0 }), update() {} };
 }
-const SIMPLE = { giftbox, sidetable };
+
+/** voxel gift box on the 0.1 m grid: hinged lid, ribbon cross, a pixel-art golden key that rises */
+function voxGiftbox(e) {
+  const g = new THREE.Group(), c = e.color || '#D9473A', rib = e.ribbon || '#F4C84A', at = e.at || [0, 0, 0]; g.position.set(at[0], at[1], at[2]); g.rotation.y = e.rotY || 0; g.scale.setScalar(e.scale || 1);
+  const base = new VoxelMap().box(0, 0, 0, 4, 3, 4, c).box(1, 0, 0, 2, 3, 4, rib).box(0, 0, 1, 4, 3, 2, rib); vmesh(base, [2, 0, 2], g, [0, 0, 0], 0.04);
+  const hinge = new THREE.Group(); hinge.position.set(0, 0.3, -0.2); g.add(hinge); const lid = new THREE.Group(); lid.position.set(0, 0, 0.2); hinge.add(lid);
+  const lm = new VoxelMap().box(0, 0, 0, 5, 1, 5, c).box(2, 0, 0, 1, 1, 5, rib).box(0, 0, 2, 5, 1, 1, rib).box(1, 1, 2, 1, 1, 1, rib).box(3, 1, 2, 1, 1, 1, rib).box(2, 1, 2, 1, 1, 1, rib); vmesh(lm, [2.5, 0, 2.5], lid, [0, 0, 0], 0.04);
+  const glow = new THREE.PointLight('#FFD27A', 0, 3, 1.6); glow.position.set(0, 0.5, 0); g.add(glow);
+  const key = new THREE.Group(); key.position.set(0, 0.25, 0); g.add(key);
+  const km = new VoxelMap().box(0, 4, 0, 3, 1, 1, '#FFD45A').box(0, 6, 0, 3, 1, 1, '#FFD45A').box(0, 5, 0, 1, 1, 1, '#FFD45A').box(2, 5, 0, 1, 1, 1, '#FFD45A').box(1, -1, 0, 1, 5, 1, '#FFC93C').box(2, 0, 0, 1, 1, 1, '#FFC93C').box(2, 2, 0, 1, 1, 1, '#FFC93C');
+  const kmesh = new THREE.Mesh(km.geometry([1.5, 3, 0.5], 0.03), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.3, metalness: 0.5, emissive: '#FFB800', emissiveIntensity: 0.0 })); kmesh.castShadow = true; key.add(kmesh);
+  const open = e.open || [99, 1];
+  return { id: e.id, group: g, height: 0.4 * (e.scale || 1), subject: () => ({ pos: [g.position.x, g.position.y, g.position.z], height: 0.4 * (e.scale || 1), rotY: g.rotation.y }),
+    update(lt, t) { const k = ease((lt - open[0]) / open[1]), shake = (lt > open[0] - 0.5 && lt < open[0]) ? Math.sin(lt * 90) * 0.012 : 0; hinge.rotation.x = -k * 1.9 + shake; const rise = ease((lt - open[0] - 0.35) / 0.9); key.position.y = 0.25 + rise * 0.3; key.rotation.y = t * (1.2 + rise * 1.6); kmesh.material.emissiveIntensity = 0.04 + rise * 0.22; glow.intensity = rise * 0.8 + k * 0.4; } };
+}
+function voxTable(e) {
+  const g = new THREE.Group(), at = e.at || [0, 0, 0]; g.position.set(at[0], at[1], at[2]); const m = new VoxelMap().box(-4, 4, -4, 8, 1, 8, e.color || '#B98255'); for (const [x, z] of [[-3, -3], [2, -3], [-3, 2], [2, 2]]) m.box(x, 0, z, 1, 4, 1, '#7B5130'); vmesh(m, [0, 0, 0], g, [0, 0, 0], 0.04);
+  return { id: e.id, group: g, height: 0.5, subject: () => ({ pos: [at[0], at[1], at[2]], height: 0.5, rotY: 0 }), update() {} };
+}
+const SIMPLE = { giftbox: (e) => (e.voxel ? voxGiftbox(e) : giftbox(e)), sidetable: (e) => (e.voxel ? voxTable(e) : sidetable(e)) };
 export function makeProp(e) { const b = SIMPLE[e.kind]; if (!b) throw new Error(`unknown prop "${e.kind}". Known: ${Object.keys(SIMPLE).join(', ')}`); return b(e); }
 const mk = (C) => (e) => rigActor(e, new C({ ...(e.look || {}), scale: e.scale || 1 }));
-const ACTORS = { human: mk(Human), critter: mk(Critter), blocky: mk(Blocky), stick: mk(Stick3D) };
+const ACTORS = { human: mk(Human), critter: mk(Critter), blocky: mk(Blocky), stick: mk(Stick3D), voxel: mk(VoxelPerson) };
 export function makeActor(e) { const b = ACTORS[e.kind || 'human']; if (!b) throw new Error(`unknown character kind "${e.kind}". Known: ${Object.keys(ACTORS).join(', ')}`); return b(e); }
 export { v };

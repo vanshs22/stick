@@ -1,0 +1,510 @@
+{
+ "style_pack": "voxel-explainer",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "establish the room, the table and the box",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "voxel-valley",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -0.35,
+       0.2
+      ],
+      "rotY": 0.45,
+      "pose": "relax",
+      "mood": "calm",
+      "speaks": false,
+      "lookAt": "box"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.5,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       0.5,
+       0.5,
+       0.35
+      ],
+      "rotY": -0.4,
+      "voxel": true
+     }
+    ],
+    "camera": {
+     "framing": "establishing",
+     "angle": "eye-level",
+     "subject": "hero",
+     "offset": [
+      0.0,
+      -0.05
+     ],
+     "movement": {
+      "type": "dolly-push",
+      "why": "Starts wide so the viewer reads the room and the box on the table; the slow push narrows attention to the hero and the box as the sentence names them.",
+      "from": {
+       "framing": "establishing"
+      },
+      "to": {
+       "framing": "wide"
+      },
+      "target": "hero",
+      "duration": 3.2,
+      "start": 0.0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "box",
+       "aperture": 0.0015
+      },
+      "constraints": [
+       "hero stays inside the safe zone",
+       "box visible throughout"
+      ]
+     }
+    },
+    "look": {
+     "bloom": 0.16,
+     "exposure": 0.96
+    }
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.2,
+     "gain": 0.3
+    }
+   ]
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "hero tells it to camera",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "props": {
+    "world": "voxel-valley",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -0.35,
+       0.2
+      ],
+      "rotY": 0.3,
+      "pose": [
+       [
+        0,
+        "explain"
+       ],
+       [
+        1.8,
+        "shrug"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "calm"
+       ],
+       [
+        1.6,
+        "worried"
+       ]
+      ],
+      "speaks": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.5,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       0.5,
+       0.5,
+       0.35
+      ],
+      "rotY": -0.4,
+      "voxel": true
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "three-quarter",
+     "az": -18,
+     "subject": "hero",
+     "offset": [
+      0.1,
+      0.0
+     ],
+     "focus": {
+      "target": "hero",
+      "aperture": 0.004
+     },
+     "movement": {
+      "type": "static"
+     }
+    },
+    "look": {
+     "bloom": 0.16,
+     "exposure": 0.96
+    }
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "hero opens the box",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "props": {
+    "world": "voxel-valley",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -0.35,
+       0.2
+      ],
+      "rotY": 0.85,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.2,
+        "reach"
+       ]
+      ],
+      "mood": "curious",
+      "speaks": true,
+      "reach": [
+       {
+        "target": "box",
+        "side": "R",
+        "from": 0.1,
+        "to": 2.2,
+        "offset": [
+         0,
+         0.12,
+         0
+        ]
+       }
+      ]
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.5,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       0.5,
+       0.5,
+       0.35
+      ],
+      "rotY": -0.4,
+      "voxel": true,
+      "open": [
+       0.8,
+       0.7
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium-wide",
+     "angle": "three-quarter",
+     "az": -58,
+     "subject": "hero",
+     "offset": [
+      -0.1,
+      0.0
+     ],
+     "focus": {
+      "target": "box",
+      "aperture": 0.003
+     },
+     "movement": {
+      "type": "static"
+     }
+    },
+    "look": {
+     "bloom": 0.16,
+     "exposure": 0.96
+    }
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 1.1,
+     "gain": 0.35
+    }
+   ]
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "the key rises out of the box",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "voxel-valley",
+    "worldOpts": {},
+    "cast": [],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.5,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       0.5,
+       0.5,
+       0.35
+      ],
+      "rotY": -0.4,
+      "voxel": true,
+      "open": [
+       -1.0,
+       0.8
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "insert",
+     "angle": "high-angle",
+     "el": 14,
+     "subject": "box",
+     "offset": [
+      0,
+      0.05
+     ],
+     "movement": {
+      "type": "tilt",
+      "why": "Opens on the empty rim of the box and tilts up to follow the key as it rises, so the reveal lands exactly on the word 'golden'.",
+      "from": {
+       "offset": [
+        0,
+        -0.3
+       ]
+      },
+      "to": {
+       "offset": [
+        0,
+        0.12
+       ]
+      },
+      "duration": 1.6,
+      "start": 0.1,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "box",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "key fully in frame at the end"
+      ]
+     }
+    },
+    "look": {
+     "bloom": 0.2,
+     "bloomThreshold": 0.97,
+     "exposure": 0.95
+    }
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "at": "start",
+     "offset": 0.3,
+     "gain": 0.5
+    }
+   ]
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "hero reacts",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "props": {
+    "world": "voxel-valley",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -0.35,
+       0.2
+      ],
+      "rotY": 0.7,
+      "pose": [
+       [
+        0,
+        "hold-up"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "surprised"
+       ],
+       [
+        0.9,
+        "happy"
+       ]
+      ],
+      "speaks": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.5,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       0.5,
+       0.5,
+       0.35
+      ],
+      "rotY": -0.4,
+      "voxel": true,
+      "open": [
+       -3,
+       0.8
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "three-quarter",
+     "az": -22,
+     "subject": "hero",
+     "offset": [
+      0.0,
+      -0.02
+     ],
+     "focus": {
+      "target": "hero",
+      "aperture": 0.0035
+     },
+     "movement": {
+      "type": "dolly-push",
+      "why": "A slow push on the face while surprise turns into delight keeps the viewer with the reaction on 'No way'.",
+      "to": {
+       "distScale": 0.8
+      },
+      "target": "hero",
+      "duration": 1.6,
+      "start": 0.0,
+      "profile": "ease-out",
+      "curve": "sine",
+      "constraints": [
+       "both eyes stay in frame"
+      ]
+     }
+    },
+    "look": {
+     "bloom": 0.16,
+     "exposure": 0.96
+    }
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

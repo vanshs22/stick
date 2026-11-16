@@ -4,7 +4,8 @@ import {REGISTRY} from '../components/registry';
 import {Overlays} from './Overlays';
 import type {Shot} from './types';
 import style from '../data/style.json';
-const HAS3D = !!((style as any).defaults || {}).scene3d;
+/** a pack may declare defaults.backdrop = {world, worldOpts, camera, look}: 2D cards then sit on that world, locked off and softly out of focus. No pack backdrop = the flat pack colour. */
+const BACKDROP = ((style as any).defaults || {}).backdrop as undefined | {world: string; worldOpts?: any; camera: any; look?: any};
 
 /** Looks the shot's component up in the registry. An unknown name renders a loud red card, so critics catch it in the contact sheet. */
 export const ShotRouter: React.FC<{shot: Shot}> = ({shot}) => {
@@ -16,7 +17,6 @@ export const ShotRouter: React.FC<{shot: Shot}> = ({shot}) => {
       </AbsoluteFill>
     );
   }
-  // 3D packs: cards and screens float over the pack's own moving set (shapes drift, camera sways) instead of a flat colour
-  const Set3D = HAS3D && shot.component !== 'Scene3D' ? REGISTRY.Scene3D : null;
-  return <>{Set3D ? <Set3D shot={shot} characters={[]} creatures={[]} camera={{shot: 'bg', move: 'drift', auto: false}} /> : null}<Comp shot={shot} {...shot.props} /><Overlays shot={shot} /></>;
+  const Backdrop = BACKDROP && !['Scene3D', 'Stage3D'].includes(shot.component) ? REGISTRY.Stage3D : null;
+  return <>{Backdrop ? <Backdrop shot={shot} world={BACKDROP!.world} worldOpts={BACKDROP!.worldOpts} cast={[]} camera={BACKDROP!.camera} look={{aperture: 0.02, maxblur: 0.02, ...(BACKDROP!.look || {})}} /> : null}<Comp shot={shot} {...shot.props} /><Overlays shot={shot} /></>;
 };

@@ -2,7 +2,7 @@
   "id": "original-creatures",
   "name": "Original creatures",
   "family": "3d",
-  "description": "Small round-and-boxy original creatures with big vertical eyes and comic reactions on a clean studio set.",
+  "description": "Original small expressive characters, the 'Pips': a smooth sculpted bean body, a dark glass visor whose glowing face acts (squints, widens, droops, lip-syncs), an antenna bulb that reacts to mood, mitten hands, boots, optional headset. A cosy maker workshop with a pegboard, bench, shelves and warm hanging bulbs. Explainers about tools, AI helpers and how things work.",
   "tokens": {
     "colors": {
       "bg": "#0F4C5C",
@@ -34,15 +34,16 @@
     }
   },
   "effects": {
-    "bokeh": true,
-    "vignette": 0.3
+    "vignette": 0.22
   },
   "rules": [
-    "Original designs (shape, colour, eyes) so they are never mistaken for a protected character.",
-    "Big simple eyes; the blink and the hop carry the emotion.",
-    "Two to four creatures at most; each has its own colour and role (sceptic, fan, expert).",
-    "Reaction shots: cut to the creature on the punchline word.",
-    "Studio background stays plain."
+    "The visor face is the acting: eyes squint, widen, droop and look at things; the mouth follows the voice; the antenna bulb brightens on emphasis.",
+    "Each Pip has ONE body colour, the same cream belly and mitten hands, dark boots; a team is told apart by colour, antenna, headset and badge.",
+    "Smooth clay surfaces with a soft sheen: no hard edges on the characters, rounded props in the world.",
+    "Warm practical light (hanging bulbs, bench lamp) against a cool teal wall; the character always has a cool rim light.",
+    "Orange and cream characters stand on teal: keep that complementary pairing.",
+    "Small body, big head: arms are short, so objects sit at 0.55 m and the actor reaches with the near hand.",
+    "Captions: bold white, thick dark outline, one amber word."
   ],
   "components": [
     "Scene3D",
@@ -52,7 +53,7 @@
     "Highlight",
     "CommentBox"
   ],
-  "camera_language": "Medium two-shots; close on a reaction.",
+  "camera_language": "Small characters want a low, close camera at their eye level so they feel big and alive. Wide only to place them in the workshop; medium for talking (the visor face is the performance); medium-wide three-quarter to show what the hands are doing. Moves only on a reveal or a realisation, each with a reason.",
   "typography": "Friendly heavy sans.",
   "transitions": [
     "cut",
@@ -61,48 +62,54 @@
   ],
   "audio_direction": "upbeat bed, boing on hops, pop on text",
   "pitfalls": [
-    "Copying a famous mascot.",
-    "More than 4 creatures.",
-    "No reaction to the key word."
+    "Over-the-shoulder shows only the round back: use medium-wide three-quarter.",
+    "At close-up the face crops: use medium-close-up for reactions.",
+    "The bright bulb on the antenna can bloom into the frame top: keep the camera lower than 1.1 m or bloom threshold above 0.85."
   ],
   "references": [
     "reference videos ref1, ref4, ref7 (creature idea only)"
   ],
   "defaults": {
     "captions": "word-pop",
-    "shot_seconds": [
-      1.5,
-      3
-    ],
     "music": "upbeat",
-    "scene3d": {
-      "set": "studio",
-      "light": "studio",
-      "characters": [
-        {
-          "variant": "stick",
-          "pose": "think",
-          "mood": "worried",
-          "x": -0.7
+    "stage3d": {
+      "world": "workshop",
+      "worldOpts": {},
+      "cast": {
+        "critter": {
+          "body": "#F0683C",
+          "belly": "#FFE9C9",
+          "boots": "#2A2A33",
+          "eye": "#7CF3FF",
+          "antenna": "#7CF3FF",
+          "headset": true
         }
-      ],
-      "creatures": [
-        {
-          "kind": "box",
-          "x": 0.4,
-          "z": 0.5,
-          "scale": 1.6,
-          "color": "#2FA3A0"
-        },
-        {
-          "kind": "cloud",
-          "x": 1.0,
-          "z": 0.3,
-          "scale": 1.4,
-          "color": "#E8643C"
+      },
+      "look": {
+        "bloom": 0.4,
+        "bloomThreshold": 0.82
+      }
+    },
+    "backdrop": {
+      "world": "workshop",
+      "worldOpts": {},
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "pegboard",
+        "offset": [
+          0,
+          -0.05
+        ],
+        "movement": {
+          "type": "static"
         }
-      ],
-      "bg": "#0F4C5C"
+      },
+      "look": {
+        "aperture": 0.03,
+        "maxblur": 0.025,
+        "exposure": 0.72
+      }
     }
   }
 }

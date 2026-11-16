@@ -483,7 +483,6 @@
     "any"
    ],
    "required": [
-    "world",
     "camera"
    ]
   }

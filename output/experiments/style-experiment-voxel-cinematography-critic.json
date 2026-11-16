@@ -1,0 +1,12 @@
+{
+ "critic": "cinematography",
+ "target": "exp-voxel",
+ "verdict": "pass",
+ "score": 100,
+ "findings": [],
+ "checked_at": "2026-11-16T05:09:58.130Z",
+ "stats": {
+  "stage3d_shots": 5,
+  "movements": 3
+ }
+}

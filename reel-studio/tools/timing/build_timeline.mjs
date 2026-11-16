@@ -23,7 +23,8 @@ const total = L.duration, shots = sb.shots.map((s, k) => {
   const anchors = {}; (s.anchors || []).forEach((an) => { const t = wordT(an.line, an.word); if (t == null) errs.push(`shot ${s.id}: anchor "${an.name}" word "${an.word}" not found in line ${an.line}`); else anchors[an.name] = +t.toFixed(3); });
   return { id: s.id, start, end: 0, component: s.component, props: s.props || {}, lines: s.line_ids, anchors, camera: s.camera || {}, transition_out: s.transition_out || {}, intent: s.visual_intent, ...(s.bg ? { bg: s.bg } : {}), ...(s.speaker ? { speaker: s.speaker } : {}), ...(s.presenter ? { presenter: s.presenter } : {}), ...(s.overlays ? { overlays: s.overlays.map((o) => { if (!o.anchor) return o; const an = (s.anchors || []).find((x) => x.name === o.anchor); return o; }) } : {}) };
 });
-shots.forEach((s, k) => { s.end = +(k + 1 < shots.length ? shots[k + 1].start : total).toFixed(3); if (s.end - s.start < 0.6) errs.push(`shot ${s.id} lasts only ${(s.end - s.start).toFixed(2)} s: merge it with a neighbour`); });
+shots.forEach((s, k) => { s.end = +(k + 1 < shots.length ? shots[k + 1].start : total + 0.2).toFixed(3);   // the last shot holds to the very end: no empty tail frame
+   if (s.end - s.start < 0.6) errs.push(`shot ${s.id} lasts only ${(s.end - s.start).toFixed(2)} s: merge it with a neighbour`); });
 // captions: chunks of up to N words, broken at punctuation; the highlighted word = script emphasis, else a number, else the longest word
 const N = { 'word-pop': 3, phrase: 5, 'one-word': 1, typewriter: 4, boxed: 4, karaoke: 4, headline: 6, dialogue: 6 }[preset] || 3, chunks = [];
 script.lines.forEach((ln, li) => {

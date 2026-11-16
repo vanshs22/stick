@@ -1,75 +1,71 @@
 {
- "id": "paper-atlas",
- "name": "Paper atlas",
- "family": "2d",
- "description": "History and places in cut paper: parchment maps, red routes, dated labels and polaroid evidence.",
- "tokens": {
-  "colors": {
-   "bg": "#EFE3C6",
-   "ink": "#3b2a12",
-   "ink2": "#3b2a12",
-   "muted": "#8a7350",
-   "card": "#F8F0DC",
-   "accent": "#B3261E",
-   "accentSoft": "#B3261E22",
-   "good": "#4E9A5B",
-   "bad": "#C94A3A"
+  "id": "paper-atlas",
+  "name": "Paper atlas",
+  "family": "2d",
+  "description": "History and places in cut paper: parchment maps, red routes, dated labels and polaroid evidence.",
+  "tokens": {
+    "colors": {
+      "bg": "#EFE3C6",
+      "ink": "#3b2a12",
+      "ink2": "#3b2a12",
+      "muted": "#8a7350",
+      "card": "#F8F0DC",
+      "accent": "#B3261E",
+      "accentSoft": "#B3261E22",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120
+    }
   },
-  "fonts": {
-   "sans": "Inter",
-   "serif": "InstrumentSerif",
-   "mono": "JetBrainsMono"
+  "effects": {
+    "paper": true,
+    "grain": 0.08,
+    "vignette": 0.2
   },
-  "safe_zone": {
-   "top": 180,
-   "bottom": 1380,
-   "caption_y": 1440,
-   "right_margin": 120
-  }
- },
- "effects": {
-  "paper": true,
-  "grain": 0.08,
-  "vignette": 0.2
- },
- "rules": [
-  "Parchment background, crimson routes and stamps, ink-brown text.",
-  "A map or a timeline in most shots; routes draw themselves as the place is named.",
-  "Dates are labels (mono), places are labels (serif italic).",
-  "Polaroids and case cards for real photos and documents, with sources named.",
-  "Slow, steady: 2.5 to 4.5 s shots."
- ],
- "components": [
-  "RouteMap",
-  "Timeline",
-  "EvidenceCard",
-  "ProofCard",
-  "TitleCard",
-  "Stamp",
-  "BigStat"
- ],
- "camera_language": "No camera; slow zoom on maps.",
- "typography": "Serif italic for places, mono for dates.",
- "transitions": [
-  "fade",
-  "cut",
-  "wipe"
- ],
- "audio_direction": "calm bed, paper slide whooshes, stamp on dates",
- "pitfalls": [
-  "Modern UI mixed into a paper look.",
-  "Unsourced dates.",
-  "Too many labels crossing the route."
- ],
- "references": [
-  "faceless-shorts paper-atlas"
- ],
- "defaults": {
-  "captions": "phrase",
-  "shot_seconds": [
-   2.5,
-   4.5
+  "rules": [
+    "Parchment background, crimson routes and stamps, ink-brown text.",
+    "A map or a timeline in most shots; routes draw themselves as the place is named.",
+    "Dates are labels (mono), places are labels (serif italic).",
+    "Polaroids and case cards for real photos and documents, with sources named.",
+    "Slow, steady: 2.5 to 4.5 s shots."
   ],
-  "music": "bed"
- }
+  "components": [
+    "RouteMap",
+    "Timeline",
+    "EvidenceCard",
+    "ProofCard",
+    "TitleCard",
+    "Stamp",
+    "BigStat"
+  ],
+  "camera_language": "No camera; slow zoom on maps.",
+  "typography": "Serif italic for places, mono for dates.",
+  "transitions": [
+    "fade",
+    "cut",
+    "wipe"
+  ],
+  "audio_direction": "calm bed, paper slide whooshes, stamp on dates",
+  "pitfalls": [
+    "Modern UI mixed into a paper look.",
+    "Unsourced dates.",
+    "Too many labels crossing the route."
+  ],
+  "references": [
+    "faceless-shorts paper-atlas"
+  ],
+  "defaults": {
+    "captions": "phrase",
+    "music": "bed"
+  }
 }

@@ -20,7 +20,7 @@ For every script line ask: what does this sentence COMMUNICATE, and what is the 
 
 ## Rules
 - Every entrance, reveal, highlight, count-up and sound lands on an ANCHOR word (`anchor` in props or sfx). Never on a made-up number of seconds.
-- Shot length 1.5-4 s for fast styles (the style pack says). A new picture at least every 3 s. The hook shot must be strong in its first second.
+- Shot length is a decision, not a quota: it follows the narration, the amount of information the viewer must take in, the action and the emotion. A shot may hold still for several seconds when the picture or the performance carries it. The hook shot must be strong in its first second. Never cut or move the camera just to look busy; a camera move needs a `why` (see docs/CINEMATOGRAPHY.md).
 - Continuity: same character, same colours, same screen geography across shots; a prop must not appear before its cause.
 - Safe zone: content y 180-1380 on a 1080x1920 canvas, captions at y 1440, nothing important in the right 120 px or the bottom 300 px.
 - Sound: one sound per visual event from this list only: whoosh, swish, pop, tick, type, stamp, ding, count, thud, slam, boing, zip, sparkle, tock, plop, gulp, bubbles, sizzle, inhale, heartbeat, alarm, slide. Never more than 4 in a second.

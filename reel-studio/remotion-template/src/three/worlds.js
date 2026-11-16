@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { lightRig } from './engine.js';
 import { T, mat, canvasTex, sky, clouds, sunlight, tree } from './world.js';
+import { voxelValley } from './voxelworld.js';
 
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 export const shadow = (m) => { m.castShadow = m.receiveShadow = true; return m; };
@@ -145,5 +146,33 @@ export function blockYard(E, o = {}) {
   };
 }
 
-export const WORLDS = { 'home-studio': homeStudio, 'block-yard': blockYard };
+
+// ═══════════════════════════ WORKSHOP (small expressive characters) ═══════════════════════════
+function pegTex(accent) {
+  return canvasTex('peg' + accent, 1024, 512, (g, w, h) => {
+    g.fillStyle = '#E9D9B8'; g.fillRect(0, 0, w, h); g.fillStyle = 'rgba(80,60,40,0.22)'; for (let y = 14; y < h; y += 28) for (let x = 14; x < w; x += 28) { g.beginPath(); g.arc(x, y, 3.4, 0, 7); g.fill(); }
+    const tool = (x, y, kind, col) => { g.save(); g.translate(x, y); g.strokeStyle = 'rgba(40,30,20,0.55)'; g.lineWidth = 3; g.fillStyle = col; if (kind === 'hammer') { g.beginPath(); g.roundRect(-8, -10, 16, 120, 6); g.fill(); g.stroke(); g.beginPath(); g.roundRect(-34, -34, 68, 30, 6); g.fillStyle = '#7C8794'; g.fill(); g.stroke(); } else if (kind === 'wrench') { g.beginPath(); g.roundRect(-9, 0, 18, 130, 8); g.fill(); g.stroke(); g.beginPath(); g.arc(0, -4, 26, 0, 7); g.fill(); g.stroke(); } else if (kind === 'saw') { g.beginPath(); g.moveTo(0, 0); g.lineTo(130, 24); g.lineTo(130, 66); g.lineTo(0, 66); g.closePath(); g.fillStyle = '#BFC8D2'; g.fill(); g.stroke(); g.fillStyle = col; g.beginPath(); g.roundRect(-34, 8, 38, 50, 10); g.fill(); g.stroke(); } else { g.beginPath(); g.roundRect(0, 0, 90, 56, 8); g.fill(); g.stroke(); } g.restore(); };
+    tool(90, 90, 'hammer', accent); tool(220, 80, 'wrench', '#C9503A'); tool(330, 100, 'saw', '#2F6DB5'); tool(560, 70, 'wrench', '#E8B23A'); tool(690, 90, 'hammer', '#3F8F6B'); tool(820, 110, 'box', '#C9503A'); tool(900, 270, 'box', '#2F6DB5'); tool(120, 330, 'box', '#E8B23A');
+  });
+}
+export function workshop(E, o = {}) {
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#10202a'); scene.environment = E.envMap; scene.environmentIntensity = 0.32;
+  const wall = o.wall || '#2C6E7A', accent = o.accent || '#F0683C';
+  const floor = shadow(new THREE.Mesh(new THREE.PlaneGeometry(14, 22), mat({ map: T.planks('#6B4A32', [4, 6]), roughness: 0.6 }))); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, 3); scene.add(floor);
+  const back = shadow(new THREE.Mesh(new THREE.PlaneGeometry(30, 12), mat({ color: wall, roughness: 0.9 }))); back.position.set(0, 5.5, -3.4); scene.add(back);
+  for (const sx of [-1, 1]) { const w = shadow(new THREE.Mesh(new THREE.PlaneGeometry(16, 12), mat({ color: shade(wall, 0.8), roughness: 0.9 }))); w.rotation.y = -sx * Math.PI / 2; w.position.set(sx * 5, 5.5, 4); scene.add(w); }
+  const peg = new THREE.Mesh(new THREE.PlaneGeometry(5.6, 2.8), new THREE.MeshStandardMaterial({ map: pegTex(accent), roughness: 0.8 })); peg.position.set(0.4, 2.35, -3.36); scene.add(peg); rbox(5.7, 0.08, 0.06, mat({ color: '#6B4A32' }), 0.4, 3.78, -3.34, scene); rbox(5.7, 0.08, 0.06, mat({ color: '#6B4A32' }), 0.4, 0.92, -3.34, scene);
+  const bench = new THREE.Group(); bench.position.set(0.4, 0, -2.8); scene.add(bench);
+  rbox(5.2, 0.1, 0.85, mat({ color: '#B98255', roughness: 0.5 }), 0, 0.88, 0, bench, 0.03); rbox(5.0, 0.08, 0.7, mat({ color: '#5A3E2A' }), 0, 0.28, 0, bench, 0.02); [-2.5, 2.5].forEach((x) => [-0.35, 0.35].forEach((z) => rbox(0.1, 0.84, 0.1, mat({ color: '#5A3E2A', roughness: 0.7 }), x, 0.42, z, bench, 0.02)));
+  const lampM = emissive('#FFE3B0', 3); cyl(0.06, 0.08, 0.03, mat({ color: '#20242d', metalness: 0.7 }), -1.6, 0.95, -0.1, bench); cyl(0.012, 0.012, 0.4, mat({ color: '#20242d', metalness: 0.7 }), -1.6, 1.16, -0.1, bench); ball(0.05, lampM, -1.52, 1.4, -0.1, bench);
+  [['#C9503A', -0.4], ['#2F6DB5', 0.05], ['#E8B23A', 0.5]].forEach(([c, x], i) => rbox(0.22 + i * 0.03, 0.14, 0.2, mat({ color: c, roughness: 0.5 }), x, 1.0, 0.0, bench, 0.03)); cyl(0.05, 0.045, 0.1, mat({ color: '#E9D9B8', roughness: 0.3 }), 1.4, 0.98, 0.1, bench); rbox(0.4, 0.3, 0.3, mat({ color: '#3a4350', metalness: 0.4, roughness: 0.4 }), 2.0, 1.08, 0, bench, 0.03);
+  const crates = new THREE.Group(); crates.position.set(3.7, 0, -2.5); scene.add(crates); [[0, 0, 0], [0.62, 0, 0.05], [0.28, 0.58, 0.02]].forEach(([x, y, z], i) => rbox(0.6, 0.55, 0.6, mat({ color: ['#B98255', '#A87445', '#C98F5B'][i], roughness: 0.7 }), x, 0.28 + y, z, crates, 0.03));
+  const sh = new THREE.Group(); sh.position.set(-3.8, 0, -3.1); scene.add(sh); rbox(0.05, 2.2, 0.4, mat({ color: '#6B4A32' }), -0.7, 1.1, 0, sh, 0.01); rbox(0.05, 2.2, 0.4, mat({ color: '#6B4A32' }), 0.7, 1.1, 0, sh, 0.01); for (let r = 0; r < 4; r++) { rbox(1.45, 0.04, 0.4, mat({ color: '#8A5E3C' }), 0, 0.2 + r * 0.6, 0, sh, 0.01); for (let k = 0; k < 4; k++) { const c = ['#C9503A', '#2F6DB5', '#E8B23A', '#3F8F6B'][(r + k) % 4]; if ((r + k) % 2) cyl(0.09, 0.09, 0.22, mat({ color: c, roughness: 0.2, metalness: 0.1 }), -0.5 + k * 0.33, 0.33 + r * 0.6, 0, sh); else rbox(0.24, 0.22, 0.24, mat({ color: c, roughness: 0.6 }), -0.5 + k * 0.33, 0.33 + r * 0.6, 0, sh, 0.02); } }
+  const bulbs = []; [[-1.8, 2.7], [0.4, 3.0], [2.4, 2.7]].forEach(([x, y], i) => { cyl(0.006, 0.006, 4 - y + 3, mat({ color: '#20242d' }), x, y + (7 - y) / 2 - 0.2, -1.4, scene, 6); cyl(0.07, 0.05, 0.1, mat({ color: '#20242d', metalness: 0.6 }), x, y + 0.08, -1.4, scene); ball(0.09, emissive('#FFD9A0', 3.2), x, y - 0.03, -1.4, scene); const pl = new THREE.PointLight('#FFC27A', 2.2, 7, 1.6); pl.position.set(x, y - 0.1, -1.2); scene.add(pl); bulbs.push(pl); });
+  const rug = shadow(new THREE.Mesh(new THREE.CylinderGeometry(1.9, 1.9, 0.02, 48), mat({ color: shade(wall, 1.15), roughness: 1 }))); rug.position.set(0, 0.011, 0.3); scene.add(rug); const ring = new THREE.Mesh(new THREE.RingGeometry(1.45, 1.56, 64), new THREE.MeshBasicMaterial({ color: accent, toneMapped: false, side: THREE.DoubleSide })); ring.rotation.x = -Math.PI / 2; ring.position.set(0, 0.025, 0.3); scene.add(ring);
+  const rig = lightRig(scene, { key: '#FFE2C2', keyI: 2.0, keyPos: [-3, 4.4, 4.5], rimCol: '#7FD0E0', rimI: 2.2, sky: '#A8C8D0', ground: '#5C4636', hemiI: 0.5, shadowBox: 4.5, target: [0, 0.8, 0] }); rig.key.shadow.camera.far = 24; rig.key.shadow.camera.updateProjectionMatrix();
+  return { scene, look: { bloom: 0.4, bloomThreshold: 0.82, vignette: 0.3, grain: 0.02, warm: 0.02, exposure: 1.05 }, subjects: { bench: { pos: [0.4, 0.9, -2.8], height: 0.8, rotY: 0 }, pegboard: { pos: [0.4, 2.35, -3.3], height: 2.8, rotY: 0 } }, update(t) { bulbs.forEach((b, i) => { b.intensity = 2.2 + Math.sin(t * 5 + i * 2) * 0.05; }); } };
+}
+
+export const WORLDS = { workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
 export function buildWorld(name, E, opts) { const b = WORLDS[name]; if (!b) throw new Error(`unknown world "${name}". Known: ${Object.keys(WORLDS).join(', ')}`); return b(E, opts || {}); }

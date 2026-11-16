@@ -11,6 +11,8 @@ import {buildWorld} from '../three/worlds.js';
 import {makeActor, makeProp} from '../three/cast.js';
 // @ts-ignore
 import {cameraAt} from '../three/cinema.js';
+import style from '../data/style.json';
+const PD = (((style as any).defaults || {}).stage3d || {}) as Record<string, any>;
 
 /**
  * A directed 3D shot rendered with the film-look engine (soft shadows, depth of field, bloom, tone mapping).
@@ -23,7 +25,9 @@ import {cameraAt} from '../three/cinema.js';
  * Everything is a pure function of the Remotion frame.
  */
 type Entry = Record<string, any>;
-export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; cast?: Entry[]; props3d?: Entry[]; camera?: Entry; look?: Entry}> = ({shot, world = 'home-studio', worldOpts, cast = [], props3d = [], camera = {framing: 'medium', subject: cast[0]?.id}, look}) => {
+export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; cast?: Entry[]; props3d?: Entry[]; camera?: Entry; look?: Entry}> = ({shot, world = PD.world || 'home-studio', worldOpts = PD.worldOpts, cast: castIn = [], props3d = [], camera = {framing: 'medium', subject: castIn[0]?.id}, look: lookIn}) => {
+  const cast: Entry[] = castIn.map((c) => ({...c, look: {...(PD.cast?.[c.kind || 'human'] || {}), ...(c.look || {})}}));   // the pack's costume is the default: one character, one look, every shot
+  const look = {...(PD.look || {}), ...(lookIn || {})};
   const ref = useRef<HTMLCanvasElement>(null);
   const {width, height} = useVideoConfig();
   const {t, lt, d} = useShotTime(shot);

@@ -165,7 +165,7 @@
     "camera": {
      "framing": "medium",
      "angle": "three-quarter",
-     "az": 18,
+     "az": -18,
      "subject": "hero",
      "offset": [
       0.1,
@@ -467,8 +467,9 @@
       "type": "dolly-push",
       "why": "A slow push on the face while surprise turns into delight keeps the viewer with the reaction on 'No way'.",
       "to": {
-       "framing": "medium-close-up"
+       "distScale": 0.8
       },
+      "target": "hero",
       "duration": 1.6,
       "start": 0.0,
       "profile": "ease-out",

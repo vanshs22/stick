@@ -1,0 +1,12 @@
+{
+ "critic": "cinematography",
+ "target": "exp-critter",
+ "verdict": "pass",
+ "score": 100,
+ "findings": [],
+ "checked_at": "2026-11-16T05:24:59.781Z",
+ "stats": {
+  "stage3d_shots": 5,
+  "movements": 3
+ }
+}

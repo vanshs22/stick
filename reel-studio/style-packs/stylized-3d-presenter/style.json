@@ -2,7 +2,7 @@
   "id": "stylized-3d-presenter",
   "name": "Stylized 3D presenter",
   "family": "3d",
-  "description": "Faceted low-poly person at a desk at night, city bokeh, little helper creatures. Dialogue and tech-story comedy.",
+  "description": "A sculpted, clay-soft 3D person in a lived-in home studio at night: warm lamp light, cool window rim light, soft shadows, shallow focus. Talking-head explainers and personal stories.",
   "tokens": {
     "colors": {
       "bg": "#0d1536",
@@ -36,11 +36,12 @@
     "grain": 0.05
   },
   "rules": [
-    "Warm key light on the face, cool rim; the face is always readable (check luma).",
-    "Close-ups for emotion, medium with the desk for context, wide only to set the place.",
-    "Helpers (box, screen, cloud) react on key words; speech is the presenter's mouth.",
-    "Captions small and calm at the bottom; speaker changes shown in the caption colour.",
-    "Original characters only."
+    "One person, one costume, the same room: the home studio never changes inside a story.",
+    "Faces are the performance: brows and eyelids move on every beat, the mouth follows the voice.",
+    "Shallow focus on the speaker; the room is soft but readable.",
+    "Warm practical light on the person, cool light from the window behind: never flat front light.",
+    "Dialogue captions sit top-centre in a dark pill with a speaker tag; keep them off the face (the face lives in the middle third).",
+    "No gore, no horror lighting; blown highlights only for a magic object and only briefly."
   ],
   "components": [
     "Scene3D",
@@ -50,7 +51,7 @@
     "CommentBox",
     "Highlight"
   ],
-  "camera_language": "Slow push-ins; close-up on reactions; desk shot for 2-character beats.",
+  "camera_language": "Medium three-quarter and static while the person talks; over-the-shoulder for hands-on moments; push-ins only on a realisation or a reveal and always with a stated reason. Focus follows the speaker; practical lights (lamp, monitor) are motivated, the window gives a cool rim.",
   "typography": "Phrase captions, serif accent.",
   "transitions": [
     "cut",
@@ -59,53 +60,53 @@
   ],
   "audio_direction": "calm bed, keyboard type sounds, soft pop on helper reactions",
   "pitfalls": [
-    "Orange face from a warm light that is too strong.",
-    "Lower face lost in shadow.",
-    "Helpers hidden behind the desk."
+    "A strong glow near the lens whites out the frame: keep emissive objects below 0.6 and bloom threshold above 0.9 in close inserts.",
+    "Hair reads as a helmet in extreme close-ups: stay at close-up or wider.",
+    "Over-the-shoulder needs the camera back 1.9 m and 0.8 m to the side or the actor's back fills the frame."
   ],
   "references": [
     "reference videos ref1, ref4"
   ],
   "defaults": {
     "captions": "dialogue",
-    "shot_seconds": [
-      2,
-      4
-    ],
     "music": "bed",
-    "scene3d": {
-      "set": "desk-night",
-      "light": "night",
-      "characters": [
-        {
-          "variant": "lowpoly",
-          "pose": "idle",
-          "mood": "calm",
-          "skin": "#F1CBA8",
-          "shirt": "#F4CB3A",
-          "hair": "#3a2418",
-          "glasses": true
+    "stage3d": {
+      "world": "home-studio",
+      "worldOpts": {},
+      "cast": {
+        "human": {
+          "skin": "#E8B08C",
+          "shirt": "#F2B84B",
+          "pants": "#2A3350",
+          "hair": "#3A2418",
+          "shoes": "#F2F2F2",
+          "iris": "#4A3426"
         }
-      ],
-      "creatures": [
-        {
-          "kind": "cloud",
-          "x": -0.5,
-          "y": 0.83,
-          "z": 0.9,
-          "scale": 0.8,
-          "color": "#4a46c9"
-        },
-        {
-          "kind": "screen",
-          "x": -1.0,
-          "y": 0.83,
-          "z": 0.9,
-          "scale": 0.8,
-          "color": "#232329"
+      },
+      "look": {
+        "bloom": 0.45,
+        "bloomThreshold": 0.8,
+        "vignette": 0.32
+      }
+    },
+    "backdrop": {
+      "world": "home-studio",
+      "worldOpts": {},
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "window",
+        "offset": [
+          0,
+          -0.05
+        ],
+        "movement": {
+          "type": "static"
         }
-      ],
-      "bg": "#0d1536"
+      },
+      "look": {
+        "aperture": 0.02
+      }
     }
   }
 }

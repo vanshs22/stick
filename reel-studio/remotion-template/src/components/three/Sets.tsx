@@ -36,7 +36,6 @@ export const CameraRig: React.FC<{shot?: string; move?: string; p: number; fov?:
   const f = FR[shot] || FR.medium, e = p * p * (3 - 2 * p);
   let [x, y, z] = f.pos; const [lx, ly, lz] = f.look;
   if (move === 'push') z -= 0.55 * e; else if (move === 'pull') z += 0.9 * (1 - e) - 0.9 * 0; else if (move === 'drift') { x += Math.sin(e * Math.PI) * 0.4; } else if (move === 'orbit') { const a = (e - 0.5) * 0.7, r = Math.hypot(x - lx, z - lz); x = lx + Math.sin(a) * r; z = lz + Math.cos(a) * r; }
-  const fr = useCurrentFrame() / 30; x += Math.sin(fr * 0.8) * 0.07; y += Math.sin(fr * 1.1 + 1) * 0.035; // handheld sway: the camera is never locked
   useLayoutEffect(() => { camera.position.set(x, y, z); camera.lookAt(lx, ly, lz); (camera as THREE.PerspectiveCamera).fov = fov || f.fov; camera.updateProjectionMatrix(); });
   return null;
 };

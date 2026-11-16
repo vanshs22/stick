@@ -4,6 +4,8 @@
 //   node tools/check_storyboard.mjs <projectDir>
 import fs from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const P = process.argv[2]; if (!P) { console.error('usage: check_storyboard.mjs <projectDir>'); process.exit(2); }
 const man = JSON.parse(fs.readFileSync(path.join(P, 'remotion/src/components/manifest.json'), 'utf8')), sb = JSON.parse(fs.readFileSync(path.join(P, 'storyboard/storyboard.json'), 'utf8'));
@@ -23,5 +25,7 @@ for (const s of sb.shots) {
   if (s.shot_type === prev) run++; else run = 1; prev = s.shot_type; if (run >= 3) warns.push(`${s.id}: ${run} shots in a row of type ${s.shot_type}: vary the visuals`);
 }
 const kinds = new Set(sb.shots.map((s) => s.shot_type)); if (kinds.size < 3) warns.push(`only ${kinds.size} different shot_type values: use at least 3`);
+// 3D shots: run the cinematography critic (the same maths as the renderer)
+if (sb.shots.some((x) => x.component === 'Stage3D')) { const r = spawnSync('node', ['--no-warnings', path.join(path.dirname(fileURLToPath(import.meta.url)), 'check_cinematography.mjs'), P], { encoding: 'utf8' }); if (r.status) { errs.push('cinematography critic found problems:\n' + (r.stdout + r.stderr).split('\n').filter(Boolean).slice(0, 24).join('\n')); } else console.log((r.stdout.trim().split('\n').pop() || '')); }
 warns.forEach((w) => console.log('warn  ' + w)); errs.forEach((e) => console.error('ERROR ' + e));
 console.log(errs.length ? `\n${errs.length} error(s)` : `storyboard OK (${sb.shots.length} shots, ${warns.length} warning(s))`); process.exit(errs.length ? 1 : 0);

@@ -1,108 +1,104 @@
 {
- "id": "editorial-notebook",
- "name": "Editorial notebook",
- "family": "2d",
- "description": "Calm cream paper, italic serif accent word, windows and terminals that swing in. Explains one idea simply.",
- "tokens": {
-  "colors": {
-   "bg": "#FAF9F5",
-   "ink": "#141413",
-   "ink2": "#141413",
-   "muted": "#8C8A82",
-   "card": "#FFFFFF",
-   "accent": "#D97757",
-   "accentSoft": "#F6E3D9",
-   "good": "#4E9A5B",
-   "bad": "#C94A3A"
+  "id": "editorial-notebook",
+  "name": "Editorial notebook",
+  "family": "2d",
+  "description": "Calm cream paper, italic serif accent word, windows and terminals that swing in. Explains one idea simply.",
+  "tokens": {
+    "colors": {
+      "bg": "#FAF9F5",
+      "ink": "#141413",
+      "ink2": "#141413",
+      "muted": "#8C8A82",
+      "card": "#FFFFFF",
+      "accent": "#D97757",
+      "accentSoft": "#F6E3D9",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 430,
+      "content_bottom": 1290
+    },
+    "chrome": "clean",
+    "presenter": {
+      "skin": "#E8B48C",
+      "hair": "#2a2019",
+      "beard": true,
+      "hat": "#1f1f22",
+      "glasses": true,
+      "jacket": "#5c5348",
+      "shirt": "#f1eee8",
+      "x": 680,
+      "y": 1800,
+      "scale": 1.0
+    },
+    "bgs": {
+      "dark": "#0F0F11",
+      "slate": "#B7BEC9",
+      "green": "#10261F",
+      "red": "#E8381A",
+      "paper": "#F4F1EC"
+    }
   },
-  "fonts": {
-   "sans": "Inter",
-   "serif": "InstrumentSerif",
-   "mono": "JetBrainsMono"
+  "effects": {
+    "dots": 0.55,
+    "grain": 0.05
   },
-  "safe_zone": {
-   "top": 180,
-   "bottom": 1380,
-   "caption_y": 1440,
-   "right_margin": 120,
-   "content_top": 430,
-   "content_bottom": 1290
-  },
-  "chrome": "clean",
-  "presenter": {
-   "skin": "#E8B48C",
-   "hair": "#2a2019",
-   "beard": true,
-   "hat": "#1f1f22",
-   "glasses": true,
-   "jacket": "#5c5348",
-   "shirt": "#f1eee8",
-   "x": 680,
-   "y": 1800,
-   "scale": 1.0
-  },
-  "bgs": {
-   "dark": "#0F0F11",
-   "slate": "#B7BEC9",
-   "green": "#10261F",
-   "red": "#E8381A",
-   "paper": "#F4F1EC"
-  }
- },
- "effects": {
-  "dots": 0.55,
-  "grain": 0.05
- },
- "rules": [
-  "One accent colour (orange) used for the single most important word or number per shot.",
-  "Headline words rise out of a mask; the accent word is italic serif.",
-  "Windows and phones swing in from the right with a small 3D turn; everything exits before the next shot starts.",
-  "Real screenshots beat drawn UI: use ProofCard or BrowserWindow with a capture whenever a real thing is named.",
-  "Motion is calm: springs with little overshoot, no shake, no flashes."
- ],
- "components": [
-  "TitleCard",
-  "BigStat",
-  "NotebookPage",
-  "Terminal",
-  "BrowserWindow",
-  "PhoneFrame",
-  "ChatBubbles",
-  "CommentBox",
-  "Checklist",
-  "Highlight",
-  "KineticList",
-  "ProofCard",
-  "BarChart",
-  "LineChart",
-  "Versus"
- ],
- "camera_language": "No camera: layout and motion only. Slow 2 percent push on cards.",
- "typography": "Heavy sans headlines, italic serif accent, mono labels.",
- "transitions": [
-  "cut",
-  "slide",
-  "mask",
-  "swing"
- ],
- "audio_direction": "upbeat bed, soft pop on each card, tick on steps, type on terminals, ding on the comment box",
- "pitfalls": [
-  "More than one accent word per shot.",
-  "Text smaller than 48 px.",
-  "A fake screenshot of a real site.",
-  "Shots longer than 4 s without a new element appearing."
- ],
- "references": [
-  "reel-maker",
-  "animated-reels",
-  "reference videos ref5, ref6"
- ],
- "defaults": {
-  "captions": "headline",
-  "shot_seconds": [
-   1.5,
-   3.5
+  "rules": [
+    "One accent colour (orange) used for the single most important word or number per shot.",
+    "Headline words rise out of a mask; the accent word is italic serif.",
+    "Windows and phones swing in from the right with a small 3D turn; everything exits before the next shot starts.",
+    "Real screenshots beat drawn UI: use ProofCard or BrowserWindow with a capture whenever a real thing is named.",
+    "Motion is calm: springs with little overshoot, no shake, no flashes."
   ],
-  "music": "upbeat"
- }
+  "components": [
+    "TitleCard",
+    "BigStat",
+    "NotebookPage",
+    "Terminal",
+    "BrowserWindow",
+    "PhoneFrame",
+    "ChatBubbles",
+    "CommentBox",
+    "Checklist",
+    "Highlight",
+    "KineticList",
+    "ProofCard",
+    "BarChart",
+    "LineChart",
+    "Versus"
+  ],
+  "camera_language": "No camera: layout and motion only. Slow 2 percent push on cards.",
+  "typography": "Heavy sans headlines, italic serif accent, mono labels.",
+  "transitions": [
+    "cut",
+    "slide",
+    "mask",
+    "swing"
+  ],
+  "audio_direction": "upbeat bed, soft pop on each card, tick on steps, type on terminals, ding on the comment box",
+  "pitfalls": [
+    "More than one accent word per shot.",
+    "Text smaller than 48 px.",
+    "A fake screenshot of a real site.",
+    "Shots longer than 4 s without a new element appearing."
+  ],
+  "references": [
+    "reel-maker",
+    "animated-reels",
+    "reference videos ref5, ref6"
+  ],
+  "defaults": {
+    "captions": "headline",
+    "music": "upbeat"
+  }
 }

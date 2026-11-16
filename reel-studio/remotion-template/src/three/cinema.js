@@ -58,7 +58,7 @@ export function solvePose(p, subjects, aspect = 9 / 16) {
     const tgt = subjectOf(p.target, subjects), sh = add(s.pos, [0, H * 0.9, 0]), tc = add(tgt.pos, [0, tgt.height * 0.8, 0]), d = norm([tc[0] - sh[0], 0, tc[2] - sh[2]]), side = [d[2], 0, -d[0]];
     pos = add(add(sh, mul(d, -(p.back ?? 1.1))), add(mul(side, (p.shoulderOffset ?? 0.5) * (p.side || 1)), [0, p.lift ?? 0.28, 0])); look = add(tc, mul(side, -(p.lookShift ?? 0.12) * (p.side || 1)));
   } else {
-    const dist = p.dist ?? (fr.V * H) / (2 * Math.tan((fov * D2R) / 2));
+    const dist = (p.dist ?? (fr.V * H) / (2 * Math.tan((fov * D2R) / 2))) * (p.distScale ?? 1);
     const f = [Math.sin(s.rotY + az) * Math.cos(el), Math.sin(el), Math.cos(s.rotY + az) * Math.cos(el)];
     pos = add(center, mul(f, dist)); look = center;
   }
@@ -97,6 +97,7 @@ export function cameraAt(spec, subjects, t, shotDur, aspect = 9 / 16) {
       const m = { ...A }; for (const key of ['az', 'el', 'roll', 'fov', 'dist']) if (A[key] != null || B[key] != null) { const an = ANGLES[A.angle || 'eye-level'], bn = ANGLES[B.angle || 'eye-level']; m[key] = lerp(A[key] ?? an[key] ?? 0, B[key] ?? bn[key] ?? 0, k); }
       const fa = FRAMINGS[A.framing], fb = FRAMINGS[B.framing], fov = m.fov || FOV[A.framing] || 30, H = subjectOf(A.subject, subjects).height;
       if (fa && fb && A.framing !== 'pov' && A.framing !== 'over-the-shoulder') { const V = lerp(fa.V, fb.V, k); m.dist = (V * H) / (2 * Math.tan((fov * D2R) / 2)); m.fov = fov; m.framing = A.framing; m.cy = lerp(fa.cy, fb.cy, k); }
+      m.distScale = lerp(A.distScale ?? 1, B.distScale ?? 1, k);
       m.offset = [lerp(A.offset?.[0] ?? 0, B.offset?.[0] ?? 0, k), lerp(A.offset?.[1] ?? 0, B.offset?.[1] ?? 0, k)];
       cam = solvePose(m, subjects, aspect);
       if (A.subject !== B.subject && B.subject != null) { const b = solvePose(B, subjects, aspect); cam = { ...cam, look: v3(solvePose(A, subjects, aspect).look, b.look, k) }; }
