@@ -32,8 +32,13 @@ if (P / 'data/narration.wav').exists():
 if (P / 'data/mix.wav').exists():
     sr, m = load(P / 'data/mix.wav'); out['mix'] = {'peak_db': round(20 * np.log10(np.abs(m).max() + 1e-9), 2), 'rms_db': round(20 * np.log10(np.sqrt((m ** 2).mean()) + 1e-9), 2), 'clipped_samples': int((np.abs(m) > 0.999).sum())}
     if 'voice' in out and (P / 'data/narration.wav').exists():
-        sr2, v = load(P / 'data/narration.wav'); n = min(len(m), len(v)); hop = int(0.05 * sr); k = n // hop; vr = np.sqrt((v[:k * hop].reshape(k, hop) ** 2).mean(1)); mr = np.sqrt((m[:k * hop].reshape(k, hop) ** 2).mean(1)); talk = vr > 0.03 * vr.max(); quiet = vr < 0.004
-        if talk.any() and quiet.sum() > 6:
-            out['mix']['music_floor_db'] = round(20 * np.log10(np.median(mr[quiet]) + 1e-9), 2); out['mix']['voice_level_db'] = round(20 * np.log10(np.median(mr[talk]) + 1e-9), 2); out['mix']['voice_over_music_db'] = round(out['mix']['voice_level_db'] - out['mix']['music_floor_db'], 1)
+        sr2, v = load(P / 'data/narration.wav')
+        if sr2 != sr:
+            from scipy.signal import resample_poly; from math import gcd; g = gcd(sr, sr2); v = resample_poly(v, sr // g, sr2 // g).astype(np.float32)
+        n = min(len(m), len(v)); m, v = m[:n], v[:n]
+        a = float((m * v).sum() / ((v * v).sum() + 1e-12)); res = m - a * v  # least-squares: the voice's share of the mix; the residual is music + sfx under it
+        hop = int(0.05 * sr); k = n // hop; vr = np.sqrt((v[:k * hop].reshape(k, hop) ** 2).mean(1)); rr = np.sqrt((res[:k * hop].reshape(k, hop) ** 2).mean(1)); mr = np.sqrt((m[:k * hop].reshape(k, hop) ** 2).mean(1)); talk = vr > 0.03 * vr.max()
+        if talk.sum() > 6:
+            out['mix']['music_under_voice_db'] = round(float(20 * np.log10(np.median(rr[talk]) + 1e-9)), 2); out['mix']['voice_level_db'] = round(float(20 * np.log10(np.median(a * vr[talk]) + 1e-9)), 2); out['mix']['voice_over_music_db'] = round(out['mix']['voice_level_db'] - out['mix']['music_under_voice_db'], 1)
 if (P / 'data/cues.json').exists(): out['cues'] = json.loads((P / 'data/cues.json').read_text())
-print(json.dumps(out))
+print(json.dumps(out, default=lambda o: o.item() if hasattr(o, "item") else str(o)))
