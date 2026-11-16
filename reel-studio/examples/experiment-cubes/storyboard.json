@@ -39,8 +39,8 @@
       "id": "buddy",
       "kind": "cube",
       "look": {
-       "body": "#FF8FC0",
-       "bow": "#FF4F93"
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
       },
       "at": [
        0.85,
@@ -188,8 +188,8 @@
       "id": "buddy",
       "kind": "cube",
       "look": {
-       "body": "#FF8FC0",
-       "bow": "#FF4F93"
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
       },
       "at": [
        0.85,
@@ -333,8 +333,8 @@
       "id": "buddy",
       "kind": "cube",
       "look": {
-       "body": "#FF8FC0",
-       "bow": "#FF4F93"
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
       },
       "at": [
        0.85,
@@ -452,8 +452,8 @@
       "id": "buddy",
       "kind": "cube",
       "look": {
-       "body": "#FF8FC0",
-       "bow": "#FF4F93"
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
       },
       "at": [
        0.85,
@@ -592,8 +592,8 @@
       "id": "buddy",
       "kind": "cube",
       "look": {
-       "body": "#FF8FC0",
-       "bow": "#FF4F93"
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
       },
       "at": [
        0.85,
@@ -754,8 +754,8 @@
       "id": "buddy",
       "kind": "cube",
       "look": {
-       "body": "#FF8FC0",
-       "bow": "#FF4F93"
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
       },
       "at": [
        0.85,
