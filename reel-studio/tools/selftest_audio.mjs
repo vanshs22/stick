@@ -45,7 +45,7 @@ r = py([path.join(TK, 'tools/audio/mix.py'), '.']); ok('the mix is built (voice 
 const mix = path.join(P, 'data/mix.wav'), pk = +(ffm(['-i', mix, '-af', 'astats=metadata=0', '-vn', '-f', 'null', '-']).match(/Peak level dB: (-?[\d.]+)/) || [])[1];
 ok('the mix does not clip', isFinite(pk) && pk < -0.1, `peak ${pk} dBFS`);
 // music under the voice: the mix is no louder than the voice alone by more than a small margin (music + sfx ride below it)
-const mr = rd('data/mix-report.json'); ok('the mix report measures the music level while the narrator speaks: at least 8 dB under the voice (no masking)', mr.music_under_voice_db >= 8, JSON.stringify(mr));
+const mr = rd('data/mix-report.json'); ok('the mix report measures the music level while the narrator speaks: between 8 and 22 dB under the voice (neither masking nor inaudible)', mr.music_under_voice_db >= 8 && mr.music_under_voice_db <= 22, JSON.stringify(mr));
 ok('loud peaks are handled by a clean gain reduction (not by soft-clipping the voice): the master gain is reported and modest', typeof mr.master_gain_db === 'number' && mr.master_gain_db >= -8, JSON.stringify(mr));
 { const st = ffm(['-i', mix, '-af', 'astats=metadata=0', '-vn', '-f', 'null', '-']); const crest = +(st.match(/Crest factor: (-?[\d.]+)/) || [])[1]; ok('the mix keeps the voice dynamics (crest factor above 4, i.e. peaks are not squashed flat)', !isFinite(crest) || crest > 4, `crest ${crest}`); }
 { const cr = node([path.join(TK, 'tools/critique.mjs'), P, 'audio']); const mu = rd('review/critics/music.json'); ok('the audio critic reads that report and finds no masking or clipping problem', !mu.findings.some((f) => f.severity !== 'minor' && /mask|clip/i.test(f.problem)), JSON.stringify(mu.findings.map((f) => f.problem))); }

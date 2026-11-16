@@ -1,9 +1,9 @@
 {
  "video": "accept-motion-explainer.mp4",
- "video_sha256": "a0f528bccc8e98889fc891e40d5df131b047e3a302de6c684835d1ae5c5df956",
+ "video_sha256": "ea09615dfa3291102c094ed9596f639efde76e1b450b60da6b4a550e4f9da2e0",
  "qa": {
   "file": "accept-motion-explainer.qa.json",
-  "sha256": "4554b23ae5487fc1857fd843b2264a5b010ae810fc8f1911d6099491f2545ad5",
+  "sha256": "d895da7139f08a84bf7677fa4d11b66fcb45428d68fec9618d82cc8b8b0c6036",
   "pass": true,
   "preview": false,
   "delivery_ready": true,
@@ -16,7 +16,7 @@
    "has_audio": true
   }
  },
- "sealed_at": "2026-11-16T19:31:57.852Z",
+ "sealed_at": "2026-11-16T20:31:52.409Z",
  "test_project": true,
  "approved_artifacts": {},
  "approvals": {

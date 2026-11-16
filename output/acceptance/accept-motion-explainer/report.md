@@ -17,7 +17,7 @@
 | script | pass | 98 | 0 | automatic |
 | storyboard | pass | 100 | 0 | automatic |
 | captions | pass | 98 | 0 | automatic |
-| voice | revise | 82 | 1 | automatic |
+| voice | pass | 100 | 0 | automatic |
 | music | pass | 100 | 0 | automatic |
 | sfx | pass | 100 | 0 | automatic |
 | frames | pass | 100 | 0 | automatic |

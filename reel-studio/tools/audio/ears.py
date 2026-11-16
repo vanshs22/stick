@@ -54,6 +54,7 @@ for c in cues:
     cue_rows.append({'t': c['t'], 'type': c['type'], 'shot': c.get('shot'), 'event': c.get('event'), 'lift_db': round(float(lift), 1)})
     if lift < 1.5 and after < -22: flags.append({'t': c['t'], 'kind': 'cue barely audible', 'detail': f"{c['type']} at {c['t']:.2f} s adds only {lift:+.1f} dB over what plays under it: it may be masked by the voice or music"})
 # 5. masking
+if mr.get('music_under_voice_db') is not None and mr['music_under_voice_db'] > 22: flags.append({'t': 0, 'kind': 'music inaudible', 'detail': f"music is {mr['music_under_voice_db']} dB under the voice: a listener will not hear it"})
 if mr.get('music_under_voice_db') is not None and mr['music_under_voice_db'] < 10: flags.append({'t': 0, 'kind': 'music close to the voice', 'detail': f"music is only {mr['music_under_voice_db']} dB under the voice while it speaks"})
 if mr.get('master_gain_db', 0) < -8: flags.append({'t': 0, 'kind': 'hot mix', 'detail': f"the master stage turned the mix down {mr['master_gain_db']} dB: the parts add up too loud"})
 if rms.max() > -1.0: flags.append({'t': float(np.argmax(rms)) / 10, 'kind': 'peak at full scale', 'detail': f'loudest frame {rms.max():.1f} dBFS'})

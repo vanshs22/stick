@@ -28,5 +28,5 @@
  "notes": [
   "Judgement rubric for the agent (not measurable): is the hook specific and surprising? does every line move the story? is it original (not a rewrite of a reference)? would a stranger share it? Put the answers in review/critics/script.agent.json via tools/critique.mjs --agent."
  ],
- "checked_at": "2026-11-16T19:31:47.424Z"
+ "checked_at": "2026-11-16T20:31:41.865Z"
 }

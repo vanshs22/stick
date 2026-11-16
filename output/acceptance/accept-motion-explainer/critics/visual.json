@@ -12,5 +12,5 @@
  "notes": [
   "Does the picture actually look right and explain the line? That needs eyes: run the vision critics (tools/critique.mjs <P> vision --packet composition)."
  ],
- "checked_at": "2026-11-16T19:31:47.465Z"
+ "checked_at": "2026-11-16T20:31:41.907Z"
 }

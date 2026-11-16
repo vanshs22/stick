@@ -72,25 +72,25 @@
   {
    "name": "audio is not silent",
    "ok": true,
-   "note": "mean -17.4 dB",
+   "note": "mean -17.2 dB",
    "level": "ok"
   },
   {
    "name": "loudness",
    "ok": true,
-   "note": "-14.1 LUFS (target -14)",
+   "note": "-14.2 LUFS (target -14)",
    "level": "ok"
   },
   {
    "name": "true peak",
    "ok": true,
-   "note": "-1.4 dBTP (limit -1)",
+   "note": "-1.5 dBTP (limit -1)",
    "level": "ok"
   },
   {
    "name": "mix does not clip before normalising",
    "ok": true,
-   "note": "mix peak -0.994664 dBFS",
+   "note": "mix peak -0.989771 dBFS",
    "level": "ok"
   },
   {
@@ -136,7 +136,7 @@
    "level": "ok"
   }
  ],
- "loudness_before": -16.69,
+ "loudness_before": -16.82,
  "video": "accept-motion-explainer.mp4",
  "measured": {
   "width": 1080,

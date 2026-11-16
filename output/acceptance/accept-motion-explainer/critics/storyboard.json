@@ -16,5 +16,5 @@
  "notes": [
   "Does each frame look good? That needs eyes: run the vision critics (tools/critique.mjs vision --packet composition|character|environment)."
  ],
- "checked_at": "2026-11-16T19:31:47.463Z"
+ "checked_at": "2026-11-16T20:31:41.904Z"
 }
