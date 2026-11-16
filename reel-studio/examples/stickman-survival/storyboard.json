@@ -56,7 +56,9 @@
      "left": "// WHAT IF",
      "right": "NO SLEEP"
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: the question"
   },
   {
    "id": "S02",
@@ -107,7 +109,9 @@
      "x": 320,
      "y": 300
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: day one fine"
   },
   {
    "id": "S03",
@@ -177,7 +181,9 @@
      "x": 320,
      "y": 300
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: day three hallucinations"
   },
   {
    "id": "S04",
@@ -229,7 +235,9 @@
      "x": 320,
      "y": 300
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: day ten collapse"
   },
   {
    "id": "S05",
@@ -262,7 +270,9 @@
    "transition_out": {
     "type": "zoom",
     "sound": "swish"
-   }
+   },
+   "approach": "motion-graphics",
+   "why_renderer": "Stamp carries this beat because the planned visual is: verdict"
   },
   {
    "id": "S06",
@@ -281,7 +291,9 @@
    "transition_out": {
     "type": "fade",
     "sound": "none"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "EndCard carries this beat because the planned visual is: cta"
   }
  ]
 }

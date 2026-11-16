@@ -73,7 +73,9 @@
      "n": 1,
      "of": 5
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: voxel presenter greets, creature hops"
   },
   {
    "id": "S02",
@@ -108,11 +110,13 @@
    "overlays": [
     {
      "type": "step-label",
-     "text": "Step 1 \u00b7 open a terminal",
+     "text": "Step 1 · open a terminal",
      "n": 1,
      "of": 5
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: terminal opens"
   },
   {
    "id": "S03",
@@ -138,7 +142,7 @@
     {
      "type": "type",
      "anchor": "t",
-     "dur": 1.0
+     "dur": 1
     }
    ],
    "transition_out": {
@@ -148,7 +152,7 @@
    "overlays": [
     {
      "type": "step-label",
-     "text": "Step 2 \u00b7 one line",
+     "text": "Step 2 · one line",
      "n": 2,
      "of": 5
     },
@@ -166,7 +170,9 @@
      "y": 820,
      "anchor": "t"
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: one line typed"
   },
   {
    "id": "S04",
@@ -224,7 +230,7 @@
    "overlays": [
     {
      "type": "step-label",
-     "text": "Step 3 \u00b7 press enter",
+     "text": "Step 3 · press enter",
      "n": 3,
      "of": 5
     },
@@ -235,7 +241,9 @@
      "y": 1050,
      "anchor": "enter"
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: presenter waits"
   },
   {
    "id": "S05",
@@ -273,7 +281,9 @@
    "transition_out": {
     "type": "whip",
     "sound": "whoosh"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action"
   },
   {
    "id": "S06",
@@ -324,7 +334,8 @@
      "type": "sparkle",
      "at": "start",
      "offset": 0.1,
-     "gain": 0.5
+     "gain": 0.5,
+     "why": "on-screen event: happy sign-off"
     }
    ],
    "transition_out": {
@@ -340,7 +351,9 @@
      "x": 330,
      "y": 420
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: happy sign-off"
   }
  ]
 }

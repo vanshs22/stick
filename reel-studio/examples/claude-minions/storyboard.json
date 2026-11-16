@@ -41,7 +41,7 @@
       "kind": "box",
       "x": 0.55,
       "z": 0.9,
-      "scale": 1.0,
+      "scale": 1,
       "color": "#F2C12E",
       "kickAnchor": "tiny"
      },
@@ -92,7 +92,9 @@
      "left": "// minion squad",
      "right": "3 AGENTS"
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: meet the team"
   },
   {
    "id": "S02",
@@ -108,7 +110,7 @@
     "creatures": [
      {
       "kind": "box",
-      "x": 0.0,
+      "x": 0,
       "z": 0.4,
       "scale": 1.3,
       "color": "#F0683C",
@@ -148,7 +150,9 @@
      "y": 380,
      "anchor": "job"
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: one minion, one job"
   },
   {
    "id": "S03",
@@ -209,11 +213,13 @@
    "overlays": [
     {
      "type": "step-label",
-     "text": "Minion 1 \u00b7 the reader",
+     "text": "Minion 1 · the reader",
      "n": 1,
      "of": 3
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: reader minion"
   },
   {
    "id": "S04",
@@ -251,11 +257,13 @@
    "overlays": [
     {
      "type": "step-label",
-     "text": "Minion 2 \u00b7 the writer",
+     "text": "Minion 2 · the writer",
      "n": 2,
      "of": 3
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: writer minion types"
   },
   {
    "id": "S05",
@@ -297,11 +305,13 @@
    "overlays": [
     {
      "type": "step-label",
-     "text": "Minion 3 \u00b7 the checker",
+     "text": "Minion 3 · the checker",
      "n": 3,
      "of": 3
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Checklist carries this beat because the planned visual is: checker ticks"
   },
   {
    "id": "S06",
@@ -350,7 +360,7 @@
      },
      {
       "kind": "cloud",
-      "x": 0.0,
+      "x": 0,
       "z": 1.3,
       "scale": 0.9,
       "color": "#4a46c9"
@@ -378,7 +388,9 @@
    "transition_out": {
     "type": "mask",
     "sound": "swish"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: you are the boss"
   },
   {
    "id": "S07",
@@ -426,7 +438,9 @@
      "x": 240,
      "y": 330
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: cta"
   },
   {
    "id": "S08",
@@ -445,7 +459,9 @@
    "transition_out": {
     "type": "fade",
     "sound": "none"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "EndCard carries this beat because the planned visual is: end"
   }
  ]
 }

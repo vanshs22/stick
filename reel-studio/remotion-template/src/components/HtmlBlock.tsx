@@ -8,9 +8,10 @@ import type {ShotProps} from '../engine/types';
  * There is ONE clock: Remotion's frame. Each frame this seeks the block's timeline to the shot-local time, so the result is deterministic
  * and never runs a second timeline of its own. Blocks come from `npx hyperframes add <block>` (Apache-2.0 registry) or are hand-written.
  * props: src (path inside public/, e.g. hyperframes/lower-third.html), id (timeline id, default = the first registered), vars (given to the block as window.__hfVariables, the HyperFrames contract, AND as {{key}} text replacements),
+ *        replace ([[from, to], ...]: exact text replacements in the block's source, for blocks configured by a literal CONFIG object instead of variables),
  *        at (seconds into the shot when the block starts), fit ('contain' = whole block visible, 'cover' = fills the 9:16 frame and crops; default contain)
  */
-export const HtmlBlock: React.FC<ShotProps & {src: string; id?: string; vars?: Record<string, any>; at?: number; fit?: 'contain' | 'cover'}> = ({shot, src, id, vars = {}, at = 0, fit = 'contain'}) => {
+export const HtmlBlock: React.FC<ShotProps & {src: string; id?: string; vars?: Record<string, any>; at?: number; fit?: 'contain' | 'cover'; replace?: [string, string][]}> = ({shot, src, id, vars = {}, at = 0, fit = 'contain', replace = []}) => {
   const {lt} = useShotTime(shot);
   const frame = useRef<HTMLIFrameElement>(null);
   const [doc, setDoc] = useState<{html: string; w: number; h: number} | null>(null);
@@ -18,6 +19,7 @@ export const HtmlBlock: React.FC<ShotProps & {src: string; id?: string; vars?: R
   useEffect(() => {
     fetch(staticFile(src)).then((r) => { if (!r.ok) throw new Error(`HtmlBlock: ${src} not found (HTTP ${r.status})`); return r.text(); }).then((t) => {
       let html = t.replace(/https?:\/\/cdn\.jsdelivr\.net\/npm\/gsap@[\d.]+\/dist\/gsap(\.min)?\.js/g, new URL(staticFile('vendor/gsap.min.js'), window.location.href).href);
+      for (const [from, to] of replace) { if (!html.includes(from)) throw new Error(`HtmlBlock: the text to replace was not found in ${src}: ${from}`); html = html.split(from).join(to); }
       for (const [k, v] of Object.entries(vars)) html = html.split(`{{${k}}}`).join(String(v));
       // HyperFrames blocks read their variables from window.__hfVariables (layered over the defaults declared in data-composition-variables); it must exist BEFORE the block's own script runs
       if (Object.keys(vars).length) html = html.replace(/<head[^>]*>/i, (m) => `${m}<script>window.__hfVariables=${JSON.stringify(vars).replace(/</g, '\\u003c')};</script>`);

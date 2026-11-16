@@ -1,0 +1,479 @@
+{
+ "style_pack": "claude-minions",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "visual_intent": "DRAFT: the duo on the stage with a set piece (hook)",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {
+       "body": "#FF7A3D"
+      },
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.6,
+        "explain-wide"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "curious"
+       ],
+       [
+        1.8,
+        "happy"
+       ]
+      ],
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "curious",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "set1",
+      "kind": "laptop",
+      "desk": false,
+      "at": [
+       0,
+       1.55,
+       -1
+      ],
+      "scale": 1.7,
+      "lines": [
+       "# what if making a video",
+       "$ run",
+       "> ..."
+      ]
+     },
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.2
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "making video simple",
+     "kicker": "Scene 01",
+     "y": 170,
+     "texts": [
+      {
+       "at": 0,
+       "text": "making video simple"
+      },
+      {
+       "at": 1.6,
+       "text": "simple writing web"
+      }
+     ]
+    },
+    {
+     "type": "bubble",
+     "emoji": "🤔",
+     "text": "WHAT?",
+     "x": 770,
+     "y": 1170,
+     "at": 0.6
+    }
+   ],
+   "approach": "combo",
+   "why_renderer": "A glowing laptop between the two cubies asks the question in the pack's own neon stage: the characters react, the set piece says \"web page\".",
+   "layers": [
+    "3D cubies",
+    "3D laptop",
+    "2D plaque and bubble"
+   ]
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "visual_intent": "DRAFT: the real page \"The core idea | Remotion\" on a floating screen (setup)",
+   "shot_type": "evidence",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {
+       "body": "#FF7A3D"
+      },
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "explain-wide"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "curious",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "proof3",
+      "kind": "screen",
+      "image": "assets/web/fundamentals/page.png",
+      "at": [
+       0,
+       1.75,
+       -0.9
+      ],
+      "w": 2
+     },
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.2
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "Remotion gives frame number",
+     "kicker": "Source / www.remotion.dev",
+     "y": 170
+    }
+   ],
+   "approach": "combo",
+   "why_renderer": "The claim is about what the Remotion docs say, so a REAL capture of the docs page hangs in the 3D stage (a floating screen) with both characters watching it.",
+   "layers": [
+    "3D cubies",
+    "real website capture on a floating screen",
+    "2D plaque"
+   ]
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "visual_intent": "DRAFT: the real page \"GitHub - remotion-dev/remotion: 🎥 Make videos pro\" on a floating screen (proof)",
+   "shot_type": "evidence",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {
+       "body": "#FF7A3D"
+      },
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "point"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "curious",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "proof8",
+      "kind": "screen",
+      "image": "assets/web/github/page.png",
+      "at": [
+       0,
+       1.75,
+       -0.9
+      ],
+      "w": 2
+     },
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "eye-level",
+     "subject": "stage",
+     "distScale": 0.62,
+     "offset": [
+      0,
+      -0.25
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "seventy thousand people starred",
+     "kicker": "Source / github.com",
+     "y": 170
+    }
+   ],
+   "approach": "combo",
+   "why_renderer": "The star count is a fact about a real repository, so the real GitHub page is the proof, again on the floating screen, with the count highlighted automatically from the verified capture.",
+   "layers": [
+    "3D cubies",
+    "real website capture on a floating screen",
+    "2D plaque"
+   ]
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "visual_intent": "DRAFT: both characters ask for the comment (cta)",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {
+       "body": "#FF7A3D"
+      },
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": "wave",
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "happy",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "eye-level",
+     "subject": "stage",
+     "distScale": 0.62,
+     "offset": [
+      0,
+      -0.25
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "Comment REMOTION",
+     "kicker": "Free",
+     "y": 170,
+     "size": 58
+    },
+    {
+     "type": "burst",
+     "anchor": "kw",
+     "x": 540,
+     "y": 900
+    }
+   ],
+   "anchors": [
+    {
+     "name": "kw",
+     "line": "L04",
+     "word": "REMOTION"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "zap",
+     "anchor": "kw",
+     "gain": 0.3
+    }
+   ],
+   "approach": "character-3d",
+   "why_renderer": "The ask belongs to the characters: both face the camera with the plaque naming the keyword."
+  }
+ ]
+}

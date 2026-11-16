@@ -13,5 +13,6 @@
  "mix": {
   "target_lufs": -14,
   "true_peak_db": -1.5
- }
+ },
+ "mode": "narrated_music"
 }

@@ -196,14 +196,14 @@ def load_audio(f):
     a = np.frombuffer(out, dtype=np.float32).reshape(-1, 2).astype(np.float64); return a
 
 
-mix = np.zeros((N, 2))
+mix = np.zeros((N, 2)); music_stem = None; voice_stem = None; fx_stem = np.zeros((N, 2))
 # voice
 vf = P / 'data/narration.wav'
 voice = None
 if vf.exists():
     v = load_audio(vf)[:N]; voice = np.zeros((N, 2)); voice[:len(v)] = v
     rms = np.sqrt(np.mean(voice ** 2) + 1e-12); voice *= db(-19) / rms
-    mix += voice
+    mix += voice; voice_stem = voice.copy()
 # music
 mus = script.get('music', 'bed')
 if mus and mus != 'none':
@@ -214,7 +214,7 @@ if mus and mus != 'none':
     if voice is not None:                                                        # duck under the voice
         lev = np.abs(voice.mean(1)); lev = signal.lfilter([1 - 0.9995], [1, -0.9995], lev); lev /= lev.max() + 1e-9
         m *= (1 - 0.55 * np.clip(lev * 3, 0, 1))[:, None]
-    mix += m
+    mix += m; music_stem = m.copy()
 # effects
 for c in cj['cues']:
     fn = FX.get(c['type'])
@@ -222,8 +222,22 @@ for c in cj['cues']:
     x = fn(**({'d': c['dur']} if c.get('dur') else {}))
     x = lp(x, 5000) * db(LEVEL[c['type']]) * c.get('gain', 1.0) / (np.abs(x).max() + 1e-9) * 0.9
     i = int(c['t'] * SR); n = min(len(x), N - i)
-    if n > 0 and i >= 0: pan = c.get('pan', 0.0); mix[i:i + n, 0] += x[:n] * (1 - max(0, pan)); mix[i:i + n, 1] += x[:n] * (1 + min(0, pan))
-# master: gentle soft-clip, peak -1 dBFS
+    if n > 0 and i >= 0: pan = c.get('pan', 0.0); mix[i:i + n, 0] += x[:n] * (1 - max(0, pan)); mix[i:i + n, 1] += x[:n] * (1 + min(0, pan)); fx_stem[i:i + n, 0] += x[:n] * (1 - max(0, pan)); fx_stem[i:i + n, 1] += x[:n] * (1 + min(0, pan))
+# measured BEFORE the master stage: does the music mask the voice, and would the sum have clipped?
+def _rms_db(x, mask=None):
+    y = x[mask] if mask is not None else x
+    return float(20 * np.log10(np.sqrt(np.mean(y ** 2)) + 1e-9)) if len(y) else None
+_report = {'mode': 'voice+music' if (voice_stem is not None and music_stem is not None) else 'voice' if voice_stem is not None else 'music' if music_stem is not None else 'effects-only', 'cues': len(cj['cues']), 'pre_master_peak_db': float(20 * np.log10(np.abs(mix).max() + 1e-9)), 'pre_master_samples_over_0dbfs': int((np.abs(mix) > 1.0).sum())}
+if voice_stem is not None:
+    sp = np.abs(voice_stem.mean(1)) > 0.02                                   # frames where the narrator is speaking
+    _report['voice_rms_db'] = _rms_db(voice_stem, sp)
+    if music_stem is not None:
+        _report['music_rms_db_during_speech'] = _rms_db(music_stem, sp); _report['music_under_voice_db'] = round(_report['voice_rms_db'] - _report['music_rms_db_during_speech'], 1)
+    _report['fx_rms_db_during_speech'] = _rms_db(fx_stem, sp & (np.abs(fx_stem.mean(1)) > 1e-4)) if (np.abs(fx_stem).max() > 0) else None
+# master: loud syllables used to hit the tanh soft-clipper (audible distortion). Turn the WHOLE mix down so the peak sits at 0.85, then the soft-clip stays in its linear range.
+_pk = float(np.abs(mix).max()); _g = min(1.0, 0.85 / (_pk + 1e-9)); mix *= _g; _report['master_gain_db'] = round(float(20 * np.log10(_g)), 2)
+json.dump(_report, open(P / 'data/mix-report.json', 'w'), indent=1)
+# gentle soft-clip as a last safety net, peak -1 dBFS (final QA re-normalises loudness to the delivery target)
 mix = np.tanh(mix * 1.2) / 1.2
 mix *= db(-1) / (np.abs(mix).max() + 1e-9)
 wavfile.write(P / 'data/mix.wav', SR, (mix * 32767).astype(np.int16))

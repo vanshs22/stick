@@ -2,7 +2,7 @@
  "voice": {
   "engine": "kokoro",
   "voice": "am_adam",
-  "speed": 1.0,
+  "speed": 1,
   "pronunciations": {}
  },
  "music": {
@@ -13,5 +13,6 @@
  "mix": {
   "target_lufs": -14,
   "true_peak_db": -1.5
- }
+ },
+ "mode": "narrated_music"
 }

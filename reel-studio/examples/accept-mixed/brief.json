@@ -1,0 +1,29 @@
+{
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "beginners who want to understand one idea in 15 seconds",
+ "goal": "teach one idea clearly",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "af_heart",
+  "speed": 1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "word-pop"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "Videos from code",
+ "topic": "Remotion: making videos with React code",
+ "duration_sec": 16,
+ "style_pack": "claude-minions",
+ "cta": {
+  "keyword": "REMOTION",
+  "text": "Comment REMOTION and I will send you the docs link"
+ }
+}

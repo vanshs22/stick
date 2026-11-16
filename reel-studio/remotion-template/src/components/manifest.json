@@ -494,7 +494,8 @@
     "id": "timeline id (default: first)",
     "vars": "{key: value}: given to the block as window.__hfVariables (HyperFrames contract) and as {{key}} text replacements",
     "at": "seconds into the shot when it starts",
-    "fit": "'contain' (default: whole block visible) or 'cover' (fills the 9:16 frame, crops a 16:9 block)"
+    "fit": "'contain' (default: whole block visible) or 'cover' (fills the 9:16 frame, crops a 16:9 block)",
+    "replace": "[[from, to], ...]: exact text replacements in the block's source (blocks configured by a literal CONFIG object, e.g. mk-progress-stat: [['value: 22,','value: 20,']]). A missing 'from' text fails loudly."
    },
    "anchors": [
     "any"

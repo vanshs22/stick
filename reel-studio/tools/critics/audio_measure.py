@@ -1,6 +1,32 @@
 """Measurements for the voice / music / sfx critics. Prints one JSON object.  python audio_measure.py <projectDir> [--no-whisper]"""
 import os as _os, pathlib as _pl; _b = _pl.Path(__file__).resolve().parents[2] / '.bin'; _os.environ['PATH'] = (str(_b) + _os.pathsep + _os.environ['PATH']) if _b.exists() else _os.environ['PATH']  # installer's ffmpeg fallback
 import json, re, sys, difflib, os, subprocess
+_UNITS = {w: i for i, w in enumerate('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split())}
+_TENS = {w: 10 * i for i, w in enumerate('_ _ twenty thirty forty fifty sixty seventy eighty ninety'.split()) if w != '_'}
+_SCALE = {'hundred': 100, 'thousand': 1000, 'million': 1000000}
+def canon_numbers(tokens):
+    """spelled-out numbers become digits ("eight hundred" -> "800") so they compare equal to what a speech recogniser writes.
+    Returns (tokens, first_source_index_of_each_token)."""
+    out, src, i = [], [], 0
+    isnum = lambda w: w in _UNITS or w in _TENS or w in _SCALE
+    while i < len(tokens):
+        if tokens[i] in _UNITS or tokens[i] in _TENS:
+            total, cur, j = 0, 0, i
+            while j < len(tokens) and (isnum(tokens[j]) or (tokens[j] == 'and' and j > i and j + 1 < len(tokens) and isnum(tokens[j + 1]))):
+                w = tokens[j]
+                if w == 'and': j += 1; continue
+                if w == 'hundred': cur = max(cur, 1) * 100
+                elif w in _SCALE: total += max(cur, 1) * _SCALE[w]; cur = 0
+                else: cur += _UNITS.get(w, _TENS.get(w, 0))
+                j += 1
+            out.append(str(total + cur)); src.append(i); i = j
+        else: out.append(tokens[i]); src.append(i); i += 1
+    return out, src
+def _canon_heard(heard):
+    toks, src = canon_numbers([h[0] for h in heard]); return [(t, heard[x][1]) for t, x in zip(toks, src)]
+def _same_after_join(a, b): return ''.join(a) == ''.join(b)
+
+
 from pathlib import Path
 import numpy as np
 from scipy.io import wavfile
@@ -25,10 +51,11 @@ if (P / 'data/narration.wav').exists():
             pron = tts.get('pron', {}); text = ' '.join(l['text'] for l in tts['lines'])
             for k, r in pron.items(): text = re.sub(r'\b' + re.escape(k) + r'\b', r, text)
             want = [re.sub(r"[^a-z0-9']", '', w.lower()) for w in text.split()]; want = [w for w in want if w]
+            want = canon_numbers(want)[0]; heard = _canon_heard(heard)
             sm = difflib.SequenceMatcher(None, want, [h[0] for h in heard]); diffs = []
             for tag, a0, a1, b0, b1 in sm.get_opcodes():
-                if tag != 'equal': diffs.append({'script': ' '.join(want[a0:a1]), 'heard': ' '.join(h[0] for h in heard[b0:b1]), 'at': heard[b0][1] if b0 < len(heard) else None})
-            out['voice'].update(words_script=len(want), words_heard=len(heard), mismatch_rate=round(sum(max(a1 - a0, b1 - b0) for t, a0, a1, b0, b1 in sm.get_opcodes() if t != 'equal') / max(1, len(want)), 3), mismatches=diffs[:20])
+                if tag != 'equal' and not _same_after_join(want[a0:a1], [h[0] for h in heard[b0:b1]]): diffs.append({'script': ' '.join(want[a0:a1]), 'heard': ' '.join(h[0] for h in heard[b0:b1]), 'at': heard[b0][1] if b0 < len(heard) else None})
+            out['voice'].update(words_script=len(want), words_heard=len(heard), mismatch_rate=round(sum(max(a1 - a0, b1 - b0) for t, a0, a1, b0, b1 in sm.get_opcodes() if t != 'equal' and not _same_after_join(want[a0:a1], [h[0] for h in heard[b0:b1]])) / max(1, len(want)), 3), mismatches=diffs[:20])
         except Exception as e: out['voice']['whisper'] = f'not run: {e}'
 if (P / 'data/mix.wav').exists():
     sr, m = load(P / 'data/mix.wav'); out['mix'] = {'peak_db': round(20 * np.log10(np.abs(m).max() + 1e-9), 2), 'rms_db': round(20 * np.log10(np.sqrt((m ** 2).mean()) + 1e-9), 2), 'clipped_samples': int((np.abs(m) > 0.999).sum())}

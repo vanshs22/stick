@@ -23,8 +23,8 @@ const info = (f) => { const h = fs.readFileSync(f, 'utf8'); const g = (k) => (h.
 if (cmd === 'search') {
   const r = hf(['catalog', '--json', ...(opt('tag') ? ['--tag', opt('tag')] : []), ...a.slice(1).filter((x, i, arr) => !x.startsWith('--') && !['--tag', '--max'].includes(arr[i - 1]))], os.tmpdir());
   if (r.status) { console.error('HyperFrames catalog needs network and npm: ' + (r.stderr || '').trim().split('\n').pop()); process.exit(1); }
-  let items = []; try { items = JSON.parse(r.stdout.slice(r.stdout.indexOf('['))); } catch { console.log(r.stdout.slice(0, 3000)); process.exit(0); }
-  for (const i of items.slice(0, +opt('max', 10))) console.log(`${String(i.name).padEnd(28)} ${String(i.type).padEnd(9)} ${(i.description || '').slice(0, 110)}`);
+  let items = []; try { const j = JSON.parse(r.stdout.slice(r.stdout.indexOf('{'))); items = j.results || []; } catch { try { items = JSON.parse(r.stdout.slice(r.stdout.indexOf('['))); } catch { console.log(r.stdout.slice(0, 3000)); process.exit(0); } }
+  for (const i of items.slice(0, +opt('max', 10))) console.log(`${String(i.name).padEnd(28)} ${String(i.type).padEnd(9)} ${i.dimensions ? `${i.dimensions.width}x${i.dimensions.height} ${i.duration}s ` : ''}${(i.description || '').slice(0, 100)}`);
 } else if (cmd === 'add') {
   const name = a[1], P = proj(); if (!name || name.startsWith('--')) { console.error('usage: hyperframes.mjs add <block> --project <P>'); process.exit(2); }
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'hf-')), r = hf(['add', name, '--no-clipboard', '--json'], tmp);

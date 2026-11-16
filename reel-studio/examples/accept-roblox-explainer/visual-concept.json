@@ -1,0 +1,36 @@
+{
+ "status": "ready",
+ "style_pack": "roblox-inspired",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Why does a website load instantly the second time?",
+   "approach": "character-3d",
+   "adds_information": "The avatar next to a laptop that is still loading shows the problem (waiting) before the narration answers it."
+  },
+  {
+   "line_id": "L02",
+   "line": "Because a cache saves the answer.",
+   "approach": "combo",
+   "adds_information": "A trophy on a podium makes \"the saved answer\" a visible object the avatar can point at."
+  },
+  {
+   "line_id": "L03",
+   "line": "The first visit is slow. It fetches everything.",
+   "approach": "combo",
+   "adds_information": "A counter climbing to 800 ms beside a typing laptop puts a number on the word slow."
+  },
+  {
+   "line_id": "L04",
+   "line": "The next visit just reads the saved copy.",
+   "approach": "combo",
+   "adds_information": "The same counter falling to 40 ms shows the improvement by comparison with the previous shot."
+  },
+  {
+   "line_id": "L05",
+   "line": "Save this, and comment CACHE.",
+   "approach": "character-3d",
+   "adds_information": "The avatar addresses the viewer while the plaque shows the exact keyword to comment."
+  }
+ ]
+}

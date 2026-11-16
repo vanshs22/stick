@@ -1,0 +1,30 @@
+{
+ "status": "ready",
+ "style_pack": "claude-minions",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "What if making a video was as simple as writing a web page?",
+   "approach": "combo",
+   "adds_information": "The question is staged: a laptop between two reacting cubies."
+  },
+  {
+   "line_id": "L02",
+   "line": "Remotion gives you a frame number and a blank canvas.",
+   "approach": "combo",
+   "adds_information": "The real docs page next to the characters shows the exact sentence the narration paraphrases."
+  },
+  {
+   "line_id": "L03",
+   "line": "Over seventy thousand people have starred it on GitHub.",
+   "approach": "combo",
+   "adds_information": "The real repository page proves the star count instead of just stating it."
+  },
+  {
+   "line_id": "L04",
+   "line": "Comment REMOTION and I will send you the docs link.",
+   "approach": "character-3d",
+   "adds_information": "Both characters address the viewer with the exact keyword on a plaque."
+  }
+ ]
+}

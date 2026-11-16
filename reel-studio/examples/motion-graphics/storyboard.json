@@ -27,7 +27,9 @@
      "left": "// captions",
      "right": "3 MISTAKES"
     }
-   ]
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "TitleCard carries this beat because the planned visual is: headline"
   },
   {
    "id": "S02",
@@ -84,7 +86,9 @@
    "presenter": {
     "pose": "think",
     "mood": "worried"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "Checklist carries this beat because the planned visual is: three mistakes tick in"
   },
   {
    "id": "S03",
@@ -128,7 +132,9 @@
      "x": 800,
      "y": 470
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Versus carries this beat because the planned visual is: bad versus good"
   },
   {
    "id": "S04",
@@ -159,7 +165,9 @@
    "presenter": {
     "pose": "wave",
     "mood": "happy"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action"
   }
  ]
 }

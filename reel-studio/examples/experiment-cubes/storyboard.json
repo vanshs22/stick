@@ -59,7 +59,7 @@
       "at": [
        0,
        1.55,
-       -1.0
+       -1
       ],
       "scale": 1.7,
       "desk": false
@@ -97,7 +97,7 @@
       },
       "target": "stage",
       "duration": 2.1,
-      "start": 0.0,
+      "start": 0,
       "profile": "ease-in-out",
       "curve": "sine",
       "focus": {
@@ -123,7 +123,7 @@
     },
     {
      "type": "bubble",
-     "emoji": "\ud83e\udd14",
+     "emoji": "🤔",
      "text": "WHY?",
      "anchor": "why",
      "x": 760,
@@ -139,7 +139,8 @@
      "type": "pop",
      "at": "start",
      "offset": 0.15,
-     "gain": 0.3
+     "gain": 0.3,
+     "why": "on-screen event: the problem: a working project on a desk nobody visits; the pink cubie asks why"
     }
    ],
    "anchors": [
@@ -148,7 +149,9 @@
      "line": "L01",
      "word": "why"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the problem: a working project on a desk nobody visits; the pink cubie asks why"
   },
   {
    "id": "S02",
@@ -232,14 +235,14 @@
       "type": "dolly-push",
       "why": "A push-in from the wide wall of keys to the duo narrows from \"so many projects\" to the two cubies reacting to it.",
       "from": {
-       "distScale": 1.0
+       "distScale": 1
       },
       "to": {
        "distScale": 0.86
       },
       "target": "stage",
       "duration": 1.7,
-      "start": 0.0,
+      "start": 0,
       "profile": "ease-in-out",
       "curve": "sine",
       "focus": {
@@ -277,14 +280,16 @@
     {
      "type": "whoosh",
      "at": "start",
-     "offset": 0.0,
-     "gain": 0.3
+     "offset": 0,
+     "gain": 0.3,
+     "why": "on-screen event: a wall of glowing keys: so many projects, none of them says how to start"
     },
     {
      "type": "riser",
      "at": "start",
-     "offset": 0.0,
-     "gain": 0.35
+     "offset": 0,
+     "gain": 0.35,
+     "why": "on-screen event: a wall of glowing keys: so many projects, none of them says how to start"
     }
    ],
    "anchors": [
@@ -293,7 +298,9 @@
      "line": "L02",
      "word": "start"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: a wall of glowing keys: so many projects, none of them says how to start"
   },
   {
    "id": "S03",
@@ -353,7 +360,7 @@
       "at": [
        0,
        1.55,
-       -1.0
+       -1
       ],
       "scale": 1.7,
       "desk": false
@@ -379,8 +386,8 @@
        "az": 8
       },
       "target": "stage",
-      "duration": 2.0,
-      "start": 0.0,
+      "duration": 2,
+      "start": 0,
       "profile": "ease-in-out",
       "curve": "sine",
       "focus": {
@@ -414,9 +421,12 @@
      "type": "sparkle",
      "at": "start",
      "offset": 0.4,
-     "gain": 0.35
+     "gain": 0.35,
+     "why": "on-screen event: the fix: the laptop lights up, the orange cubie presents the README"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the fix: the laptop lights up, the orange cubie presents the README"
   },
   {
    "id": "S04",
@@ -499,14 +509,14 @@
       "type": "dolly-pull",
       "why": "Pulling back from the three boxes reveals the whole README at once, matching the line that sums it up.",
       "from": {
-       "distScale": 1.0
+       "distScale": 1
       },
       "to": {
        "distScale": 1.14
       },
       "target": "stage",
       "duration": 2.4,
-      "start": 0.0,
+      "start": 0,
       "profile": "ease-in-out",
       "curve": "sine",
       "focus": {
@@ -538,21 +548,26 @@
      "type": "pop",
      "at": "start",
      "offset": 0.3,
-     "gain": 0.3
+     "gain": 0.3,
+     "why": "on-screen event: three boxes stacked: what it is, how to run it, one example"
     },
     {
      "type": "pop",
      "at": "start",
      "offset": 1.6,
-     "gain": 0.3
+     "gain": 0.3,
+     "why": "on-screen event: three boxes stacked: what it is, how to run it, one example"
     },
     {
      "type": "pop",
      "at": "start",
      "offset": 2.9,
-     "gain": 0.3
+     "gain": 0.3,
+     "why": "on-screen event: three boxes stacked: what it is, how to run it, one example"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: three boxes stacked: what it is, how to run it, one example"
   },
   {
    "id": "S05",
@@ -581,7 +596,7 @@
         "idle"
        ],
        [
-        1.0,
+        1,
         "cheer"
        ]
       ],
@@ -606,7 +621,7 @@
         "idle"
        ],
        [
-        1.0,
+        1,
         "cheer"
        ]
       ],
@@ -655,14 +670,14 @@
       "type": "dolly-push",
       "why": "A push-in toward the trophy lands on the payoff word as the burst fires.",
       "from": {
-       "distScale": 1.0
+       "distScale": 1
       },
       "to": {
        "distScale": 0.86
       },
       "target": "stage",
       "duration": 2.2,
-      "start": 0.0,
+      "start": 0,
       "profile": "ease-in-out",
       "curve": "sine",
       "focus": {
@@ -718,7 +733,9 @@
      "line": "L05",
      "word": "star"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the payoff: a trophy on a podium, a neon burst on the first star"
   },
   {
    "id": "S06",
@@ -816,7 +833,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
-   }
+   },
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: both cubies face us and ask for the comment"
   }
  ]
 }

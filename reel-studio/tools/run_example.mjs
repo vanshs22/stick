@@ -14,6 +14,7 @@ const r = spawnSync('node', [path.join(TK, 'tools/new_project.mjs'), name, '--di
 const P = path.resolve(dir, name);
 fs.copyFileSync(path.join(src, 'brief.json'), path.join(P, 'brief.json')); fs.copyFileSync(path.join(src, 'script.json'), path.join(P, 'script/script.json'));
 fs.copyFileSync(path.join(src, 'storyboard.json'), path.join(P, 'storyboard/storyboard.json')); fs.copyFileSync(path.join(src, 'audio-plan.json'), path.join(P, 'audio/audio-plan.json'));
+for (const [from, to] of [['visual-concept.json', 'storyboard/visual-concept.json'], ['research.json', 'research/research.json'], ['topic.json', 'topic/topic.json']]) if (fs.existsSync(path.join(src, from))) { fs.mkdirSync(path.dirname(path.join(P, to)), { recursive: true }); fs.copyFileSync(path.join(src, from), path.join(P, to)); }   // optional files an example may ship
 for (const f of ['script/script.json:script', 'storyboard/storyboard.json:storyboard', 'audio/audio-plan.json:audio-plan', 'brief.json:production-brief']) { const [file, schema] = f.split(':'); const v = spawnSync('node', [path.join(TK, 'tools/validate.mjs'), schema, path.join(P, file)], { encoding: 'utf8' }); if (v.status) { console.error(v.stderr); process.exit(1); } }
 for (const s of ['intake', 'style', 'topic', 'research', 'script', 'script_critic', 'storyboard', 'storyboard_critic', 'audio', 'typography', 'captions']) set(P, s, 'done');
 console.log(`project ready: ${P}\nrun the pipeline: bash ${TK}/scripts/e2e.sh ${P}`);

@@ -1,0 +1,566 @@
+{
+ "style_pack": "voxel-explainer",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "the voxel person looks at a laptop and a closed box: two things that need to talk",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "metaphor-env",
+   "why_renderer": "An API is invisible, so the opening shows two separate objects in one valley (a laptop and a box) that the next lines will connect.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "actually"
+    }
+   ],
+   "props": {
+    "world": "voxel-valley",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -0.8,
+       0.2
+      ],
+      "rotY": 0.45,
+      "speaks": false,
+      "pose": "relax",
+      "mood": "curious",
+      "lookAt": "laptop"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.7,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "laptop",
+      "kind": "laptop",
+      "at": [
+       0.7,
+       0.57,
+       0.35
+      ],
+      "rotY": -0.5,
+      "desk": false,
+      "lines": [
+       "$ ask the kitchen",
+       "> ..."
+      ],
+      "scale": 0.5
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       -1.8,
+       0,
+       -1.4
+      ],
+      "voxel": true
+     }
+    ],
+    "camera": {
+     "framing": "establishing",
+     "angle": "eye-level",
+     "subject": "hero",
+     "offset": [
+      0,
+      -0.05
+     ],
+     "movement": {
+      "type": "dolly-push",
+      "why": "Starts wide so the valley, the laptop and the box are all readable, then pushes toward the person as the question lands on \"actually\".",
+      "from": {
+       "framing": "establishing"
+      },
+      "to": {
+       "framing": "wide"
+      },
+      "target": "hero",
+      "duration": 2.4,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "laptop",
+       "aperture": 0.0015
+      },
+      "constraints": [
+       "hero stays inside the safe zone"
+      ]
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "WHAT IS AN API?",
+     "anchor": "a0",
+     "y": 190
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "a second voxel person plays the waiter between the guest and the kitchen box",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "A second character carrying the waiter role turns the metaphor into a performance: the viewer sees who sits between the guest and the kitchen.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "waiter"
+    }
+   ],
+   "props": {
+    "world": "voxel-valley",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -1.2,
+       0.2
+      ],
+      "rotY": 0.5,
+      "speaks": true,
+      "pose": [
+       [
+        0,
+        "explain"
+       ]
+      ],
+      "mood": "calm"
+     },
+     {
+      "id": "waiter",
+      "kind": "voxel",
+      "look": {
+       "shirt": "#F2F2F2",
+       "pants": "#1E1E26",
+       "hair": "#7A4B2A",
+       "hairStyle": "cap"
+      },
+      "at": [
+       0.3,
+       0.3
+      ],
+      "rotY": -0.4,
+      "pose": [
+       [
+        0,
+        "wave"
+       ],
+       [
+        1.6,
+        "idle"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       1.6,
+       0,
+       -0.4
+      ],
+      "voxel": true
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "subject": "waiter",
+     "offset": [
+      0,
+      -0.03
+     ],
+     "focus": {
+      "target": "waiter",
+      "aperture": 0.003
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "THE WAITER = THE API",
+     "anchor": "a0",
+     "y": 190
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "the guest types an order and the waiter walks toward the kitchen",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "The order travelling is motion over distance, which is what 3D does better than a diagram: the waiter really crosses the valley.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "order"
+    }
+   ],
+   "props": {
+    "world": "voxel-valley",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -1.4,
+       0.2
+      ],
+      "rotY": 0.6,
+      "speaks": true,
+      "pose": [
+       [
+        0,
+        "reach"
+       ]
+      ],
+      "mood": "calm",
+      "lookAt": "laptop"
+     },
+     {
+      "id": "waiter",
+      "kind": "voxel",
+      "look": {
+       "shirt": "#F2F2F2",
+       "pants": "#1E1E26",
+       "hair": "#7A4B2A",
+       "hairStyle": "cap"
+      },
+      "at": [
+       0.2,
+       0.4
+      ],
+      "rotY": -0.6,
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": "calm",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.7,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "laptop",
+      "kind": "laptop",
+      "at": [
+       0.7,
+       0.57,
+       0.35
+      ],
+      "rotY": -0.5,
+      "desk": false,
+      "lines": [
+       "$ order: 1 tea",
+       "> sent to the kitchen"
+      ],
+      "scale": 0.5
+     }
+    ],
+    "camera": {
+     "framing": "medium-wide",
+     "angle": "three-quarter",
+     "az": -25,
+     "subject": "waiter",
+     "offset": [
+      0,
+      0
+     ],
+     "focus": {
+      "target": "waiter",
+      "aperture": 0.004
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "bubble",
+     "emoji": "📝",
+     "text": "ORDER",
+     "anchor": "a0",
+     "x": 300,
+     "y": 760
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "a0",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "the gift box opens like a covered plate: the answer arrives",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The answer is a thing arriving: the box opens in close-up and the key rises, so the reveal lands on the word \"plate\".",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "plate"
+    }
+   ],
+   "props": {
+    "world": "voxel-valley",
+    "cast": [],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.6,
+       0,
+       0.35
+      ],
+      "voxel": true
+     },
+     {
+      "id": "box",
+      "kind": "giftbox",
+      "at": [
+       0.6,
+       0.57,
+       0.35
+      ],
+      "rotY": -0.4,
+      "voxel": true,
+      "open": [
+       0.6,
+       0.8
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "insert",
+     "angle": "high-angle",
+     "el": 14,
+     "subject": "box",
+     "offset": [
+      0,
+      0.05
+     ],
+     "movement": {
+      "type": "tilt",
+      "why": "Opens on the closed lid and tilts up to follow what rises out of the box, so the reveal lands exactly when the narration says the answer arrives.",
+      "from": {
+       "offset": [
+        0,
+        -0.3
+       ]
+      },
+      "to": {
+       "offset": [
+        0,
+        0.12
+       ]
+      },
+      "duration": 1.6,
+      "start": 0.1,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "box",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "reveal fully in frame at the end"
+      ]
+     }
+    },
+    "look": {
+     "bloom": 0.2,
+     "bloomThreshold": 0.97,
+     "exposure": 0.95
+    }
+   },
+   "overlays": [
+    {
+     "type": "impact",
+     "text": "200 OK",
+     "x": 540,
+     "y": 520,
+     "size": 170,
+     "anchor": "a0"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "sparkle",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "the voxel person waves with a plaque",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "The ask is spoken by the same character who asked the question, so the film ends where it began.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "Save"
+    }
+   ],
+   "props": {
+    "world": "voxel-valley",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "voxel",
+      "look": {},
+      "at": [
+       -0.3,
+       0.2
+      ],
+      "rotY": 0.2,
+      "speaks": true,
+      "pose": [
+       [
+        0,
+        "wave"
+       ]
+      ],
+      "mood": "happy"
+     }
+    ],
+    "props3d": [],
+    "camera": {
+     "framing": "medium",
+     "angle": "three-quarter",
+     "az": -16,
+     "subject": "hero",
+     "offset": [
+      0,
+      -0.02
+     ],
+     "focus": {
+      "target": "hero",
+      "aperture": 0.0035
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "SAVE THIS",
+     "anchor": "a0",
+     "y": 190
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

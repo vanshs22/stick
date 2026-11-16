@@ -61,7 +61,7 @@
      "angle": "eye-level",
      "subject": "hero",
      "offset": [
-      0.0,
+      0,
       -0.05
      ],
      "movement": {
@@ -75,7 +75,7 @@
       },
       "target": "hero",
       "duration": 3.2,
-      "start": 0.0,
+      "start": 0,
       "profile": "ease-in-out",
       "curve": "sine",
       "focus": {
@@ -98,9 +98,12 @@
      "type": "pop",
      "at": "start",
      "offset": 0.2,
-     "gain": 0.3
+     "gain": 0.3,
+     "why": "on-screen event: establish the room, the table and the box"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: establish the room, the table and the box"
   },
   {
    "id": "S02",
@@ -181,7 +184,7 @@
      "subject": "hero",
      "offset": [
       0.1,
-      0.0
+      0
      ],
      "focus": {
       "target": "hero",
@@ -195,7 +198,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
-   }
+   },
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: hero tells it to camera"
   },
   {
    "id": "S03",
@@ -287,7 +292,7 @@
      "shoulderOffset": 0.7,
      "lift": 0.5,
      "fov": 34,
-     "lookShift": 0.0,
+     "lookShift": 0,
      "focus": {
       "target": "box",
       "aperture": 0.003
@@ -306,9 +311,12 @@
      "type": "pop",
      "at": "start",
      "offset": 1.1,
-     "gain": 0.35
+     "gain": 0.35,
+     "why": "on-screen event: hero opens the box"
     }
-   ]
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: hero opens the box"
   },
   {
    "id": "S04",
@@ -342,7 +350,7 @@
       ],
       "rotY": -0.4,
       "open": [
-       -1.0,
+       -1,
        0.8
       ]
      }
@@ -399,9 +407,12 @@
      "type": "sparkle",
      "at": "start",
      "offset": 0.3,
-     "gain": 0.5
+     "gain": 0.5,
+     "why": "on-screen event: the key rises out of the box"
     }
-   ]
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the key rises out of the box"
   },
   {
    "id": "S05",
@@ -481,7 +492,7 @@
      "az": -22,
      "subject": "hero",
      "offset": [
-      0.0,
+      0,
       -0.02
      ],
      "focus": {
@@ -496,7 +507,7 @@
       },
       "target": "hero",
       "duration": 1.6,
-      "start": 0.0,
+      "start": 0,
       "profile": "ease-out",
       "curve": "sine",
       "constraints": [
@@ -508,7 +519,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
-   }
+   },
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: hero reacts"
   }
  ]
 }

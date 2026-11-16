@@ -1,0 +1,584 @@
+{
+ "style_pack": "roblox-inspired",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "the avatar waits on the spawn pad next to a laptop that is still loading",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "A 3D avatar beside a stalled laptop sets up the question in the same world the answer will use, so the second visit can be shown with the same props.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "instantly"
+    }
+   ],
+   "props": {
+    "world": "block-yard",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "blocky",
+      "look": {
+       "nameTag": "Builder_7"
+      },
+      "at": [
+       -0.7,
+       0.2
+      ],
+      "rotY": 0.45,
+      "speaks": false,
+      "pose": "relax",
+      "mood": "curious",
+      "lookAt": "laptop"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.6,
+       0,
+       0.35
+      ],
+      "blocky": true
+     },
+     {
+      "id": "laptop",
+      "kind": "laptop",
+      "at": [
+       0.6,
+       0.57,
+       0.35
+      ],
+      "rotY": -0.5,
+      "desk": false,
+      "lines": [
+       "$ open site",
+       "> waiting..."
+      ],
+      "scale": 0.55
+     }
+    ],
+    "camera": {
+     "framing": "establishing",
+     "angle": "eye-level",
+     "subject": "hero",
+     "offset": [
+      0,
+      -0.05
+     ],
+     "movement": {
+      "type": "dolly-push",
+      "why": "Starts wide so the yard and the laptop are readable, then pushes toward the avatar as the question lands on \"instantly\".",
+      "duration": 2.8,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "from": {
+       "framing": "establishing"
+      },
+      "to": {
+       "framing": "wide"
+      },
+      "target": "hero",
+      "focus": {
+       "target": "laptop",
+       "aperture": 0.0015
+      },
+      "constraints": [
+       "hero stays inside the safe zone",
+       "laptop visible throughout"
+      ]
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "WHY SO FAST?",
+     "kicker": "second visit",
+     "anchor": "a0",
+     "y": 190
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "the avatar explains; a trophy on a podium stands for the saved answer",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "combo",
+   "layers": [
+    "3D avatar explaining",
+    "trophy on a podium (the saved copy)",
+    "2D plaque"
+   ],
+   "why_renderer": "The saved answer is an object you cannot see in a sentence: a trophy on a podium makes \"saves the answer\" something the eye can point at.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "saves"
+    }
+   ],
+   "props": {
+    "world": "block-yard",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "blocky",
+      "look": {
+       "nameTag": "Builder_7"
+      },
+      "at": [
+       -0.9,
+       0.2
+      ],
+      "rotY": 0.5,
+      "speaks": true,
+      "pose": [
+       [
+        0,
+        "explain"
+       ],
+       [
+        1.4,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "calm"
+       ],
+       [
+        1.4,
+        "happy"
+       ]
+      ]
+     }
+    ],
+    "props3d": [
+     {
+      "id": "pod",
+      "kind": "podium",
+      "at": [
+       0.9,
+       0,
+       0.3
+      ]
+     },
+     {
+      "id": "tro",
+      "kind": "trophy",
+      "at": [
+       0.9,
+       0.5,
+       0.3
+      ],
+      "scale": 0.7
+     }
+    ],
+    "camera": {
+     "framing": "medium-wide",
+     "angle": "three-quarter",
+     "az": -20,
+     "subject": "hero",
+     "offset": [
+      0.1,
+      0
+     ],
+     "focus": {
+      "target": "hero",
+      "aperture": 0.004
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "A CACHE SAVES IT",
+     "anchor": "a0",
+     "y": 190
+    }
+   ],
+   "sfx": [
+    {
+     "type": "sparkle",
+     "anchor": "a0",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "close on the laptop typing a slow fetch while a counter climbs to 800 ms",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "combo",
+   "layers": [
+    "3D laptop typing real command lines",
+    "2D counter 0 to 800 ms"
+   ],
+   "why_renderer": "A counter climbing next to a laptop that is visibly typing gives the word \"slow\" a number, which is the information the sentence lacks.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "slow"
+    },
+    {
+     "name": "a1",
+     "line": "L03",
+     "word": "fetches"
+    }
+   ],
+   "props": {
+    "world": "block-yard",
+    "cast": [],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.6,
+       0,
+       0.35
+      ],
+      "blocky": true
+     },
+     {
+      "id": "laptop",
+      "kind": "laptop",
+      "at": [
+       0.6,
+       0.57,
+       0.35
+      ],
+      "rotY": -0.5,
+      "desk": false,
+      "lines": [
+       "$ GET /home",
+       "> fetching 42 files...",
+       "> far server...",
+       "> done in 800 ms"
+      ],
+      "scale": 0.55
+     }
+    ],
+    "camera": {
+     "framing": "insert",
+     "angle": "eye-level",
+     "subject": "laptop",
+     "offset": [
+      0,
+      0.02
+     ],
+     "focus": {
+      "target": "laptop",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "counter",
+     "from": 0,
+     "to": 800,
+     "suffix": " ms",
+     "label": "FIRST VISIT",
+     "anchor": "a1",
+     "y": 330,
+     "dur": 1.5
+    },
+    {
+     "type": "impact",
+     "text": "SLOW",
+     "x": 540,
+     "y": 1000,
+     "size": 200,
+     "anchor": "a0"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "a1",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "same laptop, instant: the counter drops to 40 ms and the avatar points at the saved copy",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "combo",
+   "layers": [
+    "3D avatar pointing",
+    "3D laptop",
+    "2D counter 800 to 40 ms"
+   ],
+   "why_renderer": "Repeating the S03 setup with the number collapsing makes the before/after comparison visual: same props, different number.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "next"
+    },
+    {
+     "name": "a1",
+     "line": "L04",
+     "word": "saved"
+    }
+   ],
+   "props": {
+    "world": "block-yard",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "blocky",
+      "look": {
+       "nameTag": "Builder_7"
+      },
+      "at": [
+       -0.9,
+       0.2
+      ],
+      "rotY": 0.5,
+      "speaks": true,
+      "pose": [
+       [
+        0,
+        "explain"
+       ],
+       [
+        1.2,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "calm"
+       ],
+       [
+        1.2,
+        "happy"
+       ]
+      ],
+      "lookAt": "laptop"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0.6,
+       0,
+       0.35
+      ],
+      "blocky": true
+     },
+     {
+      "id": "laptop",
+      "kind": "laptop",
+      "at": [
+       0.6,
+       0.57,
+       0.35
+      ],
+      "rotY": -0.5,
+      "desk": false,
+      "lines": [
+       "$ GET /home",
+       "> cache hit",
+       "> done in 40 ms"
+      ],
+      "scale": 0.55
+     }
+    ],
+    "camera": {
+     "framing": "medium-wide",
+     "angle": "three-quarter",
+     "az": -28,
+     "subject": "hero",
+     "offset": [
+      0.12,
+      0
+     ],
+     "focus": {
+      "target": "hero",
+      "aperture": 0.004
+     },
+     "movement": {
+      "type": "static"
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "counter",
+     "from": 800,
+     "to": 40,
+     "suffix": " ms",
+     "label": "NEXT VISIT",
+     "anchor": "a0",
+     "y": 330,
+     "dur": 1.2
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "a1",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "the avatar waves and the plaque names the comment keyword",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "The call to action is a person talking to the viewer, so the avatar faces the camera with the keyword on a plaque.",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "comment"
+    }
+   ],
+   "props": {
+    "world": "block-yard",
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "blocky",
+      "look": {
+       "nameTag": "Builder_7"
+      },
+      "at": [
+       -0.2,
+       0.2
+      ],
+      "rotY": 0.15,
+      "speaks": true,
+      "pose": [
+       [
+        0,
+        "wave"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "happy"
+       ]
+      ]
+     }
+    ],
+    "props3d": [],
+    "camera": {
+     "framing": "medium",
+     "angle": "three-quarter",
+     "az": -16,
+     "subject": "hero",
+     "offset": [
+      0,
+      -0.02
+     ],
+     "focus": {
+      "target": "hero",
+      "aperture": 0.0035
+     },
+     "movement": {
+      "type": "dolly-push",
+      "why": "A slow push on the avatar while the keyword appears keeps attention on the one ask, instead of a cut at the end.",
+      "duration": 1.6,
+      "start": 0,
+      "profile": "ease-out",
+      "curve": "sine",
+      "to": {
+       "distScale": 0.85
+      },
+      "target": "hero",
+      "constraints": [
+       "both eyes stay in frame"
+      ]
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "COMMENT CACHE",
+     "kicker": "save this",
+     "anchor": "a0",
+     "y": 190
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

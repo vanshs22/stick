@@ -1,0 +1,36 @@
+{
+ "status": "ready",
+ "style_pack": "editorial-notebook",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Remotion renders a video from one terminal command.",
+   "approach": "screenshot",
+   "adds_information": "The real Remotion site proves the tool exists and shows what it looks like."
+  },
+  {
+   "line_id": "L02",
+   "line": "Install it once, then forget the setup.",
+   "approach": "designed-ui",
+   "adds_information": "A ticking checklist shows that the setup is two small items."
+  },
+  {
+   "line_id": "L03",
+   "line": "Run npx remotion render, then your composition name.",
+   "approach": "designed-ui",
+   "adds_information": "The command typed on the word render shows the exact syntax the narration only names."
+  },
+  {
+   "line_id": "L04",
+   "line": "The docs list every option you can pass.",
+   "approach": "evidence-card",
+   "adds_information": "The real CLI docs page with the command highlighted is the proof that the options are listed."
+  },
+  {
+   "line_id": "L05",
+   "line": "Save this for your next project.",
+   "approach": "designed-ui",
+   "adds_information": "A one-line headline and the ask."
+  }
+ ]
+}

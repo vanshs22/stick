@@ -41,13 +41,16 @@
     {
      "type": "pop",
      "at": "start",
-     "offset": 0.1
+     "offset": 0.1,
+     "why": "on-screen event: hero and tower"
     }
    ],
    "transition_out": {
     "type": "whip",
     "sound": "whoosh"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: hero and tower"
   },
   {
    "id": "S02",
@@ -94,7 +97,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "swish"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: building blocks"
   },
   {
    "id": "S03",
@@ -147,7 +152,9 @@
    "transition_out": {
     "type": "whip",
     "sound": "whoosh"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: storm arrives"
   },
   {
    "id": "S04",
@@ -204,7 +211,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "swish"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: wind shakes"
   },
   {
    "id": "S05",
@@ -261,7 +270,9 @@
    "transition_out": {
     "type": "zoom",
     "sound": "swish"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: holding on"
   },
   {
    "id": "S06",
@@ -312,7 +323,9 @@
    "transition_out": {
     "type": "mask",
     "sound": "swish"
-   }
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: above the clouds"
   },
   {
    "id": "S07",
@@ -331,7 +344,9 @@
    "transition_out": {
     "type": "fade",
     "sound": "none"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "EndCard carries this beat because the planned visual is: cta"
   }
  ]
 }

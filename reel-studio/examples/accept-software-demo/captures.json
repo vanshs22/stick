@@ -1,0 +1,40 @@
+[
+ {
+  "id": "web/home",
+  "src": "SRC1",
+  "url": "https://www.remotion.dev/",
+  "viewport": "480x900",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 900
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ],
+  "expect": [
+   "Make videos"
+  ]
+ },
+ {
+  "id": "web/cli-render",
+  "src": "SRC2",
+  "url": "https://www.remotion.dev/docs/cli/render",
+  "viewport": "480x900",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 900
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ],
+  "expect": [
+   "npx remotion render"
+  ]
+ }
+]

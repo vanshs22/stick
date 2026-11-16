@@ -32,14 +32,17 @@
      "type": "thud",
      "at": "start",
      "offset": 0.1,
-     "gain": 0.4
+     "gain": 0.4,
+     "why": "on-screen event: worried close-up"
     }
    ],
    "transition_out": {
     "type": "cut",
     "sound": "swish"
    },
-   "speaker": "Me"
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: worried close-up"
   },
   {
    "id": "S02",
@@ -104,7 +107,9 @@
     "type": "cut",
     "sound": "swish"
    },
-   "speaker": "Me"
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: helper hops when asked"
   },
   {
    "id": "S03",
@@ -131,13 +136,15 @@
     {
      "type": "type",
      "anchor": "go",
-     "dur": 1.0
+     "dur": 1
     }
    ],
    "transition_out": {
     "type": "cut",
     "sound": "none"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: typing on a terminal"
   },
   {
    "id": "S04",
@@ -194,7 +201,9 @@
     "type": "dip",
     "sound": "none"
    },
-   "speaker": "Helper"
+   "speaker": "Helper",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: surprised reaction"
   },
   {
    "id": "S05",
@@ -216,7 +225,7 @@
         "shrug"
        ],
        [
-        2.0,
+        2,
         "point"
        ]
       ],
@@ -226,7 +235,7 @@
         "sad"
        ],
        [
-        2.0,
+        2,
         "smirk"
        ]
       ],
@@ -245,7 +254,9 @@
     "type": "cut",
     "sound": "swish"
    },
-   "speaker": "Me"
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: shrug then lesson"
   },
   {
    "id": "S06",
@@ -276,7 +287,9 @@
    "transition_out": {
     "type": "whip",
     "sound": "whoosh"
-   }
+   },
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action"
   },
   {
    "id": "S07",
@@ -318,7 +331,8 @@
      "type": "sparkle",
      "at": "start",
      "offset": 0.1,
-     "gain": 0.5
+     "gain": 0.5,
+     "why": "on-screen event: happy sign-off"
     }
    ],
    "transition_out": {
@@ -335,7 +349,9 @@
      "y": 420
     }
    ],
-   "speaker": "Me"
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: happy sign-off"
   }
  ]
 }

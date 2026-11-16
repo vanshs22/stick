@@ -1,0 +1,283 @@
+{
+ "style_pack": "editorial-sticker",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "two numbers face to face: 800 ms against 40 ms",
+   "shot_type": "data",
+   "component": "Versus",
+   "approach": "data-viz",
+   "why_renderer": "The hook is a comparison of two numbers; putting 800 and 40 side by side lets the eye measure the gap before the sentence ends.",
+   "props": {
+    "left": "800 ms",
+    "right": "40 ms",
+    "leftSub": "first visit",
+    "rightSub": "second visit",
+    "badge": "VS",
+    "anchor": "a0"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "Same"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 01 \u00b7 same page",
+     "right": "2 VISITS"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "none",
+    "why": "the story moves from the numbers to how the first visit gets them"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "curious"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "slate",
+   "visual_intent": "a trip drawn as three nodes: you, a far server, every file",
+   "shot_type": "diagram",
+   "component": "FlowDiagram",
+   "approach": "motion-graphics",
+   "why_renderer": "A distance is hard to hear and easy to draw: three nodes joined by a long line show that the first visit travels all the way to the server.",
+   "props": {
+    "nodes": [
+     "You",
+     "Far server",
+     "Every file"
+    ],
+    "title": "FIRST VISIT",
+    "anchorPrefix": "n"
+   },
+   "anchors": [
+    {
+     "name": "n0",
+     "line": "L02",
+     "word": "first"
+    },
+    {
+     "name": "n1",
+     "line": "L02",
+     "word": "fetches"
+    },
+    {
+     "name": "n2",
+     "line": "L02",
+     "word": "server."
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 02 \u00b7 the slow trip",
+     "right": "800 ms"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "n1",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "wipe",
+    "sound": "swish",
+    "why": "the diagram is redrawn with the cache in the middle"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "the same trip with a cache node close to you",
+   "shot_type": "diagram",
+   "component": "FlowDiagram",
+   "approach": "motion-graphics",
+   "why_renderer": "Redrawing the same diagram with one node inserted next to \"You\" shows the change in architecture, not just the claim.",
+   "props": {
+    "nodes": [
+     "You",
+     "Cache (a copy)",
+     "Far server"
+    ],
+    "title": "WITH A CACHE",
+    "anchorPrefix": "c"
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L03",
+     "word": "cache"
+    },
+    {
+     "name": "c1",
+     "line": "L03",
+     "word": "copy"
+    },
+    {
+     "name": "c2",
+     "line": "L03",
+     "word": "close"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 03 \u00b7 a copy nearby",
+     "right": "40 ms"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "c1",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "none",
+    "why": "the result of the diagram is shown as one big number"
+   },
+   "presenter": {
+    "pose": "think",
+    "mood": "curious"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "a count-up stat card: 20x faster, with a progress track",
+   "shot_type": "data",
+   "component": "HtmlBlock",
+   "approach": "data-viz",
+   "why_renderer": "A real HyperFrames stat block (GSAP count-up and a filling track) seeked by the Remotion frame turns \"twenty times\" into a number that climbs on the word.",
+   "props": {
+    "src": "assets/hyperframes/mk-progress-stat.html",
+    "fit": "cover",
+    "replace": [
+     [
+      "value: 22,",
+      "value: 20,"
+     ],
+     [
+      "suffix: \"\",",
+      "suffix: \"x\","
+     ],
+     [
+      "label: \"Goals reached\",",
+      "label: \"faster on the second visit\","
+     ],
+     [
+      "caption: \"Great job, we are getting closer!\",",
+      "caption: \"800 ms down to 40 ms\","
+     ],
+     [
+      "max: 30,",
+      "max: 24,"
+     ],
+     [
+      "trackWidth: 480,",
+      "trackWidth: 400,"
+     ],
+     [
+      "x: 1300,",
+      "x: null,"
+     ],
+     [
+      "y: 250,",
+      "y: null,"
+     ]
+    ]
+   },
+   "anchors": [],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "count",
+     "at": "start",
+     "offset": 0.5,
+     "why": "the number counting up in the stat card",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "bg": "paper",
+   "visual_intent": "end card with the keyword",
+   "shot_type": "typography",
+   "component": "EndCard",
+   "approach": "designed-ui",
+   "why_renderer": "The call to action is a lockup of one headline and the exact comment keyword, in the pack's own end-card layout.",
+   "props": {
+    "headline": "Cache it.",
+    "accent": "it",
+    "cta": "Comment CACHE",
+    "handle": "@reelstudio"
+   },
+   "anchors": [],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "ding",
+     "at": "start",
+     "offset": 0.4,
+     "why": "the end card lands",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy"
+   }
+  }
+ ]
+}

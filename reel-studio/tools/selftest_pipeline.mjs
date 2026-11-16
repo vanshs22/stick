@@ -114,5 +114,11 @@ const critic = async (sb, vc) => { const D = path.join(tmp, 'v' + Math.random().
   fs.writeFileSync(path.join(D, 'a.csv'), 'title,views,likes\nA,100,5\nB,200,9\nC,150,7\n'); r = node('analytics/analyze.mjs', '--csv', path.join(D, 'a.csv'), '--out', D);
   ok('analytics with fewer than 5 videos says the sample is too small instead of inventing a pattern', /too few to compare|too small/i.test(r.stdout + r.stderr), r.stdout + r.stderr); }
 
+// ---------- 8. regression: the voice critic must not call "800" vs "eight hundred" a mispronunciation ----------
+{ const py = spawnSync(process.env.REEL_PY || path.join(T, '../.venv/bin/python'), ['-c', `
+src=open(${JSON.stringify(path.join(T, 'critics/audio_measure.py'))}).read(); a=src.index('_UNITS = '); b=src.index('def _same_after_join'); ns={}; exec(src[a:b],ns); cn=ns['canon_numbers']
+assert cn('eight hundred milliseconds'.split())[0]==['800','milliseconds']; assert cn('seventy thousand people'.split())[0]==['70000','people']; assert cn('twenty times faster'.split())[0]==['20','times','faster']; assert cn('800 ms'.split())[0]==['800','ms']; print('ok')`], { encoding: 'utf8' });
+  ok('spoken numbers are normalised before script and transcript are compared (eight hundred = 800, seventy thousand = 70000)', /ok/.test(py.stdout), py.stderr.slice(-200)); }
+
 fs.rmSync(tmp, { recursive: true, force: true });
 if (fails) { console.error(`\n${fails} of ${n} pipeline checks FAILED`); process.exit(1); } console.log(`\nPIPELINE SELFTEST PASSED: ${n} checks (approval chain, invalidation, final fingerprints, delivery profile, audio gates, visual critic, assets, readiness)`);

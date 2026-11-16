@@ -17,7 +17,8 @@
     {
      "type": "pop",
      "at": "start",
-     "offset": 0.15
+     "offset": 0.15,
+     "why": "on-screen event: headline"
     }
    ],
    "transition_out": {
@@ -31,10 +32,12 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 01 \u00b7 the idea",
+     "left": "// 01 · the idea",
      "right": "REACT"
     }
-   ]
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "TitleCard carries this beat because the planned visual is: headline"
   },
   {
    "id": "S02",
@@ -93,10 +96,12 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 02 \u00b7 why",
+     "left": "// 02 · why",
      "right": "$0"
     }
-   ]
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "KineticList carries this beat because the planned visual is: three negatives pop in"
   },
   {
    "id": "S03",
@@ -138,7 +143,7 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 03 \u00b7 step one",
+     "left": "// 03 · step one",
      "right": "STEP 1/3"
     },
     {
@@ -159,7 +164,9 @@
      ],
      "anchor": "go"
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: terminal creates the project"
   },
   {
    "id": "S04",
@@ -219,7 +226,7 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 04 \u00b7 step two",
+     "left": "// 04 · step two",
      "right": "STEP 2/3"
     },
     {
@@ -228,7 +235,9 @@
      "of": 3,
      "anchor": "b0"
     }
-   ]
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "NotebookPage carries this beat because the planned visual is: a scene is a component"
   },
   {
    "id": "S05",
@@ -255,7 +264,7 @@
     {
      "type": "type",
      "anchor": "r",
-     "dur": 1.0
+     "dur": 1
     }
    ],
    "transition_out": {
@@ -269,7 +278,7 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 05 \u00b7 step three",
+     "left": "// 05 · step three",
      "right": "STEP 3/3"
     },
     {
@@ -285,7 +294,9 @@
      "x": 540,
      "y": 1180
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: render command"
   },
   {
    "id": "S06",
@@ -325,10 +336,12 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 06 \u00b7 the licence",
+     "left": "// 06 · the licence",
      "right": "CHECK IT"
     }
-   ]
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "Stamp carries this beat because the planned visual is: licence verdict"
   },
   {
    "id": "S07",
@@ -363,7 +376,7 @@
    "overlays": [
     {
      "type": "label",
-     "left": "// 07 \u00b7 get it",
+     "left": "// 07 · get it",
      "right": "COMMENT"
     },
     {
@@ -372,7 +385,9 @@
      "y": 1000,
      "anchor": "k"
     }
-   ]
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action"
   }
  ]
 }

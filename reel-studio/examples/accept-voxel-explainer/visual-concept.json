@@ -1,0 +1,36 @@
+{
+ "status": "ready",
+ "style_pack": "voxel-explainer",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "What does an API actually do?",
+   "approach": "metaphor-env",
+   "adds_information": "A laptop and a closed box in one valley show two things that need a go-between."
+  },
+  {
+   "line_id": "L02",
+   "line": "It is a waiter between you and the kitchen.",
+   "approach": "character-3d",
+   "adds_information": "A second voxel person standing between the guest and the kitchen box IS the waiter: the metaphor performed."
+  },
+  {
+   "line_id": "L03",
+   "line": "You send an order, and the waiter carries it.",
+   "approach": "character-3d",
+   "adds_information": "The guest sends the order and the waiter is shown as the carrier, with an order bubble at the moment of sending."
+  },
+  {
+   "line_id": "L04",
+   "line": "Then the answer comes back on a plate.",
+   "approach": "physical-3d",
+   "adds_information": "A box opening on the word plate delivers the answer as an object arriving, with 200 OK as the label for developers."
+  },
+  {
+   "line_id": "L05",
+   "line": "Save this to remember it.",
+   "approach": "character-3d",
+   "adds_information": "The first character returns for the single ask so the film closes on the face it opened with."
+  }
+ ]
+}
