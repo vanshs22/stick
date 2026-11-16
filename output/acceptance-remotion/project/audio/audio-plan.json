@@ -1,0 +1,7 @@
+{
+ "voice": {"engine": "kokoro", "voice": "af_heart", "speed": 1.0, "pronunciations": {"npx": "n p x", "MP4": "M P four"}},
+ "music": {"direction": "light", "bed": "upbeat", "gain_db": 0},
+ "mix": {"target_lufs": -14, "true_peak_db": -1.5},
+ "sfx": {"direction": "soft"},
+ "status": "DRAFT defaults for the storyboard review: the user has not chosen voice, music or sound yet"
+}

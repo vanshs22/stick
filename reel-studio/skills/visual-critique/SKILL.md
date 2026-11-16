@@ -8,7 +8,7 @@ description: Looks at rendered frames and judges composition, readability, chara
 You must LOOK at images. Make them: `node $TK/tools/preview_shots.mjs $P` (one still per shot) and, for a draft video, `node $TK/tools/qa/contact_sheet.mjs <draft.mp4> $P/review/draft.jpg --every 0.5`. Open them. Then `node $TK/tools/qa/frame_stats.mjs $P/review/storyboard` for objective numbers.
 If your model cannot view images: say so, rely on the numbers, and ask the user to look at the sheet and report problems.
 
-Write `review/visual-critic.json` (schema `critic-report`, critic `visual`). Every finding needs `shot_id`, `timestamp_sec`, what you SAW (`evidence`), the expected look, the fix, and `fix_target` (`code` for a component, `storyboard` for a different visual, `assets` for a bad capture, `style`).
+Write `review/critics/frames.json / video.json` (schema `critic-report`, critic `visual`). Every finding needs `shot_id`, `timestamp_sec`, what you SAW (`evidence`), the expected look, the fix, and `fix_target` (`code` for a component, `storyboard` for a different visual, `assets` for a bad capture, `style`).
 
 ## Lenses
 1. Frame: one clear focal point; subject inside y 180-1380; nothing in the right 120 px; captions band free; not too dark (median luma >= 48) or flat. (major)

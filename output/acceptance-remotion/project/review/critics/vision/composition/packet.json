@@ -1,0 +1,24 @@
+{
+ "critic": "composition",
+ "images": [
+  "review/storyboard/S01.png",
+  "review/storyboard/S02.png",
+  "review/storyboard/S03.png",
+  "review/storyboard/S04.png",
+  "review/storyboard/S05.png",
+  "review/storyboard/S06.png",
+  "review/storyboard/S07.png",
+  "review/storyboard/S08.png",
+  "review/storyboard/S09.png",
+  "review/storyboard/S10.png",
+  "review/storyboard/S11.png",
+  "review/storyboard-sheets/storyboard-1.jpg"
+ ],
+ "rubric": [
+  "subject placement (thirds / centre) is deliberate",
+  "headroom and look-room are comfortable",
+  "nothing important is covered by captions, overlays or platform buttons",
+  "foreground/background separation (focus, light, colour)"
+ ],
+ "created": "2026-11-16T08:57:25.774Z"
+}

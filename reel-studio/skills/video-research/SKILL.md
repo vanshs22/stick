@@ -17,7 +17,7 @@ Do not claim views, engagement or rankings you cannot verify. Write "unknown" in
 4. Validate: `node $TK/tools/validate.mjs research $P/research/research.json`.
 
 ## Research critic (run before asking for approval)
-Write `review/research-critic.json` (schema `critic-report`, critic `research`). Check:
+Write `review/critics/research.json` (schema `critic-report`, critic `research`). Check:
 - Every number and quote has a source id. Any `unverified` claim is marked and will not be stated as fact.
 - At least one piece of real evidence is capturable, or the limitation is stated.
 - The angle is specific and new compared to the competitors you looked at.

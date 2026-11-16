@@ -43,7 +43,7 @@ const Detail: React.FC<{it: Item; w: number}> = ({it, w}) => {
 const Storyboard: React.FC<SheetProps> = ({items}) => (
   <div style={{display: 'flex', flexWrap: 'wrap', gap: 18, padding: '0 40px'}}>
     {items.map((it, i) => (
-      <div key={i} style={{width: 500, height: 540, background: '#fff', borderRadius: 18, padding: 14, boxSizing: 'border-box', display: 'flex', gap: 14, boxShadow: '0 4px 18px rgba(0,0,0,0.07)'}}>
+      <div key={i} style={{width: 490, height: 540, background: '#fff', borderRadius: 18, padding: 14, boxSizing: 'border-box', display: 'flex', gap: 14, boxShadow: '0 4px 18px rgba(0,0,0,0.07)'}}>
         <Thumb img={it.img!} w={248} h={440} r={10} />
         <div style={{flex: 1, overflow: 'hidden'}}>
           <div style={{display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6}}><Badge n={it.id!} c={it.status === 'approved' ? '#2E8B57' : it.status === 'rejected' || it.status === 'replace_requested' ? '#C94A3A' : ACC} /></div>

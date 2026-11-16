@@ -1,0 +1,37 @@
+{
+ "inspected": [],
+ "rubric_answers": [
+  {
+   "question": "subject placement (thirds / centre) is deliberate",
+   "answer": "",
+   "ok": null
+  },
+  {
+   "question": "headroom and look-room are comfortable",
+   "answer": "",
+   "ok": null
+  },
+  {
+   "question": "nothing important is covered by captions, overlays or platform buttons",
+   "answer": "",
+   "ok": null
+  },
+  {
+   "question": "foreground/background separation (focus, light, colour)",
+   "answer": "",
+   "ok": null
+  }
+ ],
+ "findings": [
+  {
+   "severity": "minor",
+   "shot_id": "S01",
+   "timestamp_sec": 0,
+   "problem": "",
+   "evidence": "what you SAW, in a few words",
+   "expected": "",
+   "fix": "",
+   "fix_target": "storyboard"
+  }
+ ]
+}

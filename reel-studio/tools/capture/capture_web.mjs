@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Real evidence: screenshots and recordings of REAL pages, with provenance and a check that the shot shows what you meant it to show.
-//   node tools/capture/capture_web.mjs <url> --out <dir> [--actions actions.json] [--record] [--viewport 1080x1920] [--manifest assets/manifest.json] [--id SRC1]
+//   node tools/capture/capture_web.mjs <url> --out <dir> [--actions actions.json] [--record] [--viewport 1080x1920] [--scale 2] [--manifest assets/manifest.json] [--id SRC1]
 //       [--expect "text that must be on the page"]...  [--full]
 // actions.json: [{"do":"goto","url":"..."},{"do":"click","selector":"text=Code"},{"do":"type","selector":"input","text":"hi"},{"do":"scroll","y":600},
 //                {"do":"wait","ms":800},{"do":"expect","text":"MIT"},{"do":"highlight","selector":"#repo-stars","name":"stars"},{"do":"screenshot","name":"repo"}]
@@ -25,7 +25,7 @@ async function loadPlaywright() {
 /** which Chrome to drive: CHROME_PATH, Remotion's own headless shell (always present after `npm install` in a project), a system Chrome, else Playwright's download */
 function findChrome() {
   if (process.env.CHROME_PATH && fs.existsSync(process.env.CHROME_PATH)) return process.env.CHROME_PATH;
-  const roots = [process.env.REEL_NODE_MODULES, path.join(process.cwd(), 'node_modules'), path.join(TK, 'node_modules')].filter(Boolean);
+  const roots = [process.env.REEL_NODE_MODULES, path.join(process.cwd(), 'node_modules'), path.join(process.cwd(), 'remotion/node_modules'), path.join(TK, 'node_modules'), path.join(TK, 'remotion-template/node_modules')].filter(Boolean);
   for (const r of roots) { const d = path.join(r, '.remotion'); if (!fs.existsSync(d)) continue; const walk = (p, depth = 0) => { for (const e of fs.readdirSync(p, { withFileTypes: true })) { const f = path.join(p, e.name); if (e.isFile() && /^(headless_shell|chrome-headless-shell|chrome|Chromium)(\.exe)?$/.test(e.name)) return f; if (e.isDirectory() && depth < 4) { const x = walk(f, depth + 1); if (x) return x; } } return null; }; const f = walk(d); if (f) return f; }
   for (const f of ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe']) if (fs.existsSync(f)) return f;
   return undefined;
@@ -35,7 +35,7 @@ const out = path.resolve(opt('out', 'assets/capture')), [w, h] = opt('viewport',
 const actions = opt('actions') ? JSON.parse(fs.readFileSync(opt('actions'), 'utf8')) : [{ do: 'screenshot', name: 'page' }], files = [], log = [], expects = all('expect').map((t) => ({ do: 'expect', text: t })), highlights = {};
 const fail = (msg) => { fs.writeFileSync(path.join(out, 'capture-failed.json'), JSON.stringify({ url, reason: msg, at: new Date().toISOString() }, null, 1)); console.error(`capture failed: ${msg}\nTell the user. Do not draw a fake of this page. Options: try another URL, a local copy the user provides, or (only with the user's explicit OK) a clearly labelled recreation via tools/capture/register_recreation.mjs.`); process.exit(1); };
 let browser; try { browser = await chromium.launch({ executablePath: findChrome(), args: ['--no-sandbox'] }); } catch (e) { fail(`no browser could be started (${e.message.split('\n')[0]}). Set CHROME_PATH or run npm install in a project.`); }
-const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1, ...(rec ? { recordVideo: { dir: out, size: { width: w, height: h } } } : {}) }), page = await ctx.newPage(); let status = null;
+const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: +opt('scale', 1) || 1, ...(rec ? { recordVideo: { dir: out, size: { width: w, height: h } } } : {}) }), page = await ctx.newPage(); let status = null;
 try {
   const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 }); status = resp?.status() ?? null; if (resp && status >= 400) throw new Error(`HTTP ${status}`); await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(1200);
   for (const s of [...actions, ...expects]) {

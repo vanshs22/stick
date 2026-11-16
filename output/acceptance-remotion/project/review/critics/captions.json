@@ -1,0 +1,18 @@
+{
+ "critic": "captions",
+ "target": "remotion-react",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "captions say what the narration says",
+  "chunk timing",
+  "reading speed",
+  "exactly one highlighted word per chunk (when the preset highlights)",
+  "placement inside the safe area",
+  "coverage"
+ ],
+ "findings": [],
+ "notes": [],
+ "checked_at": "2026-11-16T08:58:36.654Z"
+}

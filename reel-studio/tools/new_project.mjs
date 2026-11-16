@@ -11,7 +11,8 @@ if (!name || name.startsWith('--')) { console.error('usage: new_project.mjs <nam
 const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), P = path.resolve(opt('dir', 'reel-projects'), name);
 if (fs.existsSync(P)) { console.error(`${P} already exists: choose another name, or continue that project.`); process.exit(2); }
 for (const d of ['research', 'script', 'storyboard', 'audio', 'assets', 'data', 'review', 'renders']) fs.mkdirSync(path.join(P, d), { recursive: true });
-fs.cpSync(path.join(TK, 'remotion-template'), path.join(P, 'remotion'), { recursive: true });
+fs.cpSync(path.join(TK, 'remotion-template'), path.join(P, 'remotion'), { recursive: true, filter: (f) => !f.split(path.sep).includes('node_modules') });
+if (fs.existsSync(path.join(TK, 'remotion-template/node_modules'))) fs.symlinkSync(path.join(TK, 'remotion-template/node_modules'), path.join(P, 'remotion/node_modules'), 'dir');   // one shared install, not 700 MB per project
 const sp = opt('style') && path.join(TK, 'style-packs', opt('style'), 'style.json');
 if (sp) { if (!fs.existsSync(sp)) { console.error(`no style pack "${opt('style')}" (looked for ${sp})`); process.exit(2); } const s = JSON.parse(fs.readFileSync(sp, 'utf8')); fs.writeFileSync(path.join(P, 'remotion/src/data/style.json'), JSON.stringify({ id: s.id, ...s.tokens, effects: s.effects || {}, defaults: s.defaults || {} }, null, 1)); }
 fs.writeFileSync(path.join(P, 'assets/manifest.json'), JSON.stringify({ assets: [] }, null, 1)); fs.writeFileSync(path.join(P, '.toolkit'), TK);

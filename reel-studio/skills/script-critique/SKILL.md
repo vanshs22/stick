@@ -5,7 +5,7 @@ description: Reviews and improves a video script like a tough editor - hook, cla
 
 # Script critic
 
-Read `script/script.json` and `research/research.json`. Write `review/script-critic.json` (schema `critic-report`, critic `script`), validate it, then fix what it finds and re-check. Max 3 rounds.
+Read `script/script.json` and `research/research.json`. Write `review/critics/script.json` (schema `critic-report`, critic `script`), validate it, then fix what it finds and re-check. Max 3 rounds.
 
 ## Checklist (each failure becomes a finding with `line_id`, `evidence` = the exact words, `expected`, `fix`, `fix_target`)
 1. Hook: stated in <= 11 words, specific, visualisable in one second, not a greeting or a topic announcement. (blocker)

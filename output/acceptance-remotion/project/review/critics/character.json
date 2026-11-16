@@ -1,0 +1,23 @@
+{
+ "critic": "character",
+ "target": "remotion-react",
+ "verdict": "revise",
+ "score": 90,
+ "assessment": "unavailable",
+ "checks_run": [],
+ "findings": [
+  {
+   "id": "CHA01",
+   "severity": "major",
+   "fix_target": "style",
+   "problem": "the character critic did NOT run: not run: only checked composition by eye in this pass; character, environment, typography, ui and transitions still need a pass on the rendered video",
+   "evidence": "no image was inspected",
+   "expected": "a model that can see images, or the user looking at the contact sheet",
+   "fix": "ask the user to review these checks by eye: same character, same look, same proportions in every shot | face reads at phone size: eyes, brows, mouth show the emotion the line needs | hands/arms/legs look attached and natural, no floating or crossing geometry | pose and gesture match what is said | silhouette is clear against the background | matches the style pack character rules"
+  }
+ ],
+ "notes": [
+  "Not assessed: same character, same look, same proportions in every shot; face reads at phone size: eyes, brows, mouth show the emotion the line needs; hands/arms/legs look attached and natural, no floating or crossing geometry; pose and gesture match what is said; silhouette is clear against the background; matches the style pack character rules"
+ ],
+ "checked_at": "2026-11-16T08:58:25.484Z"
+}

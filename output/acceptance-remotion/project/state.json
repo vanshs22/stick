@@ -1,0 +1,140 @@
+{
+ "project": "remotion-react",
+ "mode": "ask",
+ "created": "2026-11-16T08:41:59.419Z",
+ "stages": {
+  "intake": {
+   "status": "approved",
+   "at": "2026-11-16T08:44:25.113Z",
+   "fingerprints": {
+    "brief.json": "428acf16a37b931d"
+   },
+   "artifacts": [
+    "brief.json"
+   ],
+   "question": "Delegated for the acceptance run",
+   "by": "user-delegation",
+   "quote": "Complete phase 2 and everything else which is left. And then we see the contact sheet. After the contact sheet approves we check the video results",
+   "choice": null
+  },
+  "style": {
+   "status": "approved",
+   "at": "2026-11-16T08:44:25.263Z",
+   "fingerprints": {
+    "style-selection.json": "2e397b3877b207f7"
+   },
+   "artifacts": [
+    "style-selection.json"
+   ],
+   "question": "Delegated for the acceptance run",
+   "by": "user-delegation",
+   "quote": "Complete phase 2 and everything else which is left. And then we see the contact sheet. After the contact sheet approves we check the video results",
+   "choice": null
+  },
+  "topic": {
+   "status": "approved",
+   "at": "2026-11-16T08:44:25.420Z",
+   "fingerprints": {
+    "topic/topic.json": "1752e6a9d70959d8"
+   },
+   "artifacts": [
+    "topic/topic.json"
+   ],
+   "question": "Delegated for the acceptance run",
+   "by": "user-delegation",
+   "quote": "Complete phase 2 and everything else which is left. And then we see the contact sheet. After the contact sheet approves we check the video results",
+   "choice": null
+  },
+  "research": {
+   "status": "approved",
+   "at": "2026-11-16T08:44:25.585Z",
+   "fingerprints": {
+    "research/research.json": "1892a2fd8c6efa4d"
+   },
+   "artifacts": [
+    "research/research.json"
+   ],
+   "question": "Delegated for the acceptance run",
+   "by": "user-delegation",
+   "quote": "Complete phase 2 and everything else which is left. And then we see the contact sheet. After the contact sheet approves we check the video results",
+   "choice": null
+  },
+  "script": {
+   "status": "approved",
+   "at": "2026-11-16T08:44:25.763Z",
+   "fingerprints": {
+    "script/script.json": "26af48b392ec95e0"
+   },
+   "artifacts": [
+    "script/script.json"
+   ],
+   "question": "Delegated for the acceptance run",
+   "by": "user-delegation",
+   "quote": "Complete phase 2 and everything else which is left. And then we see the contact sheet. After the contact sheet approves we check the video results",
+   "choice": null
+  },
+  "script_critic": {
+   "status": "approved",
+   "at": "2026-11-16T08:44:25.929Z",
+   "fingerprints": {
+    "script/script.json": "26af48b392ec95e0",
+    "review/critics/script.json": "e87c64f5e7475f9e",
+    "review/critics/research.json": "2eb2ef4d3e577679"
+   },
+   "artifacts": [
+    "script/script.json",
+    "review/critics/script.json",
+    "review/critics/research.json"
+   ],
+   "question": "Delegated for the acceptance run",
+   "by": "user-delegation",
+   "quote": "Complete phase 2 and everything else which is left. And then we see the contact sheet. After the contact sheet approves we check the video results",
+   "choice": null
+  },
+  "storyboard": {
+   "status": "awaiting_approval",
+   "at": "2026-11-16T08:58:48.299Z",
+   "fingerprints": {
+    "storyboard/storyboard.json": "a6ff8814bfa09fa8"
+   },
+   "artifacts": [
+    "storyboard/storyboard.json"
+   ],
+   "question": "Approve, reject or replace each frame S01-S11 (contact sheets). Say e.g. 'approve all', or 'S02 change, S10 bigger CTA'."
+  },
+  "storyboard_critic": {
+   "status": "pending"
+  },
+  "audio": {
+   "status": "pending"
+  },
+  "typography": {
+   "status": "pending"
+  },
+  "captions": {
+   "status": "pending"
+  },
+  "assets": {
+   "status": "pending"
+  },
+  "production": {
+   "status": "pending"
+  },
+  "build": {
+   "status": "pending"
+  },
+  "visual_critic": {
+   "status": "pending"
+  },
+  "audio_critic": {
+   "status": "pending"
+  },
+  "final": {
+   "status": "pending"
+  },
+  "deliver": {
+   "status": "pending"
+  }
+ },
+ "revisions": []
+}

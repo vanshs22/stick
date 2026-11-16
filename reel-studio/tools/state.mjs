@@ -24,7 +24,7 @@ export const DELEGABLE = ['intake', 'style', 'topic', 'research', 'script', 'scr
 export const GATES = ['intake', 'style', 'topic', 'research', 'script', 'script_critic', 'storyboard', 'audio', 'typography', 'captions', 'production', 'final'];
 export const ARTIFACTS = {
   intake: ['brief.json'], style: ['style-selection.json'], topic: ['topic/topic.json'], research: ['research/research.json'], script: ['script/script.json'],
-  script_critic: ['script/script.json', 'review/script-critic.json'], storyboard: ['storyboard/storyboard.json'], audio: ['audio/audio-plan.json', 'audio/voice-choice.json'],
+  script_critic: ['script/script.json', 'review/critics/script.json', 'review/critics/research.json'], storyboard: ['storyboard/storyboard.json'], audio: ['audio/audio-plan.json', 'audio/voice-choice.json'],
   typography: ['typography/typography.json'], captions: ['typography/captions.json'], production: ['storyboard/storyboard.json', 'audio/audio-plan.json', 'typography/typography.json', 'typography/captions.json'], final: [],
 };
 const file = (dir) => path.join(dir, 'state.json'), now = () => new Date().toISOString();

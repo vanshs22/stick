@@ -1,0 +1,27 @@
+{
+ "topic": "Remotion: making videos with React code",
+ "angle": "A video is a function of the frame number, so anyone who can write a React component can write a video. Show the idea, the one hook that matters, and the one command that renders it.",
+ "claims": [
+  {"id": "C1", "text": "Remotion is a framework for making videos programmatically with React.", "status": "verified", "source_ids": ["SRC3", "SRC1"]},
+  {"id": "C2", "text": "Remotion gives you a frame number and a blank canvas, and you render anything you want on it using React.", "status": "verified", "source_ids": ["SRC1"]},
+  {"id": "C3", "text": "A video is a function of images over time; if the content changes every frame you get an animation.", "status": "verified", "source_ids": ["SRC1"]},
+  {"id": "C4", "text": "A video has width, height, durationInFrames and fps; the first frame is 0 and the last is durationInFrames minus one.", "status": "verified", "source_ids": ["SRC1"]},
+  {"id": "C5", "text": "The useCurrentFrame() hook returns the current frame of the video; frames are 0-indexed.", "status": "verified", "source_ids": ["SRC2", "SRC5"]},
+  {"id": "C6", "text": "You render a video from the command line with 'npx remotion render' (or the Render button in Remotion Studio).", "status": "verified", "source_ids": ["SRC4"]},
+  {"id": "C7", "text": "The remotion-dev/remotion repository had about 73,500 GitHub stars when captured on 2026-11-16.", "status": "verified", "source_ids": ["SRC3"]}
+ ],
+ "sources": [
+  {"id": "SRC1", "url": "https://www.remotion.dev/docs/the-fundamentals", "title": "The core idea | Remotion", "captured_at": "2026-11-16", "type": "official documentation", "notes": "Read in full as text and captured as a real screenshot (assets/web/fundamentals). The page redirected to /docs/idea.", "license": "quoted as evidence, credit the source"},
+  {"id": "SRC2", "url": "https://www.remotion.dev/docs/use-current-frame", "title": "useCurrentFrame() | Remotion", "captured_at": "2026-11-16", "type": "official documentation", "notes": "Real screenshot captured (assets/web/usecurrentframe).", "license": "quoted as evidence, credit the source"},
+  {"id": "SRC3", "url": "https://github.com/remotion-dev/remotion", "title": "GitHub - remotion-dev/remotion: Make videos programmatically with React", "captured_at": "2026-11-16", "type": "primary repository page", "notes": "Real screenshot captured (assets/web/github): description and star count visible.", "license": "quoted as evidence, credit the source"},
+  {"id": "SRC4", "url": "https://www.remotion.dev/docs/render", "title": "Render your video | Remotion", "captured_at": "2026-11-16", "type": "official documentation", "notes": "Read as text only (no screenshot).", "license": "quoted as evidence, credit the source"},
+  {"id": "SRC5", "url": "https://dev.to/zendizmo/create-stunning-videos-with-javascript-using-remotion-kiro-ide-12l0", "title": "Create Stunning Videos with JavaScript Using Remotion & Kiro IDE", "captured_at": "2026-11-16", "type": "third-party article", "notes": "Only the search snippet was read; used as a second, independent statement of C5.", "license": "not reproduced"}
+ ],
+ "evidence_to_capture": [
+  {"id": "E1", "url": "https://www.remotion.dev/docs/the-fundamentals", "what": "the core-idea sentence and the MyComposition example", "actions": ["captured"]},
+  {"id": "E2", "url": "https://github.com/remotion-dev/remotion", "what": "the repository description and star count", "actions": ["captured"]}
+ ],
+ "hook_ideas": ["Making a video can be as simple as writing a web page.", "Your next video could be a React component."],
+ "competitor_notes": ["No competitor analysis was run for this acceptance project (Agent-Reach was not chosen by the user); topic framing is based on the official docs only."],
+ "limitations": ["Star count changes daily: the video says 'over seventy thousand', which stays true.", "The 'function of time' framing is from the official docs; the claim that viewers 'already write functions' is an opinion about the audience, not a sourced fact."]
+}

@@ -22,7 +22,7 @@ description: Plans and produces the audio - voice selection and pronunciation, n
 ## Sound design
 Each effect is attached to a visual event through the storyboard (`sfx`, `transition_out.sound`): pop for a card appearing, tick for step numbers, type for typing, stamp for a verdict, ding for the call to action, count for counters, whoosh/swish for movement and cuts, thud/slam for impacts. Not every cut needs a sound; every sound needs a visual reason. Repeats of the same effect within 2 s sound cheap.
 
-## Audio critics (write `review/audio-critic.json`, critic `audio`)
+## Audio critics (write `review/critics/voice.json, music.json, sfx.json`, critic `audio`)
 Run `node $TK/tools/qa/audio_check.mjs $P/data/mix.wav` and judge by the numbers and by `cues.json`:
 - Voice critic: pronunciation of every name, pauses at commas, no clipped words, delivery matches the mood.
 - Music critic: mood fits; never masks speech (voice at least 12 dB above music while talking); it fades out at the end.

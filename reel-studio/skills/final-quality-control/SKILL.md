@@ -10,7 +10,7 @@ description: Final checks and delivery of the finished video - full render, auto
 2. `node $TK/tools/qa/final_qa.mjs <raw.mp4> $P/renders/<name>.mp4` normalises loudness (-14 LUFS, true peak -1.5), then checks black frames, frozen picture, clipping, length and size; it writes `<name>.qa.json`. Read it.
 3. `node $TK/tools/qa/audio_check.mjs $P/renders/<name>.mp4` and `node $TK/tools/qa/contact_sheet.mjs $P/renders/<name>.mp4 $P/review/final.jpg --every 1`. LOOK at the sheet.
 
-## Editorial critic (`review/final-critic.json`, critic `editorial`)
+## Editorial critic (`review/critics/final.json`, critic `editorial`)
 Watch it as the viewer: stills in order and the script together.
 - First second: would you stop scrolling? Is the hook visible AND audible immediately?
 - Flow: each shot earns its time; no dead air; the proof lands; the ending loops or invites a comment.

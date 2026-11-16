@@ -22,7 +22,7 @@ export function check(schema, v, p = '$', out = []) {
   }
   return out;
 }
-export const loadSchema = (name) => JSON.parse(fs.readFileSync(fs.existsSync(name) ? name : path.join(HERE, '../schemas', name.replace(/\.schema\.json$/, '') + '.schema.json'), 'utf8'));
+export const loadSchema = (name) => JSON.parse(fs.readFileSync((fs.existsSync(name) && fs.statSync(name).isFile()) ? name : path.join(HERE, '../schemas', name.replace(/\.schema\.json$/, '') + '.schema.json'), 'utf8'));
 if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1]))) {
   const [sn, f] = process.argv.slice(2); if (!sn || !f) { console.error('usage: validate.mjs <schema> <file.json>'); process.exit(2); }
   let data; try { data = JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { console.error(`${f}: not valid JSON (${e.message})`); process.exit(1); }

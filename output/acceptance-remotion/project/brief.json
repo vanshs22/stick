@@ -1,0 +1,29 @@
+{
+ "title": "Videos from code",
+ "topic": "Remotion: making videos with React code",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 40,
+ "language": "en",
+ "audience": "developers and designers who have never made a video in code",
+ "goal": "make one idea clear: a video is just a function of the frame number, so you can write it like a web page",
+ "style_pack": "original-creatures",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "af_heart",
+  "speed": 1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "word-pop"
+ },
+ "cta": {
+  "keyword": "REMOTION",
+  "text": "Comment REMOTION and I will send you the docs link"
+ },
+ "research": {
+  "agent_reach": "no"
+ }
+}

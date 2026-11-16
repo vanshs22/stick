@@ -5,7 +5,7 @@ description: Reviews a storyboard for visual concept, variety, continuity, camer
 
 # Storyboard critic
 
-Inputs: `storyboard/storyboard.json`, `script/script.json`, `data/timeline.json`, `review/storyboard.jpg` (look at it). Output `review/storyboard-critic.json` (schema `critic-report`, critic `storyboard`). Max 3 rounds.
+Inputs: `storyboard/storyboard.json`, `script/script.json`, `data/timeline.json`, `review/storyboard.jpg` (look at it). Output `review/critics/storyboard.json` (schema `critic-report`, critic `storyboard`). Max 3 rounds.
 
 ## Lenses (one finding per failure, with `shot_id`, `evidence`, `expected`, `fix`, `fix_target` = storyboard unless noted)
 1. Visual concept: does each picture explain its sentence? Could a viewer with the sound off follow the point? (blocker)

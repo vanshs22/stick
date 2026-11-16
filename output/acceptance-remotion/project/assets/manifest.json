@@ -1,0 +1,80 @@
+{
+ "assets": [
+  {
+   "id": "SRC3-1",
+   "type": "screenshot",
+   "kind": "real",
+   "path": "web/github/page.png",
+   "source_url": "https://github.com/remotion-dev/remotion",
+   "final_url": "https://github.com/remotion-dev/remotion",
+   "page_title": "GitHub - remotion-dev/remotion: 🎥 Make videos programmatically with React · GitHub",
+   "license": "third-party page: shown as quoted evidence, credit the source",
+   "captured_at": "2026-11-16T08:54:23.217Z",
+   "original": false,
+   "sha256": "83ebf9f59cef5267",
+   "verification": {
+    "expectations": [
+     {
+      "text": "stars",
+      "passed": true
+     },
+     {
+      "text": "73.",
+      "passed": true
+     }
+    ],
+    "all_passed": true
+   },
+   "highlights": {},
+   "notes": "GitHub - remotion-dev/remotion: 🎥 Make videos programmatically with React · GitHub"
+  },
+  {
+   "id": "SRC1-2",
+   "type": "screenshot",
+   "kind": "real",
+   "path": "web/fundamentals/page.png",
+   "source_url": "https://www.remotion.dev/docs/the-fundamentals",
+   "final_url": "https://www.remotion.dev/docs/idea",
+   "page_title": "The core idea | Remotion",
+   "license": "third-party page: shown as quoted evidence, credit the source",
+   "captured_at": "2026-11-16T08:54:25.449Z",
+   "original": false,
+   "sha256": "50eab2a08bf46760",
+   "verification": {
+    "expectations": [
+     {
+      "text": "frame number",
+      "passed": true
+     }
+    ],
+    "all_passed": true
+   },
+   "highlights": {},
+   "notes": "The core idea | Remotion"
+  },
+  {
+   "id": "SRC2-3",
+   "type": "screenshot",
+   "kind": "real",
+   "path": "web/usecurrentframe/page.png",
+   "source_url": "https://www.remotion.dev/docs/use-current-frame",
+   "final_url": "https://www.remotion.dev/docs/use-current-frame",
+   "page_title": "useCurrentFrame() | Remotion",
+   "license": "third-party page: shown as quoted evidence, credit the source",
+   "captured_at": "2026-11-16T08:54:27.717Z",
+   "original": false,
+   "sha256": "889a716ca584a9e5",
+   "verification": {
+    "expectations": [
+     {
+      "text": "useCurrentFrame",
+      "passed": true
+     }
+    ],
+    "all_passed": true
+   },
+   "highlights": {},
+   "notes": "useCurrentFrame() | Remotion"
+  }
+ ]
+}

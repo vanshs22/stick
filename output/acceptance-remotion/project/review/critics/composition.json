@@ -1,0 +1,31 @@
+{
+ "critic": "composition",
+ "target": "remotion-react",
+ "verdict": "pass",
+ "score": 98,
+ "assessment": "vision",
+ "checks_run": [
+  null,
+  "subject placement (thirds / centre) is deliberate",
+  "headroom and look-room are comfortable",
+  "nothing important is covered by captions, overlays or platform buttons",
+  "foreground/background separation (focus, light, colour)"
+ ],
+ "findings": [
+  {
+   "id": "COM01",
+   "severity": "minor",
+   "fix_target": "storyboard",
+   "shot_id": "S10",
+   "timestamp_sec": 0.7,
+   "problem": "End card: the top 40 percent of the frame is empty teal, the CTA pill is small, and the not-yet-spoken caption word is grey on a busy wall.",
+   "evidence": "S10.png: headline at y 840-930, pill at y 1010-1100, top 800 px empty; caption 'you the' with 'the' in low-contrast grey at y 1490",
+   "expected": "a call to action large enough to read at arm length, content balanced in the frame",
+   "fix": "raise the headline and enlarge the pill (EndCard props) or accept as a calm ending; decide at the contact-sheet review"
+  }
+ ],
+ "notes": [
+  "inspected: review/storyboard/S05.png, review/storyboard/S10.png, review/storyboard-sheets/storyboard-1.jpg"
+ ],
+ "checked_at": "2026-11-16T08:58:25.444Z"
+}

@@ -1,0 +1,18 @@
+{
+ "critic": "research",
+ "target": "remotion-react",
+ "verdict": "pass",
+ "score": 100,
+ "assessment": "automatic",
+ "checks_run": [
+  "research.json exists and has claims",
+  "every claim is sourced",
+  "enough independent sources",
+  "source URLs reachable (HTTP HEAD/GET)"
+ ],
+ "findings": [],
+ "notes": [
+  "Automatic checks cannot judge whether a claim is TRUE: the agent must have read each source. This critic proves only that sources exist and load."
+ ],
+ "checked_at": "2026-11-16T08:44:24.914Z"
+}

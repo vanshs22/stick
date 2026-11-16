@@ -1,0 +1,12 @@
+{
+ "inspected": ["review/storyboard/S05.png", "review/storyboard/S10.png", "review/storyboard-sheets/storyboard-1.jpg"],
+ "rubric_answers": [
+  {"question": "subject placement (thirds / centre) is deliberate", "answer": "Pip is centred or slightly left in the character shots (S01, S02, S05). Evidence windows are centred. Fine.", "ok": true},
+  {"question": "headroom and look-room are comfortable", "answer": "S05 has good headroom after the camera was moved closer. S01 and S02 crop the feet and show the antenna; the face is clear in all three.", "ok": true},
+  {"question": "nothing important is covered by captions, overlays or platform buttons", "answer": "In the first S05 render the left hand covered the visor rim (fixed: pose changed and re-rendered, checked on a 405x720 still). Captions sit on Pip's torso in S01 and S02, not on the face.", "ok": true},
+  {"question": "foreground/background separation (focus, light, colour)", "answer": "Pip separates well from the cream wall (orange body, dark visor). On the end card the headline sits on a blurred workshop wall with only moderate contrast.", "ok": false}
+ ],
+ "findings": [
+  {"severity": "minor", "shot_id": "S10", "timestamp_sec": 0.7, "problem": "End card: the top 40 percent of the frame is empty teal, the CTA pill is small, and the not-yet-spoken caption word is grey on a busy wall.", "evidence": "S10.png: headline at y 840-930, pill at y 1010-1100, top 800 px empty; caption 'you the' with 'the' in low-contrast grey at y 1490", "expected": "a call to action large enough to read at arm length, content balanced in the frame", "fix": "raise the headline and enlarge the pill (EndCard props) or accept as a calm ending; decide at the contact-sheet review", "fix_target": "storyboard"}
+ ]
+}

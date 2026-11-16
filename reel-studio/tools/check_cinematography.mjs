@@ -49,6 +49,7 @@ for (const s of stage) {
   for (const r of refs) if (!subj[r]) add('blocker', s.id, 'camera refers to something that is not in the shot', `"${r}"`, `one of: ${Object.keys(subj).join(', ')}`, 'Add it to cast/props3d or fix the name');
   const mv = spec.movement || { type: 'static' }, type = mv.type || 'static';
   if (!MOVEMENTS.includes(type)) { add('blocker', s.id, 'unknown camera movement', `"${type}"`, MOVEMENTS.join(', '), 'Use a supported movement'); continue; }
+  const badF = [mv.from?.framing, mv.to?.framing].filter((f) => f && !FRAMINGS[f]); if (badF.length) { add('blocker', s.id, 'camera movement uses an unknown framing', badF.map((f) => `"${f}"`).join(', '), Object.keys(FRAMINGS).join(', '), 'Use a supported framing in movement.from / movement.to'); continue; }
   let c0, c1, cm; try { c0 = cameraAt(spec, subj, 0, d); cm = cameraAt(spec, subj, d / 2, d); c1 = cameraAt(spec, subj, d, d); } catch (e) { add('blocker', s.id, 'camera cannot be solved', e.message, 'valid subjects and poses', 'Fix the camera spec'); continue; }
   cams[s.id] = { c0, cm, c1, subj, spec, d };
   if (type !== 'static') {
