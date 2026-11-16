@@ -2,7 +2,7 @@
   "id": "noir-3d",
   "name": "Noir 3D",
   "family": "3d",
-  "description": "Dark rooms with ONE light, faceless figures, typewriter dates and evidence cards. Quiet and uneasy.",
+  "description": "Dark rooms lit by ONE warm spot with dust in the beam, faceless dark figures with a red rim, an evidence board of photos and red string, typewriter captions. Quiet, uneasy, investigative stories.",
   "tokens": {
     "colors": {
       "bg": "#050508",
@@ -32,11 +32,11 @@
     "vignette": 0.5
   },
   "rules": [
-    "One light source per scene; everything else falls into darkness.",
-    "Red means the subject. Nothing else is red except evidence marks (stamp, circle, string).",
-    "No faces, no gore, no weapons shown; facts checked against primary sources and listed.",
-    "Slow: 3 to 5 s shots, push-ins and drifts only; longer pauses between sentences.",
-    "Captions typewriter, sentence case, cream with one red word."
+    "ONE light source: a warm spot from above with a visible beam and floating dust; everything else falls to black.",
+    "Figures are faceless, dark, with a thin red rim light; the subject of the story glows red. No faces, no gore, no weapons.",
+    "Evidence is physical: photos, string, files, a typed date. Show it, don't describe it.",
+    "Typewriter captions in a pale pill, one red word.",
+    "Keep exposure low and bloom on the one practical light only."
   ],
   "components": [
     "Scene3D",
@@ -47,7 +47,7 @@
     "Timeline",
     "TitleCard"
   ],
-  "camera_language": "Slow push-in or drift; wide lens (fov 55+) in dark rooms; never inside the light cone.",
+  "camera_language": "Slow and still. Wide and low to make the figure small in the dark, medium-wide three-quarter for actions, an insert on the object that matters. Camera moves are rare (a slow push on the evidence), each with a stated reason; silence and stillness build the unease.",
   "typography": "Mono typewriter, cream, dates top-left.",
   "transitions": [
     "fade",
@@ -56,9 +56,8 @@
   ],
   "audio_direction": "tension drone, one hard hit at the turn, quiet room tone, no cheerful sounds",
   "pitfalls": [
-    "Camera inside the light cone gives a flat brown frame.",
-    "Seats or walls between camera and subject.",
-    "Too tight on a dark doorway reads as an empty frame."
+    "Figures turn copper-brown if the environment light is high: keep environmentIntensity under 0.1.",
+    "Too much fog hides the board: keep fog density at or below 0.09."
   ],
   "references": [
     "faceless-shorts night-file"
@@ -66,16 +65,45 @@
   "defaults": {
     "captions": "typewriter",
     "music": "tension",
-    "scene3d": {
-      "set": "noir-room",
-      "light": "noir",
-      "characters": [
-        {
-          "variant": "noir",
-          "pose": "idle",
-          "mood": "calm"
+    "stage3d": {
+      "world": "noir-room",
+      "worldOpts": {},
+      "cast": {
+        "human": {
+          "face": false,
+          "noir": true,
+          "skin": "#0b0b10",
+          "shirt": "#12131a",
+          "pants": "#0d0d12",
+          "hair": "#0b0b10",
+          "shoes": "#0b0b0e"
         }
-      ]
+      },
+      "look": {
+        "bloom": 0.5,
+        "bloomThreshold": 0.75,
+        "vignette": 0.55
+      }
+    },
+    "backdrop": {
+      "world": "noir-room",
+      "worldOpts": {},
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "board",
+        "offset": [
+          0,
+          -0.05
+        ],
+        "movement": {
+          "type": "static"
+        }
+      },
+      "look": {
+        "aperture": 0.03,
+        "exposure": 0.8
+      }
     }
   }
 }

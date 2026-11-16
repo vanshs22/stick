@@ -174,5 +174,31 @@ export function workshop(E, o = {}) {
   return { scene, look: { bloom: 0.4, bloomThreshold: 0.82, vignette: 0.3, grain: 0.02, warm: 0.02, exposure: 1.05 }, subjects: { bench: { pos: [0.4, 0.9, -2.8], height: 0.8, rotY: 0 }, pegboard: { pos: [0.4, 2.35, -3.3], height: 2.8, rotY: 0 } }, update(t) { bulbs.forEach((b, i) => { b.intensity = 2.2 + Math.sin(t * 5 + i * 2) * 0.05; }); } };
 }
 
-export const WORLDS = { workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
+// ═══════════════════════════ NOIR ROOM (one light, faceless figures, evidence) ═══════════════════════════
+function boardTex() {
+  return canvasTex('noirboard', 1024, 640, (g, w, h) => {
+    g.fillStyle = '#3a2f26'; g.fillRect(0, 0, w, h); for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(${20 + rnd(i) * 30},${14 + rnd(i + 1) * 20},10,0.35)`; g.fillRect(rnd(i * 3) * w, rnd(i * 7) * h, 3, 3); }
+    const photos = [[110, 90, 190, 150, -3], [380, 60, 170, 210, 2], [640, 100, 200, 150, -2], [850, 70, 150, 190, 4], [210, 340, 200, 160, 2], [520, 330, 170, 220, -4], [790, 380, 190, 150, 3]];
+    g.strokeStyle = '#B3262B'; g.lineWidth = 3; g.beginPath(); photos.forEach(([x, y, pw, ph], i) => { const cx = x + pw / 2, cy = y + 6; i ? g.lineTo(cx, cy) : g.moveTo(cx, cy); }); g.stroke();
+    photos.forEach(([x, y, pw, ph, r], i) => { g.save(); g.translate(x + pw / 2, y + ph / 2); g.rotate((r * Math.PI) / 180); g.fillStyle = '#E9E2D2'; g.fillRect(-pw / 2, -ph / 2, pw, ph); g.fillStyle = ['#2a3038', '#3a2f2a', '#242a30', '#33302a'][i % 4]; g.fillRect(-pw / 2 + 8, -ph / 2 + 8, pw - 16, ph - 40); g.fillStyle = '#B3262B'; g.beginPath(); g.arc(0, -ph / 2 + 6, 6, 0, 7); g.fill(); g.restore(); });
+  });
+}
+export function noirRoom(E, o = {}) {
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#040508'); scene.environment = E.envMap; scene.environmentIntensity = 0.05; scene.fog = new THREE.FogExp2('#030408', 0.085);
+  const floor = shadow(new THREE.Mesh(new THREE.PlaneGeometry(16, 22), mat({ color: '#0d0e13', roughness: 0.28, metalness: 0.15 }))); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, 3); scene.add(floor);
+  const back = shadow(new THREE.Mesh(new THREE.PlaneGeometry(30, 12), mat({ color: '#0a0c11', roughness: 0.95 }))); back.position.set(0, 5.5, -3.4); scene.add(back);
+  for (const sx of [-1, 1]) { const w = shadow(new THREE.Mesh(new THREE.PlaneGeometry(16, 12), mat({ color: '#080a0e', roughness: 0.95 }))); w.rotation.y = -sx * Math.PI / 2; w.position.set(sx * 4.6, 5.5, 4); scene.add(w); }
+  const bd = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 2.25), new THREE.MeshStandardMaterial({ map: boardTex(), roughness: 0.9 })); bd.position.set(-1.2, 2.2, -3.36); scene.add(bd); rbox(3.75, 0.08, 0.06, mat({ color: '#2a2018' }), -1.2, 3.36, -3.34, scene); rbox(3.75, 0.08, 0.06, mat({ color: '#2a2018' }), -1.2, 1.04, -3.34, scene);
+  const desk = new THREE.Group(); desk.position.set(1.5, 0, -2.3); scene.add(desk); rbox(2.0, 0.08, 0.9, mat({ color: '#2c2118', roughness: 0.5 }), 0, 0.78, 0, desk, 0.02); [[-0.9, -0.38], [0.9, -0.38], [-0.9, 0.38], [0.9, 0.38]].forEach(([x, z]) => rbox(0.07, 0.76, 0.07, mat({ color: '#1c1510' }), x, 0.38, z, desk)); rbox(0.5, 0.2, 0.4, mat({ color: '#15181e', metalness: 0.5, roughness: 0.4 }), -0.5, 0.92, 0.0, desk, 0.02); rbox(0.42, 0.03, 0.3, mat({ color: '#d8cfba' }), 0.35, 0.83, 0.12, desk, 0.005).rotation.y = 0.25;
+  const lampPost = new THREE.Group(); lampPost.position.set(2.2, 0, -2.1); scene.add(lampPost); cyl(0.008, 0.008, 0.62, mat({ color: '#111', metalness: 0.7 }), 0, 1.1, 0, lampPost); ball(0.04, emissive('#FFE0A0', 4), 0, 1.45, 0, lampPost);
+  // the one light: a warm spot from above with a visible beam and dust in it
+  const spot = new THREE.SpotLight('#FFD9A0', 26, 12, 0.55, 0.6, 1.4); spot.position.set(0.4, 5.0, 2.4); spot.target.position.set(0, 0.3, 0.3); spot.castShadow = true; spot.shadow.mapSize.set(2048, 2048); spot.shadow.bias = -0.0004; spot.shadow.radius = 6; scene.add(spot, spot.target);
+  const beam = new THREE.Mesh(new THREE.ConeGeometry(1.7, 5.3, 36, 1, true), new THREE.MeshBasicMaterial({ color: '#FFD9A0', transparent: true, opacity: 0.022, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })); beam.position.set(0.2, 2.65, 1.35); beam.rotation.set(0.2, 0, 0.07); scene.add(beam);
+  const dust = []; for (let i = 0; i < 40; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.012, 6, 6), new THREE.MeshBasicMaterial({ color: '#FFE8C0', toneMapped: false, transparent: true, opacity: 0.55 })); scene.add(m); dust.push(m); }
+  const rim = new THREE.DirectionalLight('#B3262B', 0.9); rim.position.set(-3, 2.5, -3); scene.add(rim); scene.add(new THREE.HemisphereLight('#1a2030', '#050508', 0.14));
+  return { scene, look: { bloom: 0.5, bloomThreshold: 0.75, vignette: 0.55, grain: 0.05, warm: 0.0, exposure: 1.1 }, subjects: { board: { pos: [-1.2, 2.2, -3.3], height: 2.2, rotY: 0 }, desk: { pos: [1.5, 0.8, -2.3], height: 0.8, rotY: 0 } },
+    update(t) { dust.forEach((m, i) => { m.position.set(-0.8 + rnd(i) * 2.2 + Math.sin(t * 0.3 + i) * 0.15, 0.4 + ((rnd(i + 5) * 4.2 + t * (0.03 + rnd(i) * 0.04)) % 4.2), 0.2 + rnd(i + 9) * 2.2 + Math.cos(t * 0.25 + i) * 0.15); }); } };
+}
+
+export const WORLDS = { 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
 export function buildWorld(name, E, opts) { const b = WORLDS[name]; if (!b) throw new Error(`unknown world "${name}". Known: ${Object.keys(WORLDS).join(', ')}`); return b(E, opts || {}); }

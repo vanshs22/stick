@@ -1,0 +1,11 @@
+{
+ "pack": "voxel-studio",
+ "status": "legacy-3d",
+ "example": "voxel-howto",
+ "shots": [
+  "S01",
+  "S02",
+  "S05"
+ ],
+ "rendered_at": "2026-11-16T06:15:43.645Z"
+}

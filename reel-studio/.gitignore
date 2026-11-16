@@ -1,6 +1,8 @@
-node_modules/
-reel-projects/
-projects/
 .cache/
-reference-analysis/
+node_modules/
+projects/
 *.raw.mp4
+reel-projects/
+reference-analysis/
+.venv/
+.work/

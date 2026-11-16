@@ -9,7 +9,8 @@ import {Captions} from './engine/Captions';
 import {SafeZones} from './engine/SafeZones';
 import {Transition} from './engine/Transition';
 import {Effects} from './engine/Effects';
-import {Gallery} from './Gallery';
+import {Sheet, sheetHeight} from './Sheets';
+import {CaptionDemo, TypeDemo} from './Demos';
 import {Presenter} from './engine/Presenter';
 import {BGS, PRESENTER} from './engine/tokens';
 
@@ -21,7 +22,7 @@ const bgOf = (s?: string) => (s ? BGS[s] || s : undefined);
 const PresenterLayer: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / TL.fps, sh = TL.shots.find((s) => t >= s.start && t < s.end);
-  if (!sh || sh.presenter?.hidden || sh.component === 'Scene3D') return null;
+  if (!sh || sh.presenter?.hidden || ['Scene3D', 'Stage3D'].includes(sh.component)) return null;
   const enter = Math.min(1, (t - sh.start) / 0.35);
   return <AbsoluteFill style={{opacity: enter, transform: `translateY(${(1 - enter) * 60}px)`}}><Presenter pose={sh.presenter?.pose || 'idle'} mood={sh.presenter?.mood || 'calm'} /></AbsoluteFill>;
 };
@@ -47,6 +48,8 @@ export const Reel: React.FC<{captions: boolean; safeZones: boolean}> = ({caption
 export const RemotionRoot: React.FC = () => (
   <>
   <Composition id="Reel" component={Reel} durationInFrames={Math.max(1, fr(TL.duration))} fps={TL.fps} width={TL.width} height={TL.height} defaultProps={{captions: true, safeZones: false}} />
-  <Composition id="Gallery" component={Gallery} durationInFrames={90} fps={30} width={1080} height={1920} defaultProps={{kind: 'typography', variant: 'cinematic', pack: undefined}} />
+  <Composition id="Sheet" component={Sheet as any} durationInFrames={1} fps={30} width={1080} height={1920} defaultProps={{kind: 'grid', title: 'Sheet', items: []} as any} calculateMetadata={({props}: any) => ({height: sheetHeight(props)})} />
+  <Composition id="CaptionDemo" component={CaptionDemo as any} durationInFrames={120} fps={30} width={1080} height={1920} defaultProps={{bg: '', timeline: TL, preset: 'word-pop', label: ''} as any} calculateMetadata={({props}: any) => ({durationInFrames: Math.round((props.dur || 4) * 30)})} />
+  <Composition id="TypeDemo" component={TypeDemo as any} durationInFrames={150} fps={30} width={1080} height={1920} defaultProps={{bg: '', set: {name: 'Default', headline: {font: 'Inter'}, supporting: {font: 'InstrumentSerif'}, ui: {font: 'JetBrainsMono'}, caption: {font: 'Inter'}}} as any} />
   </>
 );

@@ -101,7 +101,7 @@ function voxTable(e) {
 }
 const SIMPLE = { giftbox: (e) => (e.voxel ? voxGiftbox(e) : giftbox(e)), sidetable: (e) => (e.voxel ? voxTable(e) : sidetable(e)) };
 export function makeProp(e) { const b = SIMPLE[e.kind]; if (!b) throw new Error(`unknown prop "${e.kind}". Known: ${Object.keys(SIMPLE).join(', ')}`); return b(e); }
-const mk = (C) => (e) => rigActor(e, new C({ ...(e.look || {}), scale: e.scale || 1 }));
+const mk = (C) => (e) => { const b = new C({ ...(e.look || {}), scale: e.scale || 1 }); if (e.look?.noir && b.setAllMaterial) b.setAllMaterial(new THREE.MeshPhysicalMaterial({ color: e.look.noirColor || '#050507', roughness: 0.7, sheen: 0.6, sheenColor: new THREE.Color(e.look.rim || '#7a1e24'), sheenRoughness: 0.6 })); return rigActor(e, b); };
 const ACTORS = { human: mk(Human), critter: mk(Critter), blocky: mk(Blocky), stick: mk(Stick3D), voxel: mk(VoxelPerson) };
 export function makeActor(e) { const b = ACTORS[e.kind || 'human']; if (!b) throw new Error(`unknown character kind "${e.kind}". Known: ${Object.keys(ACTORS).join(', ')}`); return b(e); }
 export { v };

@@ -10,7 +10,7 @@ import path from 'node:path';
 const a = process.argv.slice(2), P = a[0], opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? a[i + 1] : d; };
 if (!P) { console.error('usage: build_timeline.mjs <projectDir> [--fps 30] [--preset word-pop]'); process.exit(2); }
 const rd = (f) => JSON.parse(fs.readFileSync(path.join(P, f), 'utf8')), norm = (w) => String(w).toLowerCase().replace(/[^a-z0-9']+/g, '');
-const script = rd('script/script.json'), sb = rd('storyboard/storyboard.json'), L = rd('data/lines.json'), W = rd('data/words.json'), fps = +opt('fps', 30), preset = opt('preset', (() => { try { return rd('brief.json').captions.preset; } catch { return 'word-pop'; } })() || 'word-pop');
+const script = rd('script/script.json'), sb = rd('storyboard/storyboard.json'), L = rd('data/lines.json'), W = rd('data/words.json'), fps = +opt('fps', 30), preset = opt('preset', (() => { try { const c = rd('typography/captions.json').preset; if (c) return c; } catch { /* none chosen yet */ } try { return rd('brief.json').captions.preset; } catch { return 'word-pop'; } })() || 'word-pop');
 const idx = Object.fromEntries(script.lines.map((l, i) => [l.id, i])), errs = [];
 if (L.lines.length !== script.lines.length) errs.push(`data/lines.json has ${L.lines.length} lines but script.json has ${script.lines.length}: re-run the voice tools`);
 // every script line belongs to exactly one shot, in order

@@ -1,15 +1,11 @@
 import style from '../data/style.json';
-import {loadFont as loadSerif} from '@remotion/google-fonts/InstrumentSerif';
-import {loadFont as loadInter} from '@remotion/google-fonts/Inter';
-import {loadFont as loadMono} from '@remotion/google-fonts/JetBrainsMono';
 
-// fonts every style pack can use by name; a pack that needs another font adds it here (see skills/typography)
-const serif = loadSerif('normal', {weights: ['400'], subsets: ['latin']});
-loadSerif('italic', {weights: ['400'], subsets: ['latin']});
-const inter = loadInter('normal', {weights: ['400', '500', '600', '700', '800', '900'], subsets: ['latin']});
-const mono = loadMono('normal', {weights: ['400', '500', '700'], subsets: ['latin']});
+import typo from '../data/typography.json';
+import {fontFamily} from './fonts';
 
-export const F = {serif: serif.fontFamily, sans: inter.fontFamily, mono: mono.fontFamily};
+// fonts come from typography/typography.json (chosen by the user at the typography gate); defaults keep the old look
+export const TYPO = typo as any;
+export const F = {serif: fontFamily(TYPO.supporting?.font || 'InstrumentSerif'), sans: fontFamily(TYPO.headline?.font || 'Inter'), mono: fontFamily(TYPO.ui?.font || 'JetBrainsMono'), caption: fontFamily(TYPO.caption?.font || TYPO.headline?.font || 'Inter')};
 export const C = {...(style as any).colors} as Record<string, string>;
 export const SAFE = {top: 180, bottom: 1380, caption_y: 1440, right_margin: 120, content_top: 180, content_bottom: 1380, ...((style as any).safe_zone || {})};
 /** window chrome of the pack: 'clean' (soft shadow), 'sticker' (thick outline + hard shadow), 'glass' (dark translucent panel) */
