@@ -35,3 +35,5 @@ Output: `script/script.json` (schema `script`). Validate it: `node $TK/tools/val
 - Hook: a question, a number or a personal opening ("What if...", "I...", "Why..."); a greeting is rejected. Each line that states a number or a fact lists its claim ids in `claims`.
 - A `cta` beat is only needed when the brief has a CTA keyword; with no CTA, end on `save` or the payoff.
 - Words: about 2.4 per second of the target length (80 words is about 33 s); speed above 1.0 shortens it.
+
+Put the call to action (the brief's CTA keyword) in the LAST TWO lines: the video critic looks for it in the last captions.

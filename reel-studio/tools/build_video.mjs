@@ -23,7 +23,7 @@ step('narration input', 'node', [path.join(TK, 'tools/audio/build_tts_input.mjs'
 const ttsHash = crypto.createHash('sha1').update(fs.readFileSync(path.join(P, 'data/tts.json'))).digest('hex'), hf = path.join(P, 'data/.voice.hash');
 const needVoice = !a.includes('--estimate') && (!fs.existsSync(path.join(P, 'data/narration.wav')) || !fs.existsSync(hf) || fs.readFileSync(hf, 'utf8') !== ttsHash);   // same text + voice + pronunciations = same narration
 if (a.includes('--estimate')) step('estimated timing (no voice)', PY, [path.join(TK, 'tools/audio/estimate.py'), '.']);
-else if (needVoice) { step('voice (Kokoro, local)', PY, [path.join(TK, 'tools/audio/voice.py'), '.']); step('word timing (Whisper, local)', PY, [path.join(TK, 'tools/audio/words.py'), '.']); fs.writeFileSync(hf, ttsHash); }
+else if (needVoice) { step('voice (Kokoro, local)', PY, [path.join(TK, 'tools/audio/voice.py'), '.']); const wr = step('word timing (Whisper, local)', PY, [path.join(TK, 'tools/audio/words.py'), '.']); if (/spreading words|spread inside/.test((wr.stdout || '') + (wr.stderr || ''))) console.error('\nWARNING: Whisper was not available, so caption and anchor times are SPREAD inside each line (about 0.1-0.2 s off). Fix: install it (bash install.sh) and delete data/narration.wav, then rebuild.\n'); fs.writeFileSync(hf, ttsHash); }
 else console.log('== voice: unchanged, reusing data/narration.wav');
 step('timeline', 'node', [path.join(TK, 'tools/timing/build_timeline.mjs'), P]);
 step('sound cues (each tied to an event)', 'node', [path.join(TK, 'tools/audio/build_cues.mjs'), P]);

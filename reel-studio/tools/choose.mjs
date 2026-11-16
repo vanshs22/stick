@@ -31,5 +31,6 @@ if (what === 'style') {
 } else if (what === 'voice') {
   const c = { voice: opt('voice', 'am_michael'), speed: +opt('speed', 1.0), pace: opt('pace', 'calm'), music: opt('music', 'bed'), sfx: opt('sfx', 'soft'), pronunciations: Object.fromEntries((opt('pron', '') || '').split(';').filter(Boolean).map((x) => x.split('='))), chosen_at: now };
   w('audio/voice-choice.json', c);
-  const f = path.join(P, 'audio/audio-plan.json'); if (fs.existsSync(f)) { const ap = rd(f); ap.voice = { ...(ap.voice || {}), engine: ap.voice?.engine || 'kokoro', voice: c.voice, speed: c.speed, pronunciations: c.pronunciations }; ap.music = { ...(ap.music || {}), bed: c.music }; fs.writeFileSync(f, JSON.stringify(ap, null, 1)); console.log('updated audio/audio-plan.json'); }
+  const f = path.join(P, 'audio/audio-plan.json'); if (fs.existsSync(f)) { const ap = rd(f); delete ap.status;   // a DRAFT plan becomes the user's choice
+     ap.voice = { ...(ap.voice || {}), engine: ap.voice?.engine || 'kokoro', voice: c.voice, speed: c.speed, pronunciations: c.pronunciations }; ap.music = { ...(ap.music || {}), bed: c.music }; fs.writeFileSync(f, JSON.stringify(ap, null, 1)); console.log('updated audio/audio-plan.json'); }
 } else { console.error('unknown choice kind'); process.exit(2); }

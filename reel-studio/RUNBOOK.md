@@ -18,3 +18,9 @@ At a user gate `next.mjs` says "ASK THE USER and STOP". Ask one clear question w
 
 ## If a tool fails
 Read its last lines, fix the input it names, run it again. If the toolkit itself is wrong, stop and tell the user what and why; do not hide it.
+
+## Good to know
+- TEST projects (`new_project.mjs ... --test`, needs `REEL_TEST_MODE=1`) skip the approval gates and say TEST in every receipt: use them for dry runs, never for a real delivery.
+- Capture a quote that is below the fold with an actions file: `[{"do":"scroll","y":300},{"do":"wait","ms":700},{"do":"screenshot","name":"page"}]` plus `--actions file.json --viewport 480x486 --scale 2 --expect "<the sentence>"`. `--expect` fails unless the sentence is inside the picture. Open the PNG.
+- Build times (software rendering, no GPU): about 6 to 10 minutes for a 30 to 40 second preview at `--scale 0.5`. A rebuild after a fix re-renders only the shots that changed (the voice is reused unless the script or voice choice changed): expect 1 to 2 minutes.
+- Time never matters more than looking at the pictures.

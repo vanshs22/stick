@@ -92,3 +92,10 @@ Official rules for structure: `node $TK/tools/rs.mjs multi-scene-video sequencin
 **Same script in another style**: do not rewrite the storyboard by hand. `node $TK/tools/style_sheets.mjs $P --styles <ids>` maps your 3D shots to the pack's character, costume and world (`defaults.stage3d`) and your cards to cards the pack prefers, and renders `output/<style>/overview.jpg`. Open every overview before you say a style works.
 
 **Faceless or dark packs** (noir-3d): a face-less figure cannot show who speaks or which way it faces. Keep gestures large, give the key light a clear edge, and tell the user this is a mood style.
+
+## Lessons from a second fresh agent (apply them, they cost a render cycle each)
+- **Overlay positions** (`overlays[].x,y`): pixels on the 1080x1920 canvas, x is the CENTRE (fractions between 0 and 1 also work). Tags are 28 px: too small for a phone; use stickers or a bigger card text for anything the viewer must read.
+- **Anchors**: never put the entrance `anchor` of a card that is the ONLY visual of its shot on a word that is spoken late: the viewer sees an empty background until then (the video critic reports it as an unplanned cut). Anchor overlays and secondary elements; anchor a main card on the first word of its line, or leave it unanchored.
+- **Highlight boxes** on `ProofCard`/`BrowserWindow`: draw them a little taller than the text, or the ellipse cuts through the last line.
+- **The scaffold is a baseline**: for blocky and voxel characters it already starts at `medium-wide`; check evidence shots really sit on the line that quotes the source, and that a Terminal shows the real command, not a paraphrase.
+- **remocn picks**: keep a remocn component only if it fits 9:16 (no clipped text), has no brand logo of its own, and can sit on a transparent background (`background: "transparent"`, `theme` props where offered; `scale`/`dy` in `RemocnBlock`). Otherwise keep ours and say why in `visual_intent`.

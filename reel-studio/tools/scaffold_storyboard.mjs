@@ -20,7 +20,8 @@ const capForLine = (l) => { for (const cid of l.claims || []) for (const sid of 
 const HOOK = new Set(['hook', 'stakes', 'objection', 'twist', 'save']), EVID = new Set(['setup', 'mechanism', 'proof', 'step']);
 const POSE = { hook: [[0, 'idle'], [0.6, 'explain-wide']], stakes: [[0, 'shrug'], [1.6, 'cheer']], objection: [[0, 'think']], twist: [[0, 'think'], [2.2, 'point']], save: [[0, 'wave']], setup: [[0, 'explain-wide']], step: [[0, 'explain-wide']], mechanism: [[0, 'explain-wide']], proof: [[0, 'point']], cta: [[0, 'point']] };
 const MOOD = { hook: [[0, 'curious'], [1.8, 'happy']], stakes: [[0, 'relieved'], [1.6, 'happy']], objection: 'curious', twist: [[0, 'curious'], [2.2, 'smirk']], save: 'happy' };
-const CAM = [{ framing: 'medium', az: -14 }, { framing: 'medium-wide', az: -48 }];   // alternate framing AND azimuth (one side of the subject, 34 degrees apart): no jump cuts, no axis crossing
+const WIDE_KINDS = new Set(['blocky', 'voxel']);   // their head, arms and hands are cropped at 'medium'
+const camFor = (kind, n) => (n % 2 === 0 ? { framing: WIDE_KINDS.has(kind) ? 'medium-wide' : 'medium', az: -14 } : { framing: 'medium-wide', az: -48 });   // alternate framing AND azimuth (one side of the subject, 34 degrees apart): no jump cuts, no axis crossing
 const words = (t) => t.replace(/[^\w'\s-]/g, ' ').split(/\s+/).filter(Boolean);
 const cmdOf = (t) => {
   const tick = t.match(/`([^`]+)`/); if (tick) return tick[1];
@@ -39,7 +40,7 @@ script.lines.forEach((l, i) => {
   }
   const cmd = cmdOf(l.text); if (EVID.has(l.beat) && cmd) { shots.push({ ...base, visual_intent: intent(`the command: ${cmd}`), shot_type: 'screen-demo', component: 'Terminal', props: { lines: [cmd], anchor: 'go' }, anchors: [{ name: 'go', line: l.id, word: words(cmd)[0] }], sfx: [{ type: 'type', anchor: 'go', dur: 1.2 }] }); return; }
   if (shots3d && (HOOK.has(l.beat) || EVID.has(l.beat))) {
-    const kind = Object.keys(shots3d.cast)[0], cam = CAM[char++ % 2];
+    const kind = Object.keys(shots3d.cast)[0], cam = camFor(kind, char++);
     shots.push({ ...base, visual_intent: intent('the character says it to us'), shot_type: 'character', component: 'Stage3D', props: { world: shots3d.world, worldOpts: shots3d.worldOpts || {}, cast: [{ id: 'hero', kind, look: JSON.parse(JSON.stringify(shots3d.cast[kind])), at: [-0.1, 0.2], rotY: 0.25, pose: POSE[l.beat] || POSE.step, mood: MOOD[l.beat] || 'happy', speaks: true }], props3d: [], camera: { ...cam, angle: 'three-quarter', subject: 'hero', offset: [0.05, 0], focus: { target: 'hero', aperture: 0.004 }, movement: { type: 'static' } } } }); return;
   }
   const c2 = twoD++ % 2 === 0 && l.beat === 'hook' ? ['TitleCard', { text: l.text.replace(/[?.!]+$/, '?').length < 90 ? l.text : words(l.text).slice(0, 12).join(' '), accent: key, anchor: 'a0' }] : ['Highlight', { text: l.text, mark: key, anchor: 'a0', size: 80 }];

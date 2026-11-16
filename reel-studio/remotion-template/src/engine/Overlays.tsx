@@ -69,4 +69,6 @@ const One: React.FC<{o: Overlay; shot: Shot}> = ({o, shot}) => {
     default: return null;
   }
 };
-export const Overlays: React.FC<{shot: Shot}> = ({shot}) => <>{(shot.overlays || []).map((o, i) => <One key={i} o={o} shot={shot} />)}</>;
+// x,y are pixels on the 1080x1920 canvas (x is the centre); values between -2 and 2 are read as fractions of the frame (0.5 = the middle)
+const fixPos = (o: Overlay): Overlay => ({...o, x: o.x != null && Math.abs(o.x) <= 2 ? o.x * 1080 : o.x, y: o.y != null && Math.abs(o.y) <= 2 ? o.y * 1920 : o.y});
+export const Overlays: React.FC<{shot: Shot}> = ({shot}) => <>{(shot.overlays || []).map((o, i) => <One key={i} o={fixPos(o)} shot={shot} />)}</>;

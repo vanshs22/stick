@@ -15,15 +15,22 @@ const TL = JSON.parse(fs.readFileSync(path.join(P, 'data/timeline.json'), 'utf8'
 const walk = (d, f) => fs.existsSync(d) ? fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? (e.name === 'node_modules' ? [] : walk(path.join(d, e.name), f)) : [f(path.join(d, e.name))])) : [];
 const h = (...x) => crypto.createHash('sha1').update(x.map((v) => (typeof v === 'string' ? v : JSON.stringify(v))).join('|')).digest('hex').slice(0, 10);
 // everything that is not the timeline: components, engine, style/typography/caption data, public assets
-const code = h(walk(path.join(R, 'src'), (f) => (f.endsWith('data/timeline.json') ? '' : `${path.relative(R, f)}:${fs.readFileSync(f).length}:${h(fs.readFileSync(f, 'utf8'))}`)));
+const rel = (f) => path.relative(R, f).split(path.sep).join('/'), isRemocn = (f) => /^src\/remocn\//.test(rel(f)) || rel(f) === 'src/data/remocn-registry.ts';
+const code = h(walk(path.join(R, 'src'), (f) => (f.endsWith('data/timeline.json') || isRemocn(f) ? '' : `${rel(f)}:${fs.readFileSync(f).length}:${h(fs.readFileSync(f, 'utf8'))}`)));   // installing a remocn component must not re-render shots that do not use it
+const remocnCode = h(walk(path.join(R, 'src/remocn'), (f) => `${rel(f)}:${h(fs.readFileSync(f, 'utf8'))}`));
 const pub = h(walk(path.join(R, 'public'), (f) => `${path.relative(R, f)}:${fs.statSync(f).size}`));
+// times are hashed RELATIVE to the shot start: a shot that only moved in time (an earlier shot got longer) renders the same pictures and keeps its cache
+const REL = new Set(['start', 'end', 't0', 't1', 't', 'at', 'from', 'to']);
+const rebase = (x, o) => (Array.isArray(x) ? x.map((v) => rebase(v, o)) : x && typeof x === 'object' ? Object.fromEntries(Object.entries(x).map(([k, v]) => [k, typeof v === 'number' && REL.has(k) && v > 0.5 * 0 && Number.isFinite(v) && k !== 'from' && k !== 'to' ? +(v - o).toFixed(3) : rebase(v, o)])) : x);
 const hashOf = (s, i) => {
-  const t0 = s.start, t1 = s.end, chunks = (TL.captions?.chunks || []).filter((c) => c.end > t0 && c.start < t1);
-  return h(s, chunks, code, pub, scale, TL.width, TL.height, fps, i === TL.shots.length - 1 ? TL.duration : 0);
+  const t0 = s.start, t1 = s.end, chunks = (TL.captions?.chunks || []).filter((c) => c.t1 > t0 && c.t0 < t1), anchors = Object.fromEntries(Object.entries(s.anchors || {}).map(([k, v]) => [k, +(v - t0).toFixed(3)]));
+  const shot = { ...rebase({ ...s, anchors: undefined, props: undefined }, t0), anchors, props: s.props }, uses = s.component === 'RemocnBlock' ? remocnCode : '';
+  return h(shot, rebase(chunks, t0), code, uses, pub, scale, TL.width, TL.height, fps, i === TL.shots.length - 1 ? +(TL.duration - t0).toFixed(3) : +(t1 - t0).toFixed(3));
 };
 const dir = path.join(P, 'renders/segments'); fs.mkdirSync(dir, { recursive: true });
 const plan = TL.shots.map((s, i) => ({ id: s.id, from: fr(s.start), to: (i === TL.shots.length - 1 ? fr(TL.duration) : fr(s.end)) - 1, hash: hashOf(s, i) })).map((p) => ({ ...p, file: path.join(dir, `${p.id}-${p.hash}.mp4`) }));
 const todo = plan.filter((p) => (force || !fs.existsSync(p.file)) && (!only?.length || only.includes(p.id)));
+if (a.includes('--dry')) { console.log(plan.map((p) => `${p.id} ${p.hash}`).join('\n')); process.exit(0); }
 console.log(`${plan.length} shots, ${plan.length - todo.length} cached, ${todo.length} to render${todo.length ? ': ' + todo.map((p) => p.id).join(', ') : ''}`);
 if (todo.length) {
   const t0 = Date.now(), serveUrl = await bundle({ entryPoint: path.join(R, 'src/index.ts'), publicDir: path.join(R, 'public'), onProgress: () => {} });

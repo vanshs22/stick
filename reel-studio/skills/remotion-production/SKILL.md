@@ -5,7 +5,7 @@ description: Builds the video in Remotion (React) from the approved storyboard -
 
 # Remotion production
 
-FIRST run `node $TK/tools/rs.mjs router markup timing sequencing` (the official Remotion rules, installed by `scripts/install.mjs`) and follow them. Never write Remotion code before reading them. The project is `$P/remotion/`.
+If you write NEW Remotion code (a custom component), first run `node $TK/tools/rs.mjs router markup timing sequencing` (the official Remotion rules, installed by `scripts/install.mjs`) and follow them. Never write Remotion code before reading them. The project is `$P/remotion/`.
 
 ## Setup
 Build with ONE command: `node $TK/tools/build_video.mjs $P --scale 0.5` (preview) or without `--scale` (delivery): voice, word timing, timeline, sound cues, mix, per-shot render (cached by content), assemble, loudness QA. Re-run it after any fix; `--shots S03,S05` forces only those shots. No per-project `npm install` (packages are shared). The timeline comes from `src/data/timeline.json` (built by `tools/timing/build_timeline.mjs`; never edit by hand). Style tokens are in `src/data/style.json`.
