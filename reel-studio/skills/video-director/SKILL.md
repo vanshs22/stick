@@ -43,3 +43,6 @@ After 3 critic rounds on the same finding, stop and show it to the user with two
 Ask for one line of feedback ("what would you change?"). Append it to `$TK/memory/learnings.md` (what, which style, which stage) and to the creator profile's `feedback_history`.
 
 When the user can open a browser, offer the live Studio preview (`cd $P/remotion && npm run studio`, official rule `rs.mjs studio`) so they can scrub the video themselves at the gates.
+
+## Do not change the toolkit to get a look
+A production run uses the toolkit as it is: pack defaults, storyboard fields, tools. Do not edit `remotion-template/`, `tools/` or `style-packs/` inside a video job. If something is broken or missing, stop, tell the user what and why, and (only if they agree) make ONE toolkit change with a line in `memory/learnings.md` and a run of `node tools/selftest.mjs`. A look problem (face covered, text cut off, caption on the host) is first a storyboard choice: another pose, framing, anchor or capture size.

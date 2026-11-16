@@ -7,6 +7,24 @@ description: Builds 3D shots with three.js inside Remotion - characters, rooms, 
 
 Use 3D when depth, lighting, a place or acting carries the idea. Otherwise use 2D (cheaper, sharper).
 
+## Use `Stage3D`, do not hand-write three.js
+For characters, rooms and camera work the toolkit already has a directed 3D shot: component `Stage3D` (vanilla three.js, film look: soft shadows, depth of field, bloom, ACES). You describe the shot in `storyboard.json`; you do not write scene code and you do not edit `remotion-template/src/three/`. Copy a working shot from `examples/experiment-*/storyboard.json` and change it.
+```
+{"component":"Stage3D","props":{
+  "world":"workshop","worldOpts":{},                       // workshop | home-studio | block-yard | voxel-valley | noir-room
+  "cast":[{"id":"hero","kind":"critter","look":{},"at":[-0.1,0.2],"rotY":0.25,
+           "pose":[[0,"idle"],[0.6,"explain-wide"]],       // a name, or [[seconds,name],...]
+           "mood":[[0,"curious"],[1.8,"happy"]],"speaks":true}],
+  "props3d":[{"id":"table","kind":"sidetable","at":[0.45,0,0.35]}],   // sidetable | giftbox (add "voxel":true or "blocky":true to match the style)
+  "camera":{"framing":"medium","angle":"three-quarter","az":-14,"subject":"hero","focus":{"target":"hero","aperture":0.004},"movement":{"type":"static"}}}}
+```
+- `kind` follows the style pack: human (presenter, noir), critter (Pips), blocky (Roblox-inspired), stick (3D stickman), voxel. Leave `look` empty to use the pack's costume (`defaults.stage3d` in `style.json`), or copy the pack's values.
+- poses: idle relax explain explain-wide point think shrug wave cheer hold hold-up reach lean-in step-back slump hands-on-head cower. moods: calm happy curious surprised worried sad angry smirk scared relieved determined (faces exist on human and critter; other kinds act with the body).
+- `speaks: true` moves the mouth on the real word times. `reach` makes a hand go to a prop, `open` opens the giftbox. `lookAt` turns the head to a prop id.
+- Camera: framing, angle, `az`, `offset`, `distScale`, `focus`, `movement` (a move needs why/from/to/target/duration/profile/curve). The critic (`tools/check_cinematography.mjs`) tells you what to change. Rules and vocabulary: `skills/storyboard` and `docs/CINEMATOGRAPHY.md`.
+- Check the result the only way that counts: `tools/storyboard_review.mjs` and open the images (face clear? hands off the face? subject inside the frame? captions off the face?).
+Raw three.js (below) is only for something Stage3D cannot do; say so to the user first.
+
 ## Setup inside Remotion
 Read the official rule first: `node $TK/tools/rs.mjs 3d` (ThreeCanvas needs width and height, proper lighting, and every animation driven by `useCurrentFrame()`).
 `import {ThreeCanvas} from '@remotion/three'`. Wrap the scene in `<ThreeCanvas width height camera={{position:[0,1.5,5], fov:35}}>`. All motion is a pure function of `frame` (`useCurrentFrame()`): positions, rotations, camera, light intensity, blinks. Never use `useFrame()`, clocks, random or physics engines.

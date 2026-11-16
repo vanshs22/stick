@@ -62,3 +62,21 @@ Official rules for structure: `node $TK/tools/rs.mjs multi-scene-video sequencin
 - `node $TK/tools/storyboard_alts.mjs $P <shot>` renders alternatives (framing, angle, pose) for the user to pick from; `storyboard_edit.mjs` replaces a shot, swaps in a reference image, or applies the chosen alternative.
 - The user approves or rejects EACH frame: `node $TK/tools/state.mjs frame $P S03 approve|reject|replace`. The gate cannot be approved while a frame is open.
 - Run `node $TK/tools/check_storyboard.mjs $P` (components + cinematography critic) after every edit.
+
+## Recipes that get a good result first time (use them; do not edit toolkit code)
+**Camera vocabulary** (a wrong name is a blocker, the critic prints the list).
+- framing: extreme-wide, wide, medium-wide, medium, medium-close-up, close-up, extreme-close-up, establishing, insert, top-down, over-the-shoulder, pov. Angle: eye-level, low-angle, high-angle, dutch, three-quarter, profile, front-facing, overhead. `distScale` 0.8 = 20 percent closer.
+- Between two consecutive 3D shots of one subject: change the framing by a step OR the angle by 30 degrees or more, and keep `az` on the same side (do not flip from -14 to +30). A move must say why (40+ characters, about the story), name from/to/target/duration/profile/curve/focus, stay under 22 percent of the subject distance per second, and fit inside the shot. Static is fine. Full rules: `docs/CINEMATOGRAPHY.md`.
+- Critters (the Pips) and thick-limbed kinds (voxel, blocky): use `medium` or wider; `medium-close-up` crops the face or the arm covers the mouth. Presenter and stickman take `medium-close-up`.
+
+**Poses**: from a three-quarter camera `explain` lifts the hands to face height and can cover the visor or mouth. Use `explain-wide` (open arms) while the character speaks, `point` for emphasis, `shrug`/`cheer` for reactions. Always open the still and check the face is clear.
+
+**Evidence shots** (real pages): use `BrowserWindow` (`image`, optional `zoom`) or `ProofCard` (`image`, `source`, `caption`, `highlight {x,y,w,h}` as fractions of the image). Capture for the card, not the desktop: see playwright-capture (small viewport, scale 2). Keep the highlight under 90 percent of the width, or the card will not zoom. A card with a caption line needs `content_bottom` room: do not stack extra text under it.
+
+**Cards that build up** (FlowDiagram, KineticList, Checklist, Timeline, Typewriter, Terminal): give each step an anchor on its spoken word. The review still shows the finished state automatically; set `preview_at` (0 to 1 of the shot) on a shot only if you need a different moment.
+
+**Packs with an illustrated host** (editorial-notebook, editorial-sticker): the host owns the bottom; the pack already moves captions above its head (`safe_zone.caption_y`). Keep content above y 1250 and never turn the host off to fit text.
+
+**Same script in another style**: do not rewrite the storyboard by hand. `node $TK/tools/style_sheets.mjs $P --styles <ids>` maps your 3D shots to the pack's character, costume and world (`defaults.stage3d`) and your cards to cards the pack prefers, and renders `output/<style>/overview.jpg`. Open every overview before you say a style works.
+
+**Faceless or dark packs** (noir-3d): a face-less figure cannot show who speaks or which way it faces. Keep gestures large, give the key light a clear edge, and tell the user this is a mood style.

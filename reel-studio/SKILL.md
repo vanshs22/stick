@@ -87,3 +87,6 @@ Upload or publish without being asked and confirmed. Spend the user's money or c
 | preview and render | `studio`, `render`, `rendering` |
 | licence questions | `license` |
 Where our rules and the official ones differ, the official ones win.
+
+## Rule: use the toolkit, do not rewrite it
+Get the look from the style pack, the storyboard fields and the recipes in `skills/storyboard`, `skills/playwright-capture` and `skills/threejs-production`. Editing toolkit source during a video job is a last resort that needs the user's OK (see `skills/video-director`).
