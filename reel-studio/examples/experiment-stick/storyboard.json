@@ -303,11 +303,10 @@
      "subject": "hero",
      "target": "box",
      "side": 1,
-     "back": 1.9,
-     "shoulderOffset": 0.8,
-     "lift": 0.5,
-     "fov": 34,
-     "lookShift": 0.0,
+     "back": 3.4,
+     "shoulderOffset": 1.1,
+     "lift": 0.7,
+     "lookShift": 0.12,
      "focus": {
       "target": "box",
       "aperture": 0.003

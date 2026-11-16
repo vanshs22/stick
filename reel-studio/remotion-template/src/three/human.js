@@ -30,10 +30,11 @@ export class Human {
       let d = ellipsoid(p, [0, 0.34, 0], [0.185, 0.165, 0.118]);
       d = smin(d, ellipsoid(p, [0, 0.13, 0.008], [0.162, 0.17, 0.112]), 0.08);
       d = smin(d, ellipsoid(p, [0, -0.04, 0], [0.165, 0.11, 0.108]), 0.07);
+      d = smin(d, ellipsoid(p, [0, -0.085, 0.004], [0.176, 0.05, 0.116]), 0.05);   // the shirt flares over the hips (no bodysuit point)
       d = smin(d, capsule(p, [-0.165, 0.43, -0.005], [0.165, 0.43, -0.005], 0.062), 0.07);
       d = smin(d, capsule(p, [0, 0.46, -0.005], [0, 0.6, 0.0], 0.05, 0.047), 0.05);
       return d;
-    }, [[-0.27, -0.17, -0.16], [0.27, 0.64, 0.17]], 0.0065, (p) => { const collar = ellipsoid(p, [0, 0.555, 0.03], [0.078, 0.085, 0.085]); const top = mixc(SH, S, sstep(0.006, -0.006, collar)); return mixc(PA, top, sstep(-0.085, -0.05, p[1])); }));
+    }, [[-0.27, -0.17, -0.16], [0.27, 0.64, 0.17]], 0.0065, (p) => { const collar = ellipsoid(p, [0, 0.555, 0.03], [0.078, 0.085, 0.085]); const fold = 1 + 0.07 * noise3(p[0] * 22, p[1] * 38, p[2] * 22), cloth = SH.map((v) => Math.min(1, v * fold)), hem = sstep(-0.118, -0.108, p[1]) * sstep(-0.098, -0.108, p[1]), shirtCol = mixc(cloth, cloth.map((v) => v * 0.78), hem), top = mixc(shirtCol, S, sstep(0.006, -0.006, collar)); return mixc(PA, top, sstep(-0.13, -0.118, p[1])); }));
     // head
     this.head = G(this.spine, [0, 0.58, 0]);
     add(this.head, sculpt('head' + face + c.skin, (p) => {
@@ -92,10 +93,10 @@ export class Human {
         let d = capsule(p, [0, 0, 0], [0, -0.23, 0.005], 0.039, 0.031);
         d = smin(d, ellipsoid(p, [0, -0.29, 0.008], [0.041, 0.055, 0.021]), 0.03);
         d = smin(d, capsule(p, [0, -0.31, 0.008], [0, -0.365, 0.018], 0.022, 0.017), 0.02);
-        for (const fx of [-0.011, 0.011]) d = ssub(d, capsule(p, [fx, -0.335, 0.035], [fx, -0.4, 0.04], 0.0025), 0.003);
-        d = smin(d, capsule(p, [-s * 0.028, -0.26, 0.018], [-s * 0.04, -0.31, 0.036], 0.012, 0.01), 0.012);
+        for (const fx of [-0.0155, 0, 0.0155]) d = ssub(d, capsule(p, [fx, -0.33, 0.034], [fx, -0.405, 0.042], 0.0022), 0.002);
+        d = smin(d, capsule(p, [-s * 0.03, -0.255, 0.018], [-s * 0.052, -0.315, 0.04], 0.0125, 0.0095), 0.01);
         return d;
-      }, [[-0.08, -0.41, -0.06], [0.08, 0.06, 0.08]], 0.005, () => S));
+      }, [[-0.08, -0.41, -0.06], [0.08, 0.06, 0.08]], 0.0042, () => S));
       const hand = G(el, [0, -0.36, 0.015]); this.arm[k] = { sh, el, hand };
     }
     // legs

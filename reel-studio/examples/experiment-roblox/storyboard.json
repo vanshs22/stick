@@ -16,7 +16,9 @@
      {
       "id": "hero",
       "kind": "blocky",
-      "look": {},
+      "look": {
+       "nameTag": "Builder_7"
+      },
       "at": [
        -0.35,
        0.2
@@ -111,7 +113,9 @@
      {
       "id": "hero",
       "kind": "blocky",
-      "look": {},
+      "look": {
+       "nameTag": "Builder_7"
+      },
       "at": [
        -0.35,
        0.2
@@ -200,7 +204,9 @@
      {
       "id": "hero",
       "kind": "blocky",
-      "look": {},
+      "look": {
+       "nameTag": "Builder_7"
+      },
       "at": [
        -0.35,
        0.2
@@ -399,7 +405,9 @@
      {
       "id": "hero",
       "kind": "blocky",
-      "look": {},
+      "look": {
+       "nameTag": "Builder_7"
+      },
       "at": [
        -0.35,
        0.2

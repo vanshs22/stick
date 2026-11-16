@@ -25,7 +25,22 @@ add('Agent-Reach (research without keys)', has(process.env.AGENT_REACH_BIN || 'a
 const skillDirs = [path.join(os.homedir(), '.claude/skills/reel-studio'), path.join(os.homedir(), '.config/opencode/skills/reel-studio'), path.join(os.homedir(), '.agents/skills/reel-studio'), '.claude/skills/reel-studio', '.opencode/skills/reel-studio', '.agents/skills/reel-studio'];
 add('toolkit installed as a skill', skillDirs.some(fs.existsSync), `node ${path.join(TK, 'scripts/install.mjs')}   (or point your agent at AGENTS.md)`, 'recommended');
 add('official Remotion skills (remotion-dev/skills)', [path.join(HOME, 'remotion-skills/skills/remotion-best-practices/SKILL.md'), path.join(os.homedir(), '.agents/skills/remotion-best-practices/SKILL.md'), path.join(os.homedir(), '.claude/skills/remotion-best-practices/SKILL.md')].some(fs.existsSync), `node ${path.join(TK, 'scripts/install_remotion_skills.mjs')}`, 'recommended');
+const ok = (n) => !!items.find((i) => i.name.startsWith(n))?.ok;
+// what each missing item takes away: the agent must not promise a capability that is not installed
+const capabilities = [
+  ['render videos (Remotion + Chrome)', ok('Remotion template') && ok('Chrome Headless') && ok('ffmpeg'), 'bash install.sh'],
+  ['narration (Kokoro voice)', ok('python 3.9') && ok('kokoro-onnx') && ok('Kokoro model'), 'bash install.sh (without --skip-models)'],
+  ['exact word timing for captions (faster-whisper)', ok('faster-whisper'), 'bash install.sh; without it caption times are spread inside each line'],
+  ['real website evidence (Playwright capture)', ok('playwright-core') && ok('Chrome Headless'), 'npm install in the toolkit folder'],
+  ['reference video analysis (OpenCV + ffmpeg)', ok('OpenCV') && ok('ffmpeg'), 'bash install.sh'],
+  ['download reference videos (yt-dlp)', ok('yt-dlp'), 'bash install.sh'],
+  ['autonomous competitor/topic research (Agent-Reach)', ok('Agent-Reach'), 'optional: bash install.sh --with-agent-reach. Without it: web search tools of your IDE, or import exports by hand (research skill)'],
+  ['agent skills visible to the IDE', ok('toolkit installed as a skill'), `node ${path.join(TK, 'scripts/install.mjs')}`],
+  ['official Remotion skills', ok('official Remotion skills'), `node ${path.join(TK, 'scripts/install_remotion_skills.mjs')}`],
+];
+if (process.argv.includes('--json')) { const o = { checked_at: new Date().toISOString(), platform: `${process.platform} ${process.arch}`, node: process.versions.node, toolkit: TK, python: PY, items, capabilities: capabilities.map(([name, available, fix]) => ({ name, available, fix: available ? '' : fix })), ready_to_produce: !items.some((i) => !i.ok && i.need === 'required') }; console.log(JSON.stringify(o, null, 1)); process.exit(o.ready_to_produce ? 0 : 1); }
 console.log(`toolkit: ${TK}\npython : ${PY}\n`);
 for (const i of items) console.log(`${i.ok ? 'OK     ' : i.need === 'required' ? 'MISSING' : i.need === 'recommended' ? 'missing' : 'optional'}  ${i.name.padEnd(48)} ${i.fix}`);
+console.log('\nCapabilities:'); for (const [n, a, f] of capabilities) console.log(`  ${a ? 'available  ' : 'UNAVAILABLE'} ${n}${a ? '' : '   -> ' + f}`);
 console.log('\nThe agent should be able to LOOK at images (contact sheets). If your model cannot, vision critics report "not performed" and you review review/*.jpg yourself.\nNo GPU? Set REMOTION_GL=swangle in .env (slow but works).');
 process.exit(items.some((i) => !i.ok && i.need === 'required') ? 1 : 0);

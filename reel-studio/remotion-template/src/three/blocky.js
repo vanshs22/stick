@@ -30,6 +30,14 @@ export class Blocky extends Rig {
     // headwear
     if (c.hatStyle === 'cap') { rbox(0.42, 0.14, 0.4, plastic(c.hat), 0, 0.42, -0.005, this.head, 0.06); rbox(0.34, 0.035, 0.22, plastic(shade(c.hat, 0.85)), 0, 0.37, 0.27, this.head, 0.015); }
     else if (c.hatStyle === 'hair') rbox(0.42, 0.13, 0.42, plastic(c.hair), 0, 0.43, -0.01, this.head, 0.06);
+    // ears, shirt collar and hem stripe, cuffs: small things that make the avatar read as designed
+    for (const s of [-1, 1]) rbox(0.05, 0.1, 0.07, skin, s * 0.205, 0.26, 0, this.head, 0.02);
+    rbox(0.3, 0.05, 0.16, plastic(shade(c.shirt, 1.25)), 0, 0.6, 0.075, this.spine, 0.02);
+    rbox(0.575, 0.06, 0.305, plastic(shade(c.shirt, 0.78)), 0, -0.01, 0, this.spine, 0.02);
+    for (const k of ['L', 'R']) rbox(0.255, 0.05, 0.255, plastic(shade(c.sleeve || c.shirt, 0.8)), 0, -0.325, 0, this.arm[k].sh, 0.02);
+    if (c.backpack) rbox(0.36, 0.46, 0.14, plastic(c.backpack), 0, 0.3, -0.22, this.spine, 0.06);
+    if (c.hatStyle === 'beanie') { rbox(0.42, 0.16, 0.42, plastic(c.hat), 0, 0.41, -0.005, this.head, 0.08); rbox(0.08, 0.08, 0.08, plastic(shade(c.hat, 1.3)), 0, 0.52, 0, this.head, 0.04); }
+    if (c.nameTag) { const cv = document.createElement('canvas'); cv.width = 256; cv.height = 64; const g = cv.getContext('2d'); g.fillStyle = 'rgba(16,18,24,0.7)'; g.beginPath(); g.roundRect(4, 6, 248, 52, 14); g.fill(); g.fillStyle = '#fff'; g.font = 'bold 30px sans-serif'; g.textAlign = 'center'; g.fillText(c.nameTag, 128, 44); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; const tag = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, depthTest: false, toneMapped: false })); tag.scale.set(0.46, 0.115, 1); tag.position.set(0, 0.74, 0); tag.renderOrder = 10; this.head.add(tag); }
     this.group.scale.setScalar(c.scale); this.pose({}); this.face({});
   }
   /** painted-on face: the whole expression is redrawn from the mood each frame */

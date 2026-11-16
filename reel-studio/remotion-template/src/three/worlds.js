@@ -106,8 +106,8 @@ export function homeStudio(E, o = {}) {
 function studTex(base = '#5DB84A', rep = 60) {
   return canvasTex('studs' + base, 128, 128, (g, w, h) => {
     g.fillStyle = base; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { const x = 16 + i * 32, y = 16 + j * 32, gr = g.createRadialGradient(x - 3, y - 3, 1, x, y, 11); gr.addColorStop(0, shade(base, 1.22)); gr.addColorStop(1, shade(base, 0.86)); g.fillStyle = 'rgba(0,0,0,0.18)'; g.beginPath(); g.arc(x + 1.5, y + 2, 10.5, 0, 7); g.fill(); g.fillStyle = gr; g.beginPath(); g.arc(x, y, 9.5, 0, 7); g.fill(); }
-  }, rep);
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { const x = 16 + i * 32, y = 16 + j * 32, gr = g.createRadialGradient(x - 3, y - 3, 1, x, y, 11); gr.addColorStop(0, shade(base, 1.32)); gr.addColorStop(1, shade(base, 0.78)); g.fillStyle = 'rgba(0,0,0,0.3)'; g.beginPath(); g.arc(x + 2, y + 3, 11, 0, 7); g.fill(); g.fillStyle = gr; g.beginPath(); g.arc(x, y, 9.5, 0, 7); g.fill(); }
+  }, [rep, rep]);   // canvasTex wants [x, y]: a bare number gave NaN repeats and the studs never showed
 }
 function blockTree(s = 1, leaf = '#4FA84A', trunk = '#7A5230') {
   const g = new THREE.Group(); rbox(0.26, 1.1, 0.26, mat({ color: trunk, roughness: 0.8 }), 0, 0.55, 0, g, 0.03);
@@ -123,10 +123,33 @@ function blockHouse(o = {}) {
   rbox(1.4, 0.14, 0.9, mat({ color: '#B9B4AA', roughness: 0.8 }), 0, 0.07, 1.8, g, 0.03); rbox(1.1, 0.1, 0.4, mat({ color: '#B9B4AA', roughness: 0.8 }), 0, 0.05, 2.35, g, 0.03);
   return g;
 }
+/** the things that make a block-game world read as a game world: a spawn pad, lamp posts, a mailbox, a leaderboard sign, flower beds, rocks, and a colourful obstacle course in the distance */
+function blockProps(scene) {
+  const M = (c, o = {}) => mat({ color: c, roughness: 0.55, ...o });
+  // spawn pad: a glowing disc the avatar appears on
+  const pad = new THREE.Group(); const disc = shadow(new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 0.08, 40), M('#E8EEF5'))); disc.position.y = 0.04; pad.add(disc);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.78, 0.035, 8, 48), new THREE.MeshStandardMaterial({ color: '#6FE3FF', emissive: '#3CCBFF', emissiveIntensity: 1.2 })); ring.rotation.x = Math.PI / 2; ring.position.y = 0.09; pad.add(ring); pad.position.set(-0.4, 0, 0.6); scene.add(pad);
+  // lamp posts along the path
+  [[3.1, -0.4], [-1.9, -0.9], [4.6, -5.5]].forEach(([x, z]) => { rbox(0.12, 1.9, 0.12, M('#3A3F4A'), x, 0.95, z, scene, 0.03); rbox(0.34, 0.34, 0.34, new THREE.MeshStandardMaterial({ color: '#FFF3C4', emissive: '#FFD66B', emissiveIntensity: 1.1 }), x, 1.98, z, scene, 0.08); });
+  // mailbox
+  rbox(0.1, 0.8, 0.1, M('#7A5230'), 3.9, 0.4, 0.8, scene, 0.02); rbox(0.5, 0.3, 0.3, M('#D8402F'), 3.9, 0.9, 0.8, scene, 0.08); rbox(0.04, 0.2, 0.04, M('#FFE34D'), 4.12, 1.02, 0.8, scene, 0.01);
+  // leaderboard sign (readable text on a plank)
+  const board = canvasTex('lb-sign', 256, 160, (g, w, h) => { g.fillStyle = '#23262F'; g.fillRect(0, 0, w, h); g.fillStyle = '#FFD45A'; g.font = 'bold 30px sans-serif'; g.textAlign = 'center'; g.fillText('TOP BUILDERS', w / 2, 38); g.font = 'bold 24px sans-serif'; g.textAlign = 'left'; ['1  Nova      9,420', '2  Pixel     8,115', '3  You       7,990'].forEach((t, i) => { g.fillStyle = i === 2 ? '#7CF0A6' : '#E9EEF5'; g.fillText(t, 22, 78 + i * 30); }); });
+  rbox(0.1, 1.5, 0.1, M('#7A5230'), -3.3, 0.75, 0.9, scene, 0.02); rbox(0.1, 1.5, 0.1, M('#7A5230'), -1.9, 0.75, 0.9, scene, 0.02); rbox(1.7, 1.05, 0.1, M('#23262F'), -2.6, 1.55, 0.9, scene, 0.05);
+  const face = new THREE.Mesh(new THREE.PlaneGeometry(1.55, 0.95), new THREE.MeshBasicMaterial({ map: board, toneMapped: false })); face.position.set(-2.6, 1.55, 0.96); scene.add(face);
+  // flower beds and rocks
+  [['#FF6FA3', -1.1, 0.2], ['#FFD45A', 2.6, 0.5], ['#7FD3FF', 1.9, 0.9], ['#FF8A4D', -3.9, -0.7], ['#FF6FA3', 5.4, -0.5]].forEach(([c, x, z], i) => { rbox(0.6, 0.12, 0.34, M('#7A5230'), x, 0.06, z, scene, 0.03); for (let k = 0; k < 4; k++) { rbox(0.05, 0.22, 0.05, M('#3F9A47'), x - 0.21 + k * 0.14, 0.2, z, scene, 0.01); rbox(0.13, 0.13, 0.13, M(c), x - 0.21 + k * 0.14, 0.34, z, scene, 0.04); } });
+  [[-5.1, -1.6, 0.5], [6.2, -2.0, 0.65], [-0.8, -6.0, 0.8]].forEach(([x, z, s], i) => { const r = rbox(s, s * 0.7, s * 0.85, M('#9AA1AB', { roughness: 0.85 }), x, s * 0.33, z, scene, 0.12); r.rotation.y = i; });
+  // obstacle course in the distance: coloured platforms climbing away, with a truss tower
+  ['#FF5D5D', '#FFB347', '#FFE34D', '#6FD66F', '#4FC3F7', '#9575F5'].forEach((c, i) => rbox(2.2, 0.35, 2.2, M(c), -14 + i * 2.2, 0.2 + i * 0.7, -16 - (i % 2) * 1.5, scene, 0.08));
+  for (let i = 0; i < 6; i++) { rbox(0.12, 6, 0.12, M('#C9CED6', { metalness: 0.4 }), -17.5 + (i % 2) * 0.9, 3, -14.5 + Math.floor(i / 2) * 0.9, scene, 0.02); }
+  // a second row of houses far away so the yard feels like a neighbourhood
+  [[-14, -22, '#F2C6A0', '#6B5B95'], [10, -20, '#BFE3C0', '#C8472F'], [18, -24, '#F7E3A3', '#3C6FB6']].forEach(([x, z, w, r], i) => { const hh = blockHouse({ wall: w, roof: r }); hh.position.set(x, 0, z); hh.rotation.y = -0.2 + i * 0.25; hh.scale.setScalar(1.2); scene.add(hh); });
+}
 export function blockYard(E, o = {}) {
   const scene = new THREE.Scene(); scene.background = new THREE.Color('#9FD0F5'); scene.environment = E.envMap; scene.environmentIntensity = 0.5;
   sky(scene, { top: '#3D86E0', horizon: '#CDE9FB', ground: '#8CCB6A' });
-  const plate = shadow(new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshStandardMaterial({ map: studTex('#63BC4B', 90), roughness: 0.55 }))); plate.rotation.x = -Math.PI / 2; plate.position.set(0, 0, -20); scene.add(plate);
+  const studMap = studTex('#63BC4B', 60), plate = shadow(new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshStandardMaterial({ map: studMap, bumpMap: studMap, bumpScale: 1.6, roughness: 0.5 }))); plate.rotation.x = -Math.PI / 2; plate.position.set(0, 0, -20); scene.add(plate);
   const house = blockHouse(o.house); house.position.set(1.2, 0, -3.6); scene.add(house);
   const h2 = blockHouse({ wall: '#BFD9EE', roof: '#3C6FB6' }); h2.position.set(-6.8, 0, -7.5); h2.rotation.y = 0.4; scene.add(h2);
   [[-3.8, -3.0, 1.1], [4.9, -3.4, 1.4], [-2.4, -9.5, 1.5], [7.5, -9, 1.2], [-9.5, -3, 1.3], [10.5, -5, 1.6]].forEach(([x, z, sc], i) => { const t = blockTree(sc, i % 2 ? '#4FA84A' : '#5DBB52'); t.position.set(x, 0, z); t.rotation.y = i; scene.add(t); });
@@ -135,6 +158,7 @@ export function blockYard(E, o = {}) {
   [[-1.6, -0.5], [3.7, -0.2], [-0.2, -2.4], [3.2, -2.5]].forEach(([x, z], i) => rbox(0.7, 0.5, 0.7, mat({ color: '#3F9A47', roughness: 0.8 }), x, 0.25, z, scene, 0.18));
   for (let i = 0; i < 26; i++) { const x = -5.6 + i * 0.44; if (x > 0.35 && x < 2.1) continue; rbox(0.09, 0.62, 0.05, mat({ color: '#FFFFFF', roughness: 0.5 }), x, 0.31, -1.55, scene, 0.015); }
   [[-2.65, 5.7], [3.5, 3.0]].forEach(([cx, w]) => { rbox(w, 0.06, 0.04, mat({ color: '#FFFFFF' }), cx, 0.5, -1.55, scene, 0.01); rbox(w, 0.06, 0.04, mat({ color: '#FFFFFF' }), cx, 0.2, -1.55, scene, 0.01); });
+  blockProps(scene);
   // far mountains (pyramids) and drifting block clouds
   [[-24, -42, 16, 11, '#7FA6C9'], [8, -50, 20, 14, '#6F9AC2'], [34, -40, 14, 9, '#86AECF'], [-46, -34, 12, 8, '#8AB1D4']].forEach(([x, z, r, h, c]) => { const m = shadow(new THREE.Mesh(new THREE.ConeGeometry(r, h, 4), mat({ color: c, roughness: 0.9 }))); m.position.set(x, h / 2 - 0.4, z); m.rotation.y = 0.8; scene.add(m); });
   const clouds = []; for (let i = 0; i < 8; i++) { const cg = new THREE.Group(); const n = 3 + (i % 3); for (let k = 0; k < n; k++) rbox(1.8 + rnd(i + k) * 1.4, 0.7 + rnd(k) * 0.4, 1.4 + rnd(k + 5), new THREE.MeshStandardMaterial({ color: '#FFFFFF', roughness: 1, emissive: '#FFFFFF', emissiveIntensity: 0.35 }), k * 1.5 - n * 0.7, rnd(k + i) * 0.4, rnd(k) * 0.6, cg, 0.25); cg.position.set(-24 + i * 7.5, 9 + (i % 3) * 2.4, -22 - (i % 4) * 4); cg.scale.setScalar(1.4); scene.add(cg); clouds.push(cg); }

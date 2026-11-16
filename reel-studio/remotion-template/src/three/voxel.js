@@ -52,7 +52,8 @@ export class VoxelPerson extends Rig {
     const sl = c.sleeve || c.shirt;
     for (const k of ['L', 'R']) {
       const a = this.arm[k], up = new VoxelMap().box(-1, -3, -1, 2, 3, 2, sl), fo = new VoxelMap().box(-1, -3, -1, 2, 3, 2, (x, y) => (y === -1 ? sk(1.0) : sk(0.98))); vmesh(up, [0, 0, 0], a.sh); vmesh(fo, [0, 0, 0], a.el);
-      const l = this.leg[k], th = new VoxelMap().box(-1, -3, -1, 3, 3, 3, c.pants), sh = new VoxelMap().box(-1, -3, -1, 3, 2, 3, c.pants).box(-1, -3, -1, 3, 1, 4, c.shoes); vmesh(th, [0.5, 0, 0.5], l.hip); vmesh(sh, [0.5, 0, 0.5], l.kn);
+      const l = this.leg[k], th = new VoxelMap().box(-1, -3, -1, 3, 3, 3, c.pants), sh = new VoxelMap().box(-1, -3, -1, 3, 3, 3, c.pants).box(-1, -3, -1, 3, 1, 4, c.shoes);   // shin fills the whole knee-to-sole length (it used to stop one voxel short and left a gap)
+       vmesh(th, [0.5, 0, 0.5], l.hip); vmesh(sh, [0.5, 0, 0.5], l.kn);
     }
     this.buildFace(); this.group.scale.setScalar(c.scale); this.pose({}); this.face({});
   }
@@ -65,8 +66,12 @@ export class VoxelPerson extends Rig {
       const lid = vm(new VoxelMap().box(-1, 0, 0, 2, 2, 1, shade(skin, 0.99)), g, [0, 0, 0.012]); lid.scale.set(1.02, 0.01, 1); lid.position.y = 0.2;
       const brow = vm(new VoxelMap().box(-1, 0, 0, 2, 1, 1, c.hair), g, [0, 0.2, 0.0]); this.eyeParts.push({ g, pg, lid, brow, s });
     }
-    const mk = (cells, col = '#2A0E0C') => { const m = new VoxelMap(); for (const [x, y] of cells) m.set(x, y, 0, col); return vm(m, f, [0, 0.0, 0]); }, teeth = (cells) => { const m = new VoxelMap(); for (const [x, y] of cells) m.set(x, y, 0, '#F6F2EA'); return m; };
-    this.mouths = { flat: mk([[-1, 0], [0, 0]], '#2A0E0C'), smile: mk([[-2, 1], [-1, 0], [0, 0], [1, 1]], '#2A0E0C'), frown: mk([[-2, 0], [-1, 1], [0, 1], [1, 0]], '#2A0E0C'), open: mk([[-1, 0], [0, 0]]), big: mk([[-1, 0], [0, 0], [-1, 1], [0, 1]]) }; Object.values(this.mouths).forEach((m) => (m.visible = false)); this.mouths.flat.visible = true;
+    // mouth and nose on a HALF-voxel grid: whole-voxel mouths read as a moustache. Mouth sits in the third voxel row up from the chin.
+    const mk = (cells, col = '#2A0E0C', teethRow = null) => { const m = new VoxelMap(0.05); for (const [x, y] of cells) m.set(x, y, 0, col); if (teethRow != null) for (let x = -1; x <= 0; x++) m.set(x, teethRow, 0, '#F6F2EA'); return vm(m, f, [0, 0.11, 0]); };
+    const row = (a, b, y) => { const o = []; for (let x = a; x <= b; x++) o.push([x, y]); return o; };
+    this.mouths = { flat: mk(row(-2, 1, 0)), smile: mk([[-3, 1], ...row(-2, 1, 0), [2, 1]]), frown: mk([[-3, 0], ...row(-2, 1, 1), [2, 0]]), open: mk([...row(-2, 1, 0), ...row(-2, 1, 1)]), big: mk([...row(-2, 1, 0), ...row(-2, 1, 1), ...row(-3, 2, 2)].filter(([x, y]) => !(y === 2 && false)), '#2A0E0C') };
+    Object.values(this.mouths).forEach((m) => (m.visible = false)); this.mouths.flat.visible = true;
+    { const nm = new VoxelMap(0.05); nm.box(-1, 0, 0, 2, 2, 2, shade(skin, 0.9)); vm(nm, f, [0, 0.2, 0.0]); }
     if (c.glasses) { const gm = new VoxelMap(); for (const x0 of [-3, 0]) { gm.box(x0, 0, 0, 3, 1, 1, '#1A1A22'); gm.box(x0, 3, 0, 3, 1, 1, '#1A1A22'); gm.box(x0, 1, 0, 1, 2, 1, '#1A1A22'); gm.box(x0 + 2, 1, 0, 1, 2, 1, '#1A1A22'); } gm.box(-0, 1, 0, 0, 0, 0, '#1A1A22'); const g = vm(gm, f, [0, 0.27, 0.02]); g.position.set(-0.0, 0.27, 0.02); g.scale.setScalar(1); g.position.x = -0.0; }
   }
   face(q = {}) {

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // One installer for every OS (install.sh and install.ps1 call this).  node scripts/setup.mjs [--skip-models] [--no-venv] [--minimal] [--no-remotion-skills] [--into <project>]
+//   --with-agent-reach  also install Agent-Reach (competitor/topic research without keys)   --skip-verify  do not run the self-tests and the small render
 //   --minimal      only what a video needs (no Whisper/OpenCV/yt-dlp)    --skip-models  do not download the 340 MB Kokoro voice files
 // Safe to run again: every step checks first. Prints one line per step and a final doctor report.
 import fs from 'node:fs';
@@ -65,7 +66,22 @@ step('6 agent skills');
 let r = sh('node', [path.join(TK, 'scripts/install.mjs'), ...(has('--into') ? ['--into', a[a.indexOf('--into') + 1]] : []), ...(has('--no-remotion-skills') ? ['--no-remotion'] : [])], { stdio: 'inherit' }); if (r.status) { warn('skill install failed'); need.push('skills'); }
 if (!fs.existsSync(path.join(TK, '.env'))) { fs.copyFileSync(path.join(TK, '.env.example'), path.join(TK, '.env')); ok('.env created from .env.example (all optional)'); }
 
+step('6b Agent-Reach (optional)');
+if (!has('--with-agent-reach')) warn('not installed (optional). Research then uses your IDE\'s web search or manual imports. To add it: bash install.sh --with-agent-reach');
+else if (PYX) { const r0 = sh(PYX[0], [...PYX.slice(1), '-m', 'pip', 'install', '--quiet', 'git+https://github.com/Panniantong/Agent-Reach']); r0.status ? warn('Agent-Reach install failed (optional): ' + (r0.stderr || '').trim().split('\n').pop()) : ok('Agent-Reach installed'); }
+
 step('7 check');
 r = sh('node', [path.join(TK, 'tools/doctor.mjs')], { stdio: 'inherit' });
+// 8: prove it works: self-tests, then a small real render. Skipped only on request, never silently.
+const report = { at: new Date().toISOString(), platform: `${process.platform} ${process.arch}`, node: process.versions.node, gaps: [...new Set(need)], verify: {} };
+if (has('--skip-verify')) { warn('verification skipped (--skip-verify): nothing was tested after install'); report.verify.skipped = true; }
+else {
+  step('8 self-tests'); r = sh('node', [path.join(TK, 'tools/selftest.mjs'), ...(has('--skip-models') ? [] : ['--full'])], { stdio: 'inherit' }); report.verify.selftest = r.status === 0 ? 'passed' : 'FAILED'; if (r.status) need.push('selftest');
+  step('9 small real render'); r = sh('node', [path.join(TK, 'tools/smoke_render.mjs')], { stdio: 'inherit' }); report.verify.smoke_render = r.status === 0 ? 'passed' : 'FAILED'; if (r.status) need.push('smoke-render');
+}
+const dj = sh('node', [path.join(TK, 'tools/doctor.mjs'), '--json']); try { Object.assign(report, { doctor: JSON.parse(dj.stdout) }); } catch { report.doctor = null; }
+report.gaps = [...new Set(need)]; fs.writeFileSync(path.join(TK, 'install-report.json'), JSON.stringify(report, null, 1));
+fs.writeFileSync(path.join(TK, 'install-report.md'), `# Install report (${report.at})\n\n- platform: ${report.platform}, node ${report.node}\n- self-tests: ${report.verify.selftest || (report.verify.skipped ? 'SKIPPED' : '?')}\n- small real render: ${report.verify.smoke_render || (report.verify.skipped ? 'SKIPPED' : '?')}\n- gaps: ${report.gaps.join(', ') || 'none'}\n\n## Capabilities\n${(report.doctor?.capabilities || []).map((c) => `- ${c.available ? 'available' : 'UNAVAILABLE'}: ${c.name}${c.available ? '' : ' (' + c.fix + ')'}`).join('\n')}\n\n## Items\n${(report.doctor?.items || []).map((i) => `- ${i.ok ? 'ok' : i.need.toUpperCase()}: ${i.name}${i.ok ? '' : ' -> ' + i.fix}`).join('\n')}\n`);
+console.log('\ninstall report: install-report.md');
 console.log(need.length ? `\nFinished with gaps: ${[...new Set(need)].join(', ')}. See TROUBLESHOOTING.md. Re-running this installer is safe.` : '\nInstalled. Next: node tools/selftest.mjs   then read QUICKSTART.md');
-process.exit(0);
+process.exit(need.length ? 1 : 0);

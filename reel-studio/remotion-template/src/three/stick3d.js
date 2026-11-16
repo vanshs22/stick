@@ -21,11 +21,11 @@ export class Stick3D extends Rig {
     const d = this.d;
     // torso + pelvis (spine pivot sits at the hips; the chest reaches up to the shoulders)
     const torso = sh(new THREE.Mesh(new THREE.CapsuleGeometry(0.075, d.shoulderY - 0.1, 8, 20), ink)); torso.position.y = d.shoulderY / 2 - 0.02; this.spine.add(torso);
-    joint(this.hips, 0.105, ink, [0, 0, 0]);
+    { const pel = joint(this.hips, 0.072, ink, [0, 0.015, 0]); pel.scale.set(1.5, 0.75, 0.95); }   // a flattened pelvis that bridges the hip joints instead of a third ball stacked between them
     for (const k of ['L', 'R']) {
       const a = this.arm[k]; joint(a.sh, 0.068); limb(a.sh, d.upper, 0.045, 0.04); joint(a.el, 0.052); limb(a.el, d.fore - 0.06, 0.04, 0.034);
       const hand = joint(a.hand, 0.078, glove, [0, 0.02, 0.005]); hand.scale.set(1, 1.1, 0.85);
-      const l = this.leg[k]; joint(l.hip, 0.075); limb(l.hip, d.thigh, 0.058, 0.05); joint(l.kn, 0.058); limb(l.kn, d.shin - 0.05, 0.048, 0.04);
+      const l = this.leg[k]; joint(l.hip, 0.062); limb(l.hip, d.thigh, 0.058, 0.05); joint(l.kn, 0.058); limb(l.kn, d.shin - 0.05, 0.048, 0.04);
       const foot = rbox(0.13, 0.085, 0.27, shoe, 0, -0.035, 0.06, l.foot, 0.04); foot.castShadow = true;
     }
     // neck, scarf, head

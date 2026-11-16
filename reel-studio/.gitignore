@@ -9,3 +9,5 @@ reel-projects/
 reference-analysis/
 .venv/
 .work/
+install-report.json
+install-report.md
