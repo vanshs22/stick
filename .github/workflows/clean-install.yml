@@ -1,0 +1,25 @@
+# Clean-room install test of reel-studio.zip on Linux, macOS and Windows (the only way to test install.ps1 and the macOS path).
+# It unzips the zip in this repository, then runs tools/clean_room.mjs: fresh copy -> install -> doctor -> self-tests -> a small real render -> a project to a decodable MP4.
+# The 340 MB voice model is skipped here; the voice is tested on Linux by the self-tests that do not need it and by hand with the model.
+name: clean-install
+on:
+  push: { paths: ['reel-studio.zip', '.github/workflows/clean-install.yml'] }
+  workflow_dispatch:
+jobs:
+  clean-room:
+    strategy:
+      fail-fast: false
+      matrix: { os: [ubuntu-latest, macos-latest, windows-latest] }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: unzip the toolkit
+        run: python -m zipfile -e reel-studio.zip .
+      - name: clean-room install and test
+        working-directory: reel-studio
+        run: node tools/clean_room.mjs --skip-models
+        env: { REMOTION_GL: swangle, PYTHONUTF8: '1' }
