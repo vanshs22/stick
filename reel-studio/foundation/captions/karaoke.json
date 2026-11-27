@@ -1,0 +1,38 @@
+{
+ "schema_version": 1,
+ "preset": "karaoke",
+ "font_stack": [
+  "Inter",
+  "Archivo Black",
+  "sans-serif"
+ ],
+ "size_px": 64,
+ "weight": 800,
+ "case": "as-written",
+ "fill": "#FFFFFF",
+ "shadow": true,
+ "position": {
+  "y_pct": 70,
+  "anchor": "center",
+  "avoid": [
+   "face",
+   "overlay",
+   "platform_buttons"
+  ]
+ },
+ "chunking": {
+  "max_words": 4,
+  "syntax": "pipe-star",
+  "hide_until_spoken": false
+ },
+ "animation": {
+  "in": "none",
+  "out": "cut",
+  "ms": 0,
+  "active_word": "karaoke"
+ },
+ "reveal": {
+  "lead_ms": 60,
+  "source": "whisper_words"
+ }
+}

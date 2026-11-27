@@ -1,0 +1,41 @@
+{
+ "schema_version": 1,
+ "preset": "typewriter",
+ "font_stack": [
+  "JetBrains Mono",
+  "monospace"
+ ],
+ "size_px": 54,
+ "weight": 600,
+ "case": "as-written",
+ "fill": "#111111",
+ "shadow": true,
+ "position": {
+  "y_pct": 70,
+  "anchor": "center",
+  "avoid": [
+   "face",
+   "overlay",
+   "platform_buttons"
+  ]
+ },
+ "chunking": {
+  "max_words": 4,
+  "syntax": "none",
+  "hide_until_spoken": true
+ },
+ "animation": {
+  "in": "type",
+  "out": "cut",
+  "ms": 220,
+  "active_word": "none"
+ },
+ "reveal": {
+  "lead_ms": 60,
+  "source": "whisper_words"
+ },
+ "bg_box": {
+  "color": "#FFFFFF",
+  "radius": 26
+ }
+}

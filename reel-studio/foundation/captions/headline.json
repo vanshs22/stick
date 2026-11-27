@@ -1,0 +1,37 @@
+{
+ "schema_version": 1,
+ "preset": "headline",
+ "font_stack": [
+  "Inter",
+  "Archivo Black",
+  "sans-serif"
+ ],
+ "size_px": 80,
+ "weight": 500,
+ "case": "sentence",
+ "fill": "#FFFFFF",
+ "shadow": true,
+ "position": {
+  "y_pct": 14,
+  "anchor": "left",
+  "avoid": [
+   "face",
+   "overlay"
+  ]
+ },
+ "chunking": {
+  "max_words": 6,
+  "syntax": "pipe-star",
+  "hide_until_spoken": false
+ },
+ "animation": {
+  "in": "rise",
+  "out": "cut",
+  "ms": 260,
+  "active_word": "none"
+ },
+ "reveal": {
+  "lead_ms": 60,
+  "source": "whisper_words"
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "schema_version": 1,
+ "space": "2d_pan_zoom",
+ "cadence_profile": "explainer-2d",
+ "move_mix": {
+  "push_in": 0.35,
+  "punch_zoom": 0.25,
+  "parallax": 0.2,
+  "whip": 0.2
+ },
+ "shot_len": {
+  "min": 0.9,
+  "median": 2.4,
+  "max": 5.0
+ },
+ "never_static": false,
+ "transitions": {
+  "cut": 0.3,
+  "wipe": 0.5,
+  "zoom-through": 0.2
+ },
+ "beat_sync": {
+  "snap_to": "word",
+  "tol_ms": 150
+ }
+}

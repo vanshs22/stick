@@ -48,10 +48,13 @@ must('dna confidence 3', 'style-dna', { ...dna, shots: [{ t0: 0, t1: 2, move: 'p
 must('audio-plan v2 fields', 'audio-plan', { voice: { engine: 'kokoro' }, music: { direction: 'tense bed' }, mix: { target_lufs: -14, true_peak_db: -1 }, music_by_beat: [{ beat_id: 'b1', mood: 'tense', energy: 0.6 }], voices: [{ character_id: 'pip', engine: 'kokoro', voice: 'af_heart' }], sfx_rules: [{ trigger: 'cut', role: 'whoosh', gain_db: -12 }] }, true);
 must('audio-plan bad mood', 'audio-plan', { voice: { engine: 'kokoro' }, music: { direction: 'x' }, mix: { target_lufs: -14, true_peak_db: -1 }, music_by_beat: [{ beat_id: 'b1', mood: 'vibey', energy: 0.6 }] }, false, 'mood not in list');
 
+const cdir = path.join(TK, 'foundation/camera'), cf = fs.readdirSync(cdir).filter((f) => f.endsWith('.json'));
+if (cf.length < 9) bad.push(`expected 9 camera-language files, found ${cf.length}`);
+for (const f of cf) { const d = JSON.parse(fs.readFileSync(path.join(cdir, f), 'utf8')), e = check(loadSchema('camera-language'), d); if (e.length) bad.push(`camera ${f}: ${e[0]}`); const sum = Object.values(d.move_mix).reduce((a, b) => a + b, 0); if (Math.abs(sum - 1) > 0.01) bad.push(`camera ${f}: move_mix sums to ${sum.toFixed(2)}`); const tsum = Object.values(d.transitions || {}).reduce((a, b) => a + b, 0); if (d.transitions && Math.abs(tsum - 1) > 0.01) bad.push(`camera ${f}: transitions sum to ${tsum.toFixed(2)}`); if (!(d.shot_len.min <= d.shot_len.median && d.shot_len.median <= d.shot_len.max)) bad.push(`camera ${f}: shot_len not ordered`); }
 let n = 0;
 for (const d of fs.readdirSync(path.join(TK, 'style-packs'))) {
   const f = path.join(TK, 'style-packs', d, 'style.json'); if (d.startsWith('_') || !fs.existsSync(f)) continue; n++;
   const e = check(loadSchema('style-pack'), JSON.parse(fs.readFileSync(f, 'utf8'))); if (e.length) bad.push(`pack ${d}: ${e[0]}`);
 }
 if (bad.length) { console.error('schema selftest failed:\n- ' + bad.join('\n- ')); process.exit(1); }
-console.log(`v2 schemas ok: 8 new + 2 extended, planted defects rejected, ${n} style packs still valid`);
+console.log(`v2 schemas ok: 8 new + 2 extended, planted defects rejected, ${cf.length} camera-language files, ${n} style packs still valid`);

@@ -4,6 +4,7 @@
 // Needs: script/script.json, storyboard/storyboard.json, data/lines.json + data/words.json (from the voice tools), optional audio/audio-plan.json.
 // Output: data/timeline.json, and a copy at remotion/src/data/timeline.json (+ audio/mix.wav -> remotion/public/audio/mix.wav when present).
 // Every visual event is anchored to a SPOKEN WORD ({line, word}), so re-recording the voice re-times the whole video.
+import { alignCaption } from '../lib/chunker.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { deliveryProfile } from '../lib/delivery.mjs';
@@ -29,6 +30,7 @@ shots.forEach((s, k) => { s.end = +(k + 1 < shots.length ? shots[k + 1].start : 
 // captions: chunks of up to N words, broken at punctuation; the highlighted word = script emphasis, else a number, else the longest word
 const N = { 'word-pop': 3, phrase: 5, 'one-word': 1, typewriter: 4, boxed: 4, karaoke: 4, headline: 6, dialogue: 6 }[preset] || 3, chunks = [];
 script.lines.forEach((ln, li) => {
+  if (ln.caption) { const r = alignCaption(ln.caption, W.filter((x) => x.line === li), Object.fromEntries(Object.entries(ln.emoji || {}).map(([k, v]) => [norm(k), v]))); if (r.error) errs.push(`line ${ln.id}: ${r.error}`); else r.chunks.forEach((c) => chunks.push({ li, ...c })); return; }
   const emj = Object.fromEntries(Object.entries(ln.emoji || {}).map(([k, v]) => [norm(k), v])), ws = W.filter((x) => x.line === li), emph = new Set((ln.emphasis || []).map(norm)); let cur = [];
   const flush = () => { if (!cur.length) return; const hi = cur.findIndex((x) => emph.has(norm(x.w))); const k = hi >= 0 ? hi : cur.findIndex((x) => /\d|\$/.test(x.w)) >= 0 ? cur.findIndex((x) => /\d|\$/.test(x.w)) : cur.reduce((b, x, j) => (norm(x.w).length > norm(cur[b].w).length ? j : b), 0);
     chunks.push({ li, t0: +(cur[0].s - 0.04).toFixed(3), t1: 0, words: cur.map((x, j) => ({ w: x.w, t: +x.s.toFixed(3), hi: j === k, ...(emj[norm(x.w)] ? { e: emj[norm(x.w)] } : {}) })) }); cur = []; };

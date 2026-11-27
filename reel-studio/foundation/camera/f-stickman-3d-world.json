@@ -1,0 +1,31 @@
+{
+ "schema_version": 1,
+ "space": "static_sprite_world",
+ "cadence_profile": "explainer-2d",
+ "move_mix": {
+  "push": 0.25,
+  "truck": 0.15,
+  "macro": 0.15,
+  "rack_focus": 0.1,
+  "pov": 0.1,
+  "dutch": 0.1,
+  "orbit": 0.1,
+  "pull": 0.05
+ },
+ "shot_len": {
+  "min": 1.2,
+  "median": 2.7,
+  "max": 6.0
+ },
+ "never_static": true,
+ "transitions": {
+  "cut": 0.1,
+  "dissolve": 0.5,
+  "whip": 0.4
+ },
+ "beat_sync": {
+  "snap_to": "word",
+  "tol_ms": 150
+ },
+ "max_hold_s": 6.0
+}

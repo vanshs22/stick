@@ -1,0 +1,28 @@
+{
+ "schema_version": 1,
+ "space": "3d",
+ "cadence_profile": "beat-short",
+ "move_mix": {
+  "orbit": 0.3,
+  "push": 0.3,
+  "pull": 0.1,
+  "static": 0.2,
+  "rack_focus": 0.1
+ },
+ "shot_len": {
+  "min": 1.2,
+  "median": 3.0,
+  "max": 8.0
+ },
+ "never_static": true,
+ "transitions": {
+  "cut": 0.5,
+  "whip": 0.2,
+  "zoom-through": 0.3
+ },
+ "beat_sync": {
+  "snap_to": "word",
+  "tol_ms": 150
+ },
+ "max_hold_s": 8.0
+}
