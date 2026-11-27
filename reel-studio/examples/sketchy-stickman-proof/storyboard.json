@@ -1,0 +1,307 @@
+{
+ "style_pack": "sketchy-stickman",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "wide two-shot: Dan smug across the table from Sam",
+   "shot_type": "character",
+   "component": "StickScene",
+   "approach": "motion-graphics",
+   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "props": {
+    "set": "kitchen",
+    "speaker": "dan",
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "x": 0.3,
+      "mood": "smug",
+      "pose": "explain",
+      "shirt": "#D8342B",
+      "hair": "none",
+      "seated": true
+     },
+     {
+      "id": "sam",
+      "kind": "stick",
+      "x": 0.7,
+      "mood": "neutral",
+      "pose": "idle",
+      "shirt": "#26356B",
+      "hair": "short",
+      "hairColor": "#1b1b1b",
+      "seated": true,
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 1.0,
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "push": 0.04
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "dinner"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "punch-in on Sam, delighted",
+   "shot_type": "character",
+   "component": "StickScene",
+   "approach": "motion-graphics",
+   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "props": {
+    "set": "kitchen",
+    "speaker": "sam",
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "x": 0.3,
+      "mood": "smug",
+      "pose": "idle",
+      "shirt": "#D8342B",
+      "hair": "none",
+      "seated": true
+     },
+     {
+      "id": "sam",
+      "kind": "stick",
+      "x": 0.7,
+      "mood": "happy",
+      "pose": "explain",
+      "shirt": "#26356B",
+      "hair": "short",
+      "hairColor": "#1b1b1b",
+      "seated": true,
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 2.0,
+     "on": "sam",
+     "push": 0.05
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "fancy"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "medium on Dan reaching for his wallet, worried",
+   "shot_type": "character",
+   "component": "StickScene",
+   "approach": "motion-graphics",
+   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "props": {
+    "set": "kitchen",
+    "speaker": "dan",
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "x": 0.3,
+      "mood": "worried",
+      "pose": "hold",
+      "shirt": "#D8342B",
+      "hair": "none",
+      "seated": true,
+      "prop": "wallet",
+      "propOpen": false
+     },
+     {
+      "id": "sam",
+      "kind": "stick",
+      "x": 0.7,
+      "mood": "neutral",
+      "pose": "idle",
+      "shirt": "#26356B",
+      "hair": "short",
+      "hairColor": "#1b1b1b",
+      "seated": true,
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 1.7,
+     "on": "dan",
+     "push": 0.05
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "balance"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "a0",
+     "gain": 0.4
+    }
+   ]
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "punch-in on Dan's shocked face with a bubble",
+   "shot_type": "character",
+   "component": "StickScene",
+   "approach": "motion-graphics",
+   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "props": {
+    "set": "kitchen",
+    "speaker": "dan",
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "x": 0.3,
+      "mood": "shock",
+      "pose": "head",
+      "shirt": "#D8342B",
+      "hair": "none",
+      "seated": true
+     },
+     {
+      "id": "sam",
+      "kind": "stick",
+      "x": 0.7,
+      "mood": "neutral",
+      "pose": "idle",
+      "shirt": "#26356B",
+      "hair": "short",
+      "hairColor": "#1b1b1b",
+      "seated": true,
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 2.3,
+     "on": "dan",
+     "push": 0.05
+    },
+    "bubble": {
+     "who": "dan",
+     "text": "$4?!",
+     "anchor": "a0"
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "dollars"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "a0",
+     "gain": 0.5
+    }
+   ]
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "wide reaction: Sam deadpan, Dan crushed",
+   "shot_type": "character",
+   "component": "StickScene",
+   "approach": "motion-graphics",
+   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "props": {
+    "set": "kitchen",
+    "speaker": "sam",
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "x": 0.3,
+      "mood": "sad",
+      "pose": "shrug",
+      "shirt": "#D8342B",
+      "hair": "none",
+      "seated": true
+     },
+     {
+      "id": "sam",
+      "kind": "stick",
+      "x": 0.7,
+      "mood": "deadpan",
+      "pose": "cross",
+      "shirt": "#26356B",
+      "hair": "short",
+      "hairColor": "#1b1b1b",
+      "seated": true,
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 1.0,
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "push": 0.03
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "pizza"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

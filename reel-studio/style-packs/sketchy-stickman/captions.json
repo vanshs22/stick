@@ -1,0 +1,54 @@
+{
+ "schema_version": 1,
+ "preset": "stroke-word",
+ "font_stack": [
+  "Inter",
+  "sans-serif"
+ ],
+ "size_px": 64,
+ "weight": 900,
+ "case": "lower",
+ "fill": "#FFFFFF",
+ "shadow": true,
+ "position": {
+  "y_pct": 70,
+  "anchor": "center",
+  "avoid": [
+   "face",
+   "overlay"
+  ]
+ },
+ "chunking": {
+  "max_words": 2,
+  "syntax": "none",
+  "hide_until_spoken": true
+ },
+ "animation": {
+  "in": "pop",
+  "out": "cut",
+  "ms": 260,
+  "active_word": "none"
+ },
+ "reveal": {
+  "lead_ms": 60,
+  "source": "whisper_words"
+ },
+ "stroke": {
+  "w": 6,
+  "color": "#000000"
+ },
+ "keyword_colors": [
+  {
+   "rule": "name",
+   "color": "#33C8FF"
+  },
+  {
+   "rule": "emotion",
+   "color": "#FF3B3B"
+  },
+  {
+   "rule": "emphasis",
+   "color": "#FFD21F"
+  }
+ ]
+}

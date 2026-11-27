@@ -11,4 +11,4 @@ export function parseShard(s) {
 export const pickShard = (items, spec, weight) => (spec ? shardPlan(items, spec.n, weight)[spec.i - 1] : items);
 
 /** Render tiers: one flag instead of three. Explicit --scale / --fps-div / --quality still win. */
-export const TIERS = { preview: { scale: '0.33', 'fps-div': '2', quality: 'draft' }, proof: { scale: '0.5', 'fps-div': '2', quality: 'fast' }, final: { scale: '1' } };
+export const TIERS = { preview: { scale: '0.25', 'fps-div': '2', quality: 'draft' }, proof: { scale: '0.5', 'fps-div': '2', quality: 'fast' }, final: { scale: '1' } };

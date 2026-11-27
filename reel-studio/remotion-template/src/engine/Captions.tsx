@@ -12,7 +12,7 @@ import type {Chunk, Timeline} from './types';
 
 /** true when a #rrggbb background is dark enough that ink text on it is unreadable */
 const isDark = (c?: string) => { const m = /^#([0-9a-f]{6})/i.exec(c || ''); if (!m) return false; const n = parseInt(m[1], 16); return (0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255 < 0.5; };
-type Pre = {dark?: boolean; size: number; weight: number; boxed: boolean; serif?: boolean; upper?: boolean; plate?: boolean};
+type Pre = {dark?: boolean; size: number; weight: number; boxed: boolean; serif?: boolean; upper?: boolean; plate?: boolean; stroke?: boolean; lower?: boolean; sel?: boolean};
 const PRESETS: Record<string, Pre> = {
   'word-pop': {size: 76, weight: 900, boxed: false},
   'one-word': {size: 118, weight: 900, boxed: false},
@@ -23,6 +23,8 @@ const PRESETS: Record<string, Pre> = {
   headline: {size: 80, weight: 500, boxed: false},
   dialogue: {size: 52, weight: 500, boxed: false},
   'caps-plate': {size: 40, weight: 900, boxed: false, upper: true, plate: true},
+  'stroke-word': {size: 70, weight: 900, boxed: false, stroke: true, lower: true},   // one or two words, heavy sans, thick black stroke (sketchy stickman, long-form story shorts)
+  'select-box': {size: 54, weight: 500, boxed: false, sel: true},   // the accent word sits in a lime box with four corner handles (neon dashboard)
 };
 
 /** an emoji picture (Noto, assets/emoji/<codepoints>.png) that pops in right after its word: scales 0 -> 1.18 -> 1 over 0.22 s, a 6 degree wobble, sized to the caption's own text height */
@@ -38,8 +40,8 @@ const Word: React.FC<{w: Chunk['words'][number]; t: number; pre: Pre; preset: st
     return <span style={{color, marginRight: last ? 0 : '0.27em', fontFamily: F.mono}}>{w.w.slice(0, t >= w.t ? Math.max(1, n) : 0)}</span>;
   }
   return (
-    <span style={{display: 'inline-block', marginRight: last ? 0 : '0.27em', color: w.hi && HI === 'box' ? '#111' : color, ...(w.hi && HI === 'box' ? {background: C.accent, borderRadius: '0.18em', padding: '0 0.18em', WebkitTextStroke: '0'} : {}), ...(w.hi && HI === 'underline' ? {textDecoration: 'underline', textDecorationThickness: '0.09em', textUnderlineOffset: '0.12em', textDecorationColor: C.accent, color: pre.boxed ? C.ink : CAPTION.fill} : {}), ...(w.hi && HI === 'none' ? {color: pre.boxed ? C.ink : CAPTION.fill} : {}), opacity: vis, fontFamily: (pre.serif || (preset === 'headline' && w.hi)) ? F.serif : F.sans, fontStyle: (pre.serif || preset === 'headline') && w.hi ? 'italic' : 'normal', transform: `translateY(${(1 - vis) * 14}px) scale(${preset === 'karaoke' && lit ? 1.06 : 0.94 + 0.06 * vis})`}}>
-      {w.w}{w.e ? <Emo e={w.e} t={t} at={w.t + 0.04} /> : null}
+    <span style={{display: 'inline-block', position: 'relative', marginRight: last ? 0 : '0.27em', color: pre.sel ? (w.hi && t >= w.t ? '#0D0C12' : t >= w.t ? '#fff' : 'rgba(255,255,255,0.4)') : w.hi && HI === 'box' ? '#111' : color, ...(pre.stroke ? {WebkitTextStroke: `${Math.round(pre.size * 0.1)}px #000`, paintOrder: 'stroke fill', textTransform: 'lowercase' as const, textShadow: '0 4px 0 rgba(0,0,0,0.35)'} : {}), ...(pre.sel && w.hi && t >= w.t ? {background: C.accent, borderRadius: '0.16em', padding: '0 0.2em', outline: '2px solid rgba(255,255,255,0.7)'} : {}), ...(w.hi && HI === 'box' ? {background: C.accent, borderRadius: '0.18em', padding: '0 0.18em', WebkitTextStroke: '0'} : {}), ...(w.hi && HI === 'underline' ? {textDecoration: 'underline', textDecorationThickness: '0.09em', textUnderlineOffset: '0.12em', textDecorationColor: C.accent, color: pre.boxed ? C.ink : CAPTION.fill} : {}), ...(w.hi && HI === 'none' ? {color: pre.boxed ? C.ink : CAPTION.fill} : {}), opacity: vis, fontFamily: (pre.serif || (preset === 'headline' && w.hi)) ? F.serif : F.sans, fontStyle: (pre.serif || preset === 'headline') && w.hi ? 'italic' : 'normal', transform: `translateY(${(1 - vis) * 14}px) scale(${preset === 'karaoke' && lit ? 1.06 : 0.94 + 0.06 * vis})`}}>
+      {w.w}{w.e ? <Emo e={w.e} t={t} at={w.t + 0.04} /> : null}{pre.sel && w.hi && t >= w.t ? [[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([x, y], i) => <i key={i} style={{position: 'absolute', width: 12, height: 12, borderRadius: 6, background: '#fff', border: `2px solid ${C.accent}`, left: x < 0 ? -6 : undefined, right: x > 0 ? -6 : undefined, top: y < 0 ? -6 : undefined, bottom: y > 0 ? -6 : undefined}} />) : null}
     </span>
   );
 };

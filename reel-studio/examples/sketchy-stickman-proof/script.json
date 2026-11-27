@@ -1,0 +1,73 @@
+{
+ "title": "The Empty Wallet",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Relax, dinner is on me tonight.",
+   "emphasis": [
+    "tonight"
+   ],
+   "visual_hint": "",
+   "speaker": "DAN",
+   "emotion": "sarcastic"
+  },
+  {
+   "id": "L02",
+   "beat": "setup",
+   "text": "Great. I picked the fancy place.",
+   "emphasis": [
+    "place"
+   ],
+   "visual_hint": "",
+   "speaker": "SAM",
+   "emotion": "happy"
+  },
+  {
+   "id": "L03",
+   "beat": "stakes",
+   "text": "Wait, let me just check my balance.",
+   "emphasis": [
+    "balance"
+   ],
+   "visual_hint": "",
+   "speaker": "DAN",
+   "emotion": "fear"
+  },
+  {
+   "id": "L04",
+   "beat": "twist",
+   "text": "It says four dollars and a coupon.",
+   "emphasis": [
+    "coupon"
+   ],
+   "visual_hint": "",
+   "speaker": "DAN",
+   "emotion": "shock"
+  },
+  {
+   "id": "L05",
+   "beat": "twist",
+   "text": "So, pizza slices?",
+   "emphasis": [
+    "slices?"
+   ],
+   "visual_hint": "",
+   "speaker": "SAM",
+   "emotion": "neutral"
+  }
+ ],
+ "cast": {
+  "DAN": {
+   "gender": "male",
+   "tone": "smug then panicked",
+   "role": "friend who offers to pay"
+  },
+  "SAM": {
+   "gender": "female",
+   "tone": "dry",
+   "role": "friend who picked the fancy place"
+  }
+ }
+}

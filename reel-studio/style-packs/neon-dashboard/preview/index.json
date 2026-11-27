@@ -1,0 +1,11 @@
+{
+ "pack": "neon-dashboard",
+ "status": "2d",
+ "example": "software-explainer",
+ "shots": [
+  "S01",
+  "S04",
+  "S06"
+ ],
+ "rendered_at": "2026-11-27T12:12:41.713Z"
+}

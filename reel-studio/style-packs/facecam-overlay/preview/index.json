@@ -1,0 +1,11 @@
+{
+ "pack": "facecam-overlay",
+ "status": "2d",
+ "example": "facecam-overlay-proof",
+ "shots": [
+  "S01",
+  "S02",
+  "S03"
+ ],
+ "rendered_at": "2026-11-27T12:13:07.724Z"
+}

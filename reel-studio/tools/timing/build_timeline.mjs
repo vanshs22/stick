@@ -28,7 +28,7 @@ const total = L.duration, shots = sb.shots.map((s, k) => {
 shots.forEach((s, k) => { s.end = +(k + 1 < shots.length ? shots[k + 1].start : total + 0.2).toFixed(3);   // the last shot holds to the very end: no empty tail frame
    if (s.end - s.start < 0.6) errs.push(`shot ${s.id} lasts only ${(s.end - s.start).toFixed(2)} s: merge it with a neighbour`); });
 // captions: chunks of up to N words, broken at punctuation; the highlighted word = script emphasis, else a number, else the longest word
-const N = { 'word-pop': 3, phrase: 5, 'one-word': 1, typewriter: 4, boxed: 4, karaoke: 4, headline: 6, dialogue: 6 }[preset] || 3, chunks = [];
+const N = { 'word-pop': 3, phrase: 5, 'one-word': 1, typewriter: 4, boxed: 4, karaoke: 4, headline: 6, dialogue: 6, 'stroke-word': 2, 'select-box': 4 }[preset] || 3, chunks = [];
 script.lines.forEach((ln, li) => {
   if (ln.caption) { const r = alignCaption(ln.caption, W.filter((x) => x.line === li), Object.fromEntries(Object.entries(ln.emoji || {}).map(([k, v]) => [norm(k), v]))); if (r.error) errs.push(`line ${ln.id}: ${r.error}`); else r.chunks.forEach((c) => chunks.push({ li, ...c })); return; }
   const emj = Object.fromEntries(Object.entries(ln.emoji || {}).map(([k, v]) => [norm(k), v])), ws = W.filter((x) => x.line === li), emph = new Set((ln.emphasis || []).map(norm)); let cur = [];

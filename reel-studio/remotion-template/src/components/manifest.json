@@ -628,6 +628,39 @@
       "required": [
         "items"
       ]
+    },
+    "StickScene": {
+      "category": "scene",
+      "description": "2D sketchy stickman scene: a painted set (kitchen, station, street), 1-3 characters with face sprites, wide or punch-in camera, optional speech bubble and yellow title bar.",
+      "props": {
+        "set": "kitchen | station | street",
+        "cast": "array of {id, x 0-1, mood, pose, shirt, hair, seated, flip, scale}",
+        "camera": "{zoom, on (character id to frame), focus [x,y] 0-1, at [x,y] where the focus lands on screen, push per second}",
+        "bubble": "{who, text, anchor, dx}",
+        "titleBar": "string",
+        "speaker": "id of the character whose mouth moves"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "cast"
+      ]
+    },
+    "FaceCam": {
+      "category": "scene",
+      "description": "Face-cam layout: your clip (or a placeholder) on a rounded face sheet with a bordered overlay card and a section chip above it; modes split, card, face.",
+      "props": {
+        "mode": "split | card | face",
+        "card": "{title, lines[]}",
+        "chip": "{n, total, label, color}",
+        "zoom": "face punch-in 1..1.4",
+        "faceLabel": "placeholder text"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": []
     }
   },
   "transitions": [
@@ -689,9 +722,9 @@
     "overlays": "graphics on top of the main component, see overlays"
   },
   "overlays": {
-    "label": "{left, right, rightAccent}: mono HUD row at the top ('// 03 · step one' ... 'LAYERS 2/4')",
+    "label": "{left, right, rightAccent}: mono HUD row at the top ('// 03 \u00b7 step one' ... 'LAYERS 2/4')",
     "step-chip": "{n, of, x, y, anchor}: black numbered square with progress dots",
-    "step-label": "{text, n, of, y, anchor}: dark pill 'STEP 2 · ONE FOLDER' with yellow dashes (top centre)",
+    "step-label": "{text, n, of, y, anchor}: dark pill 'STEP 2 \u00b7 ONE FOLDER' with yellow dashes (top centre)",
     "sticker": "{text, color, rotate, x, y, size, anchor}: tilted outlined label ('9M VIEWS')",
     "tags": "{items:[{text,color}], x, y, anchor}: pills with dots ('free', 'open source')",
     "callout": "{text, x, y, rotate, anchor}: white speech label",

@@ -1,0 +1,42 @@
+{
+ "title": "Three docs before code",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Write three short docs before you build anything.",
+   "emphasis": [
+    "docs"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L02",
+   "beat": "step",
+   "text": "First, the product doc: who it is for and what it does.",
+   "emphasis": [
+    "product"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "Then the design brief: colors, type and screens.",
+   "emphasis": [
+    "design"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L04",
+   "beat": "cta",
+   "text": "Comment DOCS and I will send the templates.",
+   "emphasis": [
+    "docs"
+   ],
+   "visual_hint": ""
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "id": "facecam-overlay",
+ "name": "Face-cam + Overlay",
+ "family": "2d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9"
+ ],
+ "schema_version": 1,
+ "description": "Talking-head tutorials: your clip on a rounded face sheet at the bottom, a bordered overlay card with a section chip above it, hard cuts with a face punch-in about every 2 s, bold centred captions with one serif-italic keyword.",
+ "tokens": {
+  "colors": {
+   "bg": "#F1EEE6",
+   "ink": "#141413",
+   "ink2": "#3D3D3A",
+   "muted": "#8C8A82",
+   "card": "#FFFFFF",
+   "accent": "#7B5CF0",
+   "accentSoft": "#7B5CF033",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 900,
+   "right_margin": 120,
+   "content_top": 155,
+   "content_bottom": 540
+  },
+  "chrome": "sticker",
+  "bgs": {
+   "paper": "#F1EEE6"
+  }
+ },
+ "effects": {},
+ "rules": [
+  "The face never leaves the frame for more than about 3 s.",
+  "One card, one idea, section colour on the border and the chip (PRD orange, design purple, build black).",
+  "Hard cuts only; alternate wide and punch-in crops of the face.",
+  "Captions: 1 to 3 words, white heavy sans over the face, black over cream, one keyword in serif italic caps."
+ ],
+ "components": [
+  "FaceCam",
+  "BigStat",
+  "Checklist",
+  "Terminal"
+ ],
+ "native_moves": [
+  "card grows to fill the frame for one beat, then the face returns",
+  "a face punch-in on the keyword"
+ ],
+ "variation_space": {
+  "structures": [
+   "numbered steps with a card each",
+   "one claim, three screenshots, a CTA",
+   "before and after of one document"
+  ],
+  "openings": [
+   "the face saying the result",
+   "the final card first",
+   "a question over the face"
+  ],
+  "endings": [
+   "comment-keyword plate",
+   "the face with the last card pinned above",
+   "a recap card"
+  ]
+ },
+ "camera_language": "Face crops punch in and out on hard cuts; the card animates in place.",
+ "typography": "word-pop captions with an accent keyword.",
+ "transitions": [
+  "cut"
+ ],
+ "audio_direction": "Voice from the clip; music bed 6 dB under, no sound effects.",
+ "pitfalls": [
+  "Do not put captions over the face's mouth.",
+  "Do not hide the face for long stretches."
+ ],
+ "references": [
+  "docs/styles/STYLES.md section E"
+ ],
+ "defaults": {
+  "captions": "word-pop",
+  "music": "bed"
+ },
+ "status": "draft"
+}

@@ -1,0 +1,117 @@
+{
+ "id": "neon-dashboard",
+ "name": "Neon Dashboard",
+ "family": "2d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9"
+ ],
+ "schema_version": 1,
+ "description": "Dark product-demo shorts: a near-black stage, one lime accent, glass UI cards in the upper two thirds, a flat cartoon presenter bottom right, and captions where the spoken accent word sits in a lime selection box.",
+ "tokens": {
+  "colors": {
+   "bg": "#0D0C12",
+   "ink": "#F2F2EE",
+   "ink2": "#C9CBD1",
+   "muted": "#8A8D95",
+   "card": "#141C1F",
+   "accent": "#C8F848",
+   "accentSoft": "#C8F84833",
+   "good": "#C8F848",
+   "bad": "#FF5A4E"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1208,
+   "right_margin": 120,
+   "content_top": 232,
+   "content_bottom": 1185
+  },
+  "chrome": "glass",
+  "presenter": {
+   "skin": "#E0A878",
+   "hair": "#3a2a1e",
+   "beard": false,
+   "curly": false,
+   "hat": "none",
+   "glasses": false,
+   "jacket": "#15171c",
+   "shirt": "#F2F2EE",
+   "x": 640,
+   "y": 1830,
+   "scale": 1
+  },
+  "bgs": {
+   "dark": "#0D0C12",
+   "panel": "#141C1F",
+   "green": "#10241a",
+   "paper": "#0D0C12"
+  }
+ },
+ "effects": {
+  "dots": 0.25,
+  "grain": 0.04
+ },
+ "rules": [
+  "One lime accent (#C8F848) for the single most important word or number per beat.",
+  "One card in the upper 60 percent; it changes state each beat instead of cutting away.",
+  "The presenter changes pose about every 1.2 s.",
+  "Captions: the spoken accent word in a lime selection box, other words dim until spoken."
+ ],
+ "components": [
+  "Terminal",
+  "BrowserWindow",
+  "Checklist",
+  "BigStat",
+  "RepoCard",
+  "ProofCard",
+  "EndCard",
+  "CommentBox"
+ ],
+ "native_moves": [
+  "a card animating from one state to the next in place",
+  "a counter flipping to its final number on the spoken word"
+ ],
+ "variation_space": {
+  "structures": [
+   "claim, three proof cards, one comment prompt",
+   "before and after of one workflow",
+   "a list that checks itself off line by line"
+  ],
+  "openings": [
+   "the result number first, then how",
+   "a question typed into a terminal",
+   "a card dropping into frame with the claim"
+  ],
+  "endings": [
+   "comment-keyword card",
+   "the counter at its final value",
+   "a looped first card"
+  ]
+ },
+ "camera_language": "Locked frame; motion lives in the cards (state changes, counters, wipes) and a 3 percent push on the card.",
+ "typography": "select-box captions at 54 px; mono eyebrow above cards.",
+ "transitions": [
+  "cut",
+  "wipe"
+ ],
+ "audio_direction": "Steady low bed at -22 dB, soft tick on each card state change, rise before the final number.",
+ "pitfalls": [
+  "Do not fill the stage: keep one card.",
+  "Lime only on the key word."
+ ],
+ "references": [
+  "docs/styles/STYLES.md section A1"
+ ],
+ "defaults": {
+  "captions": "select-box",
+  "music": "bed"
+ }
+}

@@ -1,0 +1,102 @@
+{
+ "id": "sketchy-stickman",
+ "name": "Sketchy Stickman",
+ "family": "2d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9",
+  "1:1"
+ ],
+ "schema_version": 1,
+ "description": "Comedy and story shorts with 2D stickmen: one clean black outline on everything, white round heads with big eyes and thick brows, noodle limbs, flat colour-block clothes, painted flat sets, and many discrete face expressions that swap on the punchline.",
+ "tokens": {
+  "colors": {
+   "bg": "#FFFFFF",
+   "ink": "#0A0A0A",
+   "ink2": "#2B2B2B",
+   "muted": "#8C8A82",
+   "card": "#FFFFFF",
+   "accent": "#FFE500",
+   "accentSoft": "#FFF6A8",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A",
+   "shirtA": "#D8342B",
+   "shirtB": "#26356B",
+   "shirtC": "#F2C230"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1230,
+   "right_margin": 120,
+   "content_top": 180,
+   "content_bottom": 1380
+  }
+ },
+ "effects": {},
+ "rules": [
+  "One outline weight (5 px) on characters, props and sets; clean vector line, no wobble.",
+  "One set per film; the camera alternates a wide two-shot and a tight face punch-in, cutting on the line.",
+  "Faces carry the comedy: swap the expression on the beat (smug, shock, worried, deadpan), never tween it.",
+  "Captions: one or two lowercase words, heavy sans, thick black stroke, lower third; one set colour key per set.",
+  "Clothes are flat colour blocks, one colour per character, so who-is-who reads at a glance."
+ ],
+ "components": [
+  "StickScene",
+  "TitleCard",
+  "EndCard"
+ ],
+ "native_moves": [
+  "a punch-in on the face for the punchline, then a wide reaction shot",
+  "a speech bubble popping on the key word",
+  "a prop gag (an empty wallet, a phone) held up to the lens"
+ ],
+ "variation_space": {
+  "structures": [
+   "setup, escalation, deadpan reveal, one-line payoff",
+   "two-person argument that flips who is right at the end",
+   "a lie that grows each shot until the set gives it away"
+  ],
+  "openings": [
+   "cold open on the funniest face",
+   "a bold claim said straight to the other character",
+   "a prop dropped onto the table"
+  ],
+  "endings": [
+   "wide shot, silence, then the reaction face",
+   "the twist line over a tight close-up",
+   "a loop back to the first line with the roles swapped"
+  ]
+ },
+ "camera_language": "Wide two-shot to establish, then tight punch-ins on the speaker's face; shot and reverse shot on dialogue, cut on the line; slow 3 percent per second push inside every hold; no whip pans.",
+ "typography": "stroke-word captions at 70 px, two lines at most; yellow title bar in heavy italic for the square comic variant.",
+ "transitions": [
+  "cut",
+  "dissolve"
+ ],
+ "audio_direction": "Light playful bed at -22 dB under the voice; a pop or thud on each expression swap; one beat of silence before the payoff.",
+ "pitfalls": [
+  "Do not wobble or boil the line: this style is clean.",
+  "Do not leave both characters with the same face for more than a second.",
+  "Keep clothes colours distinct from the set key colour."
+ ],
+ "references": [
+  "docs/styles/STYLES.md section H"
+ ],
+ "defaults": {
+  "captions": "stroke-word",
+  "music": "bed"
+ },
+ "files": {
+  "dna": "dna.json",
+  "upgrade": "upgrade.json",
+  "camera": "camera.json",
+  "captions": "captions.json"
+ }
+}

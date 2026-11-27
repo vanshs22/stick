@@ -1,0 +1,228 @@
+{
+ "schema_version": 1,
+ "meta": {
+  "src_hash": "970f1ff3c56a11c5",
+  "duration_s": 12.17,
+  "fps": 60.0,
+  "aspect": "9:16",
+  "n_shots": 7
+ },
+ "structure": {
+  "beats": [
+   {
+    "t0": 0.0,
+    "t1": 1.46,
+    "type": "hook",
+    "tag": "heuristic: first 12 percent"
+   },
+   {
+    "t0": 1.46,
+    "t1": 10.71,
+    "type": "beat",
+    "tag": "heuristic: equal split"
+   },
+   {
+    "t0": 10.71,
+    "t1": 12.17,
+    "type": "payoff",
+    "tag": "heuristic: last 12 percent"
+   }
+  ]
+ },
+ "shots": [
+  {
+   "t0": 0.0,
+   "t1": 2.0,
+   "framing": "unknown",
+   "move": "static",
+   "move_mag": 0.017,
+   "confidence": 0.81
+  },
+  {
+   "t0": 2.0,
+   "t1": 2.92,
+   "framing": "unknown",
+   "move": "static",
+   "move_mag": 0.016,
+   "confidence": 0.79
+  },
+  {
+   "t0": 2.92,
+   "t1": 4.97,
+   "framing": "unknown",
+   "move": "static",
+   "move_mag": 0.023,
+   "confidence": 0.88
+  },
+  {
+   "t0": 4.97,
+   "t1": 6.92,
+   "framing": "unknown",
+   "move": "static",
+   "move_mag": 0.001,
+   "confidence": 0.86
+  },
+  {
+   "t0": 6.92,
+   "t1": 8.92,
+   "framing": "unknown",
+   "move": "static",
+   "move_mag": 0.013,
+   "confidence": 0.67
+  },
+  {
+   "t0": 8.92,
+   "t1": 10.05,
+   "framing": "unknown",
+   "move": "static",
+   "move_mag": 0.008,
+   "confidence": 0.83
+  },
+  {
+   "t0": 10.05,
+   "t1": 12.17,
+   "framing": "unknown",
+   "move": "pan",
+   "move_mag": 0.195,
+   "confidence": 0.46
+  }
+ ],
+ "camera": {
+  "space": "2d_pan_zoom",
+  "move_mix": {
+   "static": 0.86,
+   "pan": 0.14
+  },
+  "shot_len": {
+   "min": 0.92,
+   "median": 2.0,
+   "max": 2.12
+  },
+  "never_static": false
+ },
+ "captions": {
+  "y_pct": 60,
+  "words_visible_median": 1,
+  "case": "sentence",
+  "coverage": 0.75,
+  "fill": "#D6D6CC"
+ },
+ "palette": {
+  "dominant": [
+   "#010101",
+   "#DAC7A9",
+   "#9E907D",
+   "#685B4E",
+   "#BDE7EB"
+  ],
+  "accent": "#685B4E",
+  "bg": "#010101"
+ },
+ "motion": {
+  "cuts_per_10s": 5.75,
+  "zoom_events": 0
+ },
+ "audio": {
+  "lufs": -15.2,
+  "lra": 2.8,
+  "bpm": 117.5,
+  "beat_grid": [
+   1.16,
+   1.67,
+   2.14,
+   2.65,
+   3.18,
+   3.69,
+   4.23,
+   4.69,
+   5.13,
+   5.64,
+   6.2,
+   6.71,
+   7.24,
+   7.73,
+   8.29,
+   8.82,
+   9.29,
+   9.73,
+   10.22,
+   10.68,
+   11.19,
+   11.68,
+   12.21
+  ],
+  "sfx_onsets": [
+   0.26,
+   0.58,
+   0.88,
+   1.0,
+   1.16,
+   1.3,
+   1.53,
+   1.67,
+   1.76,
+   2.0,
+   2.14,
+   2.44,
+   2.67,
+   2.93,
+   2.97,
+   3.16,
+   3.34,
+   3.85,
+   4.09,
+   4.23,
+   4.37,
+   4.69,
+   4.92,
+   5.04,
+   5.13,
+   5.46,
+   5.64,
+   5.78,
+   5.97,
+   6.2,
+   6.34,
+   6.41,
+   6.71,
+   6.8,
+   7.24,
+   7.45,
+   7.59,
+   7.73,
+   7.87,
+   7.96,
+   8.29,
+   8.43,
+   8.61,
+   8.82,
+   9.26,
+   9.4,
+   9.57,
+   9.71,
+   9.96,
+   10.19,
+   10.36,
+   11.12,
+   11.45,
+   11.66,
+   12.0,
+   12.21
+  ]
+ },
+ "cast_hint": {},
+ "world_hint": {},
+ "vlm": [],
+ "unmeasured": [
+  "framing (this OpenCV build has no face detector: use a vision read)",
+  "camera angle (needs a vision read)",
+  "camera versus content motion on animated or UI shots (\"busy\" means they cannot be told apart)",
+  "captions versus card text (OCR counts both)",
+  "whether the scene is 2D, 3D or a sprite in 3D (needs a vision read)",
+  "caption font, stroke and animation (needs a vision read)",
+  "speech rate (needs a transcript)",
+  "music mood and whether it fits (needs ears)",
+  "what each sound effect is (needs ears)",
+  "story beats (split by position, not by meaning)"
+ ]
+}

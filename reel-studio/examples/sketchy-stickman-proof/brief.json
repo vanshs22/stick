@@ -1,0 +1,29 @@
+{
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "people who like short stickman comedy",
+ "goal": "one clean laugh in 12 seconds",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.05
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "stroke-word"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "The Empty Wallet",
+ "topic": "a friend who offers to pay for dinner",
+ "duration_sec": 12,
+ "style_pack": "sketchy-stickman",
+ "cta": {
+  "keyword": "DINNER",
+  "text": "Comment DINNER"
+ }
+}

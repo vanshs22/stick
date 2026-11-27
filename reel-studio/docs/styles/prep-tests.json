@@ -1,0 +1,10 @@
+{
+ "_doc": "style key -> the example project used for its prep test and the stored reference DNA to compare against (reference-library/dna). Keys match foundation/camera/*.json.",
+ "a2-editorial": { "name": "Editorial Cream/Red", "example": "accept-motion-explainer", "reference_dna": "a2-editorial" },
+ "b-voxel-crate": { "name": "Voxel Crate Narrator", "example": "experiment-voxel", "reference_dna": "b-voxel-crate" },
+ "c-lowpoly-presenter": { "name": "Low-poly Presenter", "example": "experiment-presenter", "reference_dna": "c-lowpoly-presenter" },
+ "d-roblox": { "name": "Roblox", "example": "experiment-roblox", "reference_dna": "d-roblox" },
+ "f-stickman-3d-world": { "name": "Stickman in a 3D world (closest existing pack)", "example": "experiment-stick", "reference_dna": "f-stickman-3d-world" },
+ "g-neon-stage-cubes": { "name": "Neon Stage Cube Duo", "example": "experiment-cubes", "reference_dna": "g-neon-stage-cubes" },
+ "h-sketchy-stickman": { "name": "Sketchy Stickman", "example": "sketchy-stickman-proof", "reference_dna": "h-sketchy-stickman" }
+}

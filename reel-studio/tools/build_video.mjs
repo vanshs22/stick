@@ -6,7 +6,7 @@
 //   --upscale     also write <name>.4k.mp4: Lanczos upscale to 2160x3840 (instant, no AI; the 1080x1920 master is still the one QA checks)
 //   --quality fast|draft   inkbeat only: cheaper passes (fast about 2x, draft more); master is the default
 //   --fps-div 2   inkbeat only: render every 2nd frame and repeat it (2x faster)
-//   --tier preview|proof|final   one flag for size, frame rate and quality: preview 0.33 / half rate / draft, proof 0.5 / half rate / fast, final 1 / full / master (explicit flags still win)
+//   --tier preview|proof|final   one flag for size, frame rate and quality: preview 0.25 / half rate / draft, proof 0.5 / half rate / fast, final 1 / full / master (explicit flags still win)
 //   --no-assemble stop after rendering the shots (used with --shard)
 //   --shard 1/2   render only this balanced share of the missing shots (split across GPUs or machines, then assemble)
 //   --shots       re-render only these shots (everything else comes from the cache), then assemble

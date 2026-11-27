@@ -1,0 +1,48 @@
+{
+ "schema_version": 1,
+ "style_id": "sketchy-stickman",
+ "derived_from": [
+  "three short 2D stickman comedy clips (technique only)"
+ ],
+ "keep": [
+  "clean uniform outline on characters, props and sets",
+  "wide two-shot then tight face punch-in, cut on the line",
+  "many discrete face expressions that swap on the beat"
+ ],
+ "improve": [
+  "a full sprite rig with eight poses and nine moods driven by data, so any script can be staged",
+  "a slow push inside every hold so no frame is dead",
+  "every shot checked by the logic critic (overlap, facing, mood against the line emotion)"
+ ],
+ "change": [
+  "original characters (round-head figures with their own hair, colours and costumes)",
+  "original sets and props (own kitchen, station platform and street) and own sign text",
+  "original dialogue, jokes and story, with captions in a different case and stroke style"
+ ],
+ "axes": {
+  "structure": {
+   "ref": "one person tricks another about money, one location",
+   "ours": "a lie that grows each shot until the set gives it away"
+  },
+  "opening": {
+   "ref": "close-up of the smug face",
+   "ours": "a prop dropped onto the table"
+  },
+  "signature_shot": {
+   "ref": "face punch-in on the grin",
+   "ours": "a held-up prop pushing into the lens"
+  },
+  "camera_path": {
+   "ref": "static wide with cuts",
+   "ours": "slow constant push inside every hold"
+  },
+  "score_shape": {
+   "ref": "meme sting then silence",
+   "ours": "light bed with a beat of silence before the payoff"
+  },
+  "ending": {
+   "ref": "reaction cut to real footage",
+   "ours": "wide shot then the reaction face"
+  }
+ }
+}

@@ -1,0 +1,162 @@
+{
+ "style_pack": "facecam-overlay",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "hook: the face says the claim, a card pins the idea",
+   "shot_type": "mixed",
+   "component": "FaceCam",
+   "approach": "combo",
+   "why_renderer": "The layout is the product: a real face on a rounded sheet with a bordered card above it, so each step has a picture the voice can point at.",
+   "props": {
+    "mode": "split",
+    "card": {
+     "title": "3 docs, then code",
+     "lines": [
+      "01 product doc",
+      "02 design brief",
+      "03 build plan"
+     ]
+    },
+    "chip": {
+     "n": 1,
+     "total": 3,
+     "label": "Overview",
+     "color": "#E8671A"
+    },
+    "zoom": 1.14,
+    "faceLabel": "your face-cam footage"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "three"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "product doc card grows to fill the frame",
+   "shot_type": "mixed",
+   "component": "FaceCam",
+   "approach": "combo",
+   "why_renderer": "The layout is the product: a real face on a rounded sheet with a bordered card above it, so each step has a picture the voice can point at.",
+   "props": {
+    "mode": "card",
+    "card": {
+     "title": "Product doc",
+     "lines": [
+      "who it is for",
+      "what it does",
+      "what it does not do"
+     ]
+    },
+    "chip": {
+     "n": 1,
+     "total": 3,
+     "label": "Product doc",
+     "color": "#E8671A"
+    },
+    "zoom": 1.0,
+    "faceLabel": "your face-cam footage"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "product"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "design brief beside the face",
+   "shot_type": "mixed",
+   "component": "FaceCam",
+   "approach": "combo",
+   "why_renderer": "The layout is the product: a real face on a rounded sheet with a bordered card above it, so each step has a picture the voice can point at.",
+   "props": {
+    "mode": "split",
+    "card": {
+     "title": "Design brief",
+     "lines": [
+      "colors: 3 max",
+      "type: 2 fonts",
+      "screens: 4"
+     ]
+    },
+    "chip": {
+     "n": 2,
+     "total": 3,
+     "label": "Design brief",
+     "color": "#7B5CF0"
+    },
+    "zoom": 1.18,
+    "faceLabel": "your face-cam footage"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "design"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "call to action over the face",
+   "shot_type": "mixed",
+   "component": "FaceCam",
+   "approach": "combo",
+   "why_renderer": "The layout is the product: a real face on a rounded sheet with a bordered card above it, so each step has a picture the voice can point at.",
+   "props": {
+    "mode": "face",
+    "card": {},
+    "chip": {
+     "n": 3,
+     "total": 3,
+     "label": "Templates",
+     "color": "#111111"
+    },
+    "zoom": 1.2,
+    "faceLabel": "your face-cam footage"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "templates."
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}
