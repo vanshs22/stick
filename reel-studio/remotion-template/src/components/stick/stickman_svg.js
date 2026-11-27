@@ -48,6 +48,12 @@ function eye(cx, cy, mood, side) {
   const lid = mood === 'smug' ? `<path d="M ${cx - rx} ${cy - 2} L ${cx + rx} ${cy - 2} L ${cx + rx} ${cy - ry - 4} L ${cx - rx} ${cy - ry - 4} Z" fill="#fff" stroke="none"/><path d="M ${cx - rx - 2} ${cy - 2} L ${cx + rx + 2} ${cy - 2}" stroke="${INK}" stroke-width="${W}"/>` : '';
   return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" stroke="${INK}" stroke-width="${W}"/><circle cx="${cx + px}" cy="${cy + py}" r="${pr}" fill="${INK}"/><circle cx="${cx + px + 5}" cy="${cy + py - 6}" r="5" fill="#fff"/>` + lid;
 }
+function inkEye(cx, cy, mood, side) {
+  if (mood === 'laugh') return `<path d="M ${cx - 34} ${cy + 6} Q ${cx} ${cy - 34} ${cx + 34} ${cy + 6}" fill="none" stroke="${INK}" stroke-width="${W + 3}" stroke-linecap="round"/>`;
+  const wide = mood === 'shock' || mood === 'scared' || mood === 'worried', ry = wide ? 52 : mood === 'angry' || mood === 'determined' ? 34 : mood === 'smug' ? 28 : mood === 'sad' ? 40 : 44, rx = wide ? 38 : 32;
+  const lid = mood === 'smug' ? `<path d="M ${cx - rx - 4} ${cy - 4} L ${cx + rx + 4} ${cy - 4} L ${cx + rx + 4} ${cy - ry - 8} L ${cx - rx - 4} ${cy - ry - 8} Z" fill="#fff"/><path d="M ${cx - rx - 4} ${cy - 4} L ${cx + rx + 4} ${cy - 4}" stroke="${INK}" stroke-width="${W + 2}"/>` : '';
+  return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${INK}"/><ellipse cx="${cx - 9 * side * -1}" cy="${cy - ry * 0.35}" rx="${rx * 0.34}" ry="${ry * 0.3}" fill="#fff"/><circle cx="${cx + 10 * side * -1}" cy="${cy + ry * 0.42}" r="5" fill="#fff" opacity="0.9"/>${lid}`;
+}
 function limb(x0, y0, mid, end, col = INK, w = 15) { return `<path d="M ${x0} ${y0} Q ${mid[0]} ${mid[1]} ${end[0]} ${end[1]}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`; }
 function hand(x, y) { return `<circle cx="${x}" cy="${y}" r="21" fill="#fff" stroke="${INK}" stroke-width="${W}"/>`; }
 function hat(kind, cx, cy, col) {
@@ -74,9 +80,10 @@ export function stickG({ pose = 'idle', mood = 'neutral', mouth: m = 'closed', l
   const shoe = (x) => `<ellipse cx="${x}" cy="990" rx="40" ry="17" fill="#222" stroke="${INK}" stroke-width="${W}"/>`;
   const aL = po.aL, aR = po.aR, sL = [SH.L[0] + lean * 0.8, ty + 14], sR = [SH.R[0] + lean * 0.8, ty + 14];
   const hands = (A, S) => limb(S[0], S[1], A[0], A[1]) + hand(A[1][0], A[1][1]);
-  const face = `${eye(hx - 52, hy + 4, mood, -1)}${eye(hx + 52, hy + 4, mood, 1)}<path d="${brow(hx - 52, hy - 62, mood, -1)}" fill="none" stroke="${INK}" stroke-width="12" stroke-linecap="round"/><path d="${brow(hx + 52, hy - 62, mood, 1)}" fill="none" stroke="${INK}" stroke-width="12" stroke-linecap="round"/>${mouth(mood, m, hx, hy + 78)}`;
+  const E1 = look.eyeStyle === 'ink' ? inkEye : eye, bw = look.eyeStyle === 'ink' ? 17 : 12, face = `${E1(hx - 52, hy + 4, mood, -1)}${E1(hx + 52, hy + 4, mood, 1)}<path d="${brow(hx - 52, hy - 62, mood, -1)}" fill="none" stroke="${INK}" stroke-width="${bw}" stroke-linecap="round"/><path d="${brow(hx + 52, hy - 62, mood, 1)}" fill="none" stroke="${INK}" stroke-width="${bw}" stroke-linecap="round"/>${mouth(mood, m, hx, hy + 78)}`;
   const cheeks = look.cheeks === false ? '' : `<ellipse cx="${hx - 98}" cy="${hy + 58}" rx="20" ry="12" fill="#f4a9a0" opacity="0.55"/><ellipse cx="${hx + 98}" cy="${hy + 58}" rx="20" ry="12" fill="#f4a9a0" opacity="0.55"/>`;
   const sweat = mood === 'scared' ? `<path d="M ${hx + 138} ${hy - 80} Q ${hx + 156} ${hy - 40} ${hx + 138} ${hy - 22} Q ${hx + 118} ${hy - 40} ${hx + 138} ${hy - 80} Z" fill="#8fd3ff" stroke="${INK}" stroke-width="5"/>` : '';
+  const folds = `<path d="M ${nx - 30} ${ty + 90} q 14 16 4 40 M ${nx + 26} ${ty + 120} q -12 16 -2 34" fill="none" stroke="#00000040" stroke-width="5" stroke-linecap="round"/>`;
   const torso = `<path d="M ${nx - 52} ${ty} Q ${nx - 66} ${ty + 120} ${nx - 46} ${ty + 244} L ${nx + 46} ${ty + 244} Q ${nx + 66} ${ty + 120} ${nx + 52} ${ty} Q ${nx} ${ty - 14} ${nx - 52} ${ty} Z" fill="${shirt}" stroke="${INK}" stroke-width="${W}" stroke-linejoin="round"/>` + (look.apron ? `<path d="M ${nx - 36} ${ty + 70} L ${nx + 36} ${ty + 70} L ${nx + 42} ${ty + 244} L ${nx - 42} ${ty + 244} Z" fill="${look.apron}" stroke="${INK}" stroke-width="5"/>` : '') + (look.scarf ? `<path d="M ${nx - 58} ${ty - 2} Q ${nx} ${ty + 22} ${nx + 58} ${ty - 2} L ${nx + 54} ${ty + 22} Q ${nx} ${ty + 46} ${nx - 54} ${ty + 22} Z" fill="${look.scarf}" stroke="${INK}" stroke-width="5"/>` : '');
   const prop = pose === 'hammer' ? `<g transform="translate(${aR[1][0]} ${aR[1][1]}) rotate(-24)"><rect x="-8" y="-150" width="16" height="170" rx="6" fill="#9b6b3c" stroke="${INK}" stroke-width="5"/><rect x="-44" y="-176" width="88" height="40" rx="8" fill="#9aa3ad" stroke="${INK}" stroke-width="6"/></g>` : '';
   const hoodie = look.top === 'hoodie', hairC = look.hairColor || '#2a1d14';
@@ -84,8 +91,8 @@ export function stickG({ pose = 'idle', mood = 'neutral', mouth: m = 'closed', l
   return `${hoodie ? hoodBack(hx, hy, shirt) : ''}${legL}${legR}${shoe(256 + po.legs[0] * 1.5 - 20)}${shoe(256 + po.legs[1] * 1.5 + 20)}
 ${hands(aL, sL)}
 <line x1="${nx}" y1="${hy + 150}" x2="${nx}" y2="${ty + 6}" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
-${torso}${hoodTorso}
-<circle cx="${hx}" cy="${hy}" r="158" fill="#fff" stroke="${INK}" stroke-width="${W + 1}"/>
+${torso}${folds}${hoodTorso}
+<circle cx="${hx}" cy="${hy}" r="158" fill="#fff" stroke="${INK}" stroke-width="${W + 1}"/>${look.shade === false ? '' : `<path d="M ${hx - 110} ${hy + 112} A 158 158 0 0 0 ${hx + 112} ${hy + 112} A 158 158 0 0 1 ${hx - 110} ${hy + 112} Z" fill="#8a93a8" opacity="0.28"/>`}${look.rim ? `<path d="M ${hx + 150} ${hy - 50} A 150 150 0 0 1 ${hx + 60} ${hy + 138}" fill="none" stroke="${look.rim}" stroke-width="8" stroke-linecap="round" opacity="0.75"/>` : ''}
 ${cheeks}${face}${look.glasses ? glasses(hx, hy + 4) : ''}${sweat}${tear(mood, hx, hy)}${hair(look.hair, hx, hy, hairC)}${hatKind === 'capback' ? capBack(hx, hy, look.hatColor || '#D8342B') : hat(hatKind, hx, hy, hatCol)}
 ${hands(aR, sR)}${prop}`;
 }

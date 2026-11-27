@@ -14,7 +14,7 @@
    "props": {
     "world": "country-field",
     "worldOpts": {
-     "time": "day"
+     "time": "golden"
     },
     "cast": [
      {
@@ -48,12 +48,12 @@
        0,
        -1.6
       ],
-      "len": 9,
+      "len": 5.5,
       "h": 1.0
      }
     ],
     "camera": {
-     "framing": "medium-close-up",
+     "framing": "medium",
      "angle": "low-angle",
      "subject": "otto",
      "movement": {
@@ -89,7 +89,7 @@
    "props": {
     "world": "country-field",
     "worldOpts": {
-     "time": "day"
+     "time": "golden"
     },
     "cast": [
      {
@@ -127,7 +127,7 @@
        0,
        -1.6
       ],
-      "len": 9,
+      "len": 5.5,
       "h": [
        [
         0,
@@ -183,7 +183,7 @@
    "props": {
     "world": "country-field",
     "worldOpts": {
-     "time": "day",
+     "time": "golden",
      "wind": 2
     },
     "cast": [
@@ -218,15 +218,15 @@
        0,
        -1.6
       ],
-      "len": 9,
+      "len": 5.5,
       "h": [
        [
         0,
-        2.0
+        1.9
        ],
        [
         2,
-        3.0
+        1.9
        ]
       ]
      },
@@ -257,7 +257,7 @@
      }
     ],
     "camera": {
-     "framing": "medium-close-up",
+     "framing": "medium",
      "angle": "eye-level",
      "subject": "otto",
      "movement": {
@@ -294,7 +294,7 @@
    "props": {
     "world": "country-field",
     "worldOpts": {
-     "time": "day"
+     "time": "golden"
     },
     "cast": [
      {
@@ -351,12 +351,12 @@
        0,
        -1.6
       ],
-      "len": 10,
-      "h": 3.0
+      "len": 5.5,
+      "h": 1.9
      }
     ],
     "camera": {
-     "framing": "medium",
+     "framing": "medium-wide",
      "angle": "three-quarter",
      "subject": "mabel",
      "movement": {
@@ -403,7 +403,7 @@
    "props": {
     "world": "country-field",
     "worldOpts": {
-     "time": "day",
+     "time": "golden",
      "wind": 2.5
     },
     "cast": [
@@ -438,8 +438,8 @@
        0,
        -1.6
       ],
-      "len": 9,
-      "h": 3.0
+      "len": 5.5,
+      "h": 1.9
      }
     ],
     "camera": {
@@ -537,8 +537,8 @@
        0,
        -1.6
       ],
-      "len": 9,
-      "h": 3.0,
+      "len": 5.5,
+      "h": 1.9,
       "fly": {
        "from": 1.0,
        "dur": 2.6,

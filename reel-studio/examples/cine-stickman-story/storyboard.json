@@ -20,7 +20,9 @@
       "look": {
        "hat": "capback",
        "hatColor": "#D8342B",
-       "shirt": "#8D9199"
+       "shirt": "#8D9199",
+       "eyeStyle": "ink",
+       "rim": "#6f8cff"
       },
       "mood": "smug",
       "pose": "point"
@@ -34,7 +36,9 @@
        "hairColor": "#4a3020",
        "glasses": true,
        "top": "hoodie",
-       "shirt": "#2c2f38"
+       "shirt": "#2c2f38",
+       "eyeStyle": "ink",
+       "rim": "#6f8cff"
       },
       "mood": "neutral",
       "pose": "idle",
@@ -93,7 +97,9 @@
        "hairColor": "#4a3020",
        "glasses": true,
        "top": "hoodie",
-       "shirt": "#2c2f38"
+       "shirt": "#2c2f38",
+       "eyeStyle": "ink",
+       "rim": "#6f8cff"
       },
       "mood": "worried",
       "pose": "shock"
@@ -148,7 +154,9 @@
        "hat": "top",
        "shirt": "#F5F0E6",
        "halo": "bulbs",
-       "hair": "none"
+       "hair": "none",
+       "eyeStyle": "ink",
+       "rim": "#ffe9a0"
       },
       "mood": "happy",
       "pose": "explain",
@@ -161,7 +169,9 @@
       "look": {
        "hat": "capback",
        "hatColor": "#D8342B",
-       "shirt": "#8D9199"
+       "shirt": "#8D9199",
+       "eyeStyle": "ink",
+       "rim": "#ffe9a0"
       },
       "mood": "scared",
       "pose": "idle",
@@ -177,7 +187,9 @@
        "hairColor": "#4a3020",
        "glasses": true,
        "top": "hoodie",
-       "shirt": "#2c2f38"
+       "shirt": "#2c2f38",
+       "eyeStyle": "ink",
+       "rim": "#ffe9a0"
       },
       "mood": "worried",
       "pose": "idle",
@@ -241,7 +253,9 @@
        "hat": "top",
        "shirt": "#F5F0E6",
        "halo": "bulbs",
-       "hair": "none"
+       "hair": "none",
+       "eyeStyle": "ink",
+       "rim": "#ffe9a0"
       },
       "mood": "laugh",
       "pose": "point",
@@ -304,7 +318,9 @@
       "look": {
        "hat": "capback",
        "hatColor": "#D8342B",
-       "shirt": "#8D9199"
+       "shirt": "#8D9199",
+       "eyeStyle": "ink",
+       "rim": "#6f8cff"
       },
       "mood": "worried",
       "pose": "shock"
@@ -370,7 +386,9 @@
        "hat": "top",
        "shirt": "#F5F0E6",
        "halo": "bulbs",
-       "hair": "none"
+       "hair": "none",
+       "eyeStyle": "ink",
+       "rim": "#ffe9a0"
       },
       "mood": "smug",
       "pose": "idle",
@@ -450,7 +468,9 @@
        "hairColor": "#4a3020",
        "glasses": true,
        "top": "hoodie",
-       "shirt": "#2c2f38"
+       "shirt": "#2c2f38",
+       "eyeStyle": "ink",
+       "rim": "#ff4a4a"
       },
       "mood": "scared",
       "pose": "idle"
@@ -516,7 +536,9 @@
        "hat": "top",
        "shirt": "#F5F0E6",
        "halo": "bulbs",
-       "hair": "none"
+       "hair": "none",
+       "eyeStyle": "ink",
+       "rim": "#6f8cff"
       },
       "mood": "smug",
       "pose": "point",

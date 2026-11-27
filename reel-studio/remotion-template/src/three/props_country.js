@@ -7,11 +7,13 @@ const val = (spec, lt, d) => { if (!Array.isArray(spec)) return spec ?? d; let v
 
 /** plankfence: {at:[x,z], rotY, len, h: number | [[t,height],...], col, fly:{from, dur, lift, spin, drift}} */
 function plankfence(e) {
-  const g = new THREE.Group(), inner = new THREE.Group(), len = e.len || 8, col = e.col || '#C49A68', at = e.at || [0, 0]; g.add(inner); g.position.set(at[0], 0, at[1]); g.rotation.y = e.rotY || 0;
-  const wood = mat({ color: col, map: T.planks(col, [Math.max(1, len / 2), 1]), roughness: 0.9 }), post = mat({ color: '#6E4E36', roughness: 0.95 });
-  const n = Math.max(2, Math.round(len / 1.4)); for (let i = 0; i <= n; i++) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.1, 0.16), post); p.position.set(-len / 2 + (len / n) * i, 0.55, 0); p.castShadow = p.receiveShadow = true; inner.add(p); }
-  const rows = 9; for (let r = 0; r < rows; r++) { const pl = new THREE.Mesh(new THREE.BoxGeometry(len, 0.11, 0.05), wood); pl.position.set(0, 0.1 + (r / (rows - 1)) * 0.95, 0.1); pl.castShadow = pl.receiveShadow = true; inner.add(pl); }
-  return { id: e.id, group: g, height: 1.1, kind: 'plankfence', subject: () => ({ pos: [g.position.x, g.position.y, g.position.z], height: 1.1 * inner.scale.y, rotY: g.rotation.y }),
+  const g = new THREE.Group(), inner = new THREE.Group(), len = e.len || 8, at = e.at || [0, 0]; g.add(inner); g.position.set(at[0], 0, at[1]); g.rotation.y = e.rotY || 0;
+  const post = mat({ color: '#5A4430', roughness: 1 }), mk = (i) => mat({ color: ['#C9AE86', '#B89C76', '#D2B88E', '#AA9070', '#C0A47C'][i % 5], roughness: 0.95 });
+  const n = Math.max(2, Math.round(len / 1.2)); for (let i = 0; i <= n; i++) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 0.2), post); p.position.set(-len / 2 + (len / n) * i, 0.6, 0); p.castShadow = p.receiveShadow = true; inner.add(p); }
+  // vertical boards of uneven height and colour, with gaps, nailed to two rails
+  const bw = 0.2, cnt = Math.round(len / (bw + 0.03)); for (let i = 0; i < cnt; i++) { const hgt = 1 + (((Math.sin(i * 12.9898) * 43758.5453) % 1 + 1) % 1) * 0.12; const b = new THREE.Mesh(new THREE.BoxGeometry(bw, hgt, 0.05), mk(i)); b.position.set(-len / 2 + (i + 0.5) * (len / cnt), hgt / 2, 0.11); b.rotation.z = (((Math.sin(i * 78.233) * 43758.5453) % 1) - 0.5) * 0.02; b.castShadow = b.receiveShadow = true; inner.add(b); }
+  [0.3, 0.85].forEach((y) => { const r = new THREE.Mesh(new THREE.BoxGeometry(len, 0.1, 0.08), post); r.position.set(0, y, 0.05); r.castShadow = true; inner.add(r); });
+  return { id: e.id, group: g, height: 1.2, kind: 'plankfence', subject: () => ({ pos: [g.position.x, g.position.y, g.position.z], height: 1.2 * inner.scale.y, rotY: g.rotation.y }),
     update(lt, t) { const h = val(e.h, lt, 1); inner.scale.y = h; const f = e.fly; if (f) { const k = ease((lt - f.from) / (f.dur || 2)); g.position.y = k * (f.lift ?? 8); g.position.x = at[0] + k * (f.drift ?? 6); g.rotation.z = k * (f.spin ?? 0.9); g.rotation.x = k * 0.3 * Math.sin(t * 2); } } };
 }
 /** roadsign: {at:[x,z], rotY, text, bg, fg, neon, w, h, post} a board on a post; neon = emissive plate with a light */
