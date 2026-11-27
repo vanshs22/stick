@@ -1,0 +1,103 @@
+{
+ "_note": "valence (-1 negative .. +1 positive) and arousal (0 calm .. 1 intense). Used by tools/critics/logic.mjs to check that a shot's mood fits the script line's emotion. Moods are the MOODS table in gestures.js; emotions are script.schema.json.",
+ "moods": {
+  "calm": [
+   0.2,
+   0.1
+  ],
+  "happy": [
+   0.9,
+   0.6
+  ],
+  "curious": [
+   0.3,
+   0.5
+  ],
+  "surprised": [
+   0.1,
+   0.9
+  ],
+  "worried": [
+   -0.5,
+   0.6
+  ],
+  "sad": [
+   -0.9,
+   0.1
+  ],
+  "angry": [
+   -0.8,
+   0.8
+  ],
+  "smirk": [
+   0.4,
+   0.4
+  ],
+  "scared": [
+   -0.6,
+   0.85
+  ],
+  "relieved": [
+   0.6,
+   0.2
+  ],
+  "determined": [
+   0.2,
+   0.65
+  ]
+ },
+ "emotions": {
+  "neutral": [
+   0,
+   0.2
+  ],
+  "happy": [
+   0.8,
+   0.5
+  ],
+  "excited": [
+   0.8,
+   0.9
+  ],
+  "sad": [
+   -0.8,
+   0.1
+  ],
+  "fear": [
+   -0.7,
+   0.8
+  ],
+  "shock": [
+   -0.2,
+   0.95
+  ],
+  "anger": [
+   -0.8,
+   0.8
+  ],
+  "calm": [
+   0.3,
+   0.05
+  ],
+  "sarcastic": [
+   -0.1,
+   0.4
+  ],
+  "whisper": [
+   0,
+   0.05
+  ],
+  "determined": [
+   0.2,
+   0.6
+  ],
+  "curious": [
+   0.3,
+   0.5
+  ],
+  "proud": [
+   0.7,
+   0.5
+  ]
+ }
+}

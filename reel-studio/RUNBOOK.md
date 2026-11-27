@@ -8,6 +8,9 @@ You need a shell and file access (Claude Code, OpenCode, Codex, Cursor, Kiro, Cl
 **Toolkit development mode** (the user asks you to improve, fix or extend the toolkit): you are authorised to edit `tools/`, `remotion-template/`, `style-packs/`, `schemas/`, `skills/`, installers and tests. Rules there: find the root cause (grep every caller), fix the shared code once, add or extend a self-test or regression fixture for each bug (`tools/selftest*.mjs`), run `node tools/selftest.mjs` before you stop, keep `docs/REPAIR_LOG.md` and `CHANGELOG.md` current, and report what is implemented, what is tested and what is unverified. Never mark something verified that you did not run.
 In both modes the approval gates stay real: no one approves for the user.
 
+## Quality loop (v2)
+After any critic run: `node $TK/tools/scorecard.mjs $P` gives a score per stage, the round number and the next action; `fix_plan.mjs` says what to change. Roles, what the fixer may and may not touch, and the 3-round cap: `roles/README.md`. The `logic` critic (`critique.mjs $P logic`) checks overlap, furniture, facing, mood against the line emotion and continuity before any render.
+
 ## The loop
 1. `node $TK/tools/next.mjs $P` prints the ONE next step: the skill to read, the exact commands, what "good" looks like.
 2. Do it. Read the named skill file (`skills/<name>/SKILL.md`) only when `next` names it.

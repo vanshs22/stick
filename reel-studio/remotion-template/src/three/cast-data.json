@@ -136,5 +136,74 @@
     "rotY": 0
    }
   }
+ },
+ "radii": {
+  "human": 0.25,
+  "stick": 0.22,
+  "blocky": 0.3,
+  "critter": 0.22,
+  "voxel": 0.3,
+  "cube": 0.4
+ },
+ "footprints": {
+  "giftbox": [
+   0.3,
+   0.3
+  ],
+  "sidetable": [
+   0.6,
+   0.6
+  ],
+  "laptop": [
+   0.4,
+   0.3
+  ],
+  "trophy": [
+   0.4,
+   0.4
+  ],
+  "keywall": [
+   2.5,
+   0.4
+  ],
+  "pricestack": [
+   0.7,
+   0.7
+  ],
+  "podium": [
+   1.0,
+   1.0
+  ],
+  "screen": [
+   1.6,
+   0.2
+  ],
+  "neonring": null
+ },
+ "world_footprints": {
+  "desk": [
+   1.4,
+   0.7
+  ],
+  "monitor": [
+   0.5,
+   0.2
+  ],
+  "house": [
+   3.0,
+   2.5
+  ],
+  "cabin": [
+   3.0,
+   3.0
+  ],
+  "bench": [
+   1.6,
+   0.7
+  ],
+  "pegboard": [
+   2.0,
+   0.1
+  ]
  }
 }
