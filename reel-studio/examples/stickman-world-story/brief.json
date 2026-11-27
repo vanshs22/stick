@@ -1,0 +1,26 @@
+{
+ "title": "The fence that fought the wind",
+ "topic": "a farmer builds a solid fence to stop the wind and it backfires",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 25,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "one physics twist in 25 seconds",
+ "style_pack": "stickman-world",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "soft-lower"
+ },
+ "cta": {
+  "keyword": "FENCE",
+  "text": "Comment FENCE"
+ }
+}

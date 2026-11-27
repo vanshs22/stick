@@ -25,6 +25,7 @@ const PRESETS: Record<string, Pre> = {
   'caps-plate': {size: 40, weight: 900, boxed: false, upper: true, plate: true},
   'stroke-word': {size: 70, weight: 900, boxed: false, stroke: true, lower: true},   // one or two words, heavy sans, thick black stroke (sketchy stickman, long-form story shorts)
   'quote-side': {size: 46, weight: 500, boxed: false},   // two-faces: small quoted lines in the top third, aligned toward the speaker; the last line of the film is larger
+  'soft-lower': {size: 58, weight: 600, boxed: false, lower: true},   // thin white lowercase sans with a soft shadow (stickman in a 3D world)
   'select-box': {size: 54, weight: 500, boxed: false, sel: true},   // the accent word sits in a lime box with four corner handles (neon dashboard)
 };
 
@@ -69,7 +70,7 @@ export const Captions: React.FC<{timeline: Timeline; show?: boolean; preset?: st
       <div><div style={{display: 'inline-block', background: 'rgba(8,8,18,0.7)', borderRadius: 24, padding: '12px 30px 16px'}}>{chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} hi={hiMode} />)}</div></div>
     </div>);
   return (
-    <div style={{position: 'absolute', left: 60, right: SAFE.right_margin, top: yIn ?? CAP_Y, textAlign: 'center', textTransform: pre.upper ? 'uppercase' : undefined, fontFamily: F.caption, fontWeight: TYPO.caption?.weight ?? pre.weight, fontSize: pre.size, lineHeight: 1.15, letterSpacing: '-0.01em'}}>
+    <div style={{position: 'absolute', left: 60, right: SAFE.right_margin, top: yIn ?? CAP_Y, textAlign: 'center', textTransform: pre.upper ? 'uppercase' : pre.lower ? 'lowercase' : undefined, fontFamily: F.caption, fontWeight: TYPO.caption?.weight ?? pre.weight, fontSize: pre.size, lineHeight: 1.15, letterSpacing: '-0.01em'}}>
       <div style={{display: 'inline-block', ...(pre.plate ? {background: 'rgba(20,14,34,0.72)', borderRadius: 18, padding: '8px 22px 10px', border: '2px solid rgba(255,255,255,0.18)', boxShadow: '0 8px 24px rgba(0,0,0,0.4)'} : pre.boxed ? {background: 'rgba(255,255,255,0.94)', borderRadius: 26, padding: '12px 30px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.18)'} : {textShadow: '0 4px 18px rgba(0,0,0,0.55)', WebkitTextStroke: `${Math.round(pre.size / 6.5)}px ${CAPTION.stroke}`, paintOrder: 'stroke fill'} as React.CSSProperties)}}>
         {chunk.words.map((w, i) => <Word key={i} w={w} t={t} pre={pre} preset={preset} last={i === chunk.words.length - 1} index={i} hi={hiMode} />)}
       </div>

@@ -1,0 +1,687 @@
+{
+ "style_pack": "stickman-world",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "hook: low close-up of the farmer hammering, fence behind",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day"
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -0.6,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "hammer"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "determined"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": 1.0
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "low-angle",
+     "subject": "otto",
+     "movement": {
+      "type": "dolly-push",
+      "duration": "shot",
+      "why": "hook: push into the face and the claim"
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "fence"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "establish: wide drone orbit, windmill turning, the fence growing",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day"
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.2,
+       0.8
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        3,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": [
+       [
+        0,
+        1.0
+       ],
+       [
+        4,
+        1.9
+       ]
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "high-angle",
+     "subject": "field",
+     "movement": {
+      "type": "orbit",
+      "duration": "shot",
+      "why": "establish the place and the scale",
+      "to": {
+       "az": 30
+      },
+      "from": {
+       "az": -30
+      }
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "taller"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "emotion: extreme close-up as the hat flies off",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "wind": 2
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       0,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "shock"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "scared"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": [
+       [
+        0,
+        2.0
+       ],
+       [
+        2,
+        3.0
+       ]
+      ]
+     },
+     {
+      "id": "hat",
+      "kind": "hat3d",
+      "path": [
+       [
+        0,
+        0,
+        1.8,
+        0.4
+       ],
+       [
+        1.6,
+        6,
+        5,
+        -2
+       ],
+       [
+        3,
+        12,
+        9,
+        -8
+       ]
+      ],
+      "spin": 8
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "otto",
+     "movement": {
+      "type": "handheld",
+      "duration": "shot",
+      "why": "nervous energy as the hat goes",
+      "amplitude_cm": 1.4
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "Taller"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "explain: the neighbour points at the solid wall",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day"
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.4,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "shrug"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "sad"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "at": [
+       1.5,
+       0.7
+      ],
+      "pose": [
+       [
+        0,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false,
+      "flip": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 10,
+      "h": 3.0
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "three-quarter",
+     "subject": "mabel",
+     "movement": {
+      "type": "dolly-push",
+      "duration": "shot",
+      "why": "explain: slow push while she makes the point"
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "spin"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "doodle",
+     "shape": "arrow",
+     "x": 760,
+     "y": 760,
+     "size": 220,
+     "rotate": -20,
+     "color": "#FF8A1F",
+     "anchor": "a0"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "reveal: top-down, the gust behind the wall doubles",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "wind": 2.5
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.4,
+       0.3
+      ],
+      "pose": [
+       [
+        0,
+        "flail"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "shock"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": 3.0
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "high-angle",
+     "subject": "fence",
+     "movement": {
+      "type": "crane",
+      "duration": "shot",
+      "why": "reveal: rise so the wall and the wind behind it can be seen",
+      "from": {
+       "el": 18
+      },
+      "to": {
+       "el": 40
+      }
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "twice"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "dial",
+     "label": "2x",
+     "sub": "WIND BEHIND THE WALL",
+     "from": 0.2,
+     "to": 0.92,
+     "anchor": "a0",
+     "y": 1100,
+     "color": "#FF8A1F"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "payoff: the whole fence and the farmer fly away, pull-back",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "dusk",
+     "wind": 3
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       0,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "flail"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "scared"
+       ]
+      ],
+      "speaks": false,
+      "rise": {
+       "from": 1.0,
+       "dur": 2.6,
+       "height": 7,
+       "drift": 5
+      }
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": 3.0,
+      "fly": {
+       "from": 1.0,
+       "dur": 2.6,
+       "lift": 7,
+       "drift": 5,
+       "spin": 0.8
+      }
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "low-angle",
+     "subject": "otto",
+     "movement": {
+      "type": "dolly-pull",
+      "duration": "shot",
+      "why": "payoff: pull back so the consequence is visible"
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L06",
+     "word": "gust"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "cta: both stand by a sign that says LEAVE GAPS",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "dusk"
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.5,
+       0.2
+      ],
+      "pose": [
+       [
+        0,
+        "cheer"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "happy"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "at": [
+       1.5,
+       0.2
+      ],
+      "pose": [
+       [
+        0,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false,
+      "flip": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "sign",
+      "kind": "roadsign",
+      "at": [
+       0,
+       -0.9
+      ],
+      "text": "LEAVE\nGAPS",
+      "bg": "#1E5B3A",
+      "fg": "#FFFFFF",
+      "w": 2.0,
+      "h": 1.2
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "subject": "sign",
+     "movement": {
+      "type": "dolly-push",
+      "duration": "shot",
+      "why": "cta: settle on the sign"
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L07",
+     "word": "Comment"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "bubble",
+     "text": "Comment FENCE",
+     "emoji": "\ud83d\udcac",
+     "size": 40,
+     "x": 540,
+     "y": 1040,
+     "anchor": "a0"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

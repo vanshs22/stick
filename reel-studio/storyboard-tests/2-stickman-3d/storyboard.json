@@ -1,70 +1,86 @@
 {
- "style_pack": "stickman-3d",
+ "style_pack": "stickman-world",
  "shots": [
   {
    "id": "S01",
    "line_ids": [
     "L01"
    ],
-   "visual_intent": "the question",
-   "shot_type": "character",
-   "component": "Scene3D",
+   "visual_intent": "hook: low close-up of the farmer hammering, fence behind",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
    "props": {
-    "set": "studio",
-    "characters": [
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day"
+    },
+    "cast": [
      {
-      "variant": "stick",
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -0.6,
+       0.4
+      ],
       "pose": [
        [
         0,
-        "idle"
-       ],
-       [
-        0.9,
-        "think"
+        "hammer"
        ]
       ],
-      "mood": "worried"
+      "mood": [
+       [
+        0,
+        "determined"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": 1
      }
     ],
     "camera": {
-     "shot": "wide",
-     "move": "push"
+     "framing": "medium-close-up",
+     "angle": "low-angle",
+     "subject": "otto",
+     "movement": {
+      "type": "dolly-push",
+      "duration": "shot",
+      "why": "hook: push into the face and the claim"
+     }
     }
    },
    "anchors": [
     {
-     "name": "n",
+     "name": "a0",
      "line": "L01",
-     "word": "never"
+     "word": "fence"
     }
    ],
-   "sfx": [
-    {
-     "type": "pop",
-     "anchor": "n",
-     "gain": 0.5
-    }
-   ],
+   "overlays": [],
    "transition_out": {
-    "type": "whip",
-    "sound": "whoosh"
+    "type": "cut",
+    "sound": "none"
    },
-   "overlays": [
-    {
-     "type": "label",
-     "left": "// WHAT IF",
-     "right": "NO SLEEP"
-    }
-   ],
-   "approach": "physical-3d",
-   "why_renderer": "Scene3D carries this beat because the planned visual is: the question",
    "purpose": "hook",
-   "why": "hook: close + push, about 0.5-1.5 s (playbook camera/hook-punch-in); the line works as \"hook\"",
+   "why": "hook: close + push, about 0.5-1.5 s (playbook camera/hook-punch-in); the line works as \"hook\", curious",
    "acting": {
     "function": "hook",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "curious"
    },
    "camera": {
     "framing": "close",
@@ -76,59 +92,100 @@
    "line_ids": [
     "L02"
    ],
-   "visual_intent": "day one fine",
-   "shot_type": "character",
-   "component": "Scene3D",
+   "visual_intent": "establish: wide drone orbit, windmill turning, the fence growing",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
    "props": {
-    "set": "studio",
-    "characters": [
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day"
+    },
+    "cast": [
      {
-      "variant": "stick",
-      "pose": "cheer",
-      "mood": "happy"
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.2,
+       0.8
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        3,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": [
+       [
+        0,
+        1
+       ],
+       [
+        4,
+        1.9
+       ]
+      ]
      }
     ],
     "camera": {
-     "shot": "wide",
-     "move": "drift"
+     "framing": "extreme-wide",
+     "angle": "high-angle",
+     "subject": "field",
+     "movement": {
+      "type": "orbit",
+      "duration": "shot",
+      "why": "establish the place and the scale",
+      "to": {
+       "az": 30
+      },
+      "from": {
+       "az": -30
+      }
+     }
     }
    },
    "anchors": [
     {
-     "name": "f",
+     "name": "a0",
      "line": "L02",
-     "word": "fine"
+     "word": "taller"
     }
    ],
-   "sfx": [
-    {
-     "type": "sparkle",
-     "anchor": "f",
-     "gain": 0.4
-    }
-   ],
+   "overlays": [],
    "transition_out": {
     "type": "cut",
-    "sound": "swish"
+    "sound": "none"
    },
-   "overlays": [
-    {
-     "type": "sticker",
-     "text": "DAY 1",
-     "color": "#F2C12E",
-     "rotate": -5,
-     "x": 320,
-     "y": 300
-    }
-   ],
-   "approach": "physical-3d",
-   "why_renderer": "Scene3D carries this beat because the planned visual is: day one fine",
    "purpose": "establish",
-   "why": "establish: wide + orbit, about 4-9 s (playbook camera/establish-wide-orbit); the line works as \"list-item\"",
+   "why": "establish: wide + orbit, about 4-9 s (playbook camera/establish-wide-orbit); the line works as \"list-item\", determined",
    "acting": {
     "function": "list-item",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "determined"
    },
    "camera": {
     "framing": "wide",
@@ -140,82 +197,121 @@
    "line_ids": [
     "L03"
    ],
-   "visual_intent": "day three hallucinations",
-   "shot_type": "character",
-   "component": "Scene3D",
+   "visual_intent": "emotion: extreme close-up as the hat flies off",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
    "props": {
-    "set": "studio",
-    "characters": [
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "wind": 2
+    },
+    "cast": [
      {
-      "variant": "stick",
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       0,
+       0.4
+      ],
       "pose": [
        [
         0,
-        "slump"
-       ],
-       [
-        0.8,
-        "panic"
+        "shock"
        ]
       ],
-      "mood": "scared"
+      "mood": [
+       [
+        0,
+        "scared"
+       ]
+      ],
+      "speaks": false
      }
     ],
-    "creatures": [
+    "props3d": [
      {
-      "kind": "cloud",
-      "x": 0.9,
-      "y": 1.5,
-      "z": 0.2,
-      "scale": 1.2,
-      "color": "#7a5cd1"
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": [
+       [
+        0,
+        2
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     },
+     {
+      "id": "hat",
+      "kind": "hat3d",
+      "path": [
+       [
+        0,
+        0,
+        1.8,
+        0.4
+       ],
+       [
+        1.6,
+        6,
+        5,
+        -2
+       ],
+       [
+        3,
+        12,
+        9,
+        -8
+       ]
+      ],
+      "spin": 8
      }
     ],
     "camera": {
-     "shot": "close",
-     "move": "orbit"
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "otto",
+     "movement": {
+      "type": "handheld",
+      "duration": "shot",
+      "why": "nervous energy as the hat goes",
+      "amplitude_cm": 1.4
+     }
     }
    },
    "anchors": [
     {
-     "name": "t",
+     "name": "a0",
      "line": "L03",
-     "word": "things"
+     "word": "Taller"
     }
    ],
-   "sfx": [
-    {
-     "type": "heartbeat",
-     "anchor": "t",
-     "gain": 0.5
-    }
-   ],
+   "overlays": [],
    "transition_out": {
-    "type": "whip",
-    "sound": "whoosh"
+    "type": "cut",
+    "sound": "none"
    },
-   "overlays": [
-    {
-     "type": "sticker",
-     "text": "DAY 3",
-     "color": "#F2C12E",
-     "rotate": 4,
-     "x": 320,
-     "y": 300
-    }
-   ],
-   "approach": "physical-3d",
-   "why_renderer": "Scene3D carries this beat because the planned visual is: day three hallucinations",
-   "purpose": "list-item",
-   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "purpose": "emotion",
+   "why": "emotion: extreme-close + push, about 0.9-1.6 s (playbook camera/emotion-extreme-closeup); the line works as \"list-item\", fear",
    "acting": {
     "function": "list-item",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "fear"
    },
    "camera": {
-    "framing": "medium",
-    "movement": "hold"
+    "framing": "extreme-close",
+    "movement": "push"
    }
   },
   {
@@ -223,64 +319,119 @@
    "line_ids": [
     "L04"
    ],
-   "visual_intent": "day ten collapse",
-   "shot_type": "character",
-   "component": "Scene3D",
+   "visual_intent": "explain: the neighbour points at the solid wall",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
    "props": {
-    "set": "studio",
-    "characters": [
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day"
+    },
+    "cast": [
      {
-      "variant": "stick",
-      "pose": "cower",
-      "mood": "sad",
-      "x": 0.2
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.4,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "shrug"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "sad"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "at": [
+       1.5,
+       0.7
+      ],
+      "pose": [
+       [
+        0,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false,
+      "flip": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 10,
+      "h": 3
      }
     ],
     "camera": {
-     "shot": "desk",
-     "move": "pull"
+     "framing": "medium",
+     "angle": "three-quarter",
+     "subject": "mabel",
+     "movement": {
+      "type": "dolly-push",
+      "duration": "shot",
+      "why": "explain: slow push while she makes the point"
+     }
     }
    },
    "anchors": [
     {
-     "name": "b",
+     "name": "a0",
      "line": "L04",
-     "word": "brain"
+     "word": "spin"
     }
    ],
-   "sfx": [
+   "overlays": [
     {
-     "type": "thud",
-     "anchor": "b",
-     "gain": 0.6
+     "type": "doodle",
+     "shape": "arrow",
+     "x": 760,
+     "y": 760,
+     "size": 220,
+     "rotate": -20,
+     "color": "#FF8A1F",
+     "anchor": "a0"
     }
    ],
    "transition_out": {
-    "type": "mask",
-    "sound": "swish"
+    "type": "cut",
+    "sound": "none"
    },
-   "overlays": [
-    {
-     "type": "sticker",
-     "text": "DAY 10",
-     "color": "#E5322D",
-     "rotate": -4,
-     "x": 320,
-     "y": 300
-    }
-   ],
-   "approach": "physical-3d",
-   "why_renderer": "Scene3D carries this beat because the planned visual is: day ten collapse",
-   "purpose": "reveal",
-   "why": "reveal: medium + whip, about 1.2-2.5 s (playbook camera/reveal-whip-hold); the line works as \"reveal\"",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", calm",
    "acting": {
-    "function": "reveal",
-    "gesture": "shock",
-    "expression": "neutral"
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "calm"
    },
    "camera": {
     "framing": "medium",
-    "movement": "whip"
+    "movement": "hold"
    }
   },
   {
@@ -288,41 +439,99 @@
    "line_ids": [
     "L05"
    ],
-   "visual_intent": "verdict",
-   "shot_type": "typography",
-   "component": "Stamp",
+   "visual_intent": "reveal: top-down, the gust behind the wall doubles",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
    "props": {
-    "text": "NOT OPTIONAL",
-    "color": "#E5322D",
-    "rotate": -7,
-    "size": 120
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "wind": 2.5
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.4,
+       0.3
+      ],
+      "pose": [
+       [
+        0,
+        "flail"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "shock"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": 3
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "high-angle",
+     "subject": "fence",
+     "movement": {
+      "type": "crane",
+      "duration": "shot",
+      "why": "reveal: rise so the wall and the wind behind it can be seen",
+      "from": {
+       "el": 18
+      },
+      "to": {
+       "el": 40
+      }
+     }
+    }
    },
    "anchors": [
     {
-     "name": "o",
+     "name": "a0",
      "line": "L05",
-     "word": "optional"
+     "word": "twice"
     }
    ],
-   "sfx": [
+   "overlays": [
     {
-     "type": "stamp",
-     "anchor": "o",
-     "gain": 0.7
+     "type": "dial",
+     "label": "2x",
+     "sub": "WIND BEHIND THE WALL",
+     "from": 0.2,
+     "to": 0.92,
+     "anchor": "a0",
+     "y": 1100,
+     "color": "#FF8A1F"
     }
    ],
    "transition_out": {
-    "type": "zoom",
-    "sound": "swish"
+    "type": "cut",
+    "sound": "none"
    },
-   "approach": "motion-graphics",
-   "why_renderer": "Stamp carries this beat because the planned visual is: verdict",
    "purpose": "payoff",
-   "why": "payoff: wide + pull, about 1.5-2.5 s (playbook camera/payoff-pull-back); the line works as \"payoff-line\"",
+   "why": "payoff: wide + pull, about 1.5-2.5 s (playbook camera/payoff-pull-back); the line works as \"payoff-line\", shock",
    "acting": {
     "function": "payoff-line",
     "gesture": "explain",
-    "expression": "neutral"
+    "expression": "shock"
    },
    "camera": {
     "framing": "wide",
@@ -334,27 +543,217 @@
    "line_ids": [
     "L06"
    ],
-   "visual_intent": "cta",
-   "shot_type": "typography",
-   "component": "EndCard",
+   "visual_intent": "payoff: the whole fence and the farmer fly away, pull-back",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
    "props": {
-    "headline": "Follow for more what ifs",
-    "accent": "what",
-    "cta": "Comment SLEEP",
-    "handle": "@reelstudio"
+    "world": "country-field",
+    "worldOpts": {
+     "time": "dusk",
+     "wind": 3
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       0,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "flail"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "scared"
+       ]
+      ],
+      "speaks": false,
+      "rise": {
+       "from": 1,
+       "dur": 2.6,
+       "height": 7,
+       "drift": 5
+      }
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -1.6
+      ],
+      "len": 9,
+      "h": 3,
+      "fly": {
+       "from": 1,
+       "dur": 2.6,
+       "lift": 7,
+       "drift": 5,
+       "spin": 0.8
+      }
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "low-angle",
+     "subject": "otto",
+     "movement": {
+      "type": "dolly-pull",
+      "duration": "shot",
+      "why": "payoff: pull back so the consequence is visible"
+     }
+    }
    },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L06",
+     "word": "gust"
+    }
+   ],
+   "overlays": [],
    "transition_out": {
-    "type": "fade",
+    "type": "cut",
     "sound": "none"
    },
-   "approach": "designed-ui",
-   "why_renderer": "EndCard carries this beat because the planned visual is: cta",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", excited",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "excited"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "cta: both stand by a sign that says LEAVE GAPS",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "dusk"
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "at": [
+       -1.5,
+       0.2
+      ],
+      "pose": [
+       [
+        0,
+        "cheer"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "happy"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "at": [
+       1.5,
+       0.2
+      ],
+      "pose": [
+       [
+        0,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false,
+      "flip": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "sign",
+      "kind": "roadsign",
+      "at": [
+       0,
+       -0.9
+      ],
+      "text": "LEAVE\nGAPS",
+      "bg": "#1E5B3A",
+      "fg": "#FFFFFF",
+      "w": 2,
+      "h": 1.2
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "subject": "sign",
+     "movement": {
+      "type": "dolly-push",
+      "duration": "shot",
+      "why": "cta: settle on the sign"
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L07",
+     "word": "Comment"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "bubble",
+     "text": "Comment FENCE",
+     "emoji": "💬",
+     "size": 40,
+     "x": 540,
+     "y": 1040,
+     "anchor": "a0"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
    "purpose": "cta",
-   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\"",
+   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\", happy",
    "acting": {
     "function": "cta",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "happy"
    },
    "camera": {
     "framing": "medium",

@@ -1,0 +1,81 @@
+{
+ "id": "stickman-world",
+ "name": "Stickman in a 3D world (story)",
+ "family": "3d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9"
+ ],
+ "description": "A flat cartoon stickman (big round head, thin limbs, a hat) standing inside a lit real-time 3D diorama: rolling grass, wheat, hills, a barn, a windmill, sun rays, fog. Signs belong to the world. The camera is the star: drone orbit, low tracking, close-ups, top-down, pull-back payoff. Physics or psychology twist stories in 25 to 60 seconds.",
+ "tokens": {
+  "colors": {
+   "bg": "#CBEAF8",
+   "ink": "#17171D",
+   "ink2": "#17171D",
+   "muted": "#7a746a",
+   "card": "#FFFFFF",
+   "accent": "#FF8A1F",
+   "accentSoft": "#E8512A33",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1300,
+   "right_margin": 120,
+   "content_top": 260,
+   "content_bottom": 1340
+  },
+  "chrome": "sticker"
+ },
+ "rules": [
+  "The actor is a flat sprite in a lit 3D world: it takes the scene light, casts a projected shadow and always faces the camera.",
+  "Text that belongs to the world (signs) is on a prop, never an overlay.",
+  "Camera purpose per shot comes from foundation/playbooks/camera.json: hook push-in, establish orbit, reveal whip then hold, emotion extreme close-up, payoff pull-back.",
+  "Captions: thin white lowercase, one to three words, y about 68 percent; one yellow word when the line turns.",
+  "Day to dusk to night grade across the acts."
+ ],
+ "components": [
+  "Stage3D",
+  "BigStat",
+  "Stamp",
+  "CommentBox"
+ ],
+ "camera_language": "Wide to show the whole body acting (the silhouette is the performance); medium for talking; close-up on the face for the joke or the reaction. The camera stays low-key: moves are rare and each one is a reveal.",
+ "typography": "Heavy sans, black on light.",
+ "transitions": [
+  "cut",
+  "whip",
+  "zoom"
+ ],
+ "audio_direction": "bed, boing/pop on gags, thud on falls",
+ "pitfalls": [
+  "Ball joints stack at the hips in wide poses: keep legs at least 18 degrees apart.",
+  "Over-the-shoulder crops the head: acceptable, but keep the hand and the object in the lower two thirds.",
+  "High-key lighting hazes distant shots: lower exposure and raise vignette."
+ ],
+ "defaults": {
+  "captions": "soft-lower",
+  "music": "bed",
+  "stage3d": {
+   "world": "country-field",
+   "worldOpts": {
+    "time": "day"
+   },
+   "cast": {},
+   "look": {
+    "exposure": 1.02,
+    "bloom": 0.14,
+    "bloomThreshold": 0.97
+   }
+  }
+ },
+ "effects": {}
+}

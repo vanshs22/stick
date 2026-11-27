@@ -1,0 +1,63 @@
+{
+ "title": "The fence that fought the wind",
+ "language": "en",
+ "voice": "am_michael",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "A farmer built a fence to stop the wind, and it made everything worse.",
+   "beat": "hook",
+   "emotion": "curious",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L02",
+   "text": "His hat kept blowing away, so he built it taller.",
+   "beat": "step",
+   "emotion": "determined",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L03",
+   "text": "Taller. Then taller again. And still the hat flew.",
+   "beat": "step",
+   "emotion": "fear",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L04",
+   "text": "Because a solid wall doesn't stop wind. It makes it spin.",
+   "beat": "step",
+   "emotion": "calm",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L05",
+   "text": "The air curls over the top and slams down behind it, twice as hard.",
+   "beat": "proof",
+   "emotion": "shock",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L06",
+   "text": "Then one gust grabbed the whole fence, farmer included.",
+   "beat": "twist",
+   "emotion": "excited",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L07",
+   "text": "The fix? Leave gaps. Comment fence and I'll send you the numbers.",
+   "beat": "cta",
+   "emotion": "happy",
+   "emphasis": [],
+   "visual_hint": ""
+  }
+ ]
+}

@@ -249,5 +249,6 @@ export function neonStage(E, o = {}) {
       dust.forEach((m, i) => { m.position.set(-4 + rnd(i) * 8 + Math.sin(t * 0.3 + i) * 0.2, 0.3 + ((rnd(i + 3) * 6 + t * (0.05 + rnd(i) * 0.08)) % 6), -3 + rnd(i + 9) * 6); }); } };
 }
 
-export const WORLDS = { 'neon-stage': neonStage, 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
+import { countryField } from './worlds_country.js';
+export const WORLDS = { 'country-field': countryField, 'neon-stage': neonStage, 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
 export function buildWorld(name, E, opts) { const b = WORLDS[name]; if (!b) throw new Error(`unknown world "${name}". Known: ${Object.keys(WORLDS).join(', ')}`); return b(E, opts || {}); }

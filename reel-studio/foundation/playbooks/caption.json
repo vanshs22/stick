@@ -127,7 +127,7 @@
     ],
     "lines": 2,
     "fade_ms": 160,
-    "preset": "phrase",
+    "preset": "soft-lower",
     "content": [
      "story",
      "dialogue",

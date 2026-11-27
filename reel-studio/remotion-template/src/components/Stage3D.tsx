@@ -51,7 +51,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
         if (wd.reflect) [...actors, ...props].forEach((a: any) => { if (['keywall', 'neonring', 'screen'].includes(a.kind)) return; const copy = a.group.clone(true), wrap = new THREE.Group(); wrap.scale.y = -1; wrap.add(copy);
           copy.traverse((o: any) => { if (o.isMesh) { const fade = (m: any) => { const c = m.clone(); c.transparent = true; c.opacity = (m.opacity ?? 1) * 0.2; c.depthWrite = false; return c; }; o.material = Array.isArray(o.material) ? o.material.map(fade) : fade(o.material); o.castShadow = false; o.receiveShadow = false; o.renderOrder = 0; } });
           wd.scene.add(wrap); mirrors.push({src: a.group, copy}); });
-        const cam = new THREE.PerspectiveCamera(30, width / height, 0.05, 120);
+        const cam = new THREE.PerspectiveCamera(30, width / height, 0.05, 520);
         S.current = {E, wd, actors, props, cam, mirrors};
       }
       const {E, wd, actors, props, cam, mirrors} = S.current;
@@ -68,12 +68,13 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
       [...actors, ...props].forEach((a: any) => (subjects[a.id] = a.subject()));
       const c = cameraAt(camera, subjects, lt, d, width / height);
       cam.fov = c.fov; cam.aspect = width / height; cam.position.set(...(c.pos as [number, number, number])); cam.up.set(0, 1, 0); cam.lookAt(...(c.look as [number, number, number])); if (c.roll) cam.rotateZ((c.roll * Math.PI) / 180); cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
+      actors.forEach((a: any) => a.faceCamera?.(cam));
       E.render(wd.scene, cam, {...wd.look, ...look, focus: c.focusDist, aperture: look?.aperture ?? c.aperture, t});
       };
       doRender();
     } finally {
       // screen props load their picture asynchronously: hold the frame until every image is in, then draw it again
-      const waits = ((S.current?.props || []) as any[]).map((q) => q.ready).filter(Boolean);
+      const waits = [...((S.current?.props || []) as any[]), ...((S.current?.actors || []) as any[])].map((q) => q.ready).filter(Boolean);
       if (waits.length && doRender && !S.current.loaded) Promise.all(waits).then(() => { S.current.loaded = true; doRender && doRender(); continueRender(h); }).catch(() => continueRender(h)); else continueRender(h);
     }
   }, [t]);
