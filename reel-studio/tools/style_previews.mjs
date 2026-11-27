@@ -14,7 +14,7 @@ const SRC = {
   'stylized-3d-presenter': { ex: 'experiment-presenter', shots: 'S01,S02,S05', status: 'stage3d' }, 'stickman-3d': { ex: 'experiment-stick', shots: 'S01,S02,S05', status: 'stage3d' },
   'roblox-inspired': { ex: 'experiment-roblox', shots: 'S01,S02,S05', status: 'stage3d' }, 'noir-3d': { ex: 'experiment-noir', shots: 'S01,S02,S05', status: 'stage3d' },
   'voxel-studio': { ex: 'voxel-howto', shots: 'S01,S02,S05', status: 'legacy-3d' },
-  'sketchy-stickman': { ex: 'sketchy-stickman-proof', shots: 'S01,S02,S04', status: '2d' }, 'facecam-overlay': { ex: 'facecam-overlay-proof', shots: 'S01,S02,S03', status: '2d' },
+  'sketchy-stickman': { ex: 'sketchy-stickman-proof', shots: 'S01,S02,S04', status: '2d' }, 'facecam-overlay': { ex: 'facecam-overlay-proof', shots: 'S01,S02,S03', status: '2d' }, 'doodle-explainer': { ex: 'doodle-explainer-proof', shots: 'S01,S03,S05', status: '2d' },
 };
 const packs = (opt('packs') ? opt('packs').split(',') : fs.readdirSync(path.join(TK, 'style-packs')).filter((d) => fs.existsSync(path.join(TK, 'style-packs', d, 'style.json')) && d !== '_template'));
 let nm = process.env.REEL_NODE_MODULES;

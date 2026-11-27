@@ -1,0 +1,113 @@
+{
+ "id": "doodle-explainer",
+ "name": "Doodle Explainer",
+ "family": "2d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9"
+ ],
+ "schema_version": 1,
+ "description": "A1 and A2 combined: cream paper beats and near-black beats in one film, one coral accent, a drawn host (character x or y) in the corner, cards in the upper two thirds, and hand-drawn doodles (circles, underlines, arrows, checks, spark lines, icons) that draw themselves on the spoken word to explain the story.",
+ "tokens": {
+  "colors": {
+   "bg": "#F0EFEA",
+   "ink": "#131311",
+   "ink2": "#3D3D3A",
+   "muted": "#8A8D95",
+   "card": "#FFFFFF",
+   "accent": "#E8481C",
+   "accentSoft": "#E8481C33",
+   "good": "#3F9A5B",
+   "bad": "#C94A3A"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1230,
+   "right_margin": 120,
+   "content_top": 232,
+   "content_bottom": 1185
+  },
+  "chrome": "sticker",
+  "presenter": {
+   "character": "x",
+   "x": 760,
+   "y": 1920,
+   "scale": 1
+  },
+  "bgs": {
+   "dark": "#0D0C12",
+   "panel": "#141C1F",
+   "green": "#10241a",
+   "paper": "#F0EFEA"
+  }
+ },
+ "effects": {
+  "dots": 0.35,
+  "grain": 0.05
+ },
+ "rules": [
+  "Alternate paper and dark beats (shot bg 'dark') inside one film; one coral accent for the key word of each beat.",
+  "The host is character x or y (presenter.look.character per shot, or tokens.presenter.character for the pack); the pose follows what is said: explaining for a concept, pointing at a card, thinking for a question, approval at the payoff.",
+  "Every beat gets at least one doodle that draws on a spoken word: scribble (circle, underline, box) around what matters, doodle (arrow, check, sparks, icon) for what it means.",
+  "One card in the upper 60 percent; doodles sit on it, never on the host."
+ ],
+ "components": [
+  "TitleCard",
+  "KineticList",
+  "Terminal",
+  "NotebookPage",
+  "BrowserWindow",
+  "Checklist",
+  "BigStat",
+  "Stamp",
+  "CommentBox",
+  "EndCard"
+ ],
+ "native_moves": [
+  "an arrow drawing from the host toward the card it explains",
+  "a circle drawn around the number the voice says"
+ ],
+ "variation_space": {
+  "structures": [
+   "claim, three doodled proofs, comment prompt",
+   "before and after of one workflow with a drawn arrow between",
+   "a list that is checked off line by line with drawn checks"
+  ],
+  "openings": [
+   "the host points at the claim card",
+   "a doodled question mark over the title",
+   "the result number first, circled"
+  ],
+  "endings": [
+   "approval pose with sparks",
+   "comment-keyword card with a drawn arrow",
+   "a looped first card"
+  ]
+ },
+ "camera_language": "Locked frame; the motion is the host's pose swaps, the cards changing state and the doodles drawing on.",
+ "typography": "word-pop captions; mono eyebrow above cards; serif italic for the accent word.",
+ "transitions": [
+  "cut",
+  "wipe"
+ ],
+ "audio_direction": "Steady low bed at -22 dB, a soft pen scratch under each doodle, a tick on each card change.",
+ "pitfalls": [
+  "Do not draw doodles over the host's face.",
+  "Do not use more than three doodles on screen at once.",
+  "Do not mix coral with a second accent colour."
+ ],
+ "references": [
+  "docs/styles/STYLES.md sections A1 and A2"
+ ],
+ "defaults": {
+  "captions": "word-pop",
+  "music": "bed"
+ }
+}

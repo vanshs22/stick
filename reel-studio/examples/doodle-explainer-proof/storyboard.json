@@ -1,0 +1,475 @@
+{
+ "style_pack": "doodle-explainer",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "headline",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "props": {
+    "text": "Make videos with React code",
+    "accent": "React"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.15,
+     "why": "on-screen event: headline"
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   },
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy",
+    "look": {
+     "character": "x"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 01 \u00b7 the idea",
+     "right": "REACT"
+    },
+    {
+     "type": "doodle",
+     "shape": "sparks",
+     "x": 900,
+     "y": 420,
+     "size": 170,
+     "at": 0.4
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "TitleCard carries this beat because the planned visual is: headline"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "three negatives pop in",
+   "shot_type": "typography",
+   "component": "KineticList",
+   "props": {
+    "items": [
+     "No editor",
+     "No timeline",
+     "No credits"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "item0",
+     "line": "L02",
+     "word": "editor"
+    },
+    {
+     "name": "item1",
+     "line": "L02",
+     "word": "timeline"
+    },
+    {
+     "name": "item2",
+     "line": "L02",
+     "word": "credits"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "item0"
+    },
+    {
+     "type": "pop",
+     "anchor": "item1"
+    },
+    {
+     "type": "pop",
+     "anchor": "item2"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm",
+    "look": {
+     "character": "x"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 02 \u00b7 why",
+     "right": "$0"
+    },
+    {
+     "type": "scribble",
+     "kind": "underline",
+     "x": 540,
+     "y": 960,
+     "w": 560,
+     "h": 50,
+     "anchor": "item2"
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "KineticList carries this beat because the planned visual is: three negatives pop in"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03",
+    "L04"
+   ],
+   "visual_intent": "terminal creates the project",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "npx create-video@latest",
+     "> Project created"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "go",
+     "line": "L04",
+     "word": "create"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "go",
+     "dur": 1.2
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "calm",
+    "look": {
+     "character": "y"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 03 \u00b7 step one",
+     "right": "STEP 1/3"
+    },
+    {
+     "type": "step-chip",
+     "n": 1,
+     "of": 3,
+     "anchor": "go"
+    },
+    {
+     "type": "cursor",
+     "from": [
+      260,
+      900
+     ],
+     "to": [
+      520,
+      760
+     ],
+     "anchor": "go"
+    },
+    {
+     "type": "doodle",
+     "shape": "arrow",
+     "x": 560,
+     "y": 880,
+     "size": 240,
+     "rotate": 160,
+     "anchor": "go"
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: terminal creates the project"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "a scene is a component",
+   "shot_type": "diagram",
+   "component": "NotebookPage",
+   "props": {
+    "title": "A scene is a component",
+    "bullets": [
+     "text",
+     "shapes",
+     "motion"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "b0",
+     "line": "L05",
+     "word": "describe"
+    },
+    {
+     "name": "b1",
+     "line": "L05",
+     "word": "scene"
+    },
+    {
+     "name": "b2",
+     "line": "L05",
+     "word": "component"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "b0"
+    },
+    {
+     "type": "tick",
+     "anchor": "b1"
+    },
+    {
+     "type": "tick",
+     "anchor": "b2"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "pose": "think",
+    "mood": "calm",
+    "look": {
+     "character": "y"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 04 \u00b7 step two",
+     "right": "STEP 2/3"
+    },
+    {
+     "type": "step-chip",
+     "n": 2,
+     "of": 3,
+     "anchor": "b0"
+    },
+    {
+     "type": "doodle",
+     "shape": "bulb",
+     "x": 880,
+     "y": 520,
+     "size": 190,
+     "anchor": "b2"
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "NotebookPage carries this beat because the planned visual is: a scene is a component"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "render command",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "npx remotion render",
+     "> out/video.mp4 written"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "r",
+     "line": "L06",
+     "word": "render"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "r",
+     "dur": 1
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "happy",
+    "look": {
+     "character": "x"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 05 \u00b7 step three",
+     "right": "STEP 3/3"
+    },
+    {
+     "type": "step-chip",
+     "n": 3,
+     "of": 3,
+     "anchor": "r"
+    },
+    {
+     "type": "progress",
+     "name": "video.mp4",
+     "anchor": "r",
+     "x": 540,
+     "y": 1180
+    },
+    {
+     "type": "scribble",
+     "kind": "circle",
+     "x": 690,
+     "y": 530,
+     "w": 640,
+     "h": 120,
+     "anchor": "r"
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: render command"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "licence verdict",
+   "shot_type": "typography",
+   "component": "Stamp",
+   "props": {
+    "text": "Free for small teams",
+    "color": "#4E9A5B",
+    "size": 90
+   },
+   "anchors": [
+    {
+     "name": "s",
+     "line": "L07",
+     "word": "free"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "stamp",
+     "anchor": "s"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "bg": "dark",
+   "presenter": {
+    "pose": "open",
+    "mood": "happy",
+    "look": {
+     "character": "y"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 06 \u00b7 the licence",
+     "right": "CHECK IT"
+    },
+    {
+     "type": "doodle",
+     "shape": "check",
+     "x": 540,
+     "y": 980,
+     "size": 220,
+     "anchor": "s",
+     "color": "#C8F848"
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "Stamp carries this beat because the planned visual is: licence verdict"
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L08",
+    "L09"
+   ],
+   "visual_intent": "comment call to action",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "REACT"
+   },
+   "anchors": [
+    {
+     "name": "k",
+     "line": "L08",
+     "word": "REACT"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "k",
+     "offset": 0.4
+    }
+   ],
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy",
+    "look": {
+     "character": "x"
+    }
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 07 \u00b7 get it",
+     "right": "COMMENT"
+    },
+    {
+     "type": "hearts",
+     "x": 800,
+     "y": 1000,
+     "anchor": "k"
+    },
+    {
+     "type": "doodle",
+     "shape": "arrow",
+     "x": 540,
+     "y": 1080,
+     "size": 220,
+     "rotate": 90,
+     "anchor": "k"
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action"
+  }
+ ]
+}

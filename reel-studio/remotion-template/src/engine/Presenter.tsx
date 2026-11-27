@@ -1,5 +1,6 @@
 import React from 'react';
-import {useCurrentFrame, useVideoConfig} from 'remotion';
+import {Img, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {CHARACTERS, spriteFor} from './character-map';
 import {H, LANDSCAPE, PRESENTER, W} from './tokens';
 import {talkAt} from './time';
 import {clamp} from './anim';
@@ -51,6 +52,11 @@ const Hand: React.FC<{p: P2; ang: number; kind: Kind; skin: string; sk2: string;
 
 export const Presenter: React.FC<{pose?: string | [number, string][]; mood?: string; look?: Record<string, any>}> = ({pose = 'idle', mood = 'calm', look}) => {
   const frame = useCurrentFrame(), {fps} = useVideoConfig(), t = frame / fps, P = {...(PRESENTER || {}), ...(look || {})}, ta = talkAt(t);
+  if (CHARACTERS.includes(P.character)) {   // a drawn character from public/characters/<x|y>/: sprite swaps on pose, mood and speech, plus breathing, sway and a pop on each swap
+    const first = typeof pose === 'string' ? pose : pose[0][1], sp = spriteFor(first, mood, ta > 0.25), size = 560 * (P.scale || 1) * (LANDSCAPE ? 0.85 : 1), px = LANDSCAPE ? W * 0.2 : P.x ?? 740, py = LANDSCAPE ? H * 0.98 : P.y ?? H;
+    const pop = 1 + 0.03 * Math.exp(-t * 9) * Math.cos(t * 30), breath = 1 + Math.sin(t * 1.9) * 0.008;
+    return <Img src={staticFile(`characters/${P.character}/${sp}.png`)} style={{position: 'absolute', left: px - size / 2, top: py - size * 0.76, width: size, transformOrigin: '50% 100%', transform: `rotate(${Math.sin(t * 0.8) * 0.6}deg) scale(${pop * breath})`}} />;
+  }
   const fc = FACE[mood] || FACE.calm, [aL, aR] = arms(pose, t);
   const skin = P.skin || '#E8B48C', sk2 = shade(skin, -0.16), sk3 = shade(skin, -0.3), hair = P.hair || '#2a2019', jacket = P.jacket || '#5c5348', jSh = shade(jacket, -0.22), jHi = shade(jacket, 0.1), shirt = P.shirt || '#f1eee8', ink = '#1b1612';
   const breath = Math.sin(t * 1.9) * 4, sway = Math.sin(t * 0.8) * 8, tilt = Math.sin(t * 0.9) * 1.2 + (ta > 0.1 ? Math.sin(t * 8.5) * 0.9 : 0), nod = ta > 0.1 ? Math.sin(t * 6.3) * 4 : 0;

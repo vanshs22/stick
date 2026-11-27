@@ -9,7 +9,7 @@ import {REMOCN} from '../data/remocn-registry';
 
 /**
  * Graphics layered ON TOP of a shot's main component, each timed to a spoken word (anchor) or `at` seconds.
- * types: label, step-chip, step-label, sticker, tags, callout, cursor, scribble, hearts, calendar, waveform, warning, progress, backword
+ * types: label, step-chip, step-label, sticker, tags, callout, cursor, scribble, doodle, hearts, calendar, waveform, warning, progress, backword
  * Positions are pixels on the 1080x1920 portrait canvas (scaled to the frame in landscape; fractions of the frame work in both) (x = centre). Every overlay fades out with its shot.
  */
 const shadow = '0 8px 24px rgba(20,20,19,0.18)';
@@ -96,6 +96,18 @@ const One: React.FC<{o: Overlay; shot: Shot}> = ({o, shot}) => {
       return <><svg width={60} height={72} viewBox="0 0 30 36" style={{position: 'absolute', left: x, top: y, transform: `scale(${1 - 0.15 * Math.sin(click * Math.PI)})`, filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))'}}><path d="M2 2 L2 28 L9 21 L14 33 L19 31 L14 19 L24 19Z" fill="#fff" stroke="#141413" strokeWidth={2.4} strokeLinejoin="round" /></svg>
         {k < 1 ? [0, 1, 2].map((i) => <div key={i} style={{position: 'absolute', left: x - 36 - i * 18, top: y + 20 + i * 9, width: 40 - i * 8, height: 4, borderRadius: 2, background: '#141413', opacity: 0.5 - i * 0.12}} />) : null}
         {click > 0 && click < 1 ? <div style={{position: 'absolute', left: x - 6, top: y - 6, width: 20 + click * 90, height: 20 + click * 90, marginLeft: -(click * 45), marginTop: -(click * 45), borderRadius: '50%', border: `4px solid ${C.accent}`, opacity: 1 - click}} /> : null}</>; }}</T>;
+    // ---- hand-drawn pictures that draw themselves on the spoken word: arrow, check, sparks and simple icons (circle, underline, box, strike: use `scribble`) ----
+    case 'doodle': return <T o={o} shot={shot}>{({lt, s}) => {
+      const D: Record<string, string[]> = {
+        arrow: ['M10 90 C60 20 140 20 190 70', 'M150 40 L192 72 L146 96'], check: ['M20 70 L70 115 L180 15'], sparks: ['M100 10 L100 50', 'M40 30 L68 58', 'M160 30 L132 58'],
+        bulb: ['M100 20 C50 20 40 85 75 110 L75 135 L125 135 L125 110 C160 85 150 20 100 20 Z', 'M80 155 H120', 'M88 175 H112'], rocket: ['M100 10 C150 50 150 120 125 150 L75 150 C50 120 50 50 100 10 Z', 'M100 70 m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0', 'M75 150 L45 185 L80 170', 'M125 150 L155 185 L120 170'],
+        gear: ['M100 55 m-35 0 a35 35 0 1 0 70 0 a35 35 0 1 0 -70 0', 'M100 15 V35 M100 135 V155 M20 85 H40 M160 85 H180 M44 29 L58 43 M156 29 L142 43 M44 141 L58 127 M156 141 L142 127'], code: ['M70 30 L20 90 L70 150', 'M130 30 L180 90 L130 150', 'M115 20 L85 160'],
+        chart: ['M20 160 H190', 'M20 20 V160', 'M45 160 V110 H75 V160', 'M95 160 V70 H125 V160', 'M145 160 V30 H175 V160'], clock: ['M100 90 m-70 0 a70 70 0 1 0 140 0 a70 70 0 1 0 -140 0', 'M100 90 V40', 'M100 90 L135 110'], lock: ['M45 90 H155 V160 H45 Z', 'M65 90 V60 C65 15 135 15 135 60 V90', 'M100 115 V135'],
+      };
+      const size = o.size || 220, k = p(lt, s, o.dur || 0.7, E.outCubic), col = o.color || '#E8481C', paths = D[o.shape] || D.arrow, n = paths.length;
+      return <svg width={size} height={size * 0.95} viewBox="0 0 200 190" style={{...pos(o, 540, 700), overflow: 'visible', transform: `translate(-50%, -50%) rotate(${o.rotate || 0}deg)`}}>
+        {paths.map((d, i) => { const seg = clamp((k * n - i) / 1); return <path key={i} d={d} pathLength={1} fill="none" stroke={col} strokeWidth={o.strokeWidth || 9} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={1} strokeDashoffset={1 - seg} />; })}
+      </svg>; }}</T>;
     case 'scribble': return <T o={o} shot={shot}>{({lt, s}) => {
       const w = o.w || 300, h = o.h || 120, k = p(lt, s, 0.55, E.outExpo), col = o.color || '#E5322D', kind = o.kind || 'circle', inner = <div style={{width: w, height: h}} />;
       const common = {color: col, progress: k, strokeWidth: o.strokeWidth || 7};

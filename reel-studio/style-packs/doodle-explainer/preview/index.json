@@ -1,0 +1,11 @@
+{
+ "pack": "doodle-explainer",
+ "status": "2d",
+ "example": "doodle-explainer-proof",
+ "shots": [
+  "S01",
+  "S03",
+  "S05"
+ ],
+ "rendered_at": "2026-11-27T18:44:51.897Z"
+}

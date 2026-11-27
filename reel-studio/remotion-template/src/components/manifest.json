@@ -796,6 +796,7 @@
         "y": "px",
         "anchor": "word"
       }
-    }
+    },
+    "doodle": "{shape:'arrow'|'check'|'sparks'|'bulb'|'rocket'|'gear'|'code'|'chart'|'clock'|'lock', x, y, size, rotate, color, strokeWidth, dur, anchor}: a hand-drawn picture that draws itself on the spoken word. For circle, underline, box, strike use scribble."
   }
 }
