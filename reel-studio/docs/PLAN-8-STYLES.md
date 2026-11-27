@@ -1,0 +1,54 @@
+# Plan: 8 improved styles in our system (not copies)
+
+Inputs: `docs/styles/STYLE-SPECS-27.md` (what the 27 references do), `LEARNINGS-27.md` (numbers, hooks, CTA). Goal: each of the user's 8 styles ships as a data pack on one shared foundation, looks like a better sibling of the reference (same technique, higher polish, our own characters, palette and names), and passes the scored critic loop.
+
+## Where we start (already in the zip)
+- 21 style packs. Closest to the 8: facecam-overlay (1), stickman-3d / inkbeat sprite (2), sketchy-stickman (3), neon-dashboard + editorial-notebook + doodle-explainer (4, 8), roblox-inspired + voxel-explainer + voxel-studio (6), stylized-3d-presenter + pixar-soft + claude-minions (7). No pack for style 5.
+- Engine: 26 overlay types, Presenter v2 + x/y sprites, SDF human with 20+ named gestures and emotion data, Kokoro and Chatterbox voices (emotion control), prosody meter, mood_pick for music, build_cues for SFX, camera-grammar skill + `cinema.js` (12 framings, 8 angles, 14 moves), scored critic loop, originality gate, GPU tiers.
+
+## Shared upgrades (one build, all 8 styles use it)
+**A. Camera director (data + rules, `foundation/camera`).** Turn the measured behaviour into a rule table the storyboard reads: per shot *purpose* → framing, angle, move, duration. Examples from the references: hook = tight push-in or punch-in (0.5-1.2 s), establishing = wide drone/orbit 4-9 s (style 2), reveal = whip or snap zoom then hold, emotion beat = extreme close-up on eyes/brows (style 3, 5), explaining = medium + slow 3-5 % push, listing = long hold with in-frame reveals every 2 s (style 4), payoff = pull-back or top-down, never two equal-length shots in a row, no static shot longer than the style's max hold. Per-style move mix and cut rate come from the 27 DNAs (cuts/10 s: 0.3 board, 0.8 split-host, 2.9 thinking, 3.5-4 stickman/face/minion, 6.3 Roblox). Checker already exists (`check_cinematography`); extend it with the purpose table.
+**B. Overlay brain with keyword matching.** Today it picks devices by word kind. Add: (1) a lexicon mapping script phrases → overlay *template + params* (number → count-up/price tag, "faster/10x" → speed dial, "install/command" → terminal typing, "free" → FREE stamp, "comment X" → comment-box CTA, "stars/repos" → star jar/repo card, "step N" → step card, a person/brand → profile card, "days/players" → HUD); (2) the anchor on the exact spoken word (±150 ms) from Whisper word times; (3) a variety rule (no template twice in 6 s, max 4 on screen); (4) per-style skins (colour, font, corner radius). New templates from the references: count-up, speed dial, device list + tags, hub-and-spoke, step card, terminal typing, price→FREE stamp, comment CTA, follow card, HUD, screen-in-screen, bar steps, star jar, head counter, diegetic sign prop, unit comparison.
+**C. Captions that are not generic (data presets, `captions.json`).** Six named modes: *seam-pill mono caps* (1), *1-word bounce, one yellow keyword, thick outline* (3, 6), *sentence glow, soft shadow, no box* (2, 7), *keyword box* (green/orange rounded box behind the emphasis word, 8, 6-voxel), *kicker + headline* (grey lead-in line + huge punch line, 4), *side-aligned quoted dialogue* (5). Our improvements: keyword choice by a scorer (numbers, negations, brand names, verbs of change) instead of random; per-word timing from Whisper words, 80-120 ms early; emphasis word gets a one-time scale-in + colour, not constant motion; never covers the face box or the overlay focus point (pixel critic); line breaks at phrase boundaries; font pairing per style (one display + one text face), no default system look.
+**D. Voice and acting (the 'not unnatural' part).** Script lines carry an `emotion` (valence/arousal + a tag: curious, alarmed, smug, deadpan, tender...). Voice: Chatterbox when a GPU/time allows (exaggeration/cfg per emotion, optional 10 s reference clip so it is not the stock timbre), Kokoro as the fast fallback with per-line speed/pause control and sentence-level synthesis; distinct voice per character in dialogue styles (3, 5-silent, 7); prosody meter gate (pitch range ≥ 6.5 st, loudness dynamics, varied pauses) with an automatic re-read of flat lines. Face/body: emotion → mouth shape set, brows, eye-dart and blinks (every 3-5 s, long blink on beats), head tilt on questions, weight shift, hand gesture chosen by *sentence function* (list item → count on fingers/point, contrast → two-hand split, emphasis → beat gesture on the keyword, question → palm up, uncertainty → shrug, reveal → both hands open), gesture on the keyword time, return to rest between sentences. The 20+ named gestures exist; add the sentence-function → gesture mapper and apply it to sprite hosts (x/y poses) and the SDF human.
+**E. Music and SFX choice.** Music: pick by beat emotion with tempo from the DNAs (108-144 BPM by style), bed -22 to -28 dB under voice (references: music well under), duck 4-6 dB under speech, swell on the payoff, none during dialogue-silent beats of style 5 except an ambient pad. SFX: density and cut-sync as style parameters (0.3 cuts/10 s board: 2-3 hits per 10 s on element pops; face+overlay: 1.5-6; Roblox: whoosh on every cut + stings; style 5: almost none), types limited per style (whoosh, click, ding, pop, thud, riser), each placed on the *visual event* within 80 ms (existing `sfx_sync`), gains varied ±2 dB, never the same sample twice in a row. Library: our CC0 pack + generated stings; no unlicensed music.
+**F. Layout foundation.** Five layouts as data: `split-top-overlay` (40/60), `split-host` (70/30), `full-3d`, `board`, `two-faces`. Safe zones per layout; captions and overlays obey zones.
+**G. Series/HUD support.** `series` block (title, part n, HUD values per shot) for style 3.
+
+## The 8 styles: target and what changes
+| # | style | start from | our improved version (not a copy) |
+|---|---|---|---|
+| 1 | face + overlay above | facecam-overlay | Different mascot and palette, top-card templates driven by keyword lexicon, seam-aware caption, cutaway/face scheduler with 3 density levels, subtle face push + punch-in on emphasis. Face cam source = user's footage or our presenter. |
+| 2 | stickman + 3D background | stickman-3d, inkbeat sprite mode | Our x/y sprites as billboard actors in lit 3D sets, diegetic sign props, drone/POV/top-down rigs, grade shift per act (day→dusk→night), rim light on the actor so the sprite sits in the scene. |
+| 3 | 2D stickman | sketchy-stickman | Rig v2 faces + original cast, stakes HUD, screen-in-screen shot type, eye-only close-ups on emotion beats, series end card, multi-voice dialogue. |
+| 4 | whiteboard / blackboard explainer | neon-dashboard, editorial-notebook, doodle-explainer | One long board shot per beat with scripted reveals every ~2 s, count-ups, before/after, hand-drawn doodle accents, unit-comparison template, kicker+headline captions, white-grid and dark variants. |
+| 5 | two-person deep thinking | new `two-faces` pack | New painted pair (ours), 3 framings, eye-dart/blink/breath, speaker-side quoted captions, hold time from line length, ambient pad, payoff line scale-up. No voice by default; optional whisper-quiet voice. |
+| 6 | Roblox story | roblox-inspired, voxel-studio | Original blocky cast, head counters, diegetic signs, keyword-box captions, spotlight reveal, top-down desk cam, fastest cutting with whoosh/sting SFX, callback/twist ending template. |
+| 7 | Claude minion + round-faced 3D person | claude-minions, stylized-3d-presenter | Original mascot (ours) + round-faced chibi, step-card overlays over a DOF-blurred plate, speaker tag, two distinct voices with emotion, joke→tool→CTA script template, gradient CTA card. |
+| 8 | host below + explainer above | doodle-explainer + Presenter x/y | `split-host` layout, 7+ poses chosen by sentence function, panel swap per sentence (editorial-cream, neon-dark), section chip + counter, timer widget, keyword highlight box captions. |
+
+## Phases (each ends with a visible proof and tests; credits kept low by rendering at the `preview` tier first)
+0. **Foundation data** (camera purpose table, caption presets, SFX/music style params, layout definitions, gesture mapper). Selftests for each. Update schemas.
+1. **Overlay library + keyword brain.** New templates, lexicon, anchor timing, variety rule, per-style skins. Selftests with planted defects (late overlay, wrong device, repeat).
+2. **Voice/acting.** Emotion tags in script schema, Kokoro/Chatterbox routing, prosody gate with auto re-read, sentence-function gestures. Selftest: flat read fails, directed read passes.
+3. **Styles in this order (cheapest wins first):** 8 → 1 → 4 (all overlay-heavy, mostly existing) → 3 → 5 (small new pack) → 7 → 6 → 2 (3D heavy). Each style: update pack data, `upgrade.json` (keep/improve/change, ≥4 of 6 axes differ), 10 s proof via `prep_test.mjs`, 12-frame contact sheet vs the reference sheet, scorecard ≥ 88.
+4. **Close the loop.** `ref compare` on each proof vs its reference DNA (cuts/10 s ±20 %, shot median ±25 %, LUFS ±1.5, caption y ±5, move mix L1 ≤ 0.3), fix plan, 3 rounds max.
+5. **Gate with you:** after each pair of styles I show contact sheets (and, if you want, 10 s clips); you approve before the next pair.
+
+## What each phase costs (credits)
+Phases 0-2 are code + selftests (no rendering). Style work renders 10 s proofs at the 0.25-0.5 tier, 12-frame sheets only. Full-resolution renders only after you approve a proof. I will not re-analyse the 27 videos again.
+
+## Quality bar (checked automatically)
+Scorecard ≥ 88 overall with no blocker; captions ≥ 90; no overlay on a face; every overlay anchored on its spoken word; SFX within 80 ms of its event; LUFS -14 ± 1, true peak ≤ -1; prosody 'alive'; no static shot beyond the style's max hold; originality gate passes (new characters, palette delta, new names, no reference brand marks).
+
+## Risks and honest limits
+- I cannot hear audio; voice and music quality is checked by measurements (prosody, LUFS, spectral) and by your listening on the proof.
+- Chatterbox needs a GPU or is slow on CPU; Kokoro is the fallback, so the 'emotion in voice' ceiling depends on which engine runs. A clean 10 s reference clip of a voice you like would raise it.
+- Style 2 and 6 (3D worlds) are the heaviest renders; Kaggle path is unverified.
+- Character art in our engine is procedural/sprite; the references use hand-painted or high-end 3D art. We aim at the same technique and polish within that limit, not identical rendering.
+- Reference mascots (crab, Claude spark, flower) are third-party brand marks; we replace them with original ones.
+
+## Decisions I need from you
+1. Order OK (8, 1, 4, 3, 5, 7, 6, 2)? 
+2. Voice: do you want a 10 s reference clip of a voice for cloning, or stock voices only?
+3. Face-cam style 1: your own footage later, or our presenter as the face for now?
