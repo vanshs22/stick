@@ -226,6 +226,31 @@
      },
      "deviation_reason": {
       "type": "string"
+     },
+     "reads": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "t0",
+        "t1",
+        "what"
+       ],
+       "properties": {
+        "t0": {
+         "type": "number",
+         "minimum": 0
+        },
+        "t1": {
+         "type": "number",
+         "minimum": 0
+        },
+        "what": {
+         "type": "string",
+         "minLength": 4
+        }
+       }
+      }
      }
     }
    },

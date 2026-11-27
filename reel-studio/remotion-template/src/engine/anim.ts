@@ -80,3 +80,6 @@ export const rnd = (i: number) => {
   const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
 };
+
+/** delay in seconds for item i of a staggered entrance: 0.02-0.05 s apart reads as one gesture (measured on GSAP reels); default 0.04 */
+export const stagger = (i: number, each = 0.04) => i * each;

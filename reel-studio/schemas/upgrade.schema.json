@@ -1,14 +1,178 @@
 {
  "type": "object",
- "required": ["schema_version", "style_id", "keep", "improve", "change"],
+ "required": [
+  "schema_version",
+  "style_id",
+  "keep",
+  "improve",
+  "change",
+  "axes"
+ ],
  "additionalProperties": false,
  "properties": {
-  "schema_version": { "type": "integer", "minimum": 1 },
-  "style_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-  "derived_from": { "type": "array", "items": { "type": "string" } },
-  "keep": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 8 } },
-  "improve": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 8 } },
-  "change": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 8 } },
-  "min_palette_delta_e": { "type": "number", "minimum": 5 }
+  "schema_version": {
+   "type": "integer",
+   "minimum": 1
+  },
+  "style_id": {
+   "type": "string",
+   "pattern": "^[a-z0-9-]+$"
+  },
+  "derived_from": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "keep": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "string",
+    "minLength": 8
+   }
+  },
+  "improve": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "string",
+    "minLength": 8
+   }
+  },
+  "change": {
+   "type": "array",
+   "minItems": 2,
+   "items": {
+    "type": "string",
+    "minLength": 8
+   }
+  },
+  "min_palette_delta_e": {
+   "type": "number",
+   "minimum": 5
+  },
+  "axes": {
+   "type": "object",
+   "required": [
+    "structure",
+    "opening",
+    "signature_shot",
+    "camera_path",
+    "score_shape",
+    "ending"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "structure": {
+     "type": "object",
+     "required": [
+      "ref",
+      "ours"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "ref": {
+       "type": "string",
+       "minLength": 4
+      },
+      "ours": {
+       "type": "string",
+       "minLength": 4
+      }
+     }
+    },
+    "opening": {
+     "type": "object",
+     "required": [
+      "ref",
+      "ours"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "ref": {
+       "type": "string",
+       "minLength": 4
+      },
+      "ours": {
+       "type": "string",
+       "minLength": 4
+      }
+     }
+    },
+    "signature_shot": {
+     "type": "object",
+     "required": [
+      "ref",
+      "ours"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "ref": {
+       "type": "string",
+       "minLength": 4
+      },
+      "ours": {
+       "type": "string",
+       "minLength": 4
+      }
+     }
+    },
+    "camera_path": {
+     "type": "object",
+     "required": [
+      "ref",
+      "ours"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "ref": {
+       "type": "string",
+       "minLength": 4
+      },
+      "ours": {
+       "type": "string",
+       "minLength": 4
+      }
+     }
+    },
+    "score_shape": {
+     "type": "object",
+     "required": [
+      "ref",
+      "ours"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "ref": {
+       "type": "string",
+       "minLength": 4
+      },
+      "ours": {
+       "type": "string",
+       "minLength": 4
+      }
+     }
+    },
+    "ending": {
+     "type": "object",
+     "required": [
+      "ref",
+      "ours"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "ref": {
+       "type": "string",
+       "minLength": 4
+      },
+      "ours": {
+       "type": "string",
+       "minLength": 4
+      }
+     }
+    }
+   }
+  }
  }
 }

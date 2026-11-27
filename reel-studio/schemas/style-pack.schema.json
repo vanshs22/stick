@@ -138,6 +138,48 @@
      "type": "string"
     }
    }
+  },
+  "native_moves": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "minLength": 4
+   }
+  },
+  "variation_space": {
+   "type": "object",
+   "required": [
+    "structures",
+    "openings",
+    "endings"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "structures": {
+     "type": "array",
+     "minItems": 3,
+     "items": {
+      "type": "string",
+      "minLength": 8
+     }
+    },
+    "openings": {
+     "type": "array",
+     "minItems": 3,
+     "items": {
+      "type": "string",
+      "minLength": 8
+     }
+    },
+    "endings": {
+     "type": "array",
+     "minItems": 3,
+     "items": {
+      "type": "string",
+      "minLength": 8
+     }
+    }
+   }
   }
  },
  "$schema": "http://json-schema.org/draft-07/schema#",

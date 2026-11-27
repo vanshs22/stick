@@ -2,6 +2,8 @@
 import * as THREE from 'three';
 import { rbox, ellipsoid, capsule, smin, sphere, mesh, rgb, noise3 } from './sdf.js';
 import { lightRig } from './engine.js';
+// seeded so every process renders identical frames (segment cache and --shard merges depend on it)
+const R = (() => { let s = 1234567; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; })();
 
 const std = (color, rough = 0.7, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: rough, ...extra });
 function canvasTex(w, h, draw, rep = [1, 1]) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(...rep); t.anisotropy = 8; return t; }
@@ -12,7 +14,7 @@ function sdfMesh(f, b, step, mat) { return shadowed(new THREE.Mesh(mesh(f, b, st
 export function kitchen(E) {
   const scene = new THREE.Scene(); scene.environment = E.envMap; scene.environmentIntensity = 0.3;
   scene.background = new THREE.Color('#E8DCCB'); scene.fog = new THREE.Fog('#E8DCCB', 8, 20);
-  const planks = canvasTex(1024, 1024, (g, w, h) => { for (let i = 0; i < 8; i++) { const l = 150 + (i * 37) % 30; g.fillStyle = `rgb(${l + 20},${l - 18},${l - 60})`; g.fillRect(0, i * h / 8, w, h / 8); g.fillStyle = 'rgba(60,35,15,0.35)'; g.fillRect(0, i * h / 8, w, 3); for (let k = 0; k < 40; k++) { g.fillStyle = 'rgba(80,50,25,0.08)'; g.fillRect(Math.random() * w, i * h / 8 + Math.random() * h / 8, 120 + Math.random() * 200, 2); } } }, [6, 6]);
+  const planks = canvasTex(1024, 1024, (g, w, h) => { for (let i = 0; i < 8; i++) { const l = 150 + (i * 37) % 30; g.fillStyle = `rgb(${l + 20},${l - 18},${l - 60})`; g.fillRect(0, i * h / 8, w, h / 8); g.fillStyle = 'rgba(60,35,15,0.35)'; g.fillRect(0, i * h / 8, w, 3); for (let k = 0; k < 40; k++) { g.fillStyle = 'rgba(80,50,25,0.08)'; g.fillRect(R() * w, i * h / 8 + R() * h / 8, 120 + R() * 200, 2); } } }, [6, 6]);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), std('#ffffff', 0.55, { map: planks })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
   const wallM = std('#EFE3D0', 0.9), back = shadowed(new THREE.Mesh(new THREE.BoxGeometry(14, 4, 0.2), wallM)); back.position.set(0, 2, -2.2); scene.add(back);
   const side = shadowed(new THREE.Mesh(new THREE.BoxGeometry(0.2, 4, 8), wallM)); side.position.set(-3, 2, 1.5); scene.add(side);
@@ -81,10 +83,10 @@ export function vessel(E) {
   const half = new THREE.LatheGeometry(prof, 48), cellGeo = half.clone(); { const p2 = half.clone(); p2.scale(1, -1, 1); }
   const rbc = new THREE.MeshPhysicalMaterial({ color: '#D8243A', roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.2, emissive: '#5C0610', emissiveIntensity: 0.4, side: THREE.DoubleSide, sheen: 0.6, sheenColor: new THREE.Color('#ff8090') });
   const N = 46, inst = new THREE.InstancedMesh(cellGeo, rbc, N * 2), seeds = [];
-  for (let i = 0; i < N; i++) seeds.push([Math.random() * Math.PI * 2, 0.55 + Math.random() * 0.75, Math.random() * 26, Math.random() * 6, Math.random() * 6]);
+  for (let i = 0; i < N; i++) seeds.push([R() * Math.PI * 2, 0.55 + R() * 0.75, R() * 26, R() * 6, R() * 6]);
   scene.add(inst);
   const NB = 60, bub = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 20, 14), new THREE.MeshPhysicalMaterial({ color: '#CFE3EA', roughness: 0.1, transparent: true, opacity: 0.55, emissive: '#7FA6B4', emissiveIntensity: 0.35 }), NB); bub.count = 0; scene.add(bub);
-  const bseeds = []; for (let i = 0; i < NB; i++) bseeds.push([Math.random() * Math.PI * 2, 0.3 + Math.random() * 1.0, Math.random() * 24, 0.4 + Math.random() * 1.2]);
+  const bseeds = []; for (let i = 0; i < NB; i++) bseeds.push([R() * Math.PI * 2, 0.3 + R() * 1.0, R() * 24, 0.4 + R() * 1.2]);
   const RED = new THREE.Color('#D8243A'), DARK = new THREE.Color('#5E0E1C');
   const l1 = new THREE.PointLight('#FFB0A0', 60, 14, 1.4); scene.add(l1); scene.add(new THREE.HemisphereLight('#FF6B6B', '#300308', 0.9));
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), v = new THREE.Vector3(), sc = new THREE.Vector3(0.5, 0.5, 0.5);

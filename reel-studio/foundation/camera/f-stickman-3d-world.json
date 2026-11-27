@@ -27,5 +27,19 @@
   "snap_to": "word",
   "tol_ms": 150
  },
- "max_hold_s": 6.0
+ "max_hold_s": 6.0,
+ "hold_creep_pct_per_f": [
+  0.15,
+  0.35
+ ],
+ "glide_frames": [
+  18,
+  40
+ ],
+ "kick_frames": 7,
+ "roll_deg": [
+  4,
+  5
+ ],
+ "max_still_frames": 12
 }

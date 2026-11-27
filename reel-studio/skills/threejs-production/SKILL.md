@@ -52,3 +52,14 @@ One component draws a whole 3D shot. Props: `set` (starfield, desk-night, block-
 Poses: idle relax slump point open cheer think shrug wave panic brace cower phone reach halt walk. Moods: calm happy scared worried angry sad surprised relieved smirk.
 Pack starting points are in each 3D style pack's `defaults.scene3d`. Add a new set, character look or pose in `src/components/three/` (Sets.tsx, Humanoid.tsx, rig.ts) and keep it a pure function of time.
 After the first still, ALWAYS run `node $TK/tools/qa/frame_stats.mjs` on it: dark 3D scenes were the biggest quality failure in earlier work.
+
+## Performance and determinism (headless, GPU, many shots)
+Written for three r170 as pinned in `remotion-template`; test any newer API before using it.
+- Every frame is a pure function of time. No `Math.random`, `Date.now`, `performance.now` or state kept between frames: segment caches and `--shard` merges need identical frames from different processes. Use a seeded generator (see `sets_deepdive.js`). `node tools/selftest_integration.mjs` fails on any such call in `three/*.js`.
+- Share geometry and materials, use `InstancedMesh` for repeats. Merge static dressing with `mergeGeometries`; fewer draw calls matter more on a GPU than on software GL.
+- Shadows: a static set needs one shadow render, not one per frame (`light.shadow.autoUpdate = false`, then `needsUpdate = true` only when a caster moves). Use smaller shadow maps for preview and proof tiers.
+- Depth of field renders the scene a second time: turn it off when the aperture is 0 and prefer a cheaper blur on preview tiers.
+- Do not allocate in per-frame code (`new THREE.Vector3`, `Color`, `Matrix4`): hoist them out and reuse.
+- Compile shaders once before the first frame (`renderer.compile(scene, camera)`) so the first still does not absorb build time.
+- `Stage3D` disposes its renderer and loses the GL context on unmount; dispose any extra render targets you create yourself.
+Backlog items for these rules are listed in `docs/EXTERNAL.md`.

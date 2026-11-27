@@ -31,7 +31,7 @@ const world = { schema_version: 1, sets: [{ id: 'kitchen', type: 'painted', pale
 must('world good', 'world', world, true);
 must('world one colour', 'world', { schema_version: 1, sets: [{ id: 'k', type: 'painted', palette: ['#7FD1C0'] }] }, false, 'needs 2 colours');
 
-const up = { schema_version: 1, style_id: 'sketchy-stickman', keep: ['one set per video, wide then face punch-in'], improve: ['richer face sprite set with more mouth shapes'], change: ['original characters and clothing colours', 'new set palette and props'] };
+const up = { schema_version: 1, style_id: 'sketchy-stickman', axes: { structure: { ref: 'one story', ours: 'two stories' }, opening: { ref: 'cold open', ours: 'question' }, signature_shot: { ref: 'wide orbit', ours: 'macro push' }, camera_path: { ref: 'steady', ours: 'handheld' }, score_shape: { ref: 'rising', ours: 'flat' }, ending: { ref: 'twist', ours: 'loop' } },  keep: ['one set per video, wide then face punch-in'], improve: ['richer face sprite set with more mouth shapes'], change: ['original characters and clothing colours', 'new set palette and props'] };
 must('upgrade good', 'upgrade', up, true);
 must('upgrade copy (no change)', 'upgrade', { ...up, change: ['one only here'] }, false, 'needs 2 changes');
 

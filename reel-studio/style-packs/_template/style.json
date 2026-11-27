@@ -15,5 +15,7 @@
   "transitions": ["cut", "mask-reveal"],
   "audio_direction": "upbeat bed, soft pops and ticks, no loud effects",
   "pitfalls": ["Text over busy images without a plate."],
-  "references": []
+  "references": [],
+  "native_moves": ["the two or three moves this medium does best, e.g. a whip pan between two faces"],
+  "variation_space": {"structures": ["structure one in a sentence", "structure two in a sentence", "structure three in a sentence"], "openings": ["opening one in a sentence", "opening two in a sentence", "opening three in a sentence"], "endings": ["ending one in a sentence", "ending two in a sentence", "ending three in a sentence"]}
 }
