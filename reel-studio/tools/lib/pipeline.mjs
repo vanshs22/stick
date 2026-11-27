@@ -12,7 +12,8 @@ try { for (const l of fs.readFileSync(path.join(TK, '.env'), 'utf8').split(/\r?\
 if (fs.existsSync(path.join(TK, '.bin'))) process.env.PATH = path.join(TK, '.bin') + path.delimiter + process.env.PATH;
 export const PY = process.env.REEL_PY || (fs.existsSync(path.join(TK, '.venv/bin/python')) ? path.join(TK, '.venv/bin/python') : fs.existsSync(path.join(TK, '.venv/Scripts/python.exe')) ? path.join(TK, '.venv/Scripts/python.exe') : 'python3');
 /** the WebGL backend for Remotion: REMOTION_GL if set; else `swangle` on a Linux machine with no GPU device (headless boxes, CI, containers: software WebGL works only with it), else `angle` */
-export const defaultGL = () => process.env.REMOTION_GL || (process.platform === 'linux' && !fs.existsSync('/dev/dri') && !fs.existsSync('/dev/nvidia0') ? 'swangle' : 'angle');
+const probedGL = () => { try { return JSON.parse(fs.readFileSync(path.join(os.homedir(), '.reel-studio/gpu-probe.json'), 'utf8')).recommended_gl || null; } catch { return null; } };   // written by tools/gpu_probe.mjs
+export const defaultGL = () => process.env.REMOTION_GL || probedGL() || (process.platform === 'linux' && !fs.existsSync('/dev/dri') && !fs.existsSync('/dev/nvidia0') ? 'swangle' : 'angle');
 /** Chrome for Remotion: REEL_CHROME, else a headless shell or Chrome already on the machine (offline or proxied hosts cannot download one). Empty = let Remotion fetch its own. */
 const chromeFound = () => {
   if (process.env.REEL_CHROME) return { exe: process.env.REEL_CHROME, shell: !/chrome$|google-chrome/.test(process.env.REEL_CHROME) };

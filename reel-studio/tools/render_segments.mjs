@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Render each shot as its own silent clip with the Remotion Node API, cached by content hash.
 // Change one shot and only that shot (plus the shots whose captions/timing it moves) re-renders.
-//   node tools/render_segments.mjs <project> [--scale 0.5] [--shots S02,S04] [--force]
+//   node tools/render_segments.mjs <project> [--scale 0.5] [--shots S02,S04] [--force] [--shard 1/2]
 // Output: renders/segments/<shot>-<hash>.mp4 + renders/segments/index.json.  Then: node tools/assemble.mjs <project>
 import fs from 'node:fs';
 import path from 'node:path';
@@ -9,6 +9,7 @@ import crypto from 'node:crypto';
 import os from 'node:os';
 import { createRequire } from 'node:module';
 import { BROWSER_OPTS } from './lib/pipeline.mjs';
+import { parseShard, pickShard } from './lib/shard.mjs';
 const a = process.argv.slice(2), P = path.resolve(a[0] || '.'), opt = (k, d) => (a.includes(k) ? a[a.indexOf(k) + 1] : d);
 const scale = Number(opt('--scale', 1)), only = opt('--shots', '')?.split(',').filter(Boolean), force = a.includes('--force');
 const R = path.join(P, 'remotion'), req = createRequire(path.join(R, 'package.json'));
@@ -31,7 +32,7 @@ const hashOf = (s, i) => {
 };
 const dir = path.join(P, 'renders/segments'); fs.mkdirSync(dir, { recursive: true });
 const plan = TL.shots.map((s, i) => ({ id: s.id, from: fr(s.start), to: (i === TL.shots.length - 1 ? fr(TL.duration) : fr(s.end)) - 1, hash: hashOf(s, i) })).map((p) => ({ ...p, file: path.join(dir, `${p.id}-${p.hash}.mp4`) }));
-const todo = plan.filter((p) => (force || !fs.existsSync(p.file)) && (!only?.length || only.includes(p.id)));
+const shardSpec = parseShard(opt('--shard', '')), todo = pickShard(plan.filter((p) => (force || !fs.existsSync(p.file)) && (!only?.length || only.includes(p.id))), shardSpec, (p) => p.to - p.from + 1);   // --shard 1/2: this process renders its balanced half; merge the segment folders, then assemble
 if (a.includes('--dry')) { console.log(plan.map((p) => `${p.id} ${p.hash}`).join('\n')); process.exit(0); }
 console.log(`${plan.length} shots, ${plan.length - todo.length} cached, ${todo.length} to render${todo.length ? ': ' + todo.map((p) => p.id).join(', ') : ''}`);
 if (todo.length) {

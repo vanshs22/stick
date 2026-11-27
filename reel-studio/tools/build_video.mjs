@@ -6,9 +6,13 @@
 //   --upscale     also write <name>.4k.mp4: Lanczos upscale to 2160x3840 (instant, no AI; the 1080x1920 master is still the one QA checks)
 //   --quality fast|draft   inkbeat only: cheaper passes (fast about 2x, draft more); master is the default
 //   --fps-div 2   inkbeat only: render every 2nd frame and repeat it (2x faster)
+//   --tier preview|proof|final   one flag for size, frame rate and quality: preview 0.33 / half rate / draft, proof 0.5 / half rate / fast, final 1 / full / master (explicit flags still win)
+//   --no-assemble stop after rendering the shots (used with --shard)
+//   --shard 1/2   render only this balanced share of the missing shots (split across GPUs or machines, then assemble)
 //   --shots       re-render only these shots (everything else comes from the cache), then assemble
 // Safe to re-run: the voice is only regenerated when the script or the voice choice changed (delete data/narration.wav to force).
 import fs from 'node:fs';
+import { TIERS } from './lib/shard.mjs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { pathToFileURL } from 'node:url';
@@ -38,11 +42,13 @@ step('timeline', 'node', [path.join(TK, 'tools/timing/build_timeline.mjs'), P]);
 step('sound cues (each tied to an event)', 'node', [path.join(TK, 'tools/audio/build_cues.mjs'), P]);
 step('mix (voice + music + sound)', PY, [path.join(TK, 'tools/audio/mix.py'), '.']);
 step('timeline (final)', 'node', [path.join(TK, 'tools/timing/build_timeline.mjs'), P]);
-const scale = opt('scale', '1'), seg = ['--scale', scale, ...(opt('shots') ? ['--shots', opt('shots')] : []), ...(opt('fps-div') ? ['--fps-div', opt('fps-div')] : []), ...(opt('quality') ? ['--quality', opt('quality')] : [])];
+const tier = TIERS[opt('tier', 'final')]; if (!tier) { console.error('--tier must be preview, proof or final'); process.exit(2); }
+const pick = (k) => opt(k, tier[k]), scale = pick('scale') || '1', seg = ['--scale', scale, ...(opt('shots') ? ['--shots', opt('shots')] : []), ...(pick('fps-div') ? ['--fps-div', pick('fps-div')] : []), ...(pick('quality') ? ['--quality', pick('quality')] : []), ...(opt('shard') ? ['--shard', opt('shard')] : [])];
 const engine = (() => { try { return rd(path.join(TK, 'style-packs', rd(path.join(P, 'brief.json')).style_pack, 'style.json')).engine || 'remotion'; } catch { return 'remotion'; } })();
 if (engine === 'inkbeat' && !fs.existsSync(path.join(P, 'ink-plan.json'))) step('ink plan (scaffolded from the storyboard: improve it before the master render)', 'node', [path.join(TK, 'tools/ink/scaffold_plan.mjs'), P]);
 if (engine === 'inkbeat') step('render shots (inkbeat 3D engine, cached per shot)', 'node', [path.join(TK, 'tools/ink/render_segments_ink.mjs'), P, ...seg], { timeout: 14400000 });   // same cache, same index.json: assemble, mix and QA below are unchanged
 else step('render shots (cached per shot)', 'node', [path.join(TK, 'tools/render_segments.mjs'), P, ...seg], { timeout: 7200000 });
+if (a.includes('--no-assemble')) { console.log('shards rendered; run tools/assemble.mjs once all shard segment folders are merged'); process.exit(0); }   // sharded runs on several GPUs or machines assemble once, at the end
 step('assemble + loudness' + (a.includes('--upscale') ? ' + 4K (Lanczos)' : ''), 'node', [path.join(TK, 'tools/assemble.mjs'), P, name, ...(a.includes('--upscale') ? ['--upscale'] : [])]);
 const out = path.join(P, `renders/${name}.mp4`); const qa = (() => { try { return rd(path.join(P, `renders/${name}.qa.json`)); } catch { return null; } })();
 if (!a.includes('--estimate') && fs.existsSync(path.join(P, 'renders'))) for (const f of fs.readdirSync(path.join(P, 'renders'))) { const m = f.match(/^(.*)\.qa\.json$/); if (m && m[1] !== name) { try { if (JSON.parse(fs.readFileSync(path.join(P, 'renders', f), 'utf8')).preview) for (const x of fs.readdirSync(path.join(P, 'renders'))) if (x.startsWith(m[1] + '.')) fs.rmSync(path.join(P, 'renders', x), { force: true }); } catch { /* keep */ } } }   // an old --estimate preview must not be mistaken for the film
