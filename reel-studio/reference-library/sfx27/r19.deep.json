@@ -1,0 +1,85 @@
+{
+ "schema_version": 1,
+ "source": "r19.mp4",
+ "speech": {
+  "engine": "sensevoice-small-int8 (sherpa-onnx)",
+  "wpm": 234,
+  "lines": [
+   {
+    "t0": 0.07,
+    "t1": 5.31,
+    "text": "Sum an open source state Cloudude Co whose only job is getting you your first 00 customers and it past 11,",
+    "rate": 4.0
+   },
+   {
+    "t0": 5.31,
+    "t1": 8.83,
+    "text": "000 stars because it's the exact playbook the founder used to get rich,",
+    "rate": 3.7
+   },
+   {
+    "t0": 8.83,
+    "t1": 20.8,
+    "text": "so you tell Claud your idea and it finds the groups where your buyers already hang out then it has you sell your idea byhand first so you know people will pay before you write any code so you never spend months building something nobody want.",
+    "rate": 3.8
+   },
+   {
+    "t0": 20.87,
+    "t1": 22.08,
+    "text": "For the link, comment presell.",
+    "rate": 4.1
+   }
+  ]
+ },
+ "voice": {
+  "ratio": 0.86,
+  "gender": "male",
+  "f0_hz": 135.3,
+  "source": "tts"
+ },
+ "music": {
+  "present": false,
+  "ratio": 0.0
+ },
+ "levels_db": {
+  "mix": -16.7,
+  "vocals": -16.8,
+  "music": -36.2,
+  "effects": -71.7
+ },
+ "sfx": {
+  "count": 3,
+  "per_10s": 1.4,
+  "on_cut_share": 0.0,
+  "types": {
+   "other": 1,
+   "click": 2
+  },
+  "events": [
+   {
+    "t": 8.04,
+    "type": "other",
+    "db": -42.7,
+    "on": null
+   },
+   {
+    "t": 18.04,
+    "type": "click",
+    "db": -53.0,
+    "on": null
+   },
+   {
+    "t": 19.07,
+    "type": "click",
+    "db": -50.4,
+    "on": null
+   }
+  ]
+ },
+ "stickers": [],
+ "cuts": [
+  4.296,
+  13.138,
+  20.771
+ ]
+}

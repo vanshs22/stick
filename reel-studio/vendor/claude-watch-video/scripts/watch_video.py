@@ -1,0 +1,1170 @@
+"""Top-level orchestrator for the watch-video skill.
+
+Resolves input → probes → extracts frames → (optionally) transcribes →
+writes <workdir>/meta.json as the durable contract for the agent.
+
+Usage:
+    python3 watch_video.py <input> [flags]
+
+<input> can be:
+    - A local path (e.g. /path/to/video.mp4)
+    - A public URL (https://youtu.be/..., Loom, Vimeo, TikTok, etc.)
+    - A Jira key (e.g. PROJ-1234)
+    - A Jira issue URL (https://*.atlassian.net/browse/<KEY>)
+    - The literal "auto" to grab newest video from ~/Downloads/
+
+Stdout: meta.json contents (single JSON object). Once frames exist this holds
+        on failure too: a non-zero exit still prints the partial meta.json,
+        with an `error` block naming the step.
+Stderr: structured events from each step.
+Exit codes: as defined in _common.ExitCode. Optional steps after frames
+(transcribe, dedup, OCR, report, highlights) do not change the exit code
+when they fail; they land in meta.json `warnings` and the run continues.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import math
+import os
+import re
+import shutil
+import subprocess
+import sys
+import time
+import traceback
+from collections import deque
+from pathlib import Path
+from typing import Any
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _common import (  # noqa: E402
+    ExitCode, atomic_path, die, emit, finalize, require_executable,
+    parse_time_spec, window_duration,
+)
+from _cache import (  # noqa: E402
+    dir_fingerprint, file_fingerprint, get_cache, invalidate_downstream,
+    is_cached, record_step, step_fingerprint,
+)
+
+
+SCRIPTS_DIR = Path(__file__).parent
+JIRA_KEY_RE = re.compile(r"^[A-Z]{2,10}-\d+$")
+JIRA_URL_RE = re.compile(r"https?://[^/]+/browse/([A-Z]{2,10}-\d+)")
+# POSIX: honor $TMPDIR (macOS sets a per-user one), else /tmp.
+DEFAULT_WORKDIR_ROOT = (Path("c:/tmp") if sys.platform == "win32"
+                        else Path(os.environ.get("TMPDIR") or "/tmp"))
+
+
+# ---- Input dispatch -------------------------------------------------------
+
+def classify_input(raw: str) -> tuple[str, str]:
+    """Return (kind, normalized_value)."""
+    if raw == "auto":
+        return "auto", ""
+    if JIRA_KEY_RE.match(raw):
+        return "jira", raw
+    m = JIRA_URL_RE.match(raw)
+    if m:
+        return "jira", m.group(1)
+    if raw.startswith(("http://", "https://")):
+        return "url", raw
+    # Otherwise assume local path
+    return "path", raw
+
+
+def slugify(text: str, max_len: int = 60) -> str:
+    out = re.sub(r"[^a-zA-Z0-9._-]+", "-", text).strip("-").lower()
+    return out[:max_len] or "video"
+
+
+def default_workdir(kind: str, value: str,
+                    attachment_id: str | None = None) -> Path:
+    if kind == "jira":
+        slug = f"watch-{value.lower()}"
+        if attachment_id:
+            slug = f"{slug}-{slugify(attachment_id)}"
+    elif kind == "path":
+        slug = f"watch-{slugify(Path(value).stem)}"
+    elif kind == "url":
+        slug = f"watch-{slugify(value.rsplit('/', 1)[-1] or 'url')}"
+    else:
+        slug = f"watch-{int(time.time())}"
+    return DEFAULT_WORKDIR_ROOT / slug
+
+
+# ---- Sub-script invocation -----------------------------------------------
+
+class StepFailed(Exception):
+    """A sub-script exited non-zero.
+
+    Before frames exist the run ends with the step's exit code and stdout
+    (AMBIGUOUS carries its candidates JSON there). After frames exist the
+    optional steps turn this into a meta.json warning and the run goes on;
+    see _soft_step and _entry.
+    """
+
+    def __init__(self, step: str, exit_code: int, stdout: str = "",
+                 msg: str = "") -> None:
+        super().__init__(f"step {step} exited {exit_code}: {msg}")
+        self.step = step
+        self.exit_code = exit_code
+        self.stdout = stdout
+        self.msg = msg
+
+
+def _error_msg_from_stderr(lines: list[str]) -> str:
+    """One-line reason from a failed child's stderr: its last `error` event
+    when it emitted one, else its last non-empty line (for a traceback, the
+    exception line)."""
+    last_line = ""
+    for line in reversed(lines):
+        line = line.strip()
+        if not line:
+            continue
+        if not last_line:
+            last_line = line
+        if line.startswith("{"):
+            try:
+                ev = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(ev, dict) and ev.get("event") == "error":
+                return str(ev.get("msg") or line)
+    return last_line[:500]
+
+
+# Workdir for run_step log files. Set by main() ONLY when WATCH_VIDEO_NO_PIPE
+# is in the environment (set by the MCP server). When set, run_step writes
+# each sub-script's stdout/stderr directly to disk files in this dir instead
+# of using subprocess.PIPE + a threaded pump. Reason: when this orchestrator
+# runs as a sub-subprocess of the MCP server's asyncio event loop, the kernel
+# pipe between this process and each sub-script suffers 10-75 second drain
+# latency -- the parent's loop is busy serving status polls and the OS
+# scheduler underprioritizes the pipe drain. Log files have no buffer ceiling
+# and no drain contention. CLI and skill paths leave this None and keep the
+# original pump-based live streaming.
+_STEP_LOGS_DIR: Path | None = None
+
+
+def _maybe_enable_log_file_mode(workdir: Path) -> None:
+    """Call once from main() after workdir is resolved."""
+    global _STEP_LOGS_DIR
+    if os.environ.get("WATCH_VIDEO_NO_PIPE"):
+        _STEP_LOGS_DIR = workdir / "_step_logs"
+        _STEP_LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _run_step_via_log_files(name: str, cmd: list[str]) -> dict:
+    """Variant of run_step used in MCP context. No PIPE, no threads.
+
+    Trade-off: live progress streaming during a single step is lost (events
+    are flushed to parent stderr only after the step exits). Per-step
+    duration is short (<3s typically), so the perceived liveness loss is
+    minor compared to the 10-75s/step regression PIPE causes here.
+    """
+    assert _STEP_LOGS_DIR is not None
+    log_out = _STEP_LOGS_DIR / f"{name}.stdout.log"
+    log_err = _STEP_LOGS_DIR / f"{name}.stderr.log"
+    # Truncate per-step so each file reflects only the latest run.
+    log_out.write_bytes(b"")
+    log_err.write_bytes(b"")
+
+    with open(log_out, "wb", buffering=0) as out_f, \
+         open(log_err, "wb", buffering=0) as err_f:
+        # Emitted to OUR OWN stderr (the orchestrator's, not the step's log
+        # file) right before Popen, so a slow spawn under an MCP host shows
+        # up distinctly from slow work inside the child once it's running.
+        emit("spawn", step=name)
+        proc = subprocess.Popen(
+            cmd, stdin=subprocess.DEVNULL, stdout=out_f, stderr=err_f)
+        rc = proc.wait()
+
+    stdout_data = log_out.read_text(encoding="utf-8", errors="replace")
+    stderr_data = log_err.read_text(encoding="utf-8", errors="replace")
+
+    # Bubble child stderr up to our own stderr so events still reach the
+    # MCP server's _mcp_stderr.log (just batched per step, not line-by-line).
+    if stderr_data:
+        sys.stderr.write(stderr_data)
+        sys.stderr.flush()
+
+    if rc != 0:
+        raise StepFailed(name, rc, stdout_data,
+                         _error_msg_from_stderr(stderr_data.splitlines()))
+    if not stdout_data.strip():
+        die(ExitCode.IO_FAIL, f"step {name} produced no output")
+    return json.loads(stdout_data.strip().splitlines()[-1])
+
+
+def run_step(name: str, cmd: list[str]) -> dict:
+    """Run a sub-script. Two implementations:
+
+    1. _STEP_LOGS_DIR is set (MCP server context, via WATCH_VIDEO_NO_PIPE):
+       sub-script stdio -> disk files. No pipe drain, no event-loop
+       contention.
+    2. Default (CLI/skill): STREAM stderr line-by-line so users see progress
+       events in real time. Collect stdout in full (parsed as JSON at end).
+
+    On a non-zero exit raise StepFailed with the child's exit code, stdout
+    (needed for ExitCode.AMBIGUOUS where stdout carries the candidates JSON)
+    and its error message; main()/_entry() decide what that costs the run.
+    """
+    if _STEP_LOGS_DIR is not None:
+        return _run_step_via_log_files(name, cmd)
+
+    import threading
+    proc = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1,  # line-buffered
+    )
+
+    stderr_tail: deque[str] = deque(maxlen=50)
+
+    def _pump_stderr() -> None:
+        assert proc.stderr is not None
+        for line in proc.stderr:
+            sys.stderr.write(line)
+            sys.stderr.flush()
+            stderr_tail.append(line)
+
+    stderr_thread = threading.Thread(target=_pump_stderr, daemon=True)
+    stderr_thread.start()
+
+    assert proc.stdout is not None
+    stdout_data = proc.stdout.read()
+    proc.wait()
+    stderr_thread.join(timeout=2)
+
+    if proc.returncode != 0:
+        raise StepFailed(name, proc.returncode, stdout_data,
+                         _error_msg_from_stderr(list(stderr_tail)))
+    if not stdout_data.strip():
+        die(ExitCode.IO_FAIL, f"step {name} produced no output")
+    return json.loads(stdout_data.strip().splitlines()[-1])
+
+
+def _soft_step(name: str, fn: Any, *args: Any,
+               **kwargs: Any) -> tuple[Any, dict | None]:
+    """Run an optional post-frames step whose failure must not cost the agent
+    the frames already on disk. Returns (result, None) on success or
+    (None, {"exit_code", "msg"}) on failure: a child that exited non-zero, an
+    in-process step that called die(), or one that raised (MCP mode runs
+    transcribe/dedup/report in-process)."""
+    try:
+        return fn(*args, **kwargs), None
+    except StepFailed as e:
+        return None, {"exit_code": e.exit_code, "msg": e.msg}
+    except SystemExit as e:
+        if e.code in (0, None):
+            raise
+        return None, {"exit_code": e.code,
+                      "msg": getattr(e, "watch_msg", None)
+                      or f"{name} exited {e.code}"}
+    except Exception as e:  # noqa: BLE001 -- recorded as a warning in meta
+        traceback.print_exc(file=sys.stderr)
+        return None, {"exit_code": None, "msg": f"{type(e).__name__}: {e}"}
+
+
+def fetch(kind: str, value: str, workdir: Path,
+          attachment_id: str | None, credentials: str | None,
+          since_seconds: int) -> dict:
+    if _STEP_LOGS_DIR is not None:
+        import fetch as fetch_mod
+        return fetch_mod.run_inproc(
+            workdir=workdir,
+            url=value if kind == "url" else None,
+            path=value if kind == "path" else None,
+            jira_key=value if kind == "jira" else None,
+            auto_downloads=(kind == "auto"),
+            attachment_id=attachment_id,
+            since_seconds=since_seconds,
+            credentials=credentials,
+        )
+    cmd = [sys.executable, str(SCRIPTS_DIR / "fetch.py"), str(workdir)]
+    if kind == "jira":
+        cmd += ["--jira-key", value]
+        if attachment_id:
+            cmd += ["--attachment-id", attachment_id]
+        if credentials:
+            cmd += ["--credentials", credentials]
+    elif kind == "url":
+        cmd += ["--url", value]
+    elif kind == "path":
+        cmd += ["--path", value]
+    else:  # auto
+        cmd += ["--auto-downloads", "--since-seconds", str(since_seconds)]
+    return run_step("fetch", cmd)
+
+
+def probe(video: Path) -> dict:
+    # In MCP mode, call probe in-process. Each subprocess spawn under Claude
+    # Desktop's process tree gets hit by Windows Defender for ~5-20 seconds
+    # of scanning; inlining the step eliminates that tax (the only Python
+    # spawn becomes watch_video.py itself).
+    if _STEP_LOGS_DIR is not None:
+        import probe as probe_mod
+        return probe_mod.run_inproc(video)
+    return run_step("probe", [sys.executable, str(SCRIPTS_DIR / "probe.py"), str(video)])
+
+
+def extract_frames(video: Path, workdir: Path,
+                   frames: int, resolution: int,
+                   start: str | None, end: str | None,
+                   scene_mode: bool, scene_threshold: float) -> dict:
+    """Note: dedup happens in a separate post-transcribe step (see smart_dedup)
+    so the deduper can use transcript paragraph timestamps as protection."""
+    if _STEP_LOGS_DIR is not None:
+        import frames as frames_mod
+        return frames_mod.run_inproc(
+            video=video, workdir=workdir, frames=frames, resolution=resolution,
+            start_spec=start, end_spec=end,
+            scene_mode=scene_mode, scene_threshold=scene_threshold,
+        )
+    cmd = [sys.executable, str(SCRIPTS_DIR / "frames.py"), str(video), str(workdir),
+           "--resolution", str(resolution)]
+    if frames > 0:
+        cmd += ["--frames", str(frames)]
+    if start:
+        cmd += ["--start", start]
+    if end:
+        cmd += ["--end", end]
+    if scene_mode:
+        cmd += ["--scene-mode", "--scene-threshold", str(scene_threshold)]
+    return run_step("frames", cmd)
+
+
+def smart_dedup(workdir: Path, threshold: int,
+                min_interval: float, protect_window: float) -> dict:
+    if _STEP_LOGS_DIR is not None:
+        import dedup as dedup_mod
+        return dedup_mod.run_inproc(
+            workdir=workdir, threshold=threshold,
+            min_interval=min_interval, protect_window=protect_window,
+        )
+    return run_step("dedup",
+                    [sys.executable, str(SCRIPTS_DIR / "dedup.py"), str(workdir),
+                     "--threshold", str(threshold),
+                     "--min-interval", str(min_interval),
+                     "--protect-window", str(protect_window)])
+
+
+def _contact_sheet_grid(frame_count: int) -> tuple[int, int]:
+    if frame_count < 1:
+        raise ValueError("contact sheet needs at least one frame")
+    cols = math.ceil(math.sqrt(frame_count))
+    return cols, math.ceil(frame_count / cols)
+
+
+def _build_contact_sheet_command(frame_paths: list[Path], concat_file: Path,
+                                 output: Path,
+                                 ffmpeg: str = "ffmpeg") -> tuple[list[str], str]:
+    cols, rows = _contact_sheet_grid(len(frame_paths))
+    entries = []
+    for frame_path in frame_paths:
+        path = frame_path.resolve().as_posix().replace("'", "'\\''")
+        entries.append(f"file '{path}'\n")
+    cmd = [ffmpeg, "-hide_banner", "-loglevel", "error", "-y",
+           "-f", "concat", "-safe", "0", "-i", str(concat_file),
+           "-vf", f"scale=400:-1,tile={cols}x{rows}:padding=4",
+           "-frames:v", "1", str(output)]
+    return cmd, "".join(entries)
+
+
+def create_contact_sheet(frames_info: dict, workdir: Path) -> str:
+    frames_dir = Path(frames_info.get("frames_dir") or workdir / "frames")
+    timestamps = frames_info.get("timestamps_by_frame") or {}
+    frame_paths = [p for p in frames_dir.iterdir()
+                   if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg")]
+    frame_paths.sort(key=lambda p: (float(timestamps.get(p.name, math.inf)), p.name))
+    sheet_path = workdir / "sheet.jpg"
+    staging = atomic_path(sheet_path)
+    concat_file = atomic_path(workdir / "contact-sheet.ffconcat")
+    ffmpeg = require_executable("ffmpeg")
+    cmd, concat_input = _build_contact_sheet_command(
+        frame_paths, concat_file, staging, ffmpeg)
+    try:
+        concat_file.write_text(concat_input, encoding="utf-8")
+        subprocess.run(cmd, capture_output=True, text=True, check=True)
+        if not staging.is_file():
+            die(ExitCode.IO_FAIL, "ffmpeg did not create the contact sheet")
+        finalize(staging, sheet_path)
+    except subprocess.CalledProcessError as e:
+        die(ExitCode.IO_FAIL,
+            f"ffmpeg contact sheet failed: {(e.stderr or '').strip()[-300:]}")
+    finally:
+        staging.unlink(missing_ok=True)
+        concat_file.unlink(missing_ok=True)
+    return str(sheet_path)
+
+
+def transcribe_fp_inputs(video_fp: str, start: str | None, end: str | None,
+                         whisper: str, model: str | None, lang: str | None,
+                         captions_vtt_path: str | None) -> dict:
+    from transcribe import pick_model_for_provider
+    # Resolved model and language, so a changed default invalidates old transcripts.
+    resolved_model, resolved_lang = pick_model_for_provider(whisper, model, lang)
+    return {
+        "video_fp": video_fp,
+        "start": start, "end": end,
+        "whisper": whisper,
+        "model": model, "lang": lang,
+        "resolved_model": resolved_model, "resolved_lang": resolved_lang,
+        # Include the captions path in the fingerprint when used so a
+        # re-fetch that pulled a different captions file invalidates the
+        # transcript cache.
+        "captions_vtt": captions_vtt_path if whisper == "captions" else None,
+    }
+
+
+def ocr(workdir: Path, lang: str, min_text_length: int) -> dict:
+    return run_step("ocr",
+                    [sys.executable, str(SCRIPTS_DIR / "ocr.py"), str(workdir),
+                     "--lang", lang,
+                     "--min-text-length", str(min_text_length)])
+
+
+def transcribe(video: Path, workdir: Path,
+               model: str | None, lang: str | None,
+               start: str | None, end: str | None,
+               whisper: str, whisper_api_key: str | None,
+               whisper_credentials: str | None,
+               captions_vtt: str | None = None) -> dict:
+    if _STEP_LOGS_DIR is not None:
+        import transcribe as transcribe_mod
+        return transcribe_mod.run_inproc(
+            workdir=workdir, video=str(video), whisper=whisper,
+            captions_vtt=captions_vtt,
+            whisper_api_key=whisper_api_key,
+            whisper_credentials=whisper_credentials,
+            model_name=model, lang=lang,
+            start_spec=start, end_spec=end,
+        )
+    cmd = [sys.executable, str(SCRIPTS_DIR / "transcribe.py"), str(workdir),
+           "--video", str(video), "--whisper", whisper]
+    if model:
+        cmd += ["--model", model]
+    if lang:
+        cmd += ["--lang", lang]
+    if start:
+        cmd += ["--start", start]
+    if end:
+        cmd += ["--end", end]
+    if whisper_api_key:
+        cmd += ["--whisper-api-key", whisper_api_key]
+    if whisper_credentials:
+        cmd += ["--whisper-credentials", whisper_credentials]
+    if captions_vtt:
+        cmd += ["--captions-vtt", captions_vtt]
+    return run_step("transcribe", cmd)
+
+
+def report(workdir: Path, *, no_html: bool = False, no_docx: bool = False) -> dict:
+    if _STEP_LOGS_DIR is not None:
+        import report as report_mod
+        return report_mod.run_inproc(workdir=workdir, no_html=no_html, no_docx=no_docx)
+    cmd = [sys.executable, str(SCRIPTS_DIR / "report.py"), str(workdir)]
+    if no_html:
+        cmd.append("--no-html")
+    if no_docx:
+        cmd.append("--no-docx")
+    return run_step("report", cmd)
+
+
+def run_highlights(workdir: Path, prompt: str, max_n: int | None,
+                   model: str | None, api_key: str | None,
+                   credentials: str | None,
+                   provider: str | None = None,
+                   base_url: str | None = None) -> dict:
+    cmd = [sys.executable, str(SCRIPTS_DIR / "highlights.py"), str(workdir),
+           "--prompt", prompt]
+    if max_n is not None:
+        cmd += ["--max-n", str(max_n)]
+    if provider:
+        cmd += ["--provider", provider]
+    if base_url:
+        cmd += ["--base-url", base_url]
+    if model:
+        cmd += ["--model", model]
+    if api_key:
+        cmd += ["--anthropic-api-key", api_key]
+    if credentials:
+        cmd += ["--credentials", credentials]
+    return run_step("highlights", cmd)
+
+
+def post_to_jira(workdir: Path, jira_key: str | None,
+                 dry_run: bool, yes: bool,
+                 credentials: str | None,
+                 no_embed_images: bool = False,
+                 style: str | None = None,
+                 summary_key_frames: int | None = None) -> dict:
+    cmd = [sys.executable, str(SCRIPTS_DIR / "post_to_jira.py"), str(workdir)]
+    if jira_key:
+        cmd += ["--jira-key", jira_key]
+    if dry_run:
+        cmd += ["--dry-run"]
+    if yes:
+        cmd += ["--yes"]
+    if credentials:
+        cmd += ["--credentials", credentials]
+    if no_embed_images:
+        cmd += ["--no-embed-images"]
+    if style:
+        cmd += ["--style", style]
+    if summary_key_frames is not None:
+        cmd += ["--summary-key-frames", str(summary_key_frames)]
+    return run_step("post_to_jira", cmd)
+
+
+# ---- Main ----------------------------------------------------------------
+
+# Set by main() as soon as frames/ exist. From then on _entry() turns every
+# non-zero exit into "print the partial meta.json, then exit": the agent can
+# still answer from the frames even when a later step broke.
+_PARTIAL_META_PATH: Path | None = None
+
+
+def _print_partial_meta(code: int, step: str | None, msg: str) -> int:
+    assert _PARTIAL_META_PATH is not None
+    try:
+        meta = json.loads(_PARTIAL_META_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        meta = {"workdir": str(_PARTIAL_META_PATH.parent)}
+    meta["error"] = {"exit_code": code, "step": step, "msg": msg}
+    try:
+        staging = atomic_path(_PARTIAL_META_PATH)
+        staging.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+        finalize(staging, _PARTIAL_META_PATH)
+    except OSError:
+        pass
+    emit("partial_meta", step="orchestrator", exit_code=code, failed_step=step,
+         meta_path=str(_PARTIAL_META_PATH))
+    print(json.dumps(meta, indent=2))
+    sys.stdout.flush()
+    return code
+
+
+def _entry() -> int:
+    """CLI entry point: main() plus the failure contract on stdout."""
+    try:
+        return main()
+    except StepFailed as e:
+        if _PARTIAL_META_PATH is None:
+            # Before frames: keep the step's own stdout (AMBIGUOUS candidates).
+            if e.stdout:
+                sys.stdout.write(e.stdout)
+                sys.stdout.flush()
+            return e.exit_code
+        return _print_partial_meta(e.exit_code, e.step, e.msg)
+    except SystemExit as e:
+        if e.code in (0, None) or _PARTIAL_META_PATH is None:
+            raise
+        code = e.code if isinstance(e.code, int) else 1
+        return _print_partial_meta(code, None, getattr(e, "watch_msg", None)
+                                   or f"exited {code}; see the error event on stderr")
+    except Exception as e:  # noqa: BLE001
+        if _PARTIAL_META_PATH is None:
+            raise
+        traceback.print_exc(file=sys.stderr)
+        return _print_partial_meta(1, None, f"{type(e).__name__}: {e}")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        description="Watch a video: frames + transcript for Claude to consume.")
+    ap.add_argument("input", help="path, URL, Jira key, Jira URL, or 'auto'")
+    ap.add_argument("--workdir",
+                    help="override workdir (default: $TMPDIR or /tmp, c:/tmp on "
+                         "Windows, + /watch-<slug>/)")
+    # Fetch options
+    ap.add_argument("--attachment-id",
+                    help="(Jira mode) disambiguate multiple video attachments")
+    ap.add_argument("--credentials", help="(Jira mode) path to credentials JSON")
+    ap.add_argument("--since-seconds", type=int, default=300,
+                    help="(auto mode) max age of Downloads file")
+    # Frame options
+    ap.add_argument("--frames", type=int, default=0)
+    ap.add_argument("--resolution", type=int, default=960)
+    ap.add_argument("--contact-sheet", action="store_true",
+                    help="tile all kept frames into workdir/sheet.jpg")
+    ap.add_argument("--scene-mode", action="store_true",
+                    help="extract frames at scene changes (better token efficiency on long videos)")
+    ap.add_argument("--scene-threshold", type=float, default=0.3)
+    ap.add_argument("--dedup", action="store_true",
+                    help="drop near-duplicate frames via pHash, AFTER transcribe so paragraph timestamps protect important moments")
+    ap.add_argument("--dedup-threshold", type=int, default=5,
+                    help="pHash Hamming distance for dedup (default 5)")
+    ap.add_argument("--dedup-min-interval", type=float, default=5.0,
+                    help="minimum seconds between consecutive dedup keepers (default 5.0)")
+    ap.add_argument("--dedup-protect-window", type=float, default=1.5,
+                    help="seconds around transcript paragraph timestamps where frames are kept regardless of pHash similarity (default 1.5)")
+    # OCR options
+    ap.add_argument("--ocr", action="store_true",
+                    help="run Tesseract OCR on kept frames and write ocr.txt. "
+                         "Best for UI bug videos -- lets you grep on-screen text instead of "
+                         "re-reading each image. Requires Tesseract + pytesseract installed.")
+    ap.add_argument("--ocr-lang", default="eng",
+                    help="Tesseract language(s), e.g. 'eng', 'pol', 'eng+pol' (default 'eng')")
+    ap.add_argument("--ocr-min-text-length", type=int, default=10,
+                    help="skip frames with fewer than N non-whitespace chars of OCR text (default 10)")
+    # Audio options
+    ap.add_argument("--no-audio", action="store_true",
+                    help="skip transcription even if audio is present")
+    ap.add_argument("--model", help="whisper model id (provider-specific; see references/whisper-providers.md)")
+    ap.add_argument("--lang", help="ISO language code (en, pl, ...) or 'auto'. Default: auto-detect; 'en' picks the English-only model")
+    ap.add_argument("--whisper",
+                    choices=("auto", "captions", "local", "groq", "openai",
+                             "deepgram", "whisperx"),
+                    default="auto",
+                    help="transcription source. Default 'auto' picks 'captions' "
+                         "for URLs where yt-dlp pulled a VTT (free, fast), "
+                         "otherwise 'local' (faster-whisper offline). Pass an "
+                         "explicit provider to override. 'groq' / 'openai' use "
+                         "hosted Whisper APIs (need key, ~10x faster cold-start). "
+                         "'deepgram' uses Nova-3 with hosted speaker diarization "
+                         "(transcript tagged with S0/S1/..., speakers.json "
+                         "written; useful for podcasts and multi-speaker calls). "
+                         "'whisperx' does local diarization (free + offline, but "
+                         "requires `pip install pyannote.audio` + HF token + "
+                         "accepting terms on three gated pyannote repos; first "
+                         "run downloads ~500 MB-1 GB of model weights).")
+    ap.add_argument("--whisper-api-key", default=None,
+                    help="API key for hosted providers. WARNING: visible in shell history "
+                         "and process listings; do not use on shared machines or recorded "
+                         "sessions. Prefer env var or credentials file.")
+    ap.add_argument("--whisper-credentials", default=None,
+                    help="credentials JSON path (default: ~/.watch-video/credentials.json)")
+    # Window options (applied to BOTH frames and audio)
+    ap.add_argument("--start", help="window start MM:SS")
+    ap.add_argument("--end", help="window end MM:SS")
+    # Report options
+    ap.add_argument("--no-report", action="store_true",
+                    help="skip report.md generation (faster, no evidence bundle)")
+    ap.add_argument("--no-html", action="store_true",
+                    help="skip report.html generation (Markdown + DOCX still produced)")
+    ap.add_argument("--no-docx", action="store_true",
+                    help="skip report.docx generation. Useful when python-docx is "
+                         "not installed -- the report step otherwise emits a "
+                         "warning and continues.")
+    # Progress display
+    ap.add_argument("--verbose", "-v", action="store_true",
+                    help="print human-readable progress lines to stderr in addition "
+                         "to the JSON event lines. On a TTY, progress events update "
+                         "in place (carriage-return overwrite) for the active step.")
+    # Cache options
+    ap.add_argument("--no-cache", action="store_true",
+                    help="bypass the per-step cache; re-run every step from scratch")
+    ap.add_argument("--force-step", default=None,
+                    help="comma-separated step names to force-rerun "
+                         "(fetch/probe/frames/transcribe/dedup/ocr/report). "
+                         "Downstream steps are invalidated automatically.")
+    # Jira posting (OPT-IN ONLY -- never default on)
+    ap.add_argument("--post-to-jira", action="store_true",
+                    help="POST the generated report.md as a comment on the source "
+                         "Jira ticket. Requires explicit user authorization. Adds a "
+                         "confirmation prompt unless --post-to-jira-yes is also given. "
+                         "Idempotency-checked: won't double-post a prior /watch-video analysis. "
+                         "Does NOT default on; the agent must never silently enable this.")
+    ap.add_argument("--post-to-jira-yes", action="store_true",
+                    help="skip the interactive confirmation prompt for --post-to-jira "
+                         "(use only when the user has explicitly pre-authorized).")
+    ap.add_argument("--post-to-jira-dry-run", action="store_true",
+                    help="with --post-to-jira: print the comment preview but DO NOT post")
+    ap.add_argument("--post-to-jira-no-embed-images", action="store_true",
+                    help="with --post-to-jira: skip image embedding (text refs only)")
+    ap.add_argument("--post-to-jira-style", choices=("collapsed", "inline", "summary"),
+                    default=None,
+                    help="comment layout: 'collapsed' (default) wraps Timeline in an ADF "
+                         "expand panel; 'inline' shows full Timeline expanded (legacy); "
+                         "'summary' posts N key moments and attaches report.html as a "
+                         "downloadable artifact.")
+    ap.add_argument("--post-to-jira-summary-key-frames", type=int, default=None,
+                    help="--post-to-jira-style summary only: how many key timeline "
+                         "moments to include (default 3, evenly distributed)")
+    # Intelligent highlights (LLM-driven moment selection)
+    ap.add_argument("--highlights-prompt", default=None,
+                    help="optional, paid: LLM-driven highlight selection for "
+                         "headless runs (in a Claude Code session the agent picks "
+                         "moments itself). Describes what to look for, e.g. "
+                         "'highlight only bug-related parts'. Needs a transcript "
+                         "and a provider API key (ANTHROPIC_API_KEY by default); "
+                         "without them the run continues with a warning. When "
+                         "summary mode posts, picks come from the LLM instead of "
+                         "even distribution.")
+    ap.add_argument("--highlights-max-n", type=int, default=None,
+                    help="max number of highlights the LLM is allowed to pick (default 5)")
+    ap.add_argument("--highlights-model", default=None,
+                    help="model id for the highlights provider (default per provider, see PROVIDER_DEFAULT_MODEL in highlights.py)")
+    ap.add_argument("--highlights-provider",
+                    choices=("anthropic", "openai", "groq", "deepseek",
+                             "gemini", "openai-compat"),
+                    default=None,
+                    help="LLM provider for highlights. Default: anthropic. "
+                         "All non-anthropic providers use the openai SDK with "
+                         "a base_url override (Groq, DeepSeek, Gemini via "
+                         "Google's OpenAI-compatibility endpoint, plus the "
+                         "generic 'openai-compat' for any other endpoint "
+                         "via --highlights-base-url).")
+    ap.add_argument("--highlights-base-url", default=None,
+                    help="Required for --highlights-provider openai-compat; "
+                         "ignored for other providers (their endpoints are "
+                         "built in).")
+    ap.add_argument("--highlights-api-key", default=None,
+                    help="API key for the highlights provider. Reads from "
+                         "ANTHROPIC_API_KEY / OPENAI_API_KEY / GROQ_API_KEY "
+                         "env vars or credentials JSON if not set.")
+    ap.add_argument("--highlights-credentials", default=None,
+                    help="path to credentials JSON containing 'anthropic_api_key'. "
+                         "Distinct from --credentials (which is Atlassian/Jira). "
+                         "Defaults to ~/.watch-video/credentials.json inside "
+                         "highlights.py if neither --highlights-api-key nor env "
+                         "ANTHROPIC_API_KEY is set.")
+    args = ap.parse_args()
+
+    global _PARTIAL_META_PATH
+    _PARTIAL_META_PATH = None
+    overall_t0 = time.time()
+    kind, value = classify_input(args.input)
+    workdir = Path(args.workdir).resolve() if args.workdir else default_workdir(kind, value, args.attachment_id)
+    workdir.mkdir(parents=True, exist_ok=True)
+    _maybe_enable_log_file_mode(workdir)
+    meta_path = workdir / "meta.json"
+    frames_dir = workdir / "frames"
+
+    # Verbose mode: propagate to subprocesses via env vars. WATCH_VERBOSE turns
+    # on human-readable pretty lines in _common.emit(); WATCH_VERBOSE_TTY adds
+    # in-place \r overwriting for progress events when stderr is a TTY.
+    if args.verbose:
+        os.environ["WATCH_VERBOSE"] = "1"
+        if sys.stderr.isatty():
+            os.environ["WATCH_VERBOSE_TTY"] = "1"
+
+    # Load existing meta.json to inherit cache state; reset if --no-cache.
+    if meta_path.exists() and not args.no_cache:
+        try:
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            meta = {}
+    else:
+        meta = {}
+    # Ensure required scaffolding
+    meta.setdefault("schema_version", 2)
+    meta.setdefault("workdir", str(workdir))
+    meta.setdefault("input", {"raw": args.input, "kind": kind, "value": value})
+    meta.setdefault("window", {"start": args.start, "end": args.end})
+    meta.setdefault("report", None)
+    # Per-run diagnostics; never inherited from a previous run's meta.json.
+    meta["warnings"] = []
+    meta["contact_sheet"] = None
+    meta.pop("error", None)
+    if args.no_cache:
+        meta["cache"] = {"schema": 1, "steps": {}}
+    get_cache(meta)  # ensure cache block exists
+
+    # Honor --force-step: drop those entries (downstream is invalidated when run)
+    if args.force_step:
+        for step in (s.strip() for s in args.force_step.split(",") if s.strip()):
+            meta["cache"]["steps"].pop(step, None)
+            invalidate_downstream(meta, step)
+
+    emit("start", step="orchestrator", workdir=str(workdir),
+         input_kind=kind, cache_enabled=not args.no_cache)
+
+    def save_meta() -> None:
+        staging = atomic_path(meta_path)
+        staging.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+        finalize(staging, meta_path)
+
+    def warn(step: str, msg: str, **extra: Any) -> None:
+        """A non-fatal problem the agent must see: stderr event + meta.json."""
+        emit("warning", step=step, msg=msg, **extra)
+        meta.setdefault("warnings", []).append({"step": step, "msg": msg, **extra})
+        save_meta()
+
+    # 1. Fetch ---------------------------------------------------------------
+    fetch_fp_inputs = {
+        "input": args.input, "kind": kind, "value": value,
+        "attachment_id": args.attachment_id,
+        "credentials": args.credentials,
+        "since_seconds": args.since_seconds if kind == "auto" else None,
+    }
+    fetch_fp = step_fingerprint("fetch", fetch_fp_inputs)
+    cached_video_path = Path(meta.get("video", {}).get("path") or "")
+    if is_cached(meta, "fetch", fetch_fp, [cached_video_path] if cached_video_path.name else []):
+        emit("cache_hit", step="fetch", fingerprint=fetch_fp)
+        fetch_info = meta["video"]
+        video = Path(fetch_info["path"])
+    else:
+        invalidate_downstream(meta, "fetch")
+        fetch_info = fetch(kind, value, workdir,
+                           args.attachment_id, args.credentials, args.since_seconds)
+        meta["video"] = fetch_info
+        video = Path(fetch_info["path"])
+        record_step(meta, "fetch", fetch_fp, [video])
+    save_meta()
+
+    # 2. Probe (always re-run; it's cheap and its result gates transcription) -
+    probe_info = probe(video)
+    meta["probe"] = probe_info
+    save_meta()
+
+    # Token-economy hint for the next agent reading these events. For long
+    # videos (>10 min of audio the agent will actually have to consume)
+    # without --highlights-prompt, reading the full transcript at the answer
+    # step burns ~15k+ tokens of context. Purely advisory -- doesn't change
+    # the run -- but agents that tail the stderr event stream can spot the
+    # recommendation and re-run with --highlights-prompt on the next
+    # iteration. See SKILL.md "Pick flags" for the full guidance.
+    #
+    # Two gates that the naive version missed:
+    #   1. Use the EFFECTIVE window duration when --start/--end is set --
+    #      a 60-min source scoped to a 30-sec window has no token-economy
+    #      problem and shouldn't trigger the hint.
+    #   2. Only emit when transcription will actually run -- --no-audio,
+    #      missing audio stream, or silent track all mean no transcript
+    #      and therefore no oversized answer-step context. Mirror the
+    #      same conditions the transcribe step uses below.
+    full_duration = probe_info.get("duration") or 0
+    _hint_start = parse_time_spec(args.start)
+    _hint_end = parse_time_spec(args.end)
+    try:
+        effective_window_s = window_duration(_hint_start, _hint_end,
+                                             full_duration)
+    except ValueError:
+        # Bad --start/--end will be reported by the frames step; for the
+        # hint just fall back to the full duration so we don't crash here.
+        effective_window_s = full_duration
+    transcription_will_run = (
+        not args.no_audio
+        and probe_info.get("has_audio")
+        and not probe_info.get("is_silent")
+    )
+    if (effective_window_s > 600 and not args.highlights_prompt
+            and transcription_will_run):
+        emit("hint",
+             step="orchestrator",
+             msg=(f"long transcribed window "
+                  f"({effective_window_s:.0f}s = "
+                  f"{effective_window_s / 60:.1f} min). For a targeted "
+                  f"question, grep transcript.md and read only the matching "
+                  f"paragraphs and nearby frames (~15k tokens saved), or "
+                  f"scope with --start/--end. Headless runs without a "
+                  f"Claude session can use --highlights-prompt (paid API)."),
+             window_seconds=round(effective_window_s, 1),
+             full_duration_seconds=round(full_duration, 1),
+             recommendation="grep transcript.md for the question's terms; "
+                            "or --start/--end chunks")
+
+    # 3. Frames --------------------------------------------------------------
+    # `dedup_will_mutate` is part of the frames-step fingerprint because dedup
+    # rewrites the same frames/ directory in place. Without this flag in the
+    # fingerprint, toggling --dedup between runs would cause the next run to
+    # cache-hit on a directory whose contents are the wrong (deduped) subset.
+    frames_fp_inputs = {
+        "video_fp": file_fingerprint(video),
+        "frames": args.frames, "resolution": args.resolution,
+        "start": args.start, "end": args.end,
+        "scene_mode": args.scene_mode, "scene_threshold": args.scene_threshold,
+        "dedup_will_mutate": args.dedup and transcription_will_run,
+    }
+    frames_fp = step_fingerprint("frames", frames_fp_inputs)
+    if is_cached(meta, "frames", frames_fp, [frames_dir]):
+        emit("cache_hit", step="frames", fingerprint=frames_fp,
+             frame_count=meta.get("frames", {}).get("frame_count"))
+        frames_info = meta["frames"]
+    else:
+        invalidate_downstream(meta, "frames")
+        frames_info = extract_frames(video, workdir,
+                                      args.frames, args.resolution,
+                                      args.start, args.end,
+                                      args.scene_mode, args.scene_threshold)
+        meta["frames"] = frames_info
+        record_step(meta, "frames", frames_fp, [frames_dir])
+    save_meta()
+    # Frames are on disk: from here every exit prints meta.json (see _entry).
+    _PARTIAL_META_PATH = meta_path
+
+    # 4. Transcribe (optional) ----------------------------------------------
+    transcribe_info: dict | None = None
+    skipped_audio_reason: str | None = None
+    if args.no_audio:
+        skipped_audio_reason = "disabled via --no-audio"
+    elif not probe_info["has_audio"]:
+        skipped_audio_reason = "no audio stream"
+    elif probe_info["is_silent"]:
+        skipped_audio_reason = f"silent track (mean_volume={probe_info['mean_volume_db']} dB)"
+
+    if skipped_audio_reason:
+        meta["transcript"] = None
+        meta["skipped_audio_reason"] = skipped_audio_reason
+        # Skipping invalidates any prior transcript-derived caches downstream
+        meta["cache"]["steps"].pop("transcribe", None)
+        invalidate_downstream(meta, "transcribe")
+    else:
+        # Resolve `auto` to a concrete provider. Captions are preferred when
+        # available (free + fast); otherwise fall back to local Whisper.
+        captions_vtt_path = (meta.get("video") or {}).get("captions_path")
+        effective_whisper = args.whisper
+        if effective_whisper == "auto":
+            effective_whisper = "captions" if captions_vtt_path else "local"
+        emit("info", step="transcribe", resolved_provider=effective_whisper,
+             requested_provider=args.whisper,
+             captions_available=bool(captions_vtt_path))
+
+        transcribe_fp = step_fingerprint("transcribe", transcribe_fp_inputs(
+            file_fingerprint(video), args.start, args.end, effective_whisper,
+            args.model, args.lang, captions_vtt_path))
+        transcript_outputs = [workdir / "transcript.txt", workdir / "transcript.md"]
+        if is_cached(meta, "transcribe", transcribe_fp, transcript_outputs):
+            emit("cache_hit", step="transcribe", fingerprint=transcribe_fp)
+            transcribe_info = meta.get("transcript")
+        else:
+            invalidate_downstream(meta, "transcribe")
+            if effective_whisper == "captions" and not captions_vtt_path:
+                failure: dict | None = {
+                    "exit_code": ExitCode.BAD_INPUT,
+                    "msg": "--whisper captions requested but no VTT was "
+                           "downloaded (the platform may not supply captions "
+                           "for this video); try --whisper local or omit "
+                           "--whisper"}
+            else:
+                transcribe_info, failure = _soft_step(
+                    "transcribe", transcribe,
+                    video, workdir, args.model, args.lang,
+                    args.start, args.end,
+                    effective_whisper, args.whisper_api_key,
+                    args.whisper_credentials,
+                    captions_vtt=captions_vtt_path if effective_whisper == "captions" else None,
+                )
+            if failure:
+                # Frames-only beats an empty stdout: the agent can still
+                # answer from the frames and sees why there is no transcript.
+                transcribe_info = None
+                reason = f"transcription failed ({effective_whisper}): {failure['msg']}"
+                meta["transcript"] = None
+                meta["skipped_audio_reason"] = reason
+                meta["cache"]["steps"].pop("transcribe", None)
+                invalidate_downstream(meta, "transcribe")
+                warn("transcribe", reason + "; continuing frames-only",
+                     exit_code=failure["exit_code"])
+            else:
+                meta["transcript"] = transcribe_info
+                meta["skipped_audio_reason"] = None
+                record_step(meta, "transcribe", transcribe_fp, transcript_outputs)
+    save_meta()
+
+    # Track the transcribe step fingerprint for downstream cache inputs.
+    transcribe_step_fp = meta["cache"]["steps"].get("transcribe", {}).get("fingerprint")
+
+    # 5. Dedup (optional) ---------------------------------------------------
+    # Use upstream step fingerprints (frames_fp, transcribe_fp) -- they identify
+    # the upstream inputs/flags deterministically, even when the upstream
+    # step mutated its own output dir (which dedup does to frames/).
+    dedup_step_fp: str | None = None
+    if args.dedup and meta.get("transcript") is None:
+        # With no transcript the transcript-aware guard is inert and only the
+        # 5-second temporal floor stands. On the PROJ-1234 silent repro that
+        # dropped 22 of 30 frames and made the date field the tester typed
+        # into unreadable: two consecutive frames of a UI repro differ by one
+        # character, so a perceptual hash is supposed to call them duplicates.
+        warn("dedup",
+             "skipped: no transcript, so dedup would drop the small UI "
+             "changes this run exists to capture. Bound the frame budget "
+             "with --frames N (MCP: frames=N) instead.",
+             reason=meta.get("skipped_audio_reason") or "no transcript")
+    elif args.dedup:
+        dedup_fp_inputs = {
+            "frames_step_fp": frames_fp,
+            "transcribe_step_fp": transcribe_step_fp,
+            "threshold": args.dedup_threshold,
+            "min_interval": args.dedup_min_interval,
+            "protect_window": args.dedup_protect_window,
+        }
+        dedup_step_fp = step_fingerprint("dedup", dedup_fp_inputs)
+        if is_cached(meta, "dedup", dedup_step_fp, [frames_dir]):
+            emit("cache_hit", step="dedup", fingerprint=dedup_step_fp,
+                 frame_count=meta.get("frames", {}).get("frame_count"))
+        else:
+            invalidate_downstream(meta, "dedup")
+            _, failure = _soft_step("dedup", smart_dedup, workdir,
+                                    args.dedup_threshold,
+                                    args.dedup_min_interval,
+                                    args.dedup_protect_window)
+            if failure:
+                dedup_step_fp = None
+                warn("dedup", f"dedup failed, all frames kept: {failure['msg']}",
+                     exit_code=failure["exit_code"])
+            else:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+                record_step(meta, "dedup", dedup_step_fp, [frames_dir])
+                save_meta()
+
+    # 5.5. Contact sheet (optional) -----------------------------------------
+    if args.contact_sheet:
+        sheet_path, failure = _soft_step(
+            "contact_sheet", create_contact_sheet,
+            meta.get("frames") or {}, workdir)
+        if failure:
+            warn("contact_sheet", f"contact sheet failed: {failure['msg']}",
+                 exit_code=failure["exit_code"])
+        else:
+            meta["contact_sheet"] = sheet_path
+            save_meta()
+
+    # 6. OCR (optional) -----------------------------------------------------
+    ocr_step_fp: str | None = None
+    if args.ocr:
+        ocr_fp_inputs = {
+            "frames_step_fp": frames_fp,
+            "dedup_step_fp": dedup_step_fp,
+            "lang": args.ocr_lang,
+            "min_text_length": args.ocr_min_text_length,
+        }
+        ocr_step_fp = step_fingerprint("ocr", ocr_fp_inputs)
+        ocr_path = workdir / "ocr.txt"
+        if is_cached(meta, "ocr", ocr_step_fp, [ocr_path]):
+            emit("cache_hit", step="ocr", fingerprint=ocr_step_fp)
+        else:
+            invalidate_downstream(meta, "ocr")
+            _, failure = _soft_step("ocr", ocr, workdir, args.ocr_lang,
+                                    args.ocr_min_text_length)
+            if failure:
+                # Typically Tesseract missing (exit 3). OCR is an aid for
+                # grepping on-screen text; the frames are still readable.
+                ocr_step_fp = None
+                warn("ocr", f"OCR skipped: {failure['msg']}",
+                     exit_code=failure["exit_code"])
+            else:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+                record_step(meta, "ocr", ocr_step_fp, [ocr_path])
+                save_meta()
+
+    # 7. Report (optional) --------------------------------------------------
+    if not args.no_report:
+        # python-docx availability participates in the cache key: if a prior
+        # run skipped docx because the dep was missing and the user then
+        # installs python-docx, the fingerprint changes and docx gets
+        # regenerated. Without this, the cache would keep serving the old
+        # [md, html] outputs even though docx is now producible.
+        if args.no_docx:
+            docx_available = False
+        else:
+            try:
+                import docx as _docx_probe  # noqa: F401
+                docx_available = True
+            except ImportError:
+                docx_available = False
+
+        # Cache key includes the format flags so toggling --no-html / --no-docx
+        # invalidates cache and regenerates the missing format.
+        report_fp_inputs = {
+            "frames_step_fp": frames_fp,
+            "transcribe_step_fp": transcribe_step_fp,
+            "dedup_step_fp": dedup_step_fp,
+            "ocr_step_fp": ocr_step_fp,
+            "no_html": args.no_html,
+            "no_docx": args.no_docx,
+            "docx_available": docx_available,
+        }
+        report_fp = step_fingerprint("report", report_fp_inputs)
+        report_path = workdir / "report.md"
+        expected_report_outputs = [report_path]
+        if not args.no_html:
+            expected_report_outputs.append(workdir / "report.html")
+        # When python-docx is usable, require report.docx for a cache hit.
+        # When unavailable, the prior fingerprint differs (docx_available
+        # transitioned False -> True), so we'd never reach this branch with
+        # a stale cache entry.
+        if docx_available:
+            expected_report_outputs.append(workdir / "report.docx")
+
+        if is_cached(meta, "report", report_fp, expected_report_outputs):
+            emit("cache_hit", step="report", fingerprint=report_fp)
+        else:
+            report_info, failure = _soft_step("report", report, workdir,
+                                              no_html=args.no_html,
+                                              no_docx=args.no_docx)
+            if failure:
+                warn("report", f"report generation failed: {failure['msg']}",
+                     exit_code=failure["exit_code"])
+            else:
+                meta["report"] = report_info
+                # Record only outputs that actually exist so cache state matches
+                # disk state on the next run (docx may still be skipped by
+                # warning if python-docx is uninstalled between probe and run).
+                actual_outputs = [report_path]
+                if not args.no_html and (workdir / "report.html").exists():
+                    actual_outputs.append(workdir / "report.html")
+                if not args.no_docx and (workdir / "report.docx").exists():
+                    actual_outputs.append(workdir / "report.docx")
+                record_step(meta, "report", report_fp, actual_outputs)
+                save_meta()
+
+    meta["generated_at"] = int(time.time())
+    meta["elapsed_seconds"] = round(time.time() - overall_t0, 2)
+    save_meta()
+
+    # 7.5. Optionally run intelligent highlights (LLM-driven moment picking).
+    # When --highlights-prompt is set, we call highlights.py which writes
+    # highlights.json + adds a `highlights` block to meta. post_to_jira.py's
+    # summary mode auto-picks up highlights.json when present.
+    #
+    # Optional and paid: a missing key or a provider error is a warning in
+    # meta.json, not an exit. In a Claude Code session the agent picks the
+    # moments itself from frames + transcript, so nothing is lost.
+    if args.highlights_prompt and transcribe_info is None:
+        warn("highlights",
+             "--highlights-prompt ignored: highlights need a transcript and "
+             f"there is none ({meta.get('skipped_audio_reason') or 'no transcript'}). "
+             "Pick the moments from the frames instead.")
+    elif args.highlights_prompt:
+        _, failure = _soft_step(
+            "highlights", run_highlights,
+            workdir,
+            prompt=args.highlights_prompt,
+            max_n=args.highlights_max_n,
+            model=args.highlights_model,
+            api_key=args.highlights_api_key,
+            # NOTE: do NOT forward args.credentials -- that is the Atlassian
+            # auth path, which would corrupt the Anthropic credentials loader
+            # in highlights.py. Use the dedicated --highlights-credentials flag.
+            credentials=args.highlights_credentials,
+            provider=args.highlights_provider,
+            base_url=args.highlights_base_url,
+        )
+        if failure:
+            warn("highlights", f"highlights skipped: {failure['msg']}",
+                 exit_code=failure["exit_code"])
+        else:
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
+
+    # 8. Optionally post to Jira -- NEVER default on, never auto-added by the
+    # agent. Per the skill's no-unsolicited-Jira-writes rule, this only runs
+    # when the user explicitly passed --post-to-jira on this invocation.
+    if args.post_to_jira:
+        jira_key = (meta.get("video") or {}).get("issue_key")
+        post_to_jira(
+            workdir,
+            jira_key=jira_key,
+            dry_run=args.post_to_jira_dry_run,
+            yes=args.post_to_jira_yes,
+            credentials=args.credentials,
+            no_embed_images=args.post_to_jira_no_embed_images,
+            style=args.post_to_jira_style,
+            summary_key_frames=args.post_to_jira_summary_key_frames,
+        )
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+
+    emit("complete", step="orchestrator",
+         duration_seconds=meta["elapsed_seconds"],
+         meta_path=str(meta_path))
+    print(json.dumps(meta, indent=2))
+    return ExitCode.OK
+
+
+if __name__ == "__main__":
+    sys.exit(_entry())

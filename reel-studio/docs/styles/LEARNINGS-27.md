@@ -36,3 +36,23 @@ Universal: every video sits at about -14 LUFS (our -14 target is right). BPM of 
 
 ## Next (needs user approval)
 Map these 8 styles onto packs, add the missing layouts and overlays, then make the 10 s proof per style.
+
+## Script and audio structure (from transcripts, `reference-library/transcripts27/`)
+
+Tools: vendored `claude-watch-video` (MIT, `tools/reference/watch.mjs`, ~5 s per video, faster-whisper tiny.en) for transcripts; `rea-video` (Apache-2.0) for SFX/stems/stickers (~5 min per video, run only on r08 and r19; sidecars in `reference-library/sfx27/`, converted by `tools/reference/deep_ingest.py`). Whisper was clean except r12 and r16 (garbled: fast speech or music) and r01/r09/r20 (no speech: caption-only films over music).
+
+**Word counts:** tutorial/promo styles (1, 4, 7-claude, 8) run 90-260 words in 35-80 s, about 3.5-4 words/s (fast). Story styles (2, 6) 220-500 words. Roblox r23-25 are the longest (400-500 words).
+
+**Hook (first sentence) patterns, all with a number or a stakes line:**
+- Warning/negation: "Don't use Claude code unless you've installed these five plugins." (r08)
+- Absurd claim + stakes: "make 100 versions of Claude fight to the death" (r11); "buried a man alive with a bell tied to his finger" (r06); "He bent the roller coaster's loop out of shape... it cost him everything" (r26)
+- Social proof: "Someone open sourced... passed 11,000 stars" (r19); "Twenty-five GitHub repos... you only need four" (r15)
+- World rule: "In this town, everyone is only allowed to take 1 million steps in their entire life" (r23, r24); "If you plant a tree beside an empty road, cars will steer right into it" (r21)
+- Dialogue cold open: "Claude, I asked you to fix one typo!" (r07); "Claude, I graduated today. Zero offers." (r18); "What? Why does AI get dumber the longer I chat?" (r25)
+- Tutorial promise: "Everyone's making AI animated reels... nobody's showing you how. So I'll show you everything." (r22, r27, same template)
+
+**Tutorial body:** numbered list ("The first is... The second is...") or steps ("Step one. Connect Playwright") with a problem->fix sentence each; r03 uses "The problem: ... The fix: ...".
+
+**CTA (every tutorial/promo ends with a comment keyword):** "comment Claude/arena/pre-sell/reels/Wi-Fi/Studio/kit/set up/agent/apply and I'll send you the link." Roblox/story ends with a callback twist ("The whole town walks upside down", "It was in this video the whole time") or a plug ("connect viral explainers to Claude, link in bio"). Dialogue styles (7) end on a joke tag ("Your billing code hasn't run since March.").
+
+**SFX (r08, measured):** 36 hits in 57 s (6.3 per 10 s), mostly whooshes, plus clicks and one ding; 39% sit on cuts; bed at -55..-60 dB under voice; voice is TTS at about 225 wpm, male, 98 Hz. r19: only 3 hits (1.4 per 10 s). So SFX density differs 4x between styles; our audio plan must set it per style, not globally.
