@@ -1,0 +1,25 @@
+{
+ "platform": "youtube",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "history and story fans",
+ "goal": "a short story with a turn",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.0
+ },
+ "music": {
+  "direction": "taiko drums, tension"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "The map under the rug",
+ "topic": "a samurai camp story with a hidden map",
+ "duration_sec": 11,
+ "style_pack": "drawn-camp-3d",
+ "captions": {
+  "preset": "phrase"
+ }
+}

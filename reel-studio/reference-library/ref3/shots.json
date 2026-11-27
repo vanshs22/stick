@@ -1,0 +1,163 @@
+{
+ "video": "SnapInsta.to_AQNgMlqGIE-D6Yk6iIXA8f0e8JGgfZJt5gwInsI7GZQYCrWtTeYGl2vmuSo6lYBpJkCJGW62E-T-NyGlI7-X0co7zPxCNWT1IOEhgxE.mp4",
+ "duration": 53.43,
+ "shots": 22,
+ "avg_shot_sec": 2.43,
+ "cuts_per_10s": 4.12,
+ "list": [
+  {
+   "n": 1,
+   "start": 0,
+   "end": 0.97,
+   "seconds": 0.97,
+   "frame": "shot_01.jpg"
+  },
+  {
+   "n": 2,
+   "start": 0.97,
+   "end": 2.57,
+   "seconds": 1.6,
+   "frame": "shot_02.jpg"
+  },
+  {
+   "n": 3,
+   "start": 2.57,
+   "end": 3.77,
+   "seconds": 1.2,
+   "frame": "shot_03.jpg"
+  },
+  {
+   "n": 4,
+   "start": 3.77,
+   "end": 7.07,
+   "seconds": 3.3,
+   "frame": "shot_04.jpg"
+  },
+  {
+   "n": 5,
+   "start": 7.07,
+   "end": 9.4,
+   "seconds": 2.33,
+   "frame": "shot_05.jpg"
+  },
+  {
+   "n": 6,
+   "start": 9.4,
+   "end": 10.7,
+   "seconds": 1.3,
+   "frame": "shot_06.jpg"
+  },
+  {
+   "n": 7,
+   "start": 10.7,
+   "end": 15.93,
+   "seconds": 5.23,
+   "frame": "shot_07.jpg"
+  },
+  {
+   "n": 8,
+   "start": 15.93,
+   "end": 18.83,
+   "seconds": 2.9,
+   "frame": "shot_08.jpg"
+  },
+  {
+   "n": 9,
+   "start": 18.83,
+   "end": 19.63,
+   "seconds": 0.8,
+   "frame": "shot_09.jpg"
+  },
+  {
+   "n": 10,
+   "start": 19.63,
+   "end": 22.5,
+   "seconds": 2.87,
+   "frame": "shot_10.jpg"
+  },
+  {
+   "n": 11,
+   "start": 22.5,
+   "end": 25.7,
+   "seconds": 3.2,
+   "frame": "shot_11.jpg"
+  },
+  {
+   "n": 12,
+   "start": 25.7,
+   "end": 26.13,
+   "seconds": 0.43,
+   "frame": "shot_12.jpg"
+  },
+  {
+   "n": 13,
+   "start": 26.13,
+   "end": 32.97,
+   "seconds": 6.83,
+   "frame": "shot_13.jpg"
+  },
+  {
+   "n": 14,
+   "start": 32.97,
+   "end": 35.4,
+   "seconds": 2.43,
+   "frame": "shot_14.jpg"
+  },
+  {
+   "n": 15,
+   "start": 35.4,
+   "end": 36.43,
+   "seconds": 1.03,
+   "frame": "shot_15.jpg"
+  },
+  {
+   "n": 16,
+   "start": 36.43,
+   "end": 39.4,
+   "seconds": 2.97,
+   "frame": "shot_16.jpg"
+  },
+  {
+   "n": 17,
+   "start": 39.4,
+   "end": 41.33,
+   "seconds": 1.93,
+   "frame": "shot_17.jpg"
+  },
+  {
+   "n": 18,
+   "start": 41.33,
+   "end": 42.67,
+   "seconds": 1.33,
+   "frame": "shot_18.jpg"
+  },
+  {
+   "n": 19,
+   "start": 42.67,
+   "end": 46.73,
+   "seconds": 4.07,
+   "frame": "shot_19.jpg"
+  },
+  {
+   "n": 20,
+   "start": 46.73,
+   "end": 48.9,
+   "seconds": 2.17,
+   "frame": "shot_20.jpg"
+  },
+  {
+   "n": 21,
+   "start": 48.9,
+   "end": 51.07,
+   "seconds": 2.17,
+   "frame": "shot_21.jpg"
+  },
+  {
+   "n": 22,
+   "start": 51.07,
+   "end": 53.43,
+   "seconds": 2.36,
+   "frame": "shot_22.jpg"
+  }
+ ]
+}

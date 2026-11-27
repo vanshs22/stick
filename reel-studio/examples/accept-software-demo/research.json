@@ -1,0 +1,46 @@
+{
+ "topic": "rendering a Remotion video from the command line",
+ "angle": "One CLI command renders a Remotion composition to a video file.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "`npx remotion render` followed by the composition id renders a video from the command line.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "The Remotion docs page for the render command lists the options you can pass.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C3",
+   "text": "Remotion describes itself as a way to make videos programmatically (its home page headline reads \"Make videos programmatically\").",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://www.remotion.dev/",
+   "title": "Remotion home page",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "https://www.remotion.dev/docs/cli/render",
+   "title": "Remotion docs: npx remotion render",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

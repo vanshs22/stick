@@ -1,0 +1,45 @@
+{
+ "id": "nova",
+ "name": "Nova",
+ "kind": "human",
+ "role": "mascot",
+ "silhouette": "a bright guide: lilac bob haircut, a white jumpsuit",
+ "height_m": 1.7,
+ "look": {
+  "skin": "#B87A58",
+  "hair": "#9B7BD8",
+  "shirt": "#F4F4F8",
+  "pants": "#F4F4F8",
+  "shoes": "#9B7BD8",
+  "iris": "#2A2A55",
+  "hairStyle": "bob",
+  "eyeScale": 1.15
+ },
+ "world": "home-studio",
+ "personality": "bright, upbeat, clear",
+ "default_emotion": "calm",
+ "emotion_range": [
+  "calm",
+  "happy",
+  "curious",
+  "surprised",
+  "worried",
+  "sad",
+  "angry",
+  "smirk",
+  "scared",
+  "relieved",
+  "determined"
+ ],
+ "voice": {
+  "gender": "female",
+  "tone": "bright, upbeat, clear",
+  "voice_id": "af_nicole",
+  "speed": 1.0
+ },
+ "do_not": [
+  "change hair, glasses or colours between shots",
+  "wear another character's silhouette"
+ ],
+ "locked": true
+}

@@ -1,0 +1,26 @@
+{
+ "title": "The three blues",
+ "topic": "a launch-day story with an AI helper",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 32,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "teach one idea clearly",
+ "style_pack": "stylized-3d-presenter",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "dialogue"
+ },
+ "cta": {
+  "keyword": "BLUES",
+  "text": "Comment BLUES"
+ }
+}

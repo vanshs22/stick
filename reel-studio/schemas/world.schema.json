@@ -1,0 +1,28 @@
+{
+ "type": "object",
+ "required": ["schema_version", "sets"],
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": { "type": "integer", "minimum": 1 },
+  "sets": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "required": ["id", "type", "palette"],
+    "additionalProperties": false,
+    "properties": {
+     "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+     "type": { "type": "string", "enum": ["painted", "pbr3d", "ui", "voxel", "studio", "roblox", "stage"] },
+     "palette": { "type": "array", "minItems": 2, "items": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" } },
+     "props": { "type": "array", "items": { "type": "object", "required": ["kind"], "properties": { "kind": { "type": "string" }, "pos": { "type": "array", "items": { "type": "number" } }, "footprint": { "type": "array", "items": { "type": "number" } } } } },
+     "lighting": { "type": "string" },
+     "layers": { "type": "integer", "minimum": 1, "maximum": 6 },
+     "bg_motion": { "type": "string" }
+    }
+   }
+  },
+  "bubble_style": { "type": "object" },
+  "ui_chrome": { "type": "string" }
+ }
+}

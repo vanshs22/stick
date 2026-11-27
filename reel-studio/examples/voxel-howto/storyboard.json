@@ -1,0 +1,359 @@
+{
+ "style_pack": "voxel-explainer",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01",
+    "L02"
+   ],
+   "visual_intent": "voxel presenter greets, creature hops",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "starfield",
+    "characters": [
+     {
+      "variant": "voxel",
+      "pose": [
+       [
+        0,
+        "open"
+       ],
+       [
+        1.5,
+        "point"
+       ]
+      ],
+      "mood": "happy",
+      "skin": "#A8704A",
+      "shirt": "#5a5a72",
+      "hair": "#14100c",
+      "beard": true,
+      "badge": "#F2C12E"
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.8,
+      "z": 0.4,
+      "scale": 1.1,
+      "color": "#F0683C",
+      "kickAnchor": "code"
+     }
+    ],
+    "camera": {
+     "shot": "medium",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "code",
+     "line": "L02",
+     "word": "code"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boing",
+     "anchor": "code",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Make it with code",
+     "n": 1,
+     "of": 5
+    }
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: voxel presenter greets, creature hops"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "terminal opens",
+   "shot_type": "screen-demo",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "open terminal"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "t",
+     "line": "L03",
+     "word": "terminal"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "t"
+    }
+   ],
+   "transition_out": {
+    "type": "zoom",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Step 1 · open a terminal",
+     "n": 1,
+     "of": 5
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: terminal opens"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "one line typed",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "make a 30 second video"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "t",
+     "line": "L04",
+     "word": "line"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "t",
+     "dur": 1
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Step 2 · one line",
+     "n": 2,
+     "of": 5
+    },
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "free"
+      },
+      {
+       "text": "open source"
+      }
+     ],
+     "x": 540,
+     "y": 820,
+     "anchor": "t"
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: one line typed"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "presenter waits",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "starfield",
+    "characters": [
+     {
+      "variant": "voxel",
+      "pose": "think",
+      "mood": "smirk",
+      "skin": "#A8704A",
+      "shirt": "#5a5a72",
+      "hair": "#14100c",
+      "beard": true
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.8,
+      "z": 0.4,
+      "scale": 1.1,
+      "color": "#F0683C",
+      "kickAnchor": "enter"
+     }
+    ],
+    "camera": {
+     "shot": "medium",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "enter",
+     "line": "L05",
+     "word": "enter"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "enter"
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Step 3 · press enter",
+     "n": 3,
+     "of": 5
+    },
+    {
+     "type": "callout",
+     "text": "built from simple shapes",
+     "x": 640,
+     "y": 1050,
+     "anchor": "enter"
+    }
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: presenter waits"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "comment call to action",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "VIDEO"
+   },
+   "anchors": [
+    {
+     "name": "k",
+     "line": "L06",
+     "word": "VIDEO"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "k",
+     "offset": 0.4
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Comment to get every step",
+     "n": 5,
+     "of": 5
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "happy sign-off",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "starfield",
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.5,
+      "z": 0.5,
+      "scale": 1.1,
+      "color": "#F0683C"
+     }
+    ],
+    "characters": [
+     {
+      "variant": "voxel",
+      "skin": "#A8704A",
+      "shirt": "#5a5a72",
+      "hair": "#14100c",
+      "beard": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.5,
+        "cheer"
+       ]
+      ],
+      "mood": "happy"
+     }
+    ],
+    "camera": {
+     "shot": "hero",
+     "move": "push"
+    }
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "at": "start",
+     "offset": 0.1,
+     "gain": 0.5,
+     "why": "on-screen event: happy sign-off"
+    }
+   ],
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "SAVE THIS",
+     "color": "#FFD84A",
+     "rotate": -5,
+     "x": 330,
+     "y": 420
+    }
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: happy sign-off"
+  }
+ ]
+}

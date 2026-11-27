@@ -1,0 +1,54 @@
+{
+ "status": "ready",
+ "style_pack": "editorial-sticker",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "The padlock is on, so this site is safe, right?",
+   "approach": "designed-ui",
+   "adds_information": "The address bar with the padlock shows exactly what Leo is trusting before the answer."
+  },
+  {
+   "line_id": "L02",
+   "line": "Wrong. Nearly all phishing sites show that padlock too.",
+   "approach": "motion-graphics",
+   "adds_information": "The stamp turns Maya's contradiction into a verdict the eye reads in a blink, and the sticker gives the fact (nearly all phishing uses HTTPS) that the voice only hints at."
+  },
+  {
+   "line_id": "L03",
+   "line": "Wait, what?",
+   "approach": "motion-graphics",
+   "adds_information": "A jolt card: the shock is the picture, which resets attention before the numbers."
+  },
+  {
+   "line_id": "L04",
+   "line": "Only eleven percent understand the lock. Chrome replaced it.",
+   "approach": "data-viz",
+   "adds_information": "The counting 11 percent puts a number and a source on the spoken claim."
+  },
+  {
+   "line_id": "L05",
+   "line": "So my password was about to go to a fake site?",
+   "approach": "designed-ui",
+   "adds_information": "Two identical sites side by side show why Leo cannot tell real from fake."
+  },
+  {
+   "line_id": "L06",
+   "line": "The lock only means the connection is encrypted.",
+   "approach": "evidence-card",
+   "adds_information": "Google's real post is the evidence that the voice cannot provide."
+  },
+  {
+   "line_id": "L07",
+   "line": "Check the address, not the icon.",
+   "approach": "designed-ui",
+   "adds_information": "The two ticking habits make the advice something to copy."
+  },
+  {
+   "line_id": "L08",
+   "line": "Save this before a padlock fools you. Comment LOCK.",
+   "approach": "designed-ui",
+   "adds_information": "The comment field shows the exact keyword to type."
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+[
+ {
+  "id": "web/incognito",
+  "src": "SRC1",
+  "url": "https://support.google.com/chrome/answer/95464",
+  "viewport": "480x486",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 800
+   },
+   {
+    "do": "scroll",
+    "y": 850
+   },
+   {
+    "do": "wait",
+    "ms": 700
+   },
+   {
+    "do": "expect",
+    "text": "observe your activity"
+   },
+   {
+    "do": "highlight",
+    "selector": "text=observe your activity",
+    "name": "seen"
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ]
+ },
+ {
+  "fetch": {
+   "kind": "image",
+   "query": "city skyline dusk",
+   "id": "bg/city",
+   "pick": 5
+  }
+ }
+]

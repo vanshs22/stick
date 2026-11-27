@@ -1,0 +1,38 @@
+{
+ "topic": "Remotion: making videos with React code",
+ "angle": "Remotion makes a video the way you make a web page: code draws each frame.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "Remotion gives you a frame number and a blank canvas to render anything with React.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "The remotion-dev/remotion repository has more than 70,000 GitHub stars (73,667 when checked on 2026-11-16 with the GitHub API).",
+   "status": "verified",
+   "source_ids": [
+    "SRC2"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://www.remotion.dev/docs/the-fundamentals",
+   "title": "Remotion docs: The fundamentals",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "https://github.com/remotion-dev/remotion",
+   "title": "GitHub: remotion-dev/remotion",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

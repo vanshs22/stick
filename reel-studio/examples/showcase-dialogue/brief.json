@@ -1,0 +1,32 @@
+{
+ "title": "The padlock lie",
+ "topic": "what the browser padlock does and does not mean",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 28,
+ "language": "en",
+ "audience": "everyday internet users who trust the padlock",
+ "goal": "change one habit: check the address, not the icon",
+ "style_pack": "editorial-sticker",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1
+ },
+ "music": {
+  "direction": "upbeat"
+ },
+ "captions": {
+  "preset": "headline"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "cta": {
+  "keyword": "LOCK",
+  "text": "Comment LOCK"
+ },
+ "delivery": {
+  "upscale": true
+ }
+}

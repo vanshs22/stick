@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+// Map a completed style brief onto what THIS toolkit can render: the closest style pack, overrides for it, an element-by-element fidelity table (exact / close / approximate / cannot),
+// the gaps (what would have to be built) and the twist options. It never claims a match it cannot deliver.
+//   node tools/reference/style_map.mjs <P> <refName> [--pack <id>]   -> references/<name>/style-map.json + style-map.md; writes <P>/style-overrides.json if absent (--write-overrides to replace)
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), a = process.argv.slice(2), P = path.resolve(a[0] || ''), name = a[1], opt = (k, d) => { const i = a.indexOf('--' + k); return i >= 0 ? a[i + 1] : d; };
+const dir = path.join(P, 'references', name || ''), F = path.join(dir, 'style-brief.json'), rd = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
+if (!name || !fs.existsSync(F)) { console.error('usage: style_map.mjs <P> <refName> [--pack id]  (needs a completed style brief: style_brief.mjs --template, fill, --validate)'); process.exit(2); }
+const B = rd(F); if (B.status !== 'done' && B.status !== 'unavailable') { console.error(`the style brief is "${B.status}": fill it after LOOKING, then run style_brief.mjs --validate`); process.exit(1); }
+const M = B.measured || {}, med = B.medium?.kind || '', txt = JSON.stringify(B).toLowerCase();
+// ---- what each pack is (family, character kind, look) ----
+const PACKS = {};
+for (const d of fs.readdirSync(path.join(TK, 'style-packs'))) { try { PACKS[d] = rd(path.join(TK, 'style-packs', d, 'style.json')); } catch { /* skip */ } }
+const KIND = { 'stylized-3d-presenter': { med: ['3d-stylized', '3d-low-poly'], char: 'human', tags: ['presenter', 'desk', 'studio', 'podcast', 'host', 'hoodie'] }, 'stickman-3d': { med: ['3d-stick'], char: 'stick', tags: ['stick', 'comic', 'couple'] }, 'roblox-inspired': { med: ['3d-low-poly', '3d-stylized'], char: 'blocky', tags: ['roblox', 'block', 'game'] }, 'voxel-explainer': { med: ['3d-voxel'], char: 'blocky', tags: ['voxel', 'minecraft', 'cube'] }, 'voxel-studio': { med: ['3d-voxel'], char: 'blocky', tags: ['voxel'] }, 'original-creatures': { med: ['3d-stylized'], char: 'critter', tags: ['creature', 'robot', 'mascot'] }, 'claude-minions': { med: ['3d-stylized'], char: 'cube', tags: ['mascot', 'cube', 'neon', 'stage'] }, 'noir-3d': { med: ['3d-stylized', '3d-realistic'], char: 'human', tags: ['noir', 'dark', 'detective', 'spotlight'] }, 'editorial-notebook': { med: ['2d-flat', 'motion-graphics'], char: 'presenter-2d', tags: ['notebook', 'paper', 'editorial', 'calm'] }, 'editorial-sticker': { med: ['2d-flat', '2d-cartoon', 'motion-graphics'], char: 'presenter-2d', tags: ['sticker', 'hooded', 'bold', 'tech'] }, 'paper-atlas': { med: ['2d-flat', 'motion-graphics'], char: 'none', tags: ['atlas', 'map', 'paper'] } };
+const score = (id) => { const k = KIND[id]; if (!k) return -1; let s = 0; if (k.med.includes(med)) s += 5; else if (med.slice(0, 2) === k.med[0].slice(0, 2)) s += 2; for (const t of k.tags) if (txt.includes(t)) s += 1; if (/human|person|host|presenter|man|woman|boy|girl|youth/.test(JSON.stringify(B.character || {}).toLowerCase()) && k.char === 'human') s += 3; if (/stick/.test(txt) && k.char === 'stick') s += 4; if (/voxel|minecraft|block/.test(txt) && k.char === 'blocky') s += 3; if (/podcast|studio|desk|microphone|shelf/.test(txt) && id === 'stylized-3d-presenter') s += 3; return s; };
+const ranked = Object.keys(KIND).map((id) => ({ id, score: score(id) })).sort((x, y) => y.score - x.score), pack = opt('pack', ranked[0].id), alt = ranked.filter((r) => r.id !== pack).slice(0, 2);
+const pk = PACKS[pack], is3d = pk?.family === '3d', hasChar = !/false/i.test(String(B.character?.present));
+// ---- overrides from MEASURED values (only what the engine exposes) ----
+const hexes = (s) => (s || '').match(/#[0-9A-Fa-f]{6}/)?.[0];
+const colours = { ...(hexes(B.colour?.dominant_hex) ? { bg: hexes(B.colour.dominant_hex) } : {}), ...(hexes(B.colour?.accent_hex) ? { accent: hexes(B.colour.accent_hex) } : {}) };
+const look = { ...(M.vignette != null ? { vignette: +Math.min(0.6, Math.max(0, M.vignette * 1.2)).toFixed(2) } : {}), ...(M.grain != null ? { grain: +Math.min(0.08, M.grain * 1.5).toFixed(3) } : {}), ...(/strong/i.test(B.post?.bloom || '') ? { bloom: 0.6 } : /subtle/i.test(B.post?.bloom || '') ? { bloom: 0.3 } : /none/i.test(B.post?.bloom || '') ? { bloom: 0.05 } : {}), ...(M.background_blur_ratio != null ? { aperture: M.background_blur_ratio > 0.85 ? 0 : M.background_blur_ratio > 0.6 ? 0.002 : M.background_blur_ratio > 0.35 ? 0.004 : 0.007 } : {}) };
+const castLook = {}; if (is3d && hasChar) { const sk = hexes(B.character?.skin?.tone_hex) || M.face?.skin_hex, hr = hexes(B.character?.hair?.color_hex), sh = hexes(B.character?.outfit?.color_hex); if (sk) castLook.skin = sk; if (hr) castLook.hair = hr; if (sh) castLook.shirt = sh; const ir = hexes(B.character?.eyes?.iris_hex); if (ir) castLook.iris = ir; }
+const overrides = { _from_reference: name, ...(Object.keys(colours).length ? { colors: colours } : {}), ...(Object.keys(look).length ? { defaults: { stage3d: { look } } } : {}), ...(Object.keys(castLook).length ? { defaults: { stage3d: { ...(Object.keys(look).length ? { look } : {}), cast: { human: castLook } } } } : {}) };
+// ---- fidelity table: honest per element ----
+const eyes = JSON.stringify(B.character?.eyes || '').toLowerCase(), big = /large|big|glossy|round/.test(eyes), hair = JSON.stringify(B.character?.hair || '').toLowerCase(), hands = JSON.stringify(B.character?.hands || '').toLowerCase();
+const rows = [
+  ['palette and colour grade', 'exact', 'colours are measured and applied through style-overrides.json'],
+  ['lighting direction and mood (warm key, cool rim, practical glows)', is3d ? 'close' : 'approximate', is3d ? 'the pack lights are warm key + cool rim; colours and bloom come from overrides; per-practical coloured lights need worldOpts.accent or a toolkit edit' : '2D styles have no light model: use gradients, bgImage with scrim, glow stickers'],
+  ['depth of field, bloom, vignette, grain', is3d ? 'exact' : 'approximate', is3d ? 'Stage3D look: aperture, bloom, vignette, grain are set from the measurements' : 'vignette and grain via style effects; no real DOF in 2D (blur the bgImage)'],
+  ['camera framing and angle', is3d ? 'exact' : 'approximate', 'framing, angle, focus and movement are specified per shot in the storyboard (docs/CINEMATOGRAPHY.md)'],
+  ['character: overall design family', hasChar ? (KIND[pack]?.char === 'human' && /3d-stylized|3d-low/.test(med) ? 'approximate' : 'close') : 'n/a', `closest rig is "${KIND[pack]?.char}" in ${pack}: stylised, faceted, articulated; same proportions class, simpler surfaces`],
+  ['character: face (eye size, glossy iris, brows, lids)', hasChar ? (big ? 'approximate' : 'close') : 'n/a', 'the human rig has iris colour, eyelids (blink/squint/widen) and brows; it does NOT have film-grade glossy eyes with several catch-lights or detailed eyelashes'],
+  ['character: hair', hasChar ? (/voluminous|clump|strand|wavy|curly|messy/.test(hair) ? 'cannot' : 'approximate') : 'n/a', 'hair is a solid sculpted shape with a colour; strand-level or clumped volumetric hair cannot be matched'],
+  ['character: skin (subsurface glow, blush)', hasChar ? 'approximate' : 'n/a', 'skin is a soft physical material with sheen; no true subsurface scattering'],
+  ['character: hands and fingers', hasChar ? (/five|finger|knuckle|nail/.test(hands) ? 'approximate' : 'close') : 'n/a', 'hands exist with a simplified finger shape; individual finger acting is limited'],
+  ['character: outfit and fabric detail (knit, folds, drawstrings)', hasChar ? 'approximate' : 'n/a', 'costume colours and simple garments only; no cloth simulation or fabric normal maps'],
+  ['set: room, shelf, window, plants, desk', is3d ? (pack === 'stylized-3d-presenter' || pack === 'noir-3d' ? 'close' : 'approximate') : 'cannot', is3d ? 'world "home-studio" has shelf, window, plants, sofa; extra objects (award, globe lamp, neon sign, monitor) exist only as props3d kinds laptop/screen/neonring/podium/trophy/sidetable/giftbox, or must be added' : 'no 3D set in a 2D style'],
+  ['set dressing objects listed in the brief', 'see needs-build', 'each object that is not a built prop is listed under needs-build'],
+  ['text, UI and overlays', 'exact', 'cards, mockups, captions and overlays are all available (skills/reel-craft section 5)'],
+  ['motion, cuts and pacing (video references)', 'exact', 'measured by the blueprint; applied per shot'],
+  ['voice, music and sound', 'exact', 'cast voices with emotion; music bed or a fetched CC0 file; event-tied sound'],
+];
+// ---- needs-build: set dressing and details the engine does not have ----
+const have = new Set(['book', 'laptop', 'screen', 'neonring', 'podium', 'trophy', 'sidetable', 'giftbox', 'keywall', 'pricestack', 'plant', 'shelf', 'window', 'sofa', 'rug', 'bookshelf', 'table', 'lamp']);
+const items = (B.environment?.set_dressing || []).map((s) => String(s.item || '').toLowerCase()).filter(Boolean), missing = items.filter((i) => ![...have].some((h) => i.includes(h)));
+const needs = [...missing.map((i) => ({ item: i, how: 'build a prop in remotion-template/src/three/props.js (toolkit development mode, with a test) OR approximate with a sticker overlay / a screen prop, OR leave it out and say so' })), ...(rows.filter((r) => r[1] === 'cannot').map((r) => ({ item: r[0], how: r[2] })))];
+const twist = [
+  { id: 'character_swap', idea: 'a different person (age, hair, outfit colour, profession) in the same rendering style and the same pose language' },
+  { id: 'palette_shift', idea: 'rotate the palette 25 to 60 degrees of hue (e.g. warm amber to teal-violet) keeping brightness and saturation, so it reads as the same family but not a copy' },
+  { id: 'set_swap', idea: 'same lighting recipe in a different place (workshop, kitchen, rooftop) with different set dressing' },
+  { id: 'lighting_twist', idea: 'keep key/rim logic, change the practical colour and mood (neon sign colour, time of day)' },
+  { id: 'camera_twist', idea: 'same lens feel, add a purposeful move or a closer second angle that the reference lacks' },
+  { id: 'format_twist', idea: 'same look, different content format (a skit instead of a monologue, a countdown instead of a talk)' },
+  { id: 'story_twist', idea: 'a reversal or reveal the reference does not have, paid off in the last line' },
+];
+const out = { reference: name, medium: med, closest_pack: pack, alternatives: alt, pack_scores: ranked.slice(0, 4), overrides, fidelity: rows.map(([element, level, note]) => ({ element, level, note })), needs_build: needs, twist_options: twist, must_keep: B.must_keep, free_to_change: B.free_to_change, brand_marks_to_avoid: B.brand_marks_to_avoid };
+fs.writeFileSync(path.join(dir, 'style-map.json'), JSON.stringify(out, null, 1));
+const lv = { exact: '[exact]', close: '[close]', approximate: '[approximate]', cannot: '[CANNOT]', 'n/a': '[n/a]', 'see needs-build': '[see below]' };
+fs.writeFileSync(path.join(dir, 'style-map.md'), `# Style map for "${name}" (${med})\n\nClosest pack: **${pack}** (alternatives: ${alt.map((x) => x.id).join(', ')}).\n\n## What we can match\n${out.fidelity.map((r) => `- ${lv[r.level] || r.level} ${r.element}: ${r.note}`).join('\n')}\n\n## Must keep (so it reads as the same style)\n${(B.must_keep || []).map((x) => '- ' + x).join('\n')}\n\n## Needs building or approximating (tell the user)\n${needs.length ? needs.map((n) => `- ${n.item}: ${n.how}`).join('\n') : '- nothing missing'}\n\n## Twist options (pick two or more; write the idea in one sentence)\n${twist.map((t) => `- ${t.id}: ${t.idea}`).join('\n')}\n\n## Never copy\n${(B.brand_marks_to_avoid || []).map((x) => '- ' + x).join('\n') || '- (none listed)'}\n`);
+const ovf = path.join(P, 'style-overrides.json'); let wrote = false;
+if (Object.keys(overrides).length > 1 && (!fs.existsSync(ovf) || a.includes('--write-overrides'))) { fs.writeFileSync(ovf, JSON.stringify(overrides, null, 1)); wrote = true; }
+console.log(`closest pack: ${pack} (score ${ranked.find((r) => r.id === pack)?.score}); alternatives ${alt.map((x) => x.id).join(', ')}\nfidelity: ${out.fidelity.filter((r) => r.level === 'exact').length} exact, ${out.fidelity.filter((r) => r.level === 'close').length} close, ${out.fidelity.filter((r) => r.level === 'approximate').length} approximate, ${out.fidelity.filter((r) => r.level === 'cannot').length} cannot\nneeds build or approximation: ${needs.map((n) => n.item).join('; ') || 'nothing'}\n${wrote ? 'wrote style-overrides.json from the measured values' : 'style-overrides.json left as it was'}\nread references/${name}/style-map.md, then write the twist: node tools/reference/twist.mjs ${P} ${name} --idea "..."`);

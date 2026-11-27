@@ -1,0 +1,170 @@
+{
+ "format": "explainer",
+ "promise": "You understand an API as the waiter between you and the kitchen.",
+ "audience_pain": "beginners who want to understand one idea in 15 seconds",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "What does an API actually do?"
+   },
+   {
+    "pattern": "alternative",
+    "line": "An API is just a waiter. Here is why."
+   },
+   {
+    "pattern": "alternative",
+    "line": "You use an API every time you order food online."
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 20,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 20,
+   "to_pct": 40,
+   "job": "set the one picture",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 40,
+   "to_pct": 60,
+   "job": "one idea, one verb",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 60,
+   "to_pct": 80,
+   "job": "show real evidence",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 80,
+   "to_pct": 100,
+   "job": "ask once, one keyword",
+   "lines": [
+    "L05"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "a second voxel person plays the waiter between the guest and the kitchen box"
+  },
+  {
+   "at": "L03",
+   "device": "the guest types an order and the waiter walks toward the kitchen"
+  },
+  {
+   "at": "L04",
+   "device": "the gift box opens like a covered plate: the answer arrives"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "Stage3D",
+   "why": "An API is invisible, so the opening shows two separate objects in one valley (a laptop and a box) that the next lines wi"
+  },
+  {
+   "line": "L02",
+   "device": "Stage3D",
+   "why": "A second character carrying the waiter role turns the metaphor into a performance: the viewer sees who sits between the "
+  },
+  {
+   "line": "L03",
+   "device": "Stage3D",
+   "why": "The order travelling is motion over distance, which is what 3D does better than a diagram: the waiter really crosses the"
+  },
+  {
+   "line": "L04",
+   "device": "Stage3D",
+   "why": "The answer is a thing arriving: the box opens in close-up and the key rises, so the reveal lands on the word \"plate\"."
+  },
+  {
+   "line": "L05",
+   "device": "Stage3D",
+   "why": "The ask is spoken by the same character who asked the question, so the film ends where it began."
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L02",
+   "sfx": "ding",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L03",
+   "sfx": "tick",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L04",
+   "sfx": "sparkle",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L05",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "API",
+  "line": "L05"
+ },
+ "loop": {
+  "echo": ""
+ },
+ "share": {
+  "reason": "It gives learners a picture they can repeat to someone else.",
+  "comment_bait": "Save it to explain APIs later"
+ },
+ "duration_sec": 14
+}

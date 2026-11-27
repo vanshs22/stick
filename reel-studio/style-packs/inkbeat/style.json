@@ -1,0 +1,72 @@
+{
+  "id": "inkbeat",
+  "name": "Inkbeat",
+  "family": "3d",
+  "cadence": "beat-short",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "engine": "inkbeat",
+  "description": "Toon-shaded 3D cartoon Shorts: painted textures, ink outlines drawn in post, warm key against cool shade, a camera that is never still (about 56 beats a minute). One dressed set, one character family, key facts painted on the objects they are about.",
+  "tokens": {
+    "colors": {
+      "bg": "#3a3470",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#b8b0d8",
+      "card": "#2e2a58",
+      "accent": "#ffc21a",
+      "accentSoft": "#ffc21a33",
+      "good": "#7ab04a",
+      "bad": "#d8574a"
+    },
+    "fonts": {
+      "sans": "Poppins",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1344,
+      "right_margin": 120
+    }
+  },
+  "effects": {
+    "grain": 0,
+    "vignette": 0.2
+  },
+  "rules": [
+    "Rendered by renderers/inkbeat (Remotion + three.js): the storyboard is ink-plan.json, shots and camera beats anchored to WORDS, not seconds.",
+    "No cuts, only camera beats: about 56 camera events a minute (beats + push-through cuts), ~5 percent still frames; every move starts ~0.2 s before its word and lasts 0.6 to 1.0 s.",
+    "Few locations, many framings: change the set only at a story turn; re-frame inside it about every second. One anchor object per location.",
+    "Key facts are painted tags on the object they are about (a number, a short label), unlit, never over a face, never on every object.",
+    "Captions: 1-2 lowercase words, white, 92 px at 1080 wide, heavy dark outline, centred at 70 percent height, swapped on the word onset (2 frames early). One accent word per sentence at most.",
+    "Faces sit at 30-45 percent of the height so captions never cover them; 3/4 heads, never dead frontal.",
+    "Crisp, not milky: strong key and rim, ink at least 2.5 percent of the frame, coloured shadows, no grain, no heavy depth of field.",
+    "Light follows the acts: lamp for the setup, golden for a reward, cold for scrutiny, night for magic."
+  ],
+  "components": [
+    "inkbeat/Story",
+    "inkbeat/Character3D",
+    "inkbeat/Captions"
+  ],
+  "camera_language": "Beat rig: PUSH 12-15 percent of the distance, PULL -16 to -22, MACRO 30, ORBIT 15-25 degrees with a 3 degree roll, CRANE and DOLLY a quarter of the distance, WHIP 25 degrees, PUNCH 8-15 percent in 6 frames. Between beats the camera drifts (3 percent per second plus a slow arc). Pushes outnumber pulls about 2 to 1. Lenses 60-80 degrees for sets, 85-95 low hero, 40-50 close-ups; about 40 percent low angles, something near the lens in half the shots. Cuts are push-throughs, never a one-frame swap.",
+  "typography": "Poppins ExtraBold lowercase captions, Poppins painted tags on props.",
+  "transitions": [
+    "push-through",
+    "whip",
+    "dissolve (time jumps only)"
+  ],
+  "audio_direction": "music bed about 14 dB under the voice, story sound effects on the exact word (6-8 per 20 s), each levelled against the voice, two-pass loudnorm to -14 LUFS",
+  "pitfalls": [
+    "Every frame must be a pure function of the frame number: no Math.random or Date in a set (flicker).",
+    "One render on the GPU at a time; headless without a GPU is slow (about 15 s a still).",
+    "A tag or a gate post in the foreground can hide the sign it carries: check the stills.",
+    "Drift moves the camera sideways: a subject framed at the edge leaves the frame by the end of a long hold."
+  ],
+  "references": [
+    "skills/inkbeat/SKILL.md"
+  ]
+}

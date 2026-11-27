@@ -1,0 +1,662 @@
+{
+ "style_pack": "editorial-sticker",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "bgImage": {
+    "src": "assets/bg/dc.jpg",
+    "scrim": "light",
+    "dim": 0.5,
+    "blur": 4,
+    "zoom": 1.12
+   },
+   "visual_intent": "the question over a real server rack: Claude, thinking like a bug hunter",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "approach": "motion-graphics",
+   "why_renderer": "The hook is one idea, so the picture is the idea in big type, over a real photo of the machines a bug hunter probes.",
+   "props": {
+    "text": "Think like a bug hunter",
+    "accent": "hunter",
+    "anchor": "What"
+   },
+   "anchors": [
+    {
+     "name": "What",
+     "line": "L01",
+     "word": "What"
+    },
+    {
+     "name": "senior",
+     "line": "L01",
+     "word": "senior"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 01 \u00b7 the idea",
+     "right": "CLAUDE CODE",
+     "rightAccent": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "What",
+     "gain": 0.36
+    },
+    {
+     "type": "tick",
+     "anchor": "senior",
+     "gain": 0.25
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "the promise follows the question: a whip carries the energy"
+   },
+   "presenter": {
+    "pose": "think",
+    "mood": "curious"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "slate",
+   "visual_intent": "80+ hunting skills counts up",
+   "shot_type": "data",
+   "component": "BigStat",
+   "approach": "data-viz",
+   "why_renderer": "The line is a number; counting it up while it is spoken makes the number the picture.",
+   "props": {
+    "value": 80,
+    "suffix": "+",
+    "label": "hunting skills for Claude Code",
+    "anchor": "One"
+   },
+   "anchors": [
+    {
+     "name": "One",
+     "line": "L02",
+     "word": "One"
+    },
+    {
+     "name": "free",
+     "line": "L02",
+     "word": "free"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "FREE \u00b7 MIT LICENSE",
+     "rotate": -4,
+     "x": 790,
+     "y": 700,
+     "size": 46,
+     "anchor": "free"
+    },
+    {
+     "type": "label",
+     "left": "// 02 \u00b7 what you get",
+     "right": "OVER 80",
+     "rightAccent": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "count",
+     "anchor": "One",
+     "gain": 0.36
+    },
+    {
+     "type": "pop",
+     "anchor": "free",
+     "gain": 0.32
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "a plain cut: the next picture is proof"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "the repo\u2019s own star history, circled",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "approach": "evidence-card",
+   "why_renderer": "The line claims popularity; the proof is the repo\u2019s own star-history chart (a real capture with its date), not a drawing.",
+   "props": {
+    "image": "assets/web/chart/page.png",
+    "source": "github.com/elementalsouls/Claude-BugHunter \u00b7 README",
+    "caption": "Star history, from the repo itself",
+    "anchor": "It",
+    "highlight": {
+     "x": 0.0688,
+     "y": 0.2977,
+     "w": 0.8625,
+     "h": 0.4056
+    }
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC1",
+    "asset_id": "web/chart"
+   },
+   "anchors": [
+    {
+     "name": "It",
+     "line": "L03",
+     "word": "It"
+    },
+    {
+     "name": "eight",
+     "line": "L03",
+     "word": "eight"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "OVER 8,000 STARS",
+     "rotate": 3,
+     "x": 760,
+     "y": 1215,
+     "size": 44,
+     "anchor": "eight"
+    },
+    {
+     "type": "label",
+     "left": "// 03 \u00b7 the repo",
+     "right": "MIT",
+     "rightAccent": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "It",
+     "gain": 0.4
+    },
+    {
+     "type": "ding",
+     "anchor": "eight",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish",
+    "why": "from the proof to the how-to: a slide"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "happy"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "dark",
+   "visual_intent": "the two install commands, then a plain-English request, typed in a terminal",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "approach": "designed-ui",
+   "why_renderer": "Install and \"describe your target\" are commands and a sentence: a terminal that types them, with the real commands from the README.",
+   "props": {
+    "prompt": ">",
+    "cps": 80,
+    "anchor": "Install",
+    "lines": [
+     "/plugin marketplace add elementalsouls/Claude-BugHunter",
+     "/plugin install claude-bughunter@elementalsouls",
+     "Testing acme.com, an in-scope HackerOne target. Run recon.",
+     "> loading skills: web2-recon, offensive-osint, bb-methodology"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "Install",
+     "line": "L04",
+     "word": "Install"
+    },
+    {
+     "name": "plain",
+     "line": "L04",
+     "word": "plain"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "STEP 1 \u00b7 INSTALL, THEN ASK",
+     "n": 1,
+     "of": 2,
+     "y": 300,
+     "anchor": "Install"
+    },
+    {
+     "type": "sticker",
+     "text": "README EXAMPLE",
+     "rotate": -3,
+     "x": 540,
+     "y": 1250,
+     "size": 40,
+     "color": "#FFD23F",
+     "anchor": "plain"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "Install",
+     "gain": 0.29
+    },
+    {
+     "type": "type",
+     "anchor": "plain",
+     "gain": 0.25
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "the workflow follows the terminal on the same beat"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "bg": "dark",
+   "visual_intent": "recon, hunt and report tick off as the right skill loads",
+   "shot_type": "diagram",
+   "component": "Checklist",
+   "approach": "designed-ui",
+   "why_renderer": "Three phases named in the line become three ticks that land on their words, so the sequence is visible.",
+   "props": {
+    "heading": "THE RIGHT SKILL LOADS",
+    "items": [
+     "Recon",
+     "Hunt",
+     "Report"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L05",
+     "word": "recon"
+    },
+    {
+     "name": "c1",
+     "line": "L05",
+     "word": "hunting"
+    },
+    {
+     "name": "c2",
+     "line": "L05",
+     "word": "reporting"
+    },
+    {
+     "name": "right",
+     "line": "L05",
+     "word": "right"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "STEP 2 \u00b7 IT LOADS BY ITSELF",
+     "n": 2,
+     "of": 2,
+     "y": 300,
+     "anchor": "right"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "c0",
+     "gain": 0.36
+    },
+    {
+     "type": "tick",
+     "anchor": "c1",
+     "gain": 0.36
+    },
+    {
+     "type": "tick",
+     "anchor": "c2",
+     "gain": 0.36
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "a plain cut into the numbers"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "bg": "slate",
+   "visual_intent": "15 commands, 681 patterns, 24 classes pop in one by one",
+   "shot_type": "diagram",
+   "component": "KineticList",
+   "approach": "motion-graphics",
+   "why_renderer": "Three numbers from the README, popped in as they are spoken: the scale of what the bundle knows.",
+   "props": {
+    "items": [
+     "15 slash commands",
+     "681 report patterns",
+     "24 vulnerability classes"
+    ],
+    "size": 66,
+    "anchorPrefix": "item"
+   },
+   "anchors": [
+    {
+     "name": "item0",
+     "line": "L06",
+     "word": "Fifteen"
+    },
+    {
+     "name": "item1",
+     "line": "L06",
+     "word": "six"
+    },
+    {
+     "name": "item2",
+     "line": "L06",
+     "word": "patterns"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 04 \u00b7 what is inside",
+     "right": "FROM THE README",
+     "rightAccent": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "item0",
+     "gain": 0.36
+    },
+    {
+     "type": "blip",
+     "anchor": "item1",
+     "gain": 0.36
+    },
+    {
+     "type": "pop",
+     "anchor": "item2",
+     "gain": 0.36
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "the twist is next: the whip pushes into the gate"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "bg": "paper",
+   "visual_intent": "the README paragraph that names the 7-Question Gate, circled",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "approach": "evidence-card",
+   "why_renderer": "The surprise is that scope is enforced; the proof is the README paragraph that says so (a real capture with its date).",
+   "props": {
+    "image": "assets/web/gate/page.png",
+    "source": "GitHub \u00b7 Claude-BugHunter README",
+    "caption": "Scope is enforced in code",
+    "anchor": "And",
+    "highlight": {
+     "x": 0.0688,
+     "y": 0.402,
+     "w": 0.8625,
+     "h": 0.1975
+    }
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC2",
+    "asset_id": "web/gate"
+   },
+   "anchors": [
+    {
+     "name": "And",
+     "line": "L07",
+     "word": "And"
+    },
+    {
+     "name": "seven",
+     "line": "L07",
+     "word": "seven"
+    },
+    {
+     "name": "scope",
+     "line": "L07",
+     "word": "scope"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "7-QUESTION GATE",
+     "rotate": -4,
+     "x": 700,
+     "y": 1190,
+     "size": 46,
+     "anchor": "seven"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "And",
+     "gain": 0.36
+    },
+    {
+     "type": "boom",
+     "anchor": "seven",
+     "gain": 0.29
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "the ethics line follows without a gap"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "surprised"
+   }
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "bg": "slate",
+   "visual_intent": "SECURITY.md: assets you own or have written authorization to assess",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "approach": "evidence-card",
+   "why_renderer": "The line sets the limit; the proof is the repo\u2019s own SECURITY.md sentence (a real capture), because a security tool must say who it is for.",
+   "props": {
+    "image": "assets/web/security/page.png",
+    "source": "GitHub \u00b7 Claude-BugHunter SECURITY.md",
+    "caption": "Only where you have permission",
+    "anchor": "It",
+    "highlight": {
+     "x": 0.0688,
+     "y": 0.4502,
+     "w": 0.8625,
+     "h": 0.0988
+    }
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC3",
+    "asset_id": "web/security"
+   },
+   "anchors": [
+    {
+     "name": "It",
+     "line": "L08",
+     "word": "It"
+    },
+    {
+     "name": "only",
+     "line": "L08",
+     "word": "only"
+    },
+    {
+     "name": "authorized",
+     "line": "L08",
+     "word": "authorized"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "AUTHORIZED SCOPE ONLY",
+     "rotate": 3,
+     "x": 640,
+     "y": 1190,
+     "size": 44,
+     "color": "#E8381A",
+     "anchor": "only"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "It",
+     "gain": 0.36
+    },
+    {
+     "type": "stamp",
+     "anchor": "only",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "dip",
+    "sound": "none",
+    "why": "a beat of rest before the call to action"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S09",
+   "line_ids": [
+    "L09"
+   ],
+   "bg": "paper",
+   "bgImage": {
+    "src": "assets/bg/dc.jpg",
+    "scrim": "light",
+    "dim": 0.55,
+    "blur": 5,
+    "zoom": 1.14,
+    "flip": true
+   },
+   "visual_intent": "the comment box asks for HUNT",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "approach": "designed-ui",
+   "why_renderer": "The call to action is a comment: the box shows the exact keyword, over the same server-room photo that opened the film.",
+   "props": {
+    "keyword": "HUNT",
+    "anchor": "Comment",
+    "typeAnchor": "HUNT",
+    "reward": "and I will send the install steps"
+   },
+   "anchors": [
+    {
+     "name": "Comment",
+     "line": "L09",
+     "word": "Comment"
+    },
+    {
+     "name": "HUNT",
+     "line": "L09",
+     "word": "HUNT"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "HUNT",
+     "gain": 0.3
+    },
+    {
+     "type": "ding",
+     "anchor": "HUNT",
+     "offset": 0.85,
+     "gain": 1.0,
+     "why": "Posted appears: the keyword is sent"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "last shot"
+   },
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy"
+   }
+  }
+ ]
+}

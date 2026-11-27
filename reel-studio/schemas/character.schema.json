@@ -1,0 +1,100 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "character",
+ "type": "object",
+ "required": [
+  "id",
+  "name",
+  "kind",
+  "role",
+  "look",
+  "voice"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^[a-z0-9-]{3,32}$"
+  },
+  "name": {
+   "type": "string"
+  },
+  "kind": {
+   "type": "string",
+   "enum": [
+    "human",
+    "critter",
+    "blocky",
+    "stick"
+   ]
+  },
+  "role": {
+   "type": "string",
+   "description": "what the character does in a story: host, skeptic, expert, newcomer, villain, mascot"
+  },
+  "silhouette": {
+   "type": "string",
+   "description": "one sentence a stranger could draw from: build, height, hair shape, one prop"
+  },
+  "height_m": {
+   "type": "number"
+  },
+  "scale": {
+   "type": "number"
+  },
+  "look": {
+   "type": "object",
+   "description": "rig look values (skin, hair, shirt, pants, shoes, iris, glasses, beard, longHair ...)"
+  },
+  "world": {
+   "type": "string"
+  },
+  "personality": {
+   "type": "string"
+  },
+  "default_emotion": {
+   "type": "string"
+  },
+  "emotion_range": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "voice": {
+   "type": "object",
+   "required": [
+    "gender",
+    "tone"
+   ],
+   "properties": {
+    "gender": {
+     "type": "string",
+     "enum": [
+      "male",
+      "female",
+      "neutral"
+     ]
+    },
+    "tone": {
+     "type": "string"
+    },
+    "voice_id": {
+     "type": "string"
+    },
+    "speed": {
+     "type": "number"
+    }
+   }
+  },
+  "do_not": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "locked": {
+   "type": "boolean",
+   "description": "true = the look may not change between films of one series"
+  }
+ }
+}

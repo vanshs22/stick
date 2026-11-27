@@ -1,0 +1,170 @@
+{
+ "format": "explainer",
+ "promise": "You see why the second page visit is twenty times faster.",
+ "audience_pain": "beginners who want to understand one idea in 15 seconds",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "Same page, two visits: eight hundred milliseconds, then forty."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Same page, two visits: eight hundred milliseconds, then forty."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Why is the second visit twenty times faster?"
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 20,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 20,
+   "to_pct": 40,
+   "job": "set the one picture",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "mechanism",
+   "from_pct": 40,
+   "to_pct": 60,
+   "job": "show how it works",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 60,
+   "to_pct": 80,
+   "job": "show real evidence",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 80,
+   "to_pct": 100,
+   "job": "ask once, one keyword",
+   "lines": [
+    "L05"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "a trip drawn as three nodes: you, a far server, every file"
+  },
+  {
+   "at": "L03",
+   "device": "the same trip with a cache node close to you"
+  },
+  {
+   "at": "L04",
+   "device": "a count-up stat card: 20x faster, with a progress track"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "Versus",
+   "why": "The hook is a comparison of two numbers; putting 800 and 40 side by side lets the eye measure the gap before the sentenc"
+  },
+  {
+   "line": "L02",
+   "device": "FlowDiagram",
+   "why": "A distance is hard to hear and easy to draw: three nodes joined by a long line show that the first visit travels all the"
+  },
+  {
+   "line": "L03",
+   "device": "FlowDiagram",
+   "why": "Redrawing the same diagram with one node inserted next to \"You\" shows the change in architecture, not just the claim."
+  },
+  {
+   "line": "L04",
+   "device": "HtmlBlock",
+   "why": "A real HyperFrames stat block (GSAP count-up and a filling track) seeked by the Remotion frame turns \"twenty times\" into"
+  },
+  {
+   "line": "L05",
+   "device": "EndCard",
+   "why": "The call to action is a lockup of one headline and the exact comment keyword, in the pack's own end-card layout."
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L02",
+   "sfx": "tick",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L03",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L04",
+   "sfx": "count",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L05",
+   "sfx": "ding",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "CACHE",
+  "line": "L05"
+ },
+ "loop": {
+  "echo": ""
+ },
+ "share": {
+  "reason": "The 800 ms to 40 ms picture is easy to forward.",
+  "comment_bait": "Comment CACHE for the rule"
+ },
+ "duration_sec": 17
+}

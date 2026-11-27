@@ -1,0 +1,1897 @@
+{
+ "style_pack": "editorial-notebook",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "TitleCard gallery shot",
+   "shot_type": "ui",
+   "component": "TitleCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "text": "One clear promise",
+    "accent": "promise",
+    "anchor": "promise"
+   },
+   "anchors": [
+    {
+     "name": "promise",
+     "line": "L01",
+     "word": "promise"
+    },
+    {
+     "name": "viewer",
+     "line": "L01",
+     "word": "viewer"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "EP 01 / LONG-FORM",
+     "right": "16:9",
+     "anchor": "promise"
+    },
+    {
+     "type": "sticker",
+     "text": "NEW",
+     "x": 900,
+     "y": 420,
+     "anchor": "viewer"
+    },
+    {
+     "type": "prop",
+     "emoji": "🧠",
+     "anim": "drop",
+     "size": 170,
+     "text": "MEMORY",
+     "x": 760,
+     "y": 560,
+     "at": 0.1
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "paper",
+   "visual_intent": "BigStat gallery shot",
+   "shot_type": "ui",
+   "component": "BigStat",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "value": 40000,
+    "suffix": "+",
+    "label": "viewers in 24 hours",
+    "anchor": "Forty"
+   },
+   "anchors": [
+    {
+     "name": "Forty",
+     "line": "L02",
+     "word": "Forty"
+    },
+    {
+     "name": "day",
+     "line": "L02",
+     "word": "day"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "counter",
+     "to": 40000,
+     "label": "live views",
+     "y": 1500,
+     "anchor": "day"
+    },
+    {
+     "type": "impact",
+     "text": "WOW",
+     "x": 800,
+     "y": 600,
+     "anchor": "day",
+     "size": 160
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "Typewriter gallery shot",
+   "shot_type": "ui",
+   "component": "Typewriter",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "text": "npx remotion render MyVideo out.mp4",
+    "anchor": "Type"
+   },
+   "anchors": [
+    {
+     "name": "Type",
+     "line": "L03",
+     "word": "Type"
+    },
+    {
+     "name": "now",
+     "line": "L03",
+     "word": "now"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "STEP 2 OF 4",
+     "n": 2,
+     "of": 4,
+     "anchor": "Type"
+    },
+    {
+     "type": "callout",
+     "text": "one command",
+     "x": 780,
+     "y": 1180,
+     "anchor": "now"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "Stamp gallery shot",
+   "shot_type": "ui",
+   "component": "Stamp",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "text": "VERIFIED",
+    "anchor": "checked"
+   },
+   "anchors": [
+    {
+     "name": "checked",
+     "line": "L04",
+     "word": "checked"
+    },
+    {
+     "name": "sources",
+     "line": "L04",
+     "word": "sources"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "warning",
+     "text": "check the date of every source",
+     "y": 1500,
+     "anchor": "sources"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "bg": "paper",
+   "visual_intent": "Highlight gallery shot",
+   "shot_type": "ui",
+   "component": "Highlight",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "text": "The cheapest tool is not always the best",
+    "mark": "cheapest",
+    "anchor": "cheapest"
+   },
+   "anchors": [
+    {
+     "name": "cheapest",
+     "line": "L05",
+     "word": "cheapest"
+    },
+    {
+     "name": "time",
+     "line": "L05",
+     "word": "time"
+    },
+    {
+     "name": "always",
+     "line": "L05",
+     "word": "always"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "scribble",
+     "kind": "underline",
+     "x": 540,
+     "y": 900,
+     "w": 520,
+     "h": 110,
+     "anchor": "time"
+    },
+    {
+     "type": "bubble",
+     "text": "really?",
+     "emoji": "🤔",
+     "x": 820,
+     "y": 520,
+     "anchor": "always"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "bg": "paper",
+   "visual_intent": "KineticList gallery shot",
+   "shot_type": "ui",
+   "component": "KineticList",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "items": [
+     "Plan the hook",
+     "Write the script",
+     "Record the voice",
+     "Cut the video"
+    ],
+    "anchorPrefix": "item"
+   },
+   "anchors": [
+    {
+     "name": "item0",
+     "line": "L06",
+     "word": "Plan"
+    },
+    {
+     "name": "item1",
+     "line": "L06",
+     "word": "write"
+    },
+    {
+     "name": "item2",
+     "line": "L06",
+     "word": "record"
+    },
+    {
+     "name": "item3",
+     "line": "L06",
+     "word": "cut"
+    },
+    {
+     "name": "record",
+     "line": "L06",
+     "word": "record"
+    },
+    {
+     "name": "cut",
+     "line": "L06",
+     "word": "cut"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-chip",
+     "n": 3,
+     "of": 4,
+     "x": 900,
+     "y": 420,
+     "anchor": "record"
+    },
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "fast"
+      },
+      {
+       "text": "cheap"
+      }
+     ],
+     "x": 540,
+     "y": 1280,
+     "anchor": "cut"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "bg": "paper",
+   "visual_intent": "BrowserWindow gallery shot",
+   "shot_type": "ui",
+   "component": "BrowserWindow",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "url": "remotion.dev/docs",
+    "title": "Remotion docs",
+    "image": "assets/gallery/page-wide.png",
+    "anchor": "Here"
+   },
+   "anchors": [
+    {
+     "name": "Here",
+     "line": "L07",
+     "word": "Here"
+    },
+    {
+     "name": "option",
+     "line": "L07",
+     "word": "option"
+    },
+    {
+     "name": "real",
+     "line": "L07",
+     "word": "real"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "cursor",
+     "from": [
+      300,
+      1000
+     ],
+     "to": [
+      640,
+      760
+     ],
+     "dur": 0.8,
+     "anchor": "real"
+    },
+    {
+     "type": "scribble",
+     "kind": "circle",
+     "x": 560,
+     "y": 620,
+     "w": 360,
+     "h": 120,
+     "anchor": "option"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "bg": "paper",
+   "visual_intent": "Terminal gallery shot",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "lines": [
+     "npm install remotion",
+     "> added 42 packages in 6s",
+     "npx remotion render"
+    ],
+    "anchor": "terminal"
+   },
+   "anchors": [
+    {
+     "name": "terminal",
+     "line": "L08",
+     "word": "terminal"
+    },
+    {
+     "name": "once",
+     "line": "L08",
+     "word": "once"
+    },
+    {
+     "name": "install",
+     "line": "L08",
+     "word": "install"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "progress",
+     "name": "installing",
+     "x": 540,
+     "y": 1250,
+     "anchor": "install"
+    },
+    {
+     "type": "sticker",
+     "text": "ONCE",
+     "x": 880,
+     "y": 380,
+     "anchor": "once"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S09",
+   "line_ids": [
+    "L09"
+   ],
+   "bg": "paper",
+   "visual_intent": "PhoneFrame gallery shot",
+   "shot_type": "ui",
+   "component": "PhoneFrame",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "title": "@studio",
+    "text": "the post that changed the channel",
+    "image": "assets/gallery/page-tall.png",
+    "likes": 128000,
+    "anchor": "post"
+   },
+   "anchors": [
+    {
+     "name": "post",
+     "line": "L09",
+     "word": "post"
+    },
+    {
+     "name": "weekend",
+     "line": "L09",
+     "word": "weekend"
+    },
+    {
+     "name": "huge",
+     "line": "L09",
+     "word": "huge"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hearts",
+     "x": 540,
+     "y": 1100,
+     "anchor": "huge"
+    },
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "128K likes",
+       "color": "#E5322D"
+      }
+     ],
+     "x": 540,
+     "y": 1250,
+     "anchor": "weekend"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S10",
+   "line_ids": [
+    "L10"
+   ],
+   "bg": "paper",
+   "visual_intent": "ChatBubbles gallery shot",
+   "shot_type": "ui",
+   "component": "ChatBubbles",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "messages": [
+     {
+      "from": "you",
+      "text": "How do I add captions?"
+     },
+     {
+      "from": "ai",
+      "text": "Use the captions stage, then pick a preset."
+     }
+    ],
+    "anchorPrefix": "m"
+   },
+   "anchors": [
+    {
+     "name": "m0",
+     "line": "L10",
+     "word": "Ask"
+    },
+    {
+     "name": "m1",
+     "line": "L10",
+     "word": "answers"
+    },
+    {
+     "name": "question",
+     "line": "L10",
+     "word": "question"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "bubble",
+     "text": "ask anything",
+     "emoji": "💬",
+     "x": 800,
+     "y": 520,
+     "anchor": "question"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S11",
+   "line_ids": [
+    "L11"
+   ],
+   "bg": "paper",
+   "visual_intent": "NotebookPage gallery shot",
+   "shot_type": "ui",
+   "component": "NotebookPage",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "title": "Before you record",
+    "bullets": [
+     "Light the face",
+     "Test the sound",
+     "Write the hook first"
+    ],
+    "anchorPrefix": "b"
+   },
+   "anchors": [
+    {
+     "name": "b0",
+     "line": "L11",
+     "word": "Three"
+    },
+    {
+     "name": "b1",
+     "line": "L11",
+     "word": "before"
+    },
+    {
+     "name": "b2",
+     "line": "L11",
+     "word": "record"
+    },
+    {
+     "name": "Three",
+     "line": "L11",
+     "word": "Three"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "calendar",
+     "month": "NOV",
+     "day": "18",
+     "weekday": "WED",
+     "x": 880,
+     "y": 300,
+     "anchor": "Three"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S12",
+   "line_ids": [
+    "L12"
+   ],
+   "bg": "paper",
+   "visual_intent": "CommentBox gallery shot",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "keyword": "GUIDE",
+    "anchor": "Comment",
+    "reward": "I will send the checklist",
+    "typeAnchor": "guide"
+   },
+   "anchors": [
+    {
+     "name": "Comment",
+     "line": "L12",
+     "word": "Comment"
+    },
+    {
+     "name": "guide",
+     "line": "L12",
+     "word": "guide"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "waveform",
+     "x": 540,
+     "y": 1200,
+     "anchor": "Comment"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S13",
+   "line_ids": [
+    "L13"
+   ],
+   "bg": "paper",
+   "visual_intent": "BarChart gallery shot",
+   "shot_type": "ui",
+   "component": "BarChart",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "bars": [
+     {
+      "label": "Aug",
+      "value": 12
+     },
+     {
+      "label": "Sep",
+      "value": 20
+     },
+     {
+      "label": "Oct",
+      "value": 35
+     },
+     {
+      "label": "Nov",
+      "value": 58
+     }
+    ],
+    "unit": "k min",
+    "highlight": 3,
+    "title": "Watch time",
+    "anchor": "Watch"
+   },
+   "anchors": [
+    {
+     "name": "Watch",
+     "line": "L13",
+     "word": "Watch"
+    },
+    {
+     "name": "live",
+     "line": "L13",
+     "word": "live"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "callout",
+     "text": "+190 percent",
+     "x": 760,
+     "y": 560,
+     "anchor": "live"
+    },
+    {
+     "type": "burst",
+     "x": 760,
+     "y": 620,
+     "anchor": "live"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S14",
+   "line_ids": [
+    "L14"
+   ],
+   "bg": "paper",
+   "visual_intent": "LineChart gallery shot",
+   "shot_type": "ui",
+   "component": "LineChart",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "points": [
+     3,
+     5,
+     6,
+     9,
+     14,
+     22,
+     31
+    ],
+    "label": "Subscribers",
+    "unit": "k",
+    "anchor": "Subscribers"
+   },
+   "anchors": [
+    {
+     "name": "Subscribers",
+     "line": "L14",
+     "word": "Subscribers"
+    },
+    {
+     "name": "series",
+     "line": "L14",
+     "word": "series"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "+31K",
+     "x": 850,
+     "y": 500,
+     "anchor": "series"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S15",
+   "line_ids": [
+    "L15"
+   ],
+   "bg": "paper",
+   "visual_intent": "Timeline gallery shot",
+   "shot_type": "ui",
+   "component": "Timeline",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "events": [
+     {
+      "date": "Mon",
+      "label": "Idea"
+     },
+     {
+      "date": "Tue",
+      "label": "Script"
+     },
+     {
+      "date": "Thu",
+      "label": "Render"
+     },
+     {
+      "date": "Sun",
+      "label": "Release"
+     }
+    ],
+    "anchorPrefix": "e"
+   },
+   "anchors": [
+    {
+     "name": "e0",
+     "line": "L15",
+     "word": "idea"
+    },
+    {
+     "name": "e1",
+     "line": "L15",
+     "word": "four"
+    },
+    {
+     "name": "e2",
+     "line": "L15",
+     "word": "clear"
+    },
+    {
+     "name": "e3",
+     "line": "L15",
+     "word": "steps"
+    },
+    {
+     "name": "idea",
+     "line": "L15",
+     "word": "idea"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "WEEK 46",
+     "right": "RELEASE",
+     "anchor": "idea"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S16",
+   "line_ids": [
+    "L16"
+   ],
+   "bg": "paper",
+   "visual_intent": "Checklist gallery shot",
+   "shot_type": "ui",
+   "component": "Checklist",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "items": [
+     "Audio levels",
+     "Captions timing",
+     "Final export"
+    ],
+    "anchorPrefix": "c",
+    "heading": "FINAL QA",
+    "progress": true
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L16",
+     "word": "audio"
+    },
+    {
+     "name": "c1",
+     "line": "L16",
+     "word": "captions"
+    },
+    {
+     "name": "c2",
+     "line": "L16",
+     "word": "export"
+    },
+    {
+     "name": "export",
+     "line": "L16",
+     "word": "export"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "scribble",
+     "kind": "box",
+     "x": 540,
+     "y": 800,
+     "w": 700,
+     "h": 120,
+     "anchor": "export"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S17",
+   "line_ids": [
+    "L17"
+   ],
+   "bg": "paper",
+   "visual_intent": "Versus gallery shot",
+   "shot_type": "ui",
+   "component": "Versus",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "left": "Old workflow",
+    "right": "New workflow",
+    "leftSub": "12 hours",
+    "rightSub": "2 hours",
+    "anchor": "Old"
+   },
+   "anchors": [
+    {
+     "name": "Old",
+     "line": "L17",
+     "word": "Old"
+    },
+    {
+     "name": "new",
+     "line": "L17",
+     "word": "new"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "6x faster",
+     "x": 540,
+     "y": 420,
+     "anchor": "new"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S18",
+   "line_ids": [
+    "L18"
+   ],
+   "bg": "paper",
+   "visual_intent": "RouteMap gallery shot",
+   "shot_type": "ui",
+   "component": "RouteMap",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "points": [
+     {
+      "x": 0.15,
+      "y": 0.75,
+      "label": "Studio"
+     },
+     {
+      "x": 0.5,
+      "y": 0.35,
+      "label": "Harbour"
+     },
+     {
+      "x": 0.85,
+      "y": 0.6,
+      "label": "Lighthouse"
+     }
+    ],
+    "title": "The route"
+   },
+   "anchors": [
+    {
+     "name": "route",
+     "line": "L18",
+     "word": "route"
+    },
+    {
+     "name": "lighthouse",
+     "line": "L18",
+     "word": "lighthouse"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "3 stops"
+      }
+     ],
+     "x": 540,
+     "y": 1200,
+     "anchor": "lighthouse"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S19",
+   "line_ids": [
+    "L19"
+   ],
+   "bg": "paper",
+   "visual_intent": "ProofCard gallery shot",
+   "shot_type": "ui",
+   "component": "ProofCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "image": "assets/gallery/page-wide.png",
+    "source": "example.com/report",
+    "caption": "the number is real",
+    "highlight": {
+     "x": 0.1,
+     "y": 0.12,
+     "w": 0.45,
+     "h": 0.14
+    },
+    "anchor": "proof"
+   },
+   "anchors": [
+    {
+     "name": "proof",
+     "line": "L19",
+     "word": "proof"
+    },
+    {
+     "name": "recent",
+     "line": "L19",
+     "word": "recent"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "scribble",
+     "kind": "highlight",
+     "x": 420,
+     "y": 520,
+     "w": 380,
+     "h": 90,
+     "anchor": "recent"
+    },
+    {
+     "type": "callout",
+     "text": "source checked",
+     "x": 760,
+     "y": 1150,
+     "anchor": "recent"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S20",
+   "line_ids": [
+    "L20"
+   ],
+   "bg": "paper",
+   "visual_intent": "EvidenceCard gallery shot",
+   "shot_type": "ui",
+   "component": "EvidenceCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "variant": "case-file",
+    "title": "CASE FILE 042",
+    "lines": [
+     "Subject: studio rollout",
+     "Owner: Mr Smith",
+     "Status: shipped"
+    ],
+    "stamp": "SHIPPED",
+    "redact": [
+     "Smith"
+    ],
+    "anchor": "case"
+   },
+   "anchors": [
+    {
+     "name": "case",
+     "line": "L20",
+     "word": "case"
+    },
+    {
+     "name": "redacted",
+     "line": "L20",
+     "word": "redacted"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-chip",
+     "n": 1,
+     "of": 3,
+     "x": 900,
+     "y": 420,
+     "anchor": "case"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S21",
+   "line_ids": [
+    "L21"
+   ],
+   "bg": "paper",
+   "visual_intent": "EvidenceCard gallery shot",
+   "shot_type": "ui",
+   "component": "EvidenceCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "variant": "polaroid",
+    "title": "The first prototype",
+    "image": "assets/gallery/page-tall.png",
+    "anchor": "photo"
+   },
+   "anchors": [
+    {
+     "name": "photo",
+     "line": "L21",
+     "word": "photo"
+    },
+    {
+     "name": "prototype",
+     "line": "L21",
+     "word": "prototype"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "1998",
+     "x": 860,
+     "y": 440,
+     "anchor": "prototype"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S22",
+   "line_ids": [
+    "L22"
+   ],
+   "bg": "paper",
+   "visual_intent": "EvidenceCard gallery shot",
+   "shot_type": "ui",
+   "component": "EvidenceCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "variant": "ticket",
+    "title": "ADMIT ONE",
+    "lines": [
+     "Gate 4  Row C",
+     "Nov 18  8 pm"
+    ],
+    "stamp": "VALID",
+    "anchor": "ticket"
+   },
+   "anchors": [
+    {
+     "name": "ticket",
+     "line": "L22",
+     "word": "ticket"
+    },
+    {
+     "name": "date",
+     "line": "L22",
+     "word": "date"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "calendar",
+     "month": "NOV",
+     "day": "18",
+     "weekday": "WED",
+     "x": 880,
+     "y": 420,
+     "anchor": "date"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S23",
+   "line_ids": [
+    "L23"
+   ],
+   "bg": "paper",
+   "visual_intent": "FlowDiagram gallery shot",
+   "shot_type": "ui",
+   "component": "FlowDiagram",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "nodes": [
+     "Script",
+     "Voice",
+     "Timeline",
+     "Render"
+    ],
+    "anchorPrefix": "n",
+    "title": "Pipeline"
+   },
+   "anchors": [
+    {
+     "name": "n0",
+     "line": "L23",
+     "word": "script"
+    },
+    {
+     "name": "n1",
+     "line": "L23",
+     "word": "voice"
+    },
+    {
+     "name": "n2",
+     "line": "L23",
+     "word": "Data"
+    },
+    {
+     "name": "n3",
+     "line": "L23",
+     "word": "render"
+    },
+    {
+     "name": "script",
+     "line": "L23",
+     "word": "script"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "PIPELINE",
+     "right": "4 steps",
+     "anchor": "script"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S24",
+   "line_ids": [
+    "L24"
+   ],
+   "bg": "paper",
+   "visual_intent": "FileList gallery shot",
+   "shot_type": "ui",
+   "component": "FileList",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "title": "FILES",
+    "items": [
+     "intro.mp4",
+     "voice.wav",
+     "final-export.mp4",
+     "captions.srt"
+    ],
+    "select": 2,
+    "anchor": "pick"
+   },
+   "anchors": [
+    {
+     "name": "pick",
+     "line": "L24",
+     "word": "pick"
+    },
+    {
+     "name": "called",
+     "line": "L24",
+     "word": "called"
+    },
+    {
+     "name": "folder",
+     "line": "L24",
+     "word": "folder"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "cursor",
+     "from": [
+      250,
+      1000
+     ],
+     "to": [
+      600,
+      880
+     ],
+     "dur": 0.8,
+     "anchor": "folder"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S25",
+   "line_ids": [
+    "L25"
+   ],
+   "bg": "paper",
+   "visual_intent": "Ledger gallery shot",
+   "shot_type": "ui",
+   "component": "Ledger",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "title": "MONTHLY COST",
+    "items": [
+     {
+      "name": "Hosting",
+      "price": "$12"
+     },
+     {
+      "name": "Editor",
+      "price": "$20"
+     },
+     {
+      "name": "Stock",
+      "price": "$9"
+     }
+    ],
+    "total": "$41",
+    "anchorPrefix": "i"
+   },
+   "anchors": [
+    {
+     "name": "i0",
+     "line": "L25",
+     "word": "Here"
+    },
+    {
+     "name": "i1",
+     "line": "L25",
+     "word": "costs"
+    },
+    {
+     "name": "i2",
+     "line": "L25",
+     "word": "line"
+    },
+    {
+     "name": "line",
+     "line": "L25",
+     "word": "line"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "impact",
+     "text": "$41",
+     "x": 800,
+     "y": 470,
+     "anchor": "line",
+     "size": 150
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S26",
+   "line_ids": [
+    "L26"
+   ],
+   "bg": "paper",
+   "visual_intent": "ProfileCard gallery shot",
+   "shot_type": "ui",
+   "component": "ProfileCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "name": "Studio Notes",
+    "handle": "@studionotes",
+    "stat": "169K subscribers",
+    "tiles": [
+     {
+      "views": "1.2M"
+     },
+     {
+      "views": "340K"
+     },
+     {
+      "views": "9M"
+     },
+     {
+      "views": "88K"
+     },
+     {
+      "views": "410K"
+     },
+     {
+      "views": "25K"
+     }
+    ],
+    "highlight": 2,
+    "badge": "9M VIEWS",
+    "anchor": "creator"
+   },
+   "anchors": [
+    {
+     "name": "creator",
+     "line": "L26",
+     "word": "creator"
+    },
+    {
+     "name": "loyal",
+     "line": "L26",
+     "word": "loyal"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "real numbers"
+      }
+     ],
+     "x": 540,
+     "y": 1250,
+     "anchor": "loyal"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S27",
+   "line_ids": [
+    "L27"
+   ],
+   "bg": "paper",
+   "visual_intent": "RepoCard gallery shot",
+   "shot_type": "ui",
+   "component": "RepoCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "repo": "remotion-dev/remotion",
+    "description": "Make videos programmatically with React",
+    "stars": "42k",
+    "forks": "2.1k",
+    "commits": "9,800",
+    "anchor": "stars"
+   },
+   "anchors": [
+    {
+     "name": "open",
+     "line": "L27",
+     "word": "open"
+    },
+    {
+     "name": "stars",
+     "line": "L27",
+     "word": "stars"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "scribble",
+     "kind": "circle",
+     "x": 760,
+     "y": 720,
+     "w": 220,
+     "h": 100,
+     "anchor": "stars"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S28",
+   "line_ids": [
+    "L28"
+   ],
+   "bg": "paper",
+   "visual_intent": "EndCard gallery shot",
+   "shot_type": "ui",
+   "component": "EndCard",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and its overlays in both frame shapes",
+   "props": {
+    "headline": "See you in the next one",
+    "accent": "next",
+    "cta": "Comment IDEA",
+    "handle": "@studionotes"
+   },
+   "anchors": [
+    {
+     "name": "Subscribe",
+     "line": "L28",
+     "word": "Subscribe"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "backword",
+     "text": "NEXT",
+     "y": 400,
+     "anchor": "Subscribe"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S29",
+   "line_ids": [
+    "L29"
+   ],
+   "bg": "paper",
+   "visual_intent": "RadialMenu gallery shot",
+   "shot_type": "ui",
+   "component": "RadialMenu",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and the new reel-brain overlays in both frame shapes",
+   "props": {
+    "items": [
+     "SPEED",
+     "POWER",
+     "STEALTH"
+    ],
+    "center": "MODE",
+    "anchorPrefix": "item"
+   },
+   "anchors": [
+    {
+     "name": "item0",
+     "line": "L29",
+     "word": "speed"
+    },
+    {
+     "name": "item1",
+     "line": "L29",
+     "word": "power"
+    },
+    {
+     "name": "item2",
+     "line": "L29",
+     "word": "stealth"
+    },
+    {
+     "name": "free",
+     "line": "L29",
+     "word": "free"
+    },
+    {
+     "name": "power",
+     "line": "L29",
+     "word": "power"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "price-tag",
+     "text": "$0",
+     "sub": "FREE",
+     "x": 780,
+     "y": 470,
+     "anchor": "free",
+     "place": "dock"
+    },
+    {
+     "type": "focus-ring",
+     "x": 540,
+     "y": 760,
+     "r": 140,
+     "anchor": "power",
+     "place": "card"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S30",
+   "line_ids": [
+    "L30"
+   ],
+   "bg": "paper",
+   "visual_intent": "Devices gallery shot",
+   "shot_type": "ui",
+   "component": "Devices",
+   "approach": "designed-ui",
+   "why_renderer": "layout gallery fixture: exercises this card and the new reel-brain overlays in both frame shapes",
+   "props": {
+    "items": [
+     {
+      "label": "TikTok",
+      "color": "#FF5C7A"
+     },
+     {
+      "label": "Reels",
+      "color": "#B07CFF"
+     },
+     {
+      "label": "Shorts",
+      "color": "#FF4D4D"
+     }
+    ],
+    "anchorPrefix": "d"
+   },
+   "anchors": [
+    {
+     "name": "d0",
+     "line": "L30",
+     "word": "TikTok"
+    },
+    {
+     "name": "d1",
+     "line": "L30",
+     "word": "Reels"
+    },
+    {
+     "name": "d2",
+     "line": "L30",
+     "word": "Shorts"
+    },
+    {
+     "name": "win",
+     "line": "L30",
+     "word": "win"
+    },
+    {
+     "name": "thousands",
+     "line": "L30",
+     "word": "thousands"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "verdict",
+     "text": "POSTED",
+     "tone": "good",
+     "anchor": "win"
+    },
+    {
+     "type": "rain",
+     "kind": "bills",
+     "count": 16,
+     "anchor": "thousands"
+    }
+   ],
+   "sfx": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "gallery"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "calm"
+   }
+  }
+ ]
+}

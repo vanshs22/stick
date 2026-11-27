@@ -1,0 +1,30 @@
+{
+ "status": "ready",
+ "style_pack": "lantern-market-3d",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Three hundred bowls sell here every single night.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  },
+  {
+   "line_id": "L02",
+   "line": "The noodles are ordinary.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  },
+  {
+   "line_id": "L03",
+   "line": "But the queue is the advertisement.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  },
+  {
+   "line_id": "L04",
+   "line": "A long queue sells bowls.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  }
+ ]
+}

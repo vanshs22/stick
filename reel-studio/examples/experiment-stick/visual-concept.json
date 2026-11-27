@@ -1,0 +1,36 @@
+{
+ "status": "ready",
+ "style_pack": "stickman-3d",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Last night, a mysterious box showed up at my door.",
+   "approach": "character-3d",
+   "adds_information": "The room and the unopened box on the table show the mystery before the line finishes."
+  },
+  {
+   "line_id": "L02",
+   "line": "I picked it up, and I had no idea who sent it.",
+   "approach": "character-3d",
+   "adds_information": "The hero stays in frame with the box between him and the viewer, so \"no idea who sent it\" is a visible worry."
+  },
+  {
+   "line_id": "L03",
+   "line": "So I opened it.",
+   "approach": "character-3d",
+   "adds_information": "The hero lifting the lid is the action itself; the line has no object, the picture supplies it."
+  },
+  {
+   "line_id": "L04",
+   "line": "And inside was a tiny golden key.",
+   "approach": "physical-3d",
+   "adds_information": "A golden key rising out of the box shows what the line only names."
+  },
+  {
+   "line_id": "L05",
+   "line": "No way.",
+   "approach": "character-3d",
+   "adds_information": "The hero's face and posture carry the surprise that the two words \"No way.\" leave unsaid."
+  }
+ ]
+}

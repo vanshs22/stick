@@ -1,0 +1,122 @@
+{
+  "id": "voxel-explainer",
+  "name": "Voxel explainer",
+  "family": "3d",
+  "cadence": "explainer-2d",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "description": "A voxel world built on ONE grid: 0.1 m cubes for people and props, 0.2 m terrain, 0.4 m trees and houses. Golden-hour valley with a cabin, pond, lanterns, drifting voxel clouds, falling leaves and fireflies; chunky voxel people with real elbows, knees and a face made of voxels. Explainers, how-tos and stories.",
+  "tokens": {
+    "colors": {
+      "bg": "#1E2A4A",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#B8C2FF",
+      "card": "#15203D",
+      "accent": "#FFD84A",
+      "accentSoft": "#FFD84A33",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 230,
+      "content_bottom": 1120
+    },
+    "chrome": "glass",
+    "caption": {
+      "fill": "#ffffff"
+    }
+  },
+  "effects": {
+    "vignette": 0.2
+  },
+  "rules": [
+    "One grid: 0.1 m cubes for people and props, 0.2 m for terrain, 0.4 m for trees and buildings. Never mix a smooth model into the scene.",
+    "Layers: foreground props, the action plane, trees and cabin, far hills. Depth comes from overlapping layers and atmospheric blue in the distance.",
+    "Golden-hour light from the front-left with long soft shadows; lanterns and windows are the only warm practicals.",
+    "The face is made of voxels (eyes, brows, mouth swap states): keep expressions bold and readable, never subtle.",
+    "Elbows and knees bend; hands and feet are blocks. Poses come from the shared gesture library.",
+    "Ambient life is the motion: clouds, chimney smoke, falling leaves, fireflies, lantern flicker. Camera moves are rare and each has a reason.",
+    "Captions: bold white with a thick dark outline and one yellow word."
+  ],
+  "components": [
+    "Stage3D",
+    "Terminal",
+    "BrowserWindow",
+    "CommentBox",
+    "Checklist",
+    "BigStat",
+    "KineticList"
+  ],
+  "camera_language": "Low and friendly. Wide to show the valley and the person in it, medium three-quarter for talking, medium-wide three-quarter for hands-on actions so arm and object both show. Close-ups only on the face for a reaction. The world moves by itself (clouds, smoke, leaves, fireflies) so the camera can stay still.",
+  "typography": "Heavy sans, white with yellow accent.",
+  "transitions": [
+    "cut",
+    "zoom",
+    "whip"
+  ],
+  "audio_direction": "upbeat groove, pop on card, tick on step chip, hop = boing",
+  "pitfalls": [
+    "The big voxel head makes extreme close-ups look cartoonish: stay at medium-close-up or wider.",
+    "Over-the-shoulder hides the object behind the head: use medium-wide three-quarter.",
+    "Golden-hour bloom washes colours: keep bloom at or below 0.2 in close shots."
+  ],
+  "references": [
+    "reference videos ref7, ref2"
+  ],
+  "defaults": {
+    "captions": "word-pop",
+    "music": "upbeat",
+    "stage3d": {
+      "world": "voxel-valley",
+      "worldOpts": {},
+      "cast": {
+        "voxel": {
+          "skin": "#C98A5E",
+          "hair": "#2A1B12",
+          "shirt": "#4B6FE0",
+          "pants": "#2C3A63",
+          "shoes": "#F2F2F2",
+          "hairStyle": "cap"
+        }
+      },
+      "look": {
+        "bloom": 0.16,
+        "bloomThreshold": 0.9,
+        "exposure": 0.96
+      }
+    },
+    "backdrop": {
+      "world": "voxel-valley",
+      "worldOpts": {},
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "cabin",
+        "offset": [
+          0,
+          -0.1
+        ],
+        "movement": {
+          "type": "static"
+        }
+      },
+      "look": {
+        "aperture": 0.03,
+        "maxblur": 0.025,
+        "exposure": 0.66
+      }
+    }
+  }
+}

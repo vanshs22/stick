@@ -1,0 +1,26 @@
+{
+ "title": "One file that gets your project used",
+ "topic": "why a README gets a project used",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 22,
+ "language": "en",
+ "audience": "developers who ship side projects",
+ "goal": "one clear idea: write a README",
+ "style_pack": "claude-minions",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.05
+ },
+ "music": {
+  "direction": "upbeat"
+ },
+ "captions": {
+  "preset": "caps-plate"
+ },
+ "cta": {
+  "keyword": "README",
+  "text": "Comment README"
+ }
+}

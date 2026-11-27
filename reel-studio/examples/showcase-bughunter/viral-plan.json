@@ -1,0 +1,288 @@
+{
+ "format": "explainer",
+ "promise": "You know what Claude BugHunter is, how to install it, and that it is only for authorised targets.",
+ "audience_pain": "Developers hear \"AI for bug bounty\" and cannot tell what it really is or whether it is safe to use.",
+ "hook": {
+  "options": [
+   {
+    "pattern": "open-loop question",
+    "line": "What if Claude thought like a senior bug hunter?"
+   },
+   {
+    "pattern": "number + stake",
+    "line": "One free repo gives Claude Code over eighty hunting skills."
+   },
+   {
+    "pattern": "contradiction",
+    "line": "Claude is not a chatbot when it has the right skills."
+   }
+  ],
+  "chosen": 0,
+  "why": "A single what-if with a concrete role (senior bug hunter): the viewer wants to know how."
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 10,
+   "job": "the what-if",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "stakes",
+   "from_pct": 10,
+   "to_pct": 22,
+   "job": "the promise: free, over eighty skills",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 22,
+   "to_pct": 36,
+   "job": "name the repo and show its popularity (real star history)",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "mechanism",
+   "from_pct": 36,
+   "to_pct": 62,
+   "job": "install, describe the target, the right skill loads",
+   "lines": [
+    "L04",
+    "L05"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 62,
+   "to_pct": 74,
+   "job": "the scale: 15 commands, 681 patterns, 24 classes",
+   "lines": [
+    "L06"
+   ]
+  },
+  {
+   "beat": "twist",
+   "from_pct": 74,
+   "to_pct": 86,
+   "job": "the surprise: scope is enforced by a 7-question gate",
+   "lines": [
+    "L07"
+   ]
+  },
+  {
+   "beat": "objection",
+   "from_pct": 86,
+   "to_pct": 93,
+   "job": "the limit: authorised targets only",
+   "lines": [
+    "L08"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 93,
+   "to_pct": 100,
+   "job": "ask for the keyword HUNT and loop to \"bug hunter\"",
+   "lines": [
+    "L09"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L05"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L02"
+   ],
+   "emotion": "excited"
+  },
+  {
+   "lines": [
+    "L03"
+   ],
+   "emotion": "proud"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "determined"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "calm"
+  },
+  {
+   "lines": [
+    "L06"
+   ],
+   "emotion": "proud"
+  },
+  {
+   "lines": [
+    "L07"
+   ],
+   "emotion": "shock"
+  },
+  {
+   "lines": [
+    "L08"
+   ],
+   "emotion": "calm"
+  },
+  {
+   "lines": [
+    "L09"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "a counting number replaces the title"
+  },
+  {
+   "at": "L03",
+   "device": "cut to the real star-history chart with a ring"
+  },
+  {
+   "at": "L04",
+   "device": "a terminal types the real commands"
+  },
+  {
+   "at": "L06",
+   "device": "three numbers pop in one by one"
+  },
+  {
+   "at": "L07",
+   "device": "a whip into the README paragraph and a boom on \"seven\""
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "TitleCard over a real server-room photo",
+   "why": "the idea in big type"
+  },
+  {
+   "line": "L02",
+   "device": "BigStat 80+ and a FREE sticker",
+   "why": "the number the voice says"
+  },
+  {
+   "line": "L03",
+   "device": "ProofCard: the repo\u2019s own star-history chart",
+   "why": "proof of popularity"
+  },
+  {
+   "line": "L04",
+   "device": "Terminal with the README\u2019s real commands",
+   "why": "what to type"
+  },
+  {
+   "line": "L05",
+   "device": "Checklist recon, hunt, report",
+   "why": "the sequence"
+  },
+  {
+   "line": "L06",
+   "device": "KineticList of three README numbers",
+   "why": "the scale"
+  },
+  {
+   "line": "L07",
+   "device": "ProofCard: the README paragraph with the gate",
+   "why": "proof that scope is enforced"
+  },
+  {
+   "line": "L08",
+   "device": "ProofCard: SECURITY.md sentence",
+   "why": "who the tool is for"
+  },
+  {
+   "line": "L09",
+   "device": "CommentBox HUNT",
+   "why": "the exact keyword"
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "the title lands"
+  },
+  {
+   "line": "L02",
+   "sfx": "count",
+   "why": "the number counts up"
+  },
+  {
+   "line": "L03",
+   "sfx": "pop",
+   "why": "the chart card appears"
+  },
+  {
+   "line": "L04",
+   "sfx": "type",
+   "why": "the commands are typed"
+  },
+  {
+   "line": "L05",
+   "sfx": "tick",
+   "why": "each phase ticks"
+  },
+  {
+   "line": "L06",
+   "sfx": "pop",
+   "why": "each number pops"
+  },
+  {
+   "line": "L07",
+   "sfx": "boom",
+   "why": "the gate reveal"
+  },
+  {
+   "line": "L08",
+   "sfx": "stamp",
+   "why": "AUTHORIZED SCOPE ONLY lands"
+  },
+  {
+   "line": "L09",
+   "sfx": "ding",
+   "why": "the keyword posts"
+  }
+ ],
+ "cta": {
+  "keyword": "HUNT",
+  "line": "L09"
+ },
+ "loop": {
+  "echo": "hunter"
+ },
+ "share": {
+  "reason": "Developers send it to a friend who uses Claude Code and asks what AI can do for security work, and it says plainly that it is for authorised testing only.",
+  "comment_bait": "Comment HUNT for the install steps"
+ },
+ "duration_sec": 40
+}

@@ -1,0 +1,128 @@
+{
+  "id": "claude-minions",
+  "name": "Claude minions (neon stage)",
+  "family": "3d",
+  "cadence": "explainer-2d",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "description": "A duo of original glossy cube mascots (an orange one and a pink one with a bow) on a dark neon stage: bokeh city at night, purple and orange spotlight beams, a glossy floor with a faint grid. Big glowing set pieces (a wall of keys, a laptop on a desk, a trophy, price boxes) float above them, a dark headline plaque names the beat at the top, a counter spins up for numbers, emoji thought bubbles show the reaction, and small UPPERCASE captions sit low. Fast tech-news and AI-tool explainers with a playful, hype-but-honest voice.",
+  "tokens": {
+    "colors": {
+      "bg": "#120A24",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#B9A9D9",
+      "card": "#1B1233",
+      "accent": "#FF9A4D",
+      "accentSoft": "#FF9A4D33",
+      "good": "#7DE3A0",
+      "bad": "#FF5C7A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1480,
+      "right_margin": 120,
+      "content_top": 330,
+      "content_bottom": 1180
+    },
+    "chrome": "glass",
+    "caption": {
+      "fill": "#ffffff"
+    }
+  },
+  "effects": {
+    "vignette": 0.4
+  },
+  "rules": [
+    "Two characters, always: the ORANGE cubie (the doer, the AI tool) on the left and the PINK cubie with the bow (the viewer, asks the questions) on the right. They stay in the bottom third; the story object floats above them.",
+    "Every beat has ONE big set piece or ONE big number above the duo (price boxes, a wall of keys, a laptop, a trophy, a real screenshot in a plaque). Never an empty stage.",
+    "A dark headline plaque at the top (overlay 'plaque', y about 170) names the beat in 2 to 5 UPPERCASE words; it changes with every beat. Its small kicker line carries the tag (e.g. SCENE 03, EXCLUSIVE).",
+    "Numbers spin up with the 'counter' overlay, not as plain text. Reactions are emoji thought bubbles ('bubble' overlay) above the pink cubie: $0?!, FROM WHERE?, WHICH ONE?",
+    "Colour: dark violet stage, ONE warm accent (orange #FF9A4D), pink and violet only as light and accents. Characters are the brightest things in the frame; the set pieces glow but never out-shine them.",
+    "Real evidence (screenshots, trailer frames) sits inside a plaque or screen on the stage, labelled; never a made-up UI presented as real.",
+    "Neon streaks (the 'burst' overlay) land on the impact word (KILLED, FREE, #1) and nowhere else.",
+    "Captions: preset caps-plate, small and low (y about 1520), one phrase at a time, the key word in the accent colour.",
+    "Camera signature: the stage keeps moving. Alternate orbit / push-in / orbit / pull-back, each with its own why; static only on the closing hold."
+  ],
+  "components": [
+    "Stage3D",
+    "RemocnBlock",
+    "BrowserWindow",
+    "ProofCard",
+    "Terminal",
+    "BigStat",
+    "KineticList",
+    "Checklist",
+    "EndCard"
+  ],
+  "camera_language": "Medium-wide, slightly low, both cubies in the bottom third with the set piece above. The stage is never frozen on a talk beat: ALTERNATE a slow orbit of 8 to 14 degrees, a push-in, an orbit the other way, a pull-back (the critic refuses the same move twice in a row, and each move needs its own why). A push-in on the reveal word; a whip between topics. Step the framing (wide / medium-wide) between consecutive shots so cuts are not jump cuts. Close-up on one cubie only for a reaction (the pink one, medium-close-up).",
+  "typography": "Heavy rounded sans, UPPERCASE plaque titles, small mono kickers.",
+  "transitions": [
+    "cut",
+    "whip",
+    "zoom",
+    "flash"
+  ],
+  "audio_direction": "Upbeat synth bed at -22 dB under the voice; a pop on every plaque, a whoosh on whips, a ding on counters, a sparkle on trophies, a thud on price boxes; about 4 sounds per 10 seconds, each on its visual event.",
+  "pitfalls": [
+    "Cubies are blocks: at close-up the face plate looks flat; use medium-close-up and a slight three-quarter angle.",
+    "Bloom can wash out the plaque: keep plaque text white on dark and the bloom threshold above 0.68.",
+    "The keywall and trophy glow very bright: let the cubies stay the brightest objects (lower the prop exposure or move it back).",
+    "Do not copy another creator's characters, logos or scripts: the cubies, wording and set pieces here are original; learn the PACE and the layout only."
+  ],
+  "references": [
+    "reference vids: two neon-stage minion explainers (pace 2.5 to 3.6 cuts per 10 s, camera never static, loudness about -14 LUFS, headline plaque at y 5 to 15 percent, captions at y 80 to 90 percent): structure and layout only"
+  ],
+  "defaults": {
+    "captions": "caps-plate",
+    "music": "upbeat",
+    "stage3d": {
+      "world": "neon-stage",
+      "worldOpts": {},
+      "cast": {
+        "cube": {
+          "body": "#FF7A3D"
+        }
+      },
+      "duo": {
+        "buddy": {
+          "body": "#F0599A",
+          "bow": "#FFC2DC"
+        }
+      },
+      "look": {
+        "bloom": 0.7,
+        "bloomThreshold": 0.68
+      }
+    },
+    "backdrop": {
+      "world": "neon-stage",
+      "worldOpts": {},
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "stage",
+        "offset": [
+          0,
+          0.2
+        ],
+        "movement": {
+          "type": "static"
+        }
+      },
+      "look": {
+        "aperture": 0.02,
+        "maxblur": 0.02,
+        "exposure": 0.85
+      }
+    }
+  }
+}

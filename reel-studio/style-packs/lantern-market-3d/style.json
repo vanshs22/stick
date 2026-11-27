@@ -1,0 +1,545 @@
+{
+  "id": "lantern-market-3d",
+  "name": "Lantern Market 3D",
+  "family": "3d",
+  "cadence": "beat-short",
+  "engine": "inkbeat",
+  "formats": [
+    "16:9",
+    "9:16"
+  ],
+  "description": "Lantern-lit clay night market: a noodle stall, warm lanterns, a friendly cook (3D look made in Style Studio, \"Lantern clay + queue in frame\")",
+  "tokens": {
+    "colors": {
+      "bg": "#ffd23a",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#b8b0d8",
+      "card": "#fff8ee",
+      "accent": "#ff5a7a",
+      "accentSoft": "#ff5a7a33",
+      "good": "#5ad07a",
+      "bad": "#ff5a5a"
+    },
+    "fonts": {
+      "sans": "Poppins",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1344,
+      "right_margin": 120
+    }
+  },
+  "effects": {
+    "vignette": 0.08
+  },
+  "rules": [
+    "Look: Lantern-lit clay night market: a noodle stall, warm lanterns, a friendly cook",
+    "The set, hero and light are the data in ink_look: change them with Style Studio (refine), not by adding code.",
+    "Camera: the shot ladder in docs/CAMERA-GRAMMAR.md; every key fact in the story is an object in the set.",
+    "No flashing, no strobing; screen shake only on an impact beat."
+  ],
+  "components": [
+    "inkbeat/Story",
+    "inkbeat/Character3D"
+  ],
+  "camera_language": "Toddler-eye-level wide establishing, medium of the hero, close-up on the face on the chorus. Cuts every 2-4 s on the beat; a slow push on the hero while a verse builds; a slide to a new object when the lyric names it. No handheld, no whip, no shake.",
+  "typography": "Poppins ExtraBold, lyric lines in large lowercase, high contrast, never over the face.",
+  "transitions": [
+    "cut on the beat",
+    "slide",
+    "dissolve (scene change only)"
+  ],
+  "audio_direction": "a sung melody in a major key, 90-110 BPM, claps and chimes on the beat, soft pops for objects appearing; no sudden loud sounds, no bass drops",
+  "pitfalls": [
+    "Pastel washes: keep exposure at 0.8 and saturation at 1.6 or the room goes milky.",
+    "Sharp props (a corner box) break the rule: use rounded boxes only.",
+    "A fast zoom pulse on every beat is the over-stimulating pattern; keep zooms under 8 percent and slow."
+  ],
+  "looks": [
+    "kids-day",
+    "kids-night"
+  ],
+  "references": [
+    "skills/camera-grammar/SKILL.md",
+    "skills/inkbeat/SKILL.md"
+  ],
+  "ink_look": {
+    "ink": 0,
+    "sky": true,
+    "hero": {
+      "base": "pixar",
+      "height": 1.7,
+      "look": {
+        "hair": "swoop",
+        "hairColor": "#17171e",
+        "colors": {
+          "top": "#2f8a7a",
+          "inner": "#f4ead2",
+          "bottom": "#2a2a3a",
+          "shoes": "#c8372d",
+          "accent": "#ffc21a"
+        }
+      }
+    },
+    "set": {
+      "floor": {
+        "c": "#4a3a4a",
+        "tex": "stone",
+        "ts": 1.4,
+        "size": [
+          18,
+          14
+        ]
+      },
+      "walls": {
+        "c": "#6a3a3a",
+        "tex": "plaster",
+        "sides": [
+          "back"
+        ],
+        "h": 4
+      },
+      "props": [
+        {
+          "k": "box",
+          "s": [
+            0.8,
+            1,
+            0.06
+          ],
+          "p": [
+            -6.2,
+            2.6,
+            -8.9
+          ],
+          "c": "#ffc060",
+          "e": "#ffc060",
+          "ei": 0.7,
+          "tex": "none",
+          "repeat": {
+            "n": 6,
+            "step": [
+              2.4,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "k": "box",
+          "s": [
+            3.4,
+            1,
+            1
+          ],
+          "p": [
+            1.7,
+            0.5,
+            -3.9
+          ],
+          "c": "#9a6a44",
+          "tex": "wood"
+        },
+        {
+          "k": "box",
+          "s": [
+            3.6,
+            0.08,
+            1.2
+          ],
+          "p": [
+            1.7,
+            1.04,
+            -3.9
+          ],
+          "c": "#e8dcc0",
+          "tex": "wood"
+        },
+        {
+          "k": "cyl",
+          "s": [
+            0.06,
+            0.06,
+            2.8
+          ],
+          "p": [
+            0.1,
+            1.4,
+            -3.4
+          ],
+          "c": "#6a4a34",
+          "tex": "wood"
+        },
+        {
+          "k": "cyl",
+          "s": [
+            0.06,
+            0.06,
+            2.8
+          ],
+          "p": [
+            3.3,
+            1.4,
+            -3.4
+          ],
+          "c": "#6a4a34",
+          "tex": "wood"
+        },
+        {
+          "k": "round",
+          "s": [
+            4,
+            0.14,
+            1.9
+          ],
+          "p": [
+            1.7,
+            2.8,
+            -3.5
+          ],
+          "r": [
+            0.18,
+            0,
+            0
+          ],
+          "c": "#c8372d",
+          "tex": "fabric",
+          "rad": 0.05
+        },
+        {
+          "k": "label",
+          "text": "NOODLES",
+          "p": [
+            1.7,
+            2.3,
+            -2.72
+          ],
+          "w": 2.2,
+          "h": 0.46,
+          "fg": "#ffffff",
+          "bg": "#7a1a14"
+        },
+        {
+          "k": "cyl",
+          "s": [
+            0.5,
+            0.42,
+            0.5
+          ],
+          "p": [
+            0.9,
+            1.33,
+            -3.9
+          ],
+          "c": "#9aa0b8",
+          "tex": "metal"
+        },
+        {
+          "k": "glow",
+          "s": [
+            0.1
+          ],
+          "p": [
+            0.85,
+            1.8,
+            -3.9
+          ],
+          "c": "#ffffff",
+          "k2": 0.7,
+          "anim": "bob",
+          "repeat": {
+            "n": 3,
+            "step": [
+              0.06,
+              0.28,
+              0
+            ]
+          }
+        },
+        {
+          "k": "sph",
+          "s": [
+            0.16
+          ],
+          "p": [
+            2.1,
+            1.2,
+            -3.8
+          ],
+          "c": "#f4ead2",
+          "repeat": {
+            "n": 3,
+            "step": [
+              0.34,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "k": "box",
+          "s": [
+            14,
+            0.03,
+            0.03
+          ],
+          "p": [
+            0,
+            3.9,
+            -3.2
+          ],
+          "c": "#2a2a3a"
+        },
+        {
+          "k": "glow",
+          "s": [
+            0.3
+          ],
+          "p": [
+            -5.5,
+            3.5,
+            -3.2
+          ],
+          "c": "#c8300a",
+          "e": "#c8300a",
+          "ei": 0.45,
+          "sc": [
+            1,
+            1.3,
+            1
+          ],
+          "anim": "bob",
+          "repeat": {
+            "n": 8,
+            "step": [
+              1.55,
+              0,
+              0
+            ],
+            "colors": [
+              "#ff5a1a",
+              "#ff9a10",
+              "#ff3a3a"
+            ]
+          },
+          "k2": 0.8
+        },
+        {
+          "k": "box",
+          "s": [
+            2.2,
+            3.2,
+            1.4
+          ],
+          "p": [
+            -4.6,
+            1.6,
+            -5.4
+          ],
+          "c": "#7a4a3a",
+          "tex": "plaster"
+        },
+        {
+          "k": "round",
+          "s": [
+            2.6,
+            0.12,
+            1.5
+          ],
+          "p": [
+            -4.6,
+            3.3,
+            -5.2
+          ],
+          "r": [
+            0.16,
+            0,
+            0
+          ],
+          "c": "#2f8a7a",
+          "tex": "fabric",
+          "rad": 0.05
+        },
+        {
+          "k": "cyl",
+          "s": [
+            0.2,
+            0.27,
+            0.85
+          ],
+          "p": [
+            1.25,
+            0.43,
+            -3
+          ],
+          "c": "#4a6aa8",
+          "tex": "fabric",
+          "repeat": {
+            "n": 5,
+            "step": [
+              0.1,
+              0,
+              0.9
+            ],
+            "colors": [
+              "#4a6aa8",
+              "#a84a5a",
+              "#5a8a5a",
+              "#c89a3a",
+              "#7a5aa8",
+              "#3a8a9a"
+            ]
+          }
+        },
+        {
+          "k": "sph",
+          "s": [
+            0.19
+          ],
+          "p": [
+            1.25,
+            1.07,
+            -3
+          ],
+          "c": "#e0a878",
+          "repeat": {
+            "n": 5,
+            "step": [
+              0.1,
+              0,
+              0.9
+            ],
+            "colors": [
+              "#e0a878",
+              "#c07a50",
+              "#f0c8a0",
+              "#8a5a3a",
+              "#d8a070",
+              "#a86a44"
+            ]
+          }
+        },
+        {
+          "k": "sph",
+          "s": [
+            0.21
+          ],
+          "p": [
+            1.25,
+            1.17,
+            -3
+          ],
+          "c": "#2a2430",
+          "sc": [
+            1,
+            0.55,
+            1
+          ],
+          "repeat": {
+            "n": 5,
+            "step": [
+              0.1,
+              0,
+              0.9
+            ]
+          }
+        }
+      ],
+      "lights": [
+        {
+          "p": [
+            0.3,
+            1.7,
+            -2
+          ],
+          "color": "#ff9040",
+          "intensity": 3.5,
+          "distance": 10
+        },
+        {
+          "p": [
+            -3.5,
+            1.7,
+            -2
+          ],
+          "color": "#ff8a50",
+          "intensity": 2.5,
+          "distance": 8
+        }
+      ]
+    },
+    "moods": {
+      "main": {
+        "base": "lamp",
+        "patch": {
+          "note": "lantern night: warm tungsten against indigo shade",
+          "lights": {
+            "key": {
+              "color": "#ffb070",
+              "intensity": 3.6
+            },
+            "fill": {
+              "color": "#5a6ae0",
+              "intensity": 0.8
+            }
+          },
+          "fog": {
+            "color": "#2a1a3a",
+            "density": 0.004
+          },
+          "sky": {
+            "top": "#0c0a2a",
+            "mid": "#2a2a7a",
+            "bottom": "#6a4a9a",
+            "cloudColor": "#2a2a7a",
+            "cloudLit": "#ffffff",
+            "clouds": 0.2,
+            "stars": 0.8,
+            "moonOn": 0.6
+          },
+          "toon": {
+            "ramp": "clay",
+            "shadowTint": [
+              0.8,
+              0.8,
+              1.15
+            ],
+            "shadowAmt": 0.6,
+            "paint": 0
+          },
+          "post": {
+            "outline": {
+              "enabled": false
+            },
+            "dof": {
+              "maxBlurPx": 2.2
+            },
+            "bloom": {
+              "strength": 0.5
+            },
+            "vignette": {
+              "amount": 0.3
+            },
+            "grade": {
+              "saturation": 1.2,
+              "shadowTint": "#2a1a6a",
+              "highlightTint": "#ffd8a0"
+            }
+          }
+        }
+      }
+    }
+  },
+  "overlay_skin": "explainer-notebook",
+  "studio": {
+    "from": "kidsong-3d",
+    "look": "v10",
+    "brief": "Lantern-lit clay night market: a noodle stall, warm lanterns, a friendly cook",
+    "approved_by_quote": "TEST RUN: the user asked the agent to test a new inkbeat 3D look end to end and show the storyboard; not a real client pick",
+    "approved_at": "2026-11-19T10:30:56.864Z"
+  }
+}

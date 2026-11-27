@@ -1,0 +1,201 @@
+{
+ "source": "/projects/sandbox/work/proj/final-test/references/couple/source.mp4",
+ "tool": "opencv 5.0.0",
+ "kind": "video",
+ "size": [
+  720,
+  720
+ ],
+ "aspect": 1.0,
+ "fps": 24.0,
+ "duration": 11.75,
+ "frames": 282,
+ "shots": [
+  {
+   "n": 1,
+   "start": 0.0,
+   "end": 2.67,
+   "length": 2.67,
+   "camera_motion": "pull out",
+   "motion": {
+    "dx": 0.0049,
+    "dy": -0.0012,
+    "zoom": -0.0184,
+    "roll": 0.0014
+   },
+   "object_motion": 0.0181,
+   "palette": [
+    {
+     "hex": "#453959",
+     "share": 0.337
+    },
+    {
+     "hex": "#968DA9",
+     "share": 0.276
+    },
+    {
+     "hex": "#DFDDD7",
+     "share": 0.243
+    },
+    {
+     "hex": "#A6B023",
+     "share": 0.143
+    }
+   ],
+   "brightness": 0.545,
+   "contrast": 0.522,
+   "saturation": 0.386,
+   "edge_density": 0.106,
+   "clipped_highlights": 0.0074,
+   "crushed_blacks": 0.007,
+   "face_height_ratio": null,
+   "keyframe": "keyframes/shot_01.jpg"
+  },
+  {
+   "n": 2,
+   "start": 2.67,
+   "end": 11.75,
+   "length": 9.08,
+   "camera_motion": "pull out",
+   "motion": {
+    "dx": -0.0007,
+    "dy": -0.0002,
+    "zoom": -0.0016,
+    "roll": 0.0002
+   },
+   "object_motion": 0.0069,
+   "palette": [
+    {
+     "hex": "#C2BFCE",
+     "share": 0.37
+    },
+    {
+     "hex": "#5D5E82",
+     "share": 0.329
+    },
+    {
+     "hex": "#A9AE31",
+     "share": 0.209
+    },
+    {
+     "hex": "#38281F",
+     "share": 0.091
+    }
+   ],
+   "brightness": 0.551,
+   "contrast": 0.473,
+   "saturation": 0.385,
+   "edge_density": 0.1128,
+   "clipped_highlights": 0.0229,
+   "crushed_blacks": 0.0327,
+   "face_height_ratio": null,
+   "keyframe": "keyframes/shot_02.jpg"
+  }
+ ],
+ "timing": {
+  "shots": 2,
+  "cuts_per_10s": 0.85,
+  "median_shot": 5.88,
+  "shortest": 2.67,
+  "longest": 9.08,
+  "shots_over_3s": 1
+ },
+ "camera": {
+  "static_share": 0.0,
+  "moves": {
+   "pull out": 2
+  }
+ },
+ "look": {
+  "palette": [
+   {
+    "hex": "#423A56",
+    "share": 0.254
+   },
+   {
+    "hex": "#69668A",
+    "share": 0.23
+   },
+   {
+    "hex": "#ACA7C0",
+    "share": 0.193
+   },
+   {
+    "hex": "#E8DED9",
+    "share": 0.16
+   },
+   {
+    "hex": "#92A235",
+    "share": 0.128
+   },
+   {
+    "hex": "#F6E715",
+    "share": 0.036
+   }
+  ],
+  "brightness": 0.549,
+  "saturation": 0.386,
+  "edge_density": 0.1094
+ },
+ "text": {
+  "persistent_bands": [],
+  "median_text_height_norm": 0.019,
+  "estimated_font_px_at_1920": 29,
+  "note": "bands are where text-like shapes persist (captions, HUD, titles); identify the typeface by looking"
+ },
+ "qa": {
+  "black_frames": [],
+  "frozen": []
+ },
+ "audio": {
+  "present": true,
+  "duration": 11.82,
+  "loudness_lufs": -12.3,
+  "true_peak_db": 1.4,
+  "silence_ratio": 0.029,
+  "onsets_per_10s": 11.8,
+  "onset_times": [
+   2.96,
+   3.46,
+   3.7,
+   6.06,
+   7.18,
+   7.4,
+   7.48,
+   10.5,
+   10.58,
+   10.64,
+   10.68,
+   10.8,
+   10.86,
+   10.92
+  ],
+  "tempo_bpm_estimate": 167,
+  "speech_band_share": 0.72,
+  "spectral_flatness": 0.323,
+  "heuristic": "onsets/tempo/speech share are estimates, not transcription: listen or run faster-whisper for words"
+ },
+ "vision": {
+  "status": "pending",
+  "look_at": [
+   "contact_sheet.jpg",
+   "keyframes/shot_01.jpg",
+   "keyframes/shot_02.jpg"
+  ],
+  "to_fill": [
+   "shot_sizes",
+   "camera_angles",
+   "camera_movement_confirmed",
+   "character_design",
+   "environment",
+   "lighting",
+   "composition",
+   "typography",
+   "ui_overlays",
+   "transitions",
+   "animation",
+   "music_and_sfx",
+   "storytelling"
+  ]
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "topic": "photoreal plates rendered in code",
+ "angle": "A path-traced scene rendered by a script, with a real camera move, with CC0 assets.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "The chair model, the wood texture and the studio lighting are CC0 assets from Poly Haven.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1",
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "One 1080p plate takes about 55 seconds on an 8-core CPU with no GPU (measured by this toolkit's doctor).",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://polyhaven.com/a/modern_arm_chair_01",
+   "title": "Poly Haven: Modern Arm Chair 01 (CC0)",
+   "captured_at": "2026-11-18T20:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "https://polyhaven.com/license",
+   "title": "Poly Haven licence: CC0",
+   "captured_at": "2026-11-18T20:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

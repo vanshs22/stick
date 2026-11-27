@@ -1,0 +1,39 @@
+{
+ "topic": "what a cache does",
+ "angle": "A cache keeps a saved copy of an answer, so the second request is faster than the first.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "An HTTP cache stores a response and reuses the stored response for later requests.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "The first visit has to fetch everything from the server, so it is slower than a repeat visit that reads the saved copy.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1",
+    "SRC2"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching",
+   "title": "MDN: HTTP caching",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "https://web.dev/articles/http-cache",
+   "title": "web.dev: Prevent unnecessary network requests with the HTTP Cache",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

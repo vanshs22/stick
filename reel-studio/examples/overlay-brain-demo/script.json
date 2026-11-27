@@ -1,0 +1,55 @@
+{
+ "title": "One long video, five clips",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Three weeks per video? You flop.",
+   "emphasis": [],
+   "visual_hint": "",
+   "emotion": "curious"
+  },
+  {
+   "id": "L02",
+   "beat": "step",
+   "text": "Here is the free way. First, drop your long video into a clipper that costs zero dollars and has no monthly fee.",
+   "emphasis": [],
+   "visual_hint": "",
+   "emotion": "happy"
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "Next, on November 19th, ask it to find the best moments: the jokes, the stories, and the fights.",
+   "emphasis": [],
+   "visual_hint": "",
+   "emotion": "curious"
+  },
+  {
+   "id": "L04",
+   "beat": "step",
+   "text": "Then it cuts them vertical and adds captions in ten seconds.",
+   "emphasis": [],
+   "visual_hint": "",
+   "emotion": "determined"
+  },
+  {
+   "id": "L05",
+   "beat": "step",
+   "text": "Last, post them on TikTok, Reels, and Shorts.",
+   "emphasis": [],
+   "visual_hint": "",
+   "emotion": "happy"
+  },
+  {
+   "id": "L06",
+   "beat": "cta",
+   "text": "Comment CLIP and I will send you the tool. No more flops.",
+   "emphasis": [],
+   "visual_hint": "",
+   "emotion": "proud"
+  }
+ ],
+ "est_seconds": 30
+}

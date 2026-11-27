@@ -1,0 +1,55 @@
+{
+ "title": "One file that gets your project used",
+ "language": "en",
+ "est_seconds": 22,
+ "lines": [
+  {
+   "id": "L01",
+   "text": "Your project works. So why does nobody use it?",
+   "beat": "hook",
+   "emphasis": [
+    "nobody"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "Because nobody knows how to start it.",
+   "beat": "stakes",
+   "emphasis": [
+    "start"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "A README is a free tour guide for your code.",
+   "beat": "mechanism",
+   "emphasis": [
+    "README"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "Three lines are enough: what it is, how to run it, one example.",
+   "beat": "step",
+   "emphasis": [
+    "example"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "Add them, and a first visit becomes a first star.",
+   "beat": "proof",
+   "emphasis": [
+    "star"
+   ]
+  },
+  {
+   "id": "L06",
+   "text": "Comment README and I will send you a template.",
+   "beat": "cta",
+   "emphasis": [
+    "README"
+   ]
+  }
+ ]
+}

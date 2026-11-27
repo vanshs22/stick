@@ -1,0 +1,26 @@
+{
+ "title": "The tower in the sky",
+ "topic": "a short roblox-style story",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 20,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "teach one idea clearly",
+ "style_pack": "roblox-inspired",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_adam",
+  "speed": 1.12
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "one-word"
+ },
+ "cta": {
+  "keyword": "TOWER",
+  "text": "Comment TOWER"
+ }
+}

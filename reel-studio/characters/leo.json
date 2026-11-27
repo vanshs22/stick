@@ -1,0 +1,46 @@
+{
+ "id": "leo",
+ "name": "Leo",
+ "kind": "human",
+ "role": "skeptic",
+ "silhouette": "a tall, calm sceptic: short black hair, a short beard, a grey hoodie",
+ "height_m": 1.7,
+ "look": {
+  "skin": "#E8B08C",
+  "hair": "#16110E",
+  "shirt": "#7C8794",
+  "pants": "#262B38",
+  "shoes": "#E9E9E9",
+  "iris": "#3C2B20",
+  "hairStyle": "short",
+  "beard": "full",
+  "eyeScale": 0.95
+ },
+ "world": "home-studio",
+ "personality": "dry, level, a little tired",
+ "default_emotion": "calm",
+ "emotion_range": [
+  "calm",
+  "happy",
+  "curious",
+  "surprised",
+  "worried",
+  "sad",
+  "angry",
+  "smirk",
+  "scared",
+  "relieved",
+  "determined"
+ ],
+ "voice": {
+  "gender": "male",
+  "tone": "dry, level, a little tired",
+  "voice_id": "am_michael",
+  "speed": 1.0
+ },
+ "do_not": [
+  "change hair, glasses or colours between shots",
+  "wear another character's silhouette"
+ ],
+ "locked": true
+}

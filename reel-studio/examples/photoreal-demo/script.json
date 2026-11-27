@@ -1,0 +1,49 @@
+{
+ "title": "One chair, path traced",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "This chair will last ten years.",
+   "emphasis": [
+    "ten"
+   ],
+   "visual_hint": "",
+   "emoji": {
+    "chair": "\ud83e\ude91"
+   }
+  },
+  {
+   "id": "L02",
+   "beat": "step",
+   "text": "Oak frame, leather seat, and not a screw in sight.",
+   "emphasis": [
+    "Oak"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "Every pixel here is path traced, in code.",
+   "emphasis": [
+    "pixel"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L04",
+   "beat": "cta",
+   "text": "Same chair. Any lens. Any light.",
+   "emphasis": [
+    "Any"
+   ],
+   "visual_hint": "",
+   "emoji": {
+    "light": "\ud83d\udca1"
+   }
+  }
+ ],
+ "est_seconds": 14
+}

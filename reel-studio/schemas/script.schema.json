@@ -1,0 +1,138 @@
+{
+ "type": "object",
+ "required": [
+  "title",
+  "language",
+  "lines"
+ ],
+ "properties": {
+  "title": {
+   "type": "string",
+   "minLength": 1
+  },
+  "language": {
+   "type": "string",
+   "minLength": 1
+  },
+  "lines": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "text",
+     "beat"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^L\\d{2,3}$"
+     },
+     "text": {
+      "type": "string",
+      "minLength": 1
+     },
+     "beat": {
+      "type": "string",
+      "enum": [
+       "hook",
+       "stakes",
+       "setup",
+       "step",
+       "mechanism",
+       "proof",
+       "objection",
+       "twist",
+       "cta",
+       "save"
+      ]
+     },
+     "claims": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "emphasis": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "pause_after": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2
+     },
+     "visual_hint": {
+      "type": "string"
+     },
+     "speaker": {
+      "type": "string"
+     },
+     "emotion": {
+      "type": "string",
+      "enum": [
+       "neutral",
+       "happy",
+       "excited",
+       "sad",
+       "fear",
+       "shock",
+       "anger",
+       "calm",
+       "sarcastic",
+       "whisper",
+       "determined",
+       "curious",
+       "proud"
+      ]
+     },
+     "tts_text": {
+      "type": "string"
+     },
+     "emoji": {
+      "type": "object",
+      "description": "spoken word -> emoji shown right after that word in the caption (tools/emoji.mjs suggests and downloads them)",
+      "additionalProperties": {
+       "type": "string"
+      }
+     }
+    }
+   },
+   "minItems": 4
+  },
+  "est_seconds": {
+   "type": "number"
+  },
+  "cast": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object",
+    "required": [
+     "gender"
+    ],
+    "properties": {
+     "gender": {
+      "type": "string",
+      "enum": [
+       "female",
+       "male"
+      ]
+     },
+     "tone": {
+      "type": "string"
+     },
+     "voice": {
+      "type": "string"
+     },
+     "role": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "script"
+}

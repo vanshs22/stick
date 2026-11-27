@@ -1,0 +1,7 @@
+{"$schema":"http://json-schema.org/draft-07/schema#","title":"viral-plan","type":"object","required":["format","promise","hook","beats","cta","loop","share"],
+ "properties":{"format":{"type":"string","enum":["explainer","tutorial","story","dialogue-comedy","listicle","news"]},"promise":{"type":"string","minLength":1},"audience_pain":{"type":"string"},
+  "hook":{"type":"object","required":["options","chosen"],"properties":{"options":{"type":"array","minItems":3,"items":{"type":"object","required":["pattern","line"],"properties":{"pattern":{"type":"string"},"line":{"type":"string","minLength":1}}}},"chosen":{"type":"number","minimum":0},"why":{"type":"string"}}},
+  "beats":{"type":"array","minItems":3,"items":{"type":"object","required":["beat","job"],"properties":{"beat":{"type":"string"},"job":{"type":"string"},"lines":{"type":"array","items":{"type":"string"}},"from_pct":{"type":"number"},"to_pct":{"type":"number"}}}},
+  "open_loops":{"type":"array"},"emotion_arc":{"type":"array"},"retention":{"type":"array"},"overlay_plan":{"type":"array"},"sound_plan":{"type":"array"},
+  "cta":{"type":"object","required":["keyword"],"properties":{"keyword":{"type":"string"},"line":{"type":"string"}}},"loop":{"type":"object","properties":{"echo":{"type":"string"}}},
+  "share":{"type":"object","required":["reason"],"properties":{"reason":{"type":"string","minLength":1},"comment_bait":{"type":"string"}}},"reference":{"type":"object"},"duration_sec":{"type":"number"},"waived":{"type":"string"}}}

@@ -1,0 +1,58 @@
+{
+ "type": "object",
+ "required": ["schema_version", "font_stack", "size_px", "fill", "position", "chunking"],
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": { "type": "integer", "minimum": 1 },
+  "preset": { "type": "string", "enum": ["word-pop", "one-word", "boxed", "phrase", "typewriter", "karaoke", "headline", "dialogue", "caps-plate", "select-box", "stroke-word"] },
+  "font_stack": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+  "size_px": { "type": "number", "minimum": 24 },
+  "weight": { "type": "number", "minimum": 100, "maximum": 1000 },
+  "case": { "type": "string", "enum": ["lower", "sentence", "upper", "as-written"] },
+  "fill": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+  "stroke": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": { "w": { "type": "number", "minimum": 0 }, "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" } }
+  },
+  "shadow": { "type": "boolean" },
+  "bg_box": { "type": "object" },
+  "position": {
+   "type": "object",
+   "required": ["y_pct"],
+   "additionalProperties": false,
+   "properties": {
+    "y_pct": { "type": "number", "minimum": 5, "maximum": 95 },
+    "anchor": { "type": "string", "enum": ["center", "left", "right"] },
+    "avoid": { "type": "array", "items": { "type": "string", "enum": ["face", "overlay", "platform_buttons"] } }
+   }
+  },
+  "chunking": {
+   "type": "object",
+   "required": ["max_words"],
+   "additionalProperties": false,
+   "properties": {
+    "max_words": { "type": "integer", "minimum": 1, "maximum": 6 },
+    "max_chars": { "type": "integer", "minimum": 4 },
+    "syntax": { "type": "string", "enum": ["none", "pipe-star"] },
+    "hide_until_spoken": { "type": "boolean" }
+   }
+  },
+  "keyword_colors": { "type": "array", "items": { "type": "object", "required": ["rule", "color"], "properties": { "rule": { "type": "string", "enum": ["emphasis", "number", "name", "emotion", "regex"] }, "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }, "match": { "type": "string" } } } },
+  "animation": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "in": { "type": "string", "enum": ["pop", "rise", "fade", "type", "glitch", "none"] },
+    "out": { "type": "string", "enum": ["fade", "cut", "none"] },
+    "ms": { "type": "number", "minimum": 0 },
+    "active_word": { "type": "string", "enum": ["pop", "karaoke", "underline", "select-box", "none"] }
+   }
+  },
+  "reveal": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": { "lead_ms": { "type": "number", "minimum": 0, "maximum": 300 }, "source": { "type": "string", "enum": ["whisper_words", "tts_words"] } }
+  }
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "status": "ready",
+ "style_pack": "photoreal-cine",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "This chair will last ten years.",
+   "approach": "physical-3d",
+   "adds_information": "A photoreal chair makes the claim about years concrete: leather and oak you can almost touch."
+  },
+  {
+   "line_id": "L02",
+   "line": "Oak frame, leather seat, and not a screw in sight.",
+   "approach": "physical-3d",
+   "adds_information": "An orbit shows the joints and the seat from the side, which the words only list."
+  },
+  {
+   "line_id": "L03",
+   "line": "Every pixel here is path traced, in code.",
+   "approach": "motion-graphics",
+   "adds_information": "The cost of one frame as a number answers how expensive photoreal in code is."
+  },
+  {
+   "line_id": "L04",
+   "line": "Same chair. Any lens. Any light.",
+   "approach": "physical-3d",
+   "adds_information": "A close glass-and-light shot proves the same set can be shot from any lens."
+  }
+ ]
+}

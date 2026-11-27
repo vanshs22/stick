@@ -1,0 +1,47 @@
+{
+ "title": "The queue is the ad",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Three hundred bowls sell here every single night.",
+   "emphasis": [
+    "bowls"
+   ],
+   "visual_hint": "Kai stands at the lantern-lit noodle stall",
+   "emotion": "happy"
+  },
+  {
+   "id": "L02",
+   "beat": "step",
+   "text": "The noodles are ordinary.",
+   "emphasis": [
+    "ordinary"
+   ],
+   "visual_hint": "Kai shrugs beside the pot",
+   "emotion": "calm"
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "But the queue is the advertisement.",
+   "emphasis": [
+    "queue"
+   ],
+   "visual_hint": "Kai points at the line of customers",
+   "emotion": "happy"
+  },
+  {
+   "id": "L04",
+   "beat": "cta",
+   "text": "A long queue sells bowls.",
+   "emphasis": [
+    "queue"
+   ],
+   "visual_hint": "Kai smiles, steam rising behind him",
+   "emotion": "happy"
+  }
+ ],
+ "est_seconds": 10
+}

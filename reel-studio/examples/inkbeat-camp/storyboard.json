@@ -1,0 +1,157 @@
+{
+ "style_pack": "drawn-camp-3d",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "The captain stands in the tent, worried",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A wide first frame shows the whole tent and the rug before the story starts.",
+   "props": {
+    "note": "The captain stands in the tent, worried"
+   },
+   "anchors": [
+    {
+     "name": "tent",
+     "line": "L01",
+     "word": "tent"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "tent",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "paper",
+   "visual_intent": "The captain shrugs, arms out",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A medium shot with the arms spread makes the shrug of the line readable.",
+   "props": {
+    "note": "The captain shrugs, arms out"
+   },
+   "anchors": [
+    {
+     "name": "swords",
+     "line": "L02",
+     "word": "swords"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "swords",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "The captain points down at the rug",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A close-up on the pointing hand and face carries the turn: the map is under the rug.",
+   "props": {
+    "note": "The captain points down at the rug"
+   },
+   "anchors": [
+    {
+     "name": "map",
+     "line": "L03",
+     "word": "map"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "map",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "The captain grins, confident",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A low shot ends on the confident grin and echoes the first frame.",
+   "props": {
+    "note": "The captain grins, confident"
+   },
+   "anchors": [
+    {
+     "name": "floor",
+     "line": "L04",
+     "word": "floor"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "floor",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  }
+ ]
+}

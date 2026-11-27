@@ -1,0 +1,42 @@
+{
+ "status": "ready",
+ "style_pack": "editorial-sticker",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Three weeks per video? You flop.",
+   "approach": "motion-graphics",
+   "adds_information": "The failure and the number of weeks, which the sentence only says."
+  },
+  {
+   "line_id": "L02",
+   "line": "Here is the free way. First, drop your long video into a clipper that costs zero dollars and has no monthly fee.",
+   "approach": "designed-ui",
+   "adds_information": "The exact action in a terminal, with proof that it found moments."
+  },
+  {
+   "line_id": "L03",
+   "line": "Next, on November 19th, ask it to find the best moments: the jokes, the stories, and the fights.",
+   "approach": "data-viz",
+   "adds_information": "A wheel that lights on each kind of moment as it is named."
+  },
+  {
+   "line_id": "L04",
+   "line": "Then it cuts them vertical and adds captions in ten seconds.",
+   "approach": "designed-ui",
+   "adds_information": "Two automatic steps ticking off with a progress bar."
+  },
+  {
+   "line_id": "L05",
+   "line": "Last, post them on TikTok, Reels, and Shorts.",
+   "approach": "designed-ui",
+   "adds_information": "Three phones, one per platform, popping in on their names."
+  },
+  {
+   "line_id": "L06",
+   "line": "Comment CLIP and I will send you the tool. No more flops.",
+   "approach": "designed-ui",
+   "adds_information": "The one word to type, typed on screen."
+  }
+ ]
+}

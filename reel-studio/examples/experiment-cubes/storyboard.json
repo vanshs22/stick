@@ -1,0 +1,841 @@
+{
+ "style_pack": "claude-minions",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "the problem: a working project on a desk nobody visits; the pink cubie asks why",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {},
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.8,
+        "explain-wide"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "worried",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "desk",
+      "kind": "laptop",
+      "at": [
+       0,
+       1.55,
+       -1
+      ],
+      "scale": 1.7,
+      "desk": false
+     },
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7,
+      "color": "#FF9A4D"
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "az": -8,
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.2
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "orbit",
+      "why": "The slow orbit keeps the neon stage alive while the question lands, and ends facing the laptop that nobody opens.",
+      "to": {
+       "az": 6
+      },
+      "target": "stage",
+      "duration": 2.1,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "stage",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "both cubies stay inside the safe zone",
+       "the set piece stays visible"
+      ],
+      "from": {
+       "az": -8
+      }
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "Nobody uses it?",
+     "kicker": "Scene 01 / the problem",
+     "y": 170
+    },
+    {
+     "type": "bubble",
+     "emoji": "🤔",
+     "text": "WHY?",
+     "anchor": "why",
+     "x": 760,
+     "y": 1170
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.15,
+     "gain": 0.3,
+     "why": "on-screen event: the problem: a working project on a desk nobody visits; the pink cubie asks why"
+    }
+   ],
+   "anchors": [
+    {
+     "name": "why",
+     "line": "L01",
+     "word": "why"
+    }
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the problem: a working project on a desk nobody visits; the pink cubie asks why"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "a wall of glowing keys: so many projects, none of them says how to start",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {},
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.8,
+        "explain-wide"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "curious",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "wall",
+      "kind": "keywall",
+      "at": [
+       0,
+       1.9,
+       -4.2
+      ],
+      "cols": 22,
+      "rows": 14,
+      "color": "#8a63ff"
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "eye-level",
+     "az": 6,
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.25
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "dolly-push",
+      "why": "A push-in from the wide wall of keys to the duo narrows from \"so many projects\" to the two cubies reacting to it.",
+      "from": {
+       "distScale": 1
+      },
+      "to": {
+       "distScale": 0.86
+      },
+      "target": "stage",
+      "duration": 1.7,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "stage",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "both cubies stay inside the safe zone",
+       "the set piece stays visible"
+      ]
+     },
+     "distScale": 0.62
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "Nobody knows how to start it",
+     "kicker": "Scene 02 / the cause",
+     "y": 170
+    },
+    {
+     "type": "burst",
+     "anchor": "start",
+     "x": 540,
+     "y": 900,
+     "color": "#FFB84D"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "whoosh",
+     "at": "start",
+     "offset": 0,
+     "gain": 0.3,
+     "why": "on-screen event: a wall of glowing keys: so many projects, none of them says how to start"
+    },
+    {
+     "type": "riser",
+     "at": "start",
+     "offset": 0,
+     "gain": 0.35,
+     "why": "on-screen event: a wall of glowing keys: so many projects, none of them says how to start"
+    }
+   ],
+   "anchors": [
+    {
+     "name": "start",
+     "line": "L02",
+     "word": "start"
+    }
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: a wall of glowing keys: so many projects, none of them says how to start"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "the fix: the laptop lights up, the orange cubie presents the README",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {},
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.6,
+        "point"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "happy",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "desk",
+      "kind": "laptop",
+      "at": [
+       0,
+       1.55,
+       -1
+      ],
+      "scale": 1.7,
+      "desk": false
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "az": -6,
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.2
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "orbit",
+      "why": "A gentle orbit toward the lit laptop moves attention from the problem to the one file that solves it.",
+      "to": {
+       "az": 8
+      },
+      "target": "stage",
+      "duration": 2,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "stage",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "both cubies stay inside the safe zone",
+       "the set piece stays visible"
+      ],
+      "from": {
+       "az": -6
+      }
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "The fix: a README",
+     "kicker": "Scene 03 / the idea",
+     "y": 170
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "at": "start",
+     "offset": 0.4,
+     "gain": 0.35,
+     "why": "on-screen event: the fix: the laptop lights up, the orange cubie presents the README"
+    }
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the fix: the laptop lights up, the orange cubie presents the README"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "three boxes stacked: what it is, how to run it, one example",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {},
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "explain-wide"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": "curious",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "stack",
+      "kind": "pricestack",
+      "at": [
+       0,
+       1.2,
+       -1.4
+      ],
+      "labels": [
+       "WHAT IT IS",
+       "HOW TO RUN",
+       "ONE EXAMPLE"
+      ],
+      "scale": 1.5
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "eye-level",
+     "az": 8,
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.25
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "dolly-pull",
+      "why": "Pulling back from the three boxes reveals the whole README at once, matching the line that sums it up.",
+      "from": {
+       "distScale": 1
+      },
+      "to": {
+       "distScale": 1.14
+      },
+      "target": "stage",
+      "duration": 2.4,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "stage",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "both cubies stay inside the safe zone",
+       "the set piece stays visible"
+      ]
+     },
+     "distScale": 0.62
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "Three lines are enough",
+     "kicker": "Scene 04 / the recipe",
+     "y": 170
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.3,
+     "gain": 0.3,
+     "why": "on-screen event: three boxes stacked: what it is, how to run it, one example"
+    },
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 1.6,
+     "gain": 0.3,
+     "why": "on-screen event: three boxes stacked: what it is, how to run it, one example"
+    },
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 2.9,
+     "gain": 0.3,
+     "why": "on-screen event: three boxes stacked: what it is, how to run it, one example"
+    }
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: three boxes stacked: what it is, how to run it, one example"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "the payoff: a trophy on a podium, a neon burst on the first star",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {},
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        1,
+        "cheer"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        1,
+        "cheer"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "cup",
+      "kind": "trophy",
+      "at": [
+       0,
+       0.95,
+       -1.3
+      ],
+      "number": 1,
+      "scale": 1.25
+     },
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7,
+      "color": "#FFD86B"
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "eye-level",
+     "az": -4,
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.2
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "dolly-push",
+      "why": "A push-in toward the trophy lands on the payoff word as the burst fires.",
+      "from": {
+       "distScale": 1
+      },
+      "to": {
+       "distScale": 0.86
+      },
+      "target": "stage",
+      "duration": 2.2,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "stage",
+       "aperture": 0.002
+      },
+      "constraints": [
+       "both cubies stay inside the safe zone",
+       "the set piece stays visible"
+      ]
+     }
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "First visit, first star",
+     "kicker": "Scene 05 / the payoff",
+     "y": 170
+    },
+    {
+     "type": "burst",
+     "anchor": "star",
+     "x": 540,
+     "y": 820,
+     "color": "#FFD86B"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "anchor": "star",
+     "gain": 0.4
+    },
+    {
+     "type": "boom",
+     "anchor": "star",
+     "gain": 0.35
+    },
+    {
+     "type": "zap",
+     "anchor": "star",
+     "gain": 0.3
+    }
+   ],
+   "anchors": [
+    {
+     "name": "star",
+     "line": "L05",
+     "word": "star"
+    }
+   ],
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: the payoff: a trophy on a podium, a neon burst on the first star"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "both cubies face us and ask for the comment",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "props": {
+    "world": "neon-stage",
+    "worldOpts": {},
+    "cast": [
+     {
+      "id": "hero",
+      "kind": "cube",
+      "look": {},
+      "at": [
+       -0.85,
+       0.3
+      ],
+      "rotY": 0.15,
+      "pose": [
+       [
+        0,
+        "wave"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": true
+     },
+     {
+      "id": "buddy",
+      "kind": "cube",
+      "look": {
+       "body": "#F0599A",
+       "bow": "#FFC2DC"
+      },
+      "at": [
+       0.85,
+       0.3
+      ],
+      "rotY": -0.15,
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": "happy",
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "ring",
+      "kind": "neonring",
+      "at": [
+       0,
+       0,
+       0.2
+      ],
+      "radius": 1.7,
+      "color": "#FF9A4D"
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "eye-level",
+     "az": 0,
+     "subject": "stage",
+     "offset": [
+      0,
+      -0.2
+     ],
+     "focus": {
+      "target": "stage",
+      "aperture": 0.002
+     },
+     "movement": {
+      "type": "static"
+     },
+     "distScale": 0.52
+    }
+   },
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "Comment README",
+     "kicker": "Free template",
+     "y": 170,
+     "size": 58
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "approach": "character-3d",
+   "why_renderer": "Stage3D carries this beat because the planned visual is: both cubies face us and ask for the comment"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "pixar-soft",
+  "name": "Pixar-soft storybook 3D",
+  "family": "3d",
+  "cadence": "film-cinematic",
+  "engine": "inkbeat",
+  "formats": [
+    "16:9",
+    "9:16"
+  ],
+  "description": "Soft, filmic storybook 3D: continuous wrap shading, no outlines, a warm key against cool shade, shallow focus, big expressive eyes and brows that carry the acting. A better variant than a generic 3D cartoon: a colour script is planned per act (warm home, cool doubt, golden resolve), a complementary wall colour (teal behind a warm key) keeps rooms from going orange, and shade keeps a warm bleed on skin.",
+  "tokens": {
+    "colors": {
+      "bg": "#5f9aa6",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#b8b0d8",
+      "card": "#4a7a8a",
+      "accent": "#ffc080",
+      "accentSoft": "#ffc08033",
+      "good": "#5ad07a",
+      "bad": "#ff5a5a"
+    },
+    "fonts": {
+      "sans": "Poppins",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1344,
+      "right_margin": 120
+    }
+  },
+  "effects": {
+    "vignette": 0.28
+  },
+  "rules": [
+    "Colour script per act: warm tungsten interior for belonging, cool blue for doubt, low golden sun for resolve.",
+    "Complementary set colours: teal or blue walls against the warm key; no monochrome room.",
+    "Continuous wrap shading (ramp smooth), no outline, soft shadows, a cool rim, warm bounce; exposure 0.75-0.8.",
+    "Characters: head 1.16x, pear or barrel body, big eyes (1.28), heavy expressive brows (1.35), lashes; acting through brows and mouth shape first, hands second.",
+    "Shallow focus on the face (DOF 2.4-2.8 px); backgrounds soft but readable; a practical light in every framing.",
+    "Camera: wide lenses and low angles for hero beats, long lenses for intimate close-ups, slow motivated dollies; hold the silent beat.",
+    "Every set has three depth layers and hand-made props (jars, bread, cups); nothing empty."
+  ],
+  "components": [
+    "inkbeat/Story",
+    "inkbeat/Character3D"
+  ],
+  "camera_language": "Establishing wide, medium two-shot or single with a foreground prop, close-up on the eyes; a slow dolly-in on a decision, a held frame on a reaction, a lateral slide to reveal. Holds of 3-8 s, a move only with a reason that can be said in one sentence.",
+  "typography": "Subtitles in long-form; title cards in a soft serif.",
+  "transitions": [
+    "cut",
+    "dissolve",
+    "match cut"
+  ],
+  "audio_direction": "orchestral or acoustic score with a motif, soft foley, silence before the emotional beat",
+  "pitfalls": [
+    "Warm key on warm walls turns everything orange: put a complementary wall behind.",
+    "Outlines flatten the look: leave post outline and character ink off.",
+    "Too heavy depth of field hides props: keep 2.8 px at most."
+  ],
+  "looks": [
+    "pixar-warm",
+    "pixar-cool",
+    "pixar-golden"
+  ],
+  "references": [
+    "skills/camera-grammar/SKILL.md",
+    "skills/inkbeat/SKILL.md"
+  ]
+}

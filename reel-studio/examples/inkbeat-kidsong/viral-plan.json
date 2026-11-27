@@ -1,0 +1,96 @@
+{
+ "format": "story",
+ "promise": "A gentle little-star song intro your toddler will want again.",
+ "audience_pain": "parents who want calm, non-flashing songs",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "Hello little star."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Say hello to the little star."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Time for a song."
+   }
+  ],
+  "chosen": 0,
+  "why": "a greeting a toddler answers"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 25,
+   "job": "greet",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 25,
+   "to_pct": 75,
+   "job": "the song and the invitation",
+   "lines": [
+    "L02",
+    "L03"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 75,
+   "to_pct": 100,
+   "job": "calm ending",
+   "lines": [
+    "L04"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "happy"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "calm"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "a slow push on the singing character"
+  }
+ ],
+ "overlay_plan": [],
+ "sound_plan": [
+  {
+   "at": "L01",
+   "sfx": "pop"
+  }
+ ],
+ "loop": "the last line returns to the greeting",
+ "cta": {
+  "keyword": "",
+  "text": "Good night."
+ },
+ "share": {
+  "reason": "parents send calm songs to other parents",
+  "audience": "parents of toddlers"
+ },
+ "share_reason": "parents send calm songs to other parents"
+}

@@ -1,0 +1,21 @@
+[
+ {
+  "id": "web/chromium",
+  "src": "SRC1",
+  "url": "https://blog.chromium.org/2023/05/an-update-on-lock-icon.html",
+  "viewport": "480x900",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 1200
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ],
+  "expect": [
+   "lock icon"
+  ]
+ }
+]

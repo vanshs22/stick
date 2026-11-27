@@ -1,0 +1,31 @@
+{
+ "topic": "what Incognito mode does and does not hide",
+ "angle": "Incognito limits what is saved on your own device. It does not hide your activity from websites, or from the school, employer or ISP that runs your network.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "Websites you visit, and organizations that manage your network such as a school, employer or internet service provider, may be able to observe your activity in Incognito.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "Incognito limits what Chrome saves to your device: after the session ends Chrome does not retain site data or a record of the sites you visited.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://support.google.com/chrome/answer/95464",
+   "title": "Google Chrome Help: Browse in Incognito mode",
+   "captured_at": "2026-11-17T09:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

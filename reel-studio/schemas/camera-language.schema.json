@@ -1,0 +1,36 @@
+{
+ "type": "object",
+ "required": ["schema_version", "space", "move_mix", "shot_len", "never_static"],
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": { "type": "integer", "minimum": 1 },
+  "space": { "type": "string", "enum": ["3d", "2d_pan_zoom", "static_sprite_world"] },
+  "cadence_profile": { "type": "string" },
+  "move_mix": { "type": "object" },
+  "framing_mix": { "type": "object" },
+  "angle_dist": { "type": "object" },
+  "shot_len": {
+   "type": "object",
+   "required": ["min", "median", "max"],
+   "additionalProperties": false,
+   "properties": {
+    "min": { "type": "number", "minimum": 0.2 },
+    "median": { "type": "number", "minimum": 0.2 },
+    "max": { "type": "number", "minimum": 0.2 },
+    "cv": { "type": "number", "minimum": 0 }
+   }
+  },
+  "per_beat": { "type": "object" },
+  "never_static": { "type": "boolean" },
+  "max_hold_s": { "type": "number", "minimum": 0.5 },
+  "transitions": { "type": "object" },
+  "beat_sync": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "snap_to": { "type": "string", "enum": ["word", "beat", "none"] },
+    "tol_ms": { "type": "number", "minimum": 0 }
+   }
+  }
+ }
+}

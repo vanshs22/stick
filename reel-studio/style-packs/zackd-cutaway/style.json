@@ -1,0 +1,74 @@
+{
+  "id": "zackd-cutaway",
+  "name": "Zack D cutaway explainer",
+  "family": "3d",
+  "cadence": "cutaway-short",
+  "engine": "inkbeat",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "description": "A curiosity-loop 3D explainer in a clean studio: semi-realistic clay-shaded characters on a seamless backdrop, and a layered cross-section of whatever the question is about (what happens when you swallow gum). A better variant: a fixed colour code for every cutaway (skin tan, fat yellow, muscle red, bone cream, the subject of the story in saturated pink), the cutaway is one object seen from outside and inside, and every cut answers the open question the previous line asked.",
+  "tokens": {
+    "colors": {
+      "bg": "#b4b8ee",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#b8b0d8",
+      "card": "#e8e4f4",
+      "accent": "#ff6aa8",
+      "accentSoft": "#ff6aa833",
+      "good": "#5ad07a",
+      "bad": "#ff5a5a"
+    },
+    "fonts": {
+      "sans": "Poppins",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1344,
+      "right_margin": 120
+    }
+  },
+  "effects": {
+    "vignette": 0.12
+  },
+  "rules": [
+    "Script = curiosity loop: every sentence opens a question the next one closes; the hook is under 3 seconds (see skills/viral-script).",
+    "Studio look: seamless lilac backdrop, neutral white key, clay shading with a warm bleed in the shade, no outlines, shallow focus for macros.",
+    "The cutaway is the star: a face-on or sectioned object with layers in the fixed colour code, the story's subject glowing pink inside, one painted tag on the outside (STOMACH).",
+    "Alternate wide establishing (character beside a giant organ for scale) and macro on the cutaway; a cut every 2-4 s, a punch-in zoom on every key beat.",
+    "Characters are plain and readable (one outfit, big clear face); no gore: cutaways are clean, rounded, colourful.",
+    "Facts are painted tags or numbers on the object; sound off must still tell the story.",
+    "Loop the ending into the first frame when the answer returns to the question."
+  ],
+  "components": [
+    "inkbeat/Story",
+    "inkbeat/Character3D"
+  ],
+  "camera_language": "Wide establishing with scale reference, macro push into the cutaway, a punch-in on the key word (8-12 percent in 6 frames), a rotate or crane to show the layers, an inside shot in the magenta cavity light. Cuts every 2-4 s; short fade, wipe or circle-open transitions between scenes.",
+  "typography": "Poppins ExtraBold lowercase captions, white with a dark outline at 70 percent height; painted tags on objects.",
+  "transitions": [
+    "cut",
+    "punch-in zoom",
+    "circle-open",
+    "short wipe"
+  ],
+  "audio_direction": "light curious bed, a soft pop on each new fact, a squelch or whoosh only for the cutaway moving, duck the music under the voice",
+  "pitfalls": [
+    "A cutaway shown from the closed side reads as a blank wall: aim the cut face at the lens.",
+    "Too much pastel makes the studio milky: keep exposure 0.8 and a lilac, not white, backdrop.",
+    "Do not copy any channel's characters or backgrounds; this pack is a method, not a character set."
+  ],
+  "looks": [
+    "zd-studio",
+    "zd-inside"
+  ],
+  "references": [
+    "skills/camera-grammar/SKILL.md",
+    "skills/inkbeat/SKILL.md"
+  ]
+}

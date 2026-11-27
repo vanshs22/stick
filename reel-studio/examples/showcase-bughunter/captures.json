@@ -1,0 +1,105 @@
+[
+ {
+  "id": "web/chart",
+  "src": "SRC1",
+  "url": "https://github.com/elementalsouls/Claude-BugHunter",
+  "viewport": "480x486",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 1500
+   },
+   {
+    "do": "highlight",
+    "selector": "img[alt*='Star history']",
+    "name": "chart"
+   },
+   {
+    "do": "wait",
+    "ms": 500
+   },
+   {
+    "do": "expect",
+    "text": "Chart is self-hosted"
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ]
+ },
+ {
+  "id": "web/gate",
+  "src": "SRC2",
+  "url": "https://github.com/elementalsouls/Claude-BugHunter",
+  "viewport": "480x486",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 1500
+   },
+   {
+    "do": "highlight",
+    "selector": "p:has-text('A 6-phase, non-linear workflow')",
+    "name": "gate"
+   },
+   {
+    "do": "wait",
+    "ms": 500
+   },
+   {
+    "do": "expect",
+    "text": "scope enforced in code"
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ]
+ },
+ {
+  "id": "web/security",
+  "src": "SRC3",
+  "url": "https://github.com/elementalsouls/Claude-BugHunter/blob/main/SECURITY.md",
+  "viewport": "480x486",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 1500
+   },
+   {
+    "do": "highlight",
+    "selector": "text=assets you own or have written authorization to assess",
+    "name": "auth"
+   },
+   {
+    "do": "wait",
+    "ms": 500
+   },
+   {
+    "do": "expect",
+    "text": "written authorization"
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ]
+ },
+ {
+  "fetch": {
+   "kind": "image",
+   "query": "data center server racks",
+   "id": "bg/dc",
+   "match": "Rear of rack at NERSC"
+  }
+ },
+ {
+  "fetch": {
+   "kind": "music",
+   "query": "synthwave",
+   "id": "music/bed",
+   "match": "Cosmic dark synthwave"
+  }
+ }
+]

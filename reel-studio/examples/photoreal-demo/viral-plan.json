@@ -1,0 +1,105 @@
+{
+ "format": "explainer",
+ "promise": "You will see what a path-traced chair looks like when code makes it.",
+ "audience_pain": "makers who think photoreal needs a studio and a render farm",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "This chair will last ten years."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Code made this chair look real."
+   },
+   {
+    "pattern": "alternative",
+    "line": "No camera touched this chair."
+   }
+  ],
+  "chosen": 0,
+  "why": "specific, a number of years, and the picture proves it"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 25,
+   "job": "promise a lasting chair",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 25,
+   "to_pct": 75,
+   "job": "show materials, then the cost",
+   "lines": [
+    "L02",
+    "L03"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 75,
+   "to_pct": 100,
+   "job": "the camera is free",
+   "lines": [
+    "L04"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "proud"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "orbit reveal of frame and seat"
+  },
+  {
+   "at": "L03",
+   "device": "the render cost as one big number"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "at": "L01",
+   "type": "sticker",
+   "text": "10 YEARS"
+  }
+ ],
+ "sound_plan": [
+  {
+   "at": "L01",
+   "sfx": "pop"
+  }
+ ],
+ "loop": "the last shot returns to the first plate",
+ "cta": {
+  "keyword": "",
+  "text": "Same chair. Any lens. Any light."
+ },
+ "share": {
+  "reason": "people share it to show what code can render",
+  "audience": "makers and designers"
+ }
+}

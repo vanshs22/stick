@@ -1,0 +1,53 @@
+{
+ "title": "Videos from code",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "What if making a video was as simple as writing a web page?",
+   "beat": "hook",
+   "emphasis": [
+    "web page"
+   ],
+   "visual_hint": "Pip at the workbench, a screen showing code on one side, a video frame on the other",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "Remotion gives you a frame number and a blank canvas.",
+   "beat": "setup",
+   "emphasis": [
+    "frame number",
+    "blank canvas"
+   ],
+   "visual_hint": "real docs page: the core idea sentence",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "Over seventy thousand people have starred it on GitHub.",
+   "beat": "proof",
+   "emphasis": [
+    "seventy thousand"
+   ],
+   "visual_hint": "real GitHub page",
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "Comment REMOTION and I will send you the docs link.",
+   "beat": "cta",
+   "emphasis": [
+    "REMOTION"
+   ],
+   "visual_hint": "CTA card"
+  }
+ ],
+ "est_seconds": 16
+}

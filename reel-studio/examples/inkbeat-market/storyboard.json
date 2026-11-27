@@ -1,0 +1,157 @@
+{
+ "style_pack": "lantern-market-3d",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "Kai stands at the lantern-lit noodle stall",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A wide first frame shows the whole stall under the lanterns: the viewer sees where the 300 bowls are sold before the number lands.",
+   "props": {
+    "note": "Kai stands at the lantern-lit noodle stall"
+   },
+   "anchors": [
+    {
+     "name": "bowls",
+     "line": "L01",
+     "word": "bowls"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "bowls",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "paper",
+   "visual_intent": "Kai shrugs beside the pot",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A medium shot of the cook shrugging makes the line honest: nothing special in the pot.",
+   "props": {
+    "note": "Kai shrugs beside the pot"
+   },
+   "anchors": [
+    {
+     "name": "ordinary",
+     "line": "L02",
+     "word": "ordinary"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "ordinary",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "Kai points at the line of customers",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A close-up on the pointing hand and face carries the turn: the queue, not the noodles, is the point.",
+   "props": {
+    "note": "Kai points at the line of customers"
+   },
+   "anchors": [
+    {
+     "name": "queue",
+     "line": "L03",
+     "word": "queue"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "queue",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "Kai smiles, steam rising behind him",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A low hero shot with steam behind him ends on the payoff and echoes the first frame.",
+   "props": {
+    "note": "Kai smiles, steam rising behind him"
+   },
+   "anchors": [
+    {
+     "name": "queue",
+     "line": "L04",
+     "word": "queue"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "queue",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  }
+ ]
+}

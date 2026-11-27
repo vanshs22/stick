@@ -1,0 +1,35 @@
+// Layout critic: MEASURES where text, cards, tags and captions landed in real frames (tools/layout_probe.mjs), for either layout and any style.
+// Findings: text cut off by the frame, a card outside its content zone or tiny inside it, a tag or caption covering a card's text, captions on top of each other.
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { Report, tryRd } from './lib.mjs';
+const TK = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const hit = (a, b, pad = 0) => a.x < b.x + b.w - pad && b.x < a.x + a.w - pad && a.y < b.y + b.h - pad && b.y < a.y + a.h - pad;
+const area = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+export async function run_(P) {
+  const r = new Report(P, 'layout'), f = path.join(P, 'review/layout/probe.json'), tl = path.join(P, 'data/timeline.json');
+  if (!fs.existsSync(tl)) { r.add('blocker', { problem: 'no timeline: nothing to measure', evidence: 'data/timeline.json missing', expected: 'a built timeline', fix: 'node tools/timing/build_timeline.mjs <P>', fix_target: 'process' }); return r.finish(); }
+  if (!fs.existsSync(f) || fs.statSync(f).mtimeMs < fs.statSync(tl).mtimeMs) { const p = spawnSync('node', ['--no-warnings', path.join(TK, 'tools/layout_probe.mjs'), P], { encoding: 'utf8', env: process.env, maxBuffer: 1 << 26, timeout: 1500000 }); if (p.status) { r.add('major', { problem: 'the layout probe could not render', evidence: (p.stderr || p.stdout).slice(-300), expected: 'real frames', fix: 'npm install in <P>/remotion', fix_target: 'process' }); return r.finish(); } }
+  const D = tryRd(f); if (!D) { r.notes.push('no probe data'); return r.finish(); }
+  const W = D.width, H = D.height, land = W > H, seen = new Set(), add = (sev, shot, key, o) => { if (seen.has(shot + key)) return; seen.add(shot + key); r.add(sev, { shot_id: shot, ...o }); };
+  r.check(`text stays inside the ${W}x${H} frame (with a 1.5 percent margin)`).check('cards sit inside the content zone and fill it').check('tags and captions never cover a card\'s text').check('captions do not overlap other captions or the frame labels').check('card text is large enough to read');
+  for (const fr of D.frames) { if (fr.error) { add('major', fr.shot, 'probe', { problem: `no layout data for this frame (${fr.error})`, evidence: `t=${fr.t}s`, expected: 'the Reel logs its layout', fix: 'sync the project template', fix_target: 'process' }); continue; }
+    const sz = fr.safe, mx = W * 0.015, my = H * 0.015, all = [...fr.cardText.map((t) => ({ ...t, g: 'card' })), ...fr.overlay.map((t) => ({ ...t, g: 'overlay' })), ...fr.caption.map((t) => ({ ...t, g: 'caption' }))];
+    for (const t of all) if (t.x < -2 || t.y < -2 || t.x + t.w > W + 2 || t.y + t.h > H + 2 || t.x < mx - 2 && t.w > 8 && t.x < 0) add('major', fr.shot, 'cut' + t.t, { problem: `text is cut off by the frame: "${t.t}" (${t.g})`, evidence: `x ${t.x}..${t.x + t.w}, y ${t.y}..${t.y + t.h} in ${W}x${H}`, expected: 'every word inside the frame', fix: 'move the tag (use fractions of the frame) or shorten the text', timestamp_sec: fr.t });
+      else if ((t.x + t.w > W - mx || t.y + t.h > H - my) && t.g !== 'caption') add('minor', fr.shot, 'edge' + t.t, { problem: `text touches the frame edge: "${t.t}" (${t.g})`, evidence: `right ${t.x + t.w}/${W}, bottom ${t.y + t.h}/${H}`, expected: `a ${Math.round(mx)} px margin`, fix: 'move it inside', timestamp_sec: fr.t });
+    { const minPx = Math.round(Math.min(W, H) * 0.026);   // legibility follows the short side: 28 px of 1080 in both frame shapes
+ for (const t of fr.cardText) if (t.t && t.h > 0 && t.h < minPx && !/^[\W\d]*$/.test(t.t)) add('minor', fr.shot, 'tiny' + t.t, { problem: `text is too small to read on a ${land ? 'TV or laptop' : 'phone'}: "${t.t}" is ${t.h} px tall`, evidence: `${t.h} px in a ${W}x${H} frame (minimum ${minPx})`, expected: `text at least ${minPx} px (2.6 percent of the short side)`, fix: 'a larger font in the card, or fewer words per card', timestamp_sec: fr.t }); }
+    for (const c of fr.card) {
+      const cl = sz.content_left ?? 0, zone = { x: cl, y: sz.content_top, w: W - cl, h: sz.content_bottom - sz.content_top };
+      if (c.x < cl - 12 || c.y < zone.y - 14 || c.x + c.w > W + 12 || c.y + c.h > zone.y + zone.h + 14) add('major', fr.shot, 'zone', { problem: 'the card runs outside its content zone', evidence: `card x ${c.x}..${c.x + c.w}, y ${c.y}..${c.y + c.h}; zone x ${cl}..${W}, y ${zone.y}..${zone.y + zone.h}`, expected: 'the card inside the zone (it would collide with the presenter, labels or captions)', fix: 'give the card a landscape shape or a smaller natural size (Zone w/h)', timestamp_sec: fr.t });
+      const fill = Math.max(c.w / zone.w, c.h / zone.h); if (land && fill < 0.5 && !/BigStat|TitleCard|Stamp|Typewriter|Highlight|EndCard/.test(fr.component)) add('minor', fr.shot, 'small', { problem: `the card fills only ${Math.round(fill * 100)} percent of the content zone`, evidence: `card ${c.w}x${c.h} in a ${zone.w}x${zone.h} zone`, expected: 'at least half of one side', fix: 'a landscape shape for this card, or a larger scale', timestamp_sec: fr.t }); }
+    for (const o of fr.overlay) for (const t of fr.cardText) if (area(o, t) > 0.08 * Math.min(o.w * o.h, t.w * t.h) && o.t && t.t) add('major', fr.shot, 'tagcard' + o.t, { problem: `the tag "${o.t}" covers the card's text "${t.t}"`, evidence: `overlap ${Math.round(area(o, t))} px2 at t=${fr.t}s`, expected: 'tags sit on the picture, never over its words', fix: 'move the tag (overlay x,y) or use `y` as a fraction', timestamp_sec: fr.t });
+    for (const o of fr.overlay) for (const t of fr.caption) if (o.t && hit(o, t, 4)) add('major', fr.shot, 'tagcap' + o.t, { problem: `the tag "${o.t}" covers a caption word "${t.t}"`, evidence: `at t=${fr.t}s`, expected: 'the caption band stays clear', fix: 'move the tag above the caption band', timestamp_sec: fr.t });
+    for (const t of fr.cardText) for (const c of fr.caption) if (t.t && hit(t, c, 6)) add('major', fr.shot, 'capcard' + t.t, { problem: `a caption word "${c.t}" lands on the card text "${t.t}"`, evidence: `at t=${fr.t}s`, expected: 'card and captions apart', fix: 'raise the content zone bottom or move the caption (choose.mjs captions --position)', timestamp_sec: fr.t });
+    for (let i = 0; i < fr.caption.length; i++) for (let j = i + 1; j < fr.caption.length; j++) if (hit(fr.caption[i], fr.caption[j], 4)) add('major', fr.shot, 'capcap', { problem: 'caption words overlap each other', evidence: `"${fr.caption[i].t}" and "${fr.caption[j].t}"`, expected: 'one readable line', fix: 'shorten the chunk or lower the caption scale', timestamp_sec: fr.t });
+  }
+  r.notes.push(`measured ${D.frames.length} real frames (${[...new Set(D.frames.map((x) => x.shot))].length} shots) in ${W}x${H}; it does not judge taste, only geometry`);
+  return r.finish();
+}

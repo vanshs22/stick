@@ -1,0 +1,14 @@
+{
+  "niche": "AI tools and coding agents for builders",
+  "subniches": ["Claude Code", "open-source AI", "no-code automation"],
+  "audience": "Beginners and indie builders who want to make things with AI without paying for credits",
+  "topics": ["free tools", "step-by-step setups", "what AI can and cannot do"],
+  "tone": "Clear, friendly, specific. No hype words. Short sentences.",
+  "avoid": ["invented statistics", "income claims", "fear-mongering", "copying other creators"],
+  "default_platform": "instagram-reels",
+  "default_duration_sec": 40,
+  "voice_defaults": {"engine": "kokoro", "voice": "am_michael", "speed": 1.1},
+  "approved_styles": [],
+  "knowledge_files": [],
+  "feedback_history": []
+}

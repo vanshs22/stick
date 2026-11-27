@@ -1,0 +1,47 @@
+{
+ "title": "The map under the rug",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "One small tent decided the whole battle that night.",
+   "emphasis": [
+    "tent"
+   ],
+   "visual_hint": "The captain stands in the tent, worried",
+   "emotion": "calm"
+  },
+  {
+   "id": "L02",
+   "beat": "step",
+   "text": "Not the swords. Not the cannons.",
+   "emphasis": [
+    "swords"
+   ],
+   "visual_hint": "The captain shrugs, arms out",
+   "emotion": "calm"
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "But the map hidden under the rug.",
+   "emphasis": [
+    "map"
+   ],
+   "visual_hint": "The captain points down at the rug",
+   "emotion": "happy"
+  },
+  {
+   "id": "L04",
+   "beat": "cta",
+   "text": "Always read the floor before the battle.",
+   "emphasis": [
+    "floor"
+   ],
+   "visual_hint": "The captain grins, confident",
+   "emotion": "happy"
+  }
+ ],
+ "est_seconds": 10
+}

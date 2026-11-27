@@ -1,0 +1,130 @@
+{
+  "id": "stickman-3d",
+  "name": "3D stickman",
+  "family": "3d",
+  "cadence": "explainer-2d",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "description": "A true 3D stickman: glossy ink-black articulated body with real joints, white gloves and shoes, a coloured scarf and a big expressive face, acting in a bright airy loft. 'What if', survival and life-story explainers.",
+  "tokens": {
+    "colors": {
+      "bg": "#F1EBDF",
+      "ink": "#17171D",
+      "ink2": "#17171D",
+      "muted": "#7a746a",
+      "card": "#FFFFFF",
+      "accent": "#E8512A",
+      "accentSoft": "#E8512A33",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 260,
+      "content_bottom": 1340
+    },
+    "chrome": "sticker"
+  },
+  "effects": {
+    "dots": 0.5,
+    "vignette": 0.12
+  },
+  "rules": [
+    "The body is the acting: every beat has a full-body pose from the gesture library, joints visible.",
+    "Ink-black glossy body, white gloves/shoes, ONE accent colour (the scarf) that matches the caption highlight.",
+    "Bright high-key room with soft shadows; keep exposure at or below 0.9 so the white gloves do not clip.",
+    "Face: big white eyes with moving pupils, brows, a smile arc or an open mouth; blink every 3 s.",
+    "Feet are planted on the floor with a real shadow; the figure never floats.",
+    "Captions: bold white with a dark outline, one accent word."
+  ],
+  "components": [
+    "Stage3D",
+    "BigStat",
+    "Versus",
+    "Highlight",
+    "KineticList",
+    "Stamp",
+    "CommentBox"
+  ],
+  "camera_language": "Wide to show the whole body acting (the silhouette is the performance); medium for talking; close-up on the face for the joke or the reaction. The camera stays low-key: moves are rare and each one is a reveal.",
+  "typography": "Heavy sans, black on light.",
+  "transitions": [
+    "cut",
+    "whip",
+    "zoom"
+  ],
+  "audio_direction": "bed, boing/pop on gags, thud on falls",
+  "pitfalls": [
+    "Ball joints stack at the hips in wide poses: keep legs at least 18 degrees apart.",
+    "Over-the-shoulder crops the head: acceptable, but keep the hand and the object in the lower two thirds.",
+    "High-key lighting hazes distant shots: lower exposure and raise vignette."
+  ],
+  "references": [
+    "reference videos (stickman shorts)"
+  ],
+  "defaults": {
+    "captions": "word-pop",
+    "music": "bed",
+    "stage3d": {
+      "world": "home-studio",
+      "worldOpts": {
+        "day": true,
+        "wall": "#EFE8DC",
+        "wood": "#C9A070",
+        "accent": "#E8512A",
+        "sofa": [
+          -0.1,
+          -2.7
+        ]
+      },
+      "cast": {
+        "stick": {
+          "scarf": "#E8512A"
+        }
+      },
+      "look": {
+        "exposure": 0.88,
+        "bloom": 0.12
+      }
+    },
+    "backdrop": {
+      "world": "home-studio",
+      "worldOpts": {
+        "day": true,
+        "wall": "#EFE8DC",
+        "wood": "#C9A070",
+        "accent": "#E8512A",
+        "sofa": [
+          -0.1,
+          -2.7
+        ]
+      },
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "window",
+        "offset": [
+          0,
+          -0.05
+        ],
+        "movement": {
+          "type": "static"
+        }
+      },
+      "look": {
+        "aperture": 0.02,
+        "exposure": 0.88
+      }
+    }
+  }
+}

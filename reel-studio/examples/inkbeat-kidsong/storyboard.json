@@ -1,0 +1,157 @@
+{
+ "style_pack": "kidsong-3d",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "Pip waves hello in the playroom",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A wide first frame shows the whole playroom and the small hero: the viewer learns where we are before the song starts.",
+   "props": {
+    "note": "Pip waves hello in the playroom"
+   },
+   "anchors": [
+    {
+     "name": "star",
+     "line": "L01",
+     "word": "star"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "star",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "paper",
+   "visual_intent": "a push on Pip singing",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A slow push on the singing hero moves attention from the room to the face, so the song's first word lands on a close expression.",
+   "props": {
+    "note": "a push on Pip singing"
+   },
+   "anchors": [
+    {
+     "name": "twinkle",
+     "line": "L02",
+     "word": "twinkle"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "twinkle",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "a medium shot, an invitation",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A medium shot at toddler eye height makes the invitation direct: the hero looks at the viewer when saying sing with me.",
+   "props": {
+    "note": "a medium shot, an invitation"
+   },
+   "anchors": [
+    {
+     "name": "sing",
+     "line": "L03",
+     "word": "Sing"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "sing",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "a calm close-up to end",
+   "shot_type": "character",
+   "component": "InkShot",
+   "approach": "character-3d",
+   "why_renderer": "A calm close-up with a slow pull ends the song gently, matching the last line and keeping the film free of sudden motion.",
+   "props": {
+    "note": "a calm close-up to end"
+   },
+   "anchors": [
+    {
+     "name": "night",
+     "line": "L04",
+     "word": "night"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "night",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "on the beat"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  }
+ ]
+}

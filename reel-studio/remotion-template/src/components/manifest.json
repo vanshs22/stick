@@ -1,0 +1,768 @@
+{
+  "components": {
+    "TitleCard": {
+      "category": "text",
+      "description": "Headline whose words rise out of a mask; one accent word in italic serif.",
+      "props": {
+        "text": "string (required)",
+        "accent": "the word to colour",
+        "anchor": "anchor that starts it"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "text"
+      ]
+    },
+    "BigStat": {
+      "category": "text",
+      "description": "A big number that counts up with a label.",
+      "props": {
+        "value": "number (required)",
+        "prefix": "string",
+        "suffix": "string",
+        "label": "string",
+        "anchor": "anchor that starts the count"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "value"
+      ]
+    },
+    "Typewriter": {
+      "category": "text",
+      "description": "Text typed letter by letter with a blinking cursor.",
+      "props": {
+        "text": "string (required)",
+        "anchor": "start word",
+        "cps": "letters per second, 28",
+        "mono": "boolean, true",
+        "size": "px, 52"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "text"
+      ]
+    },
+    "Stamp": {
+      "category": "text",
+      "description": "A verdict stamp that slams in (VERIFIED, WRONG, NOT A GUARANTEE).",
+      "props": {
+        "text": "string (required)",
+        "anchor": "slam word",
+        "color": "hex",
+        "rotate": "deg, -8",
+        "size": "px, 120"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "text"
+      ]
+    },
+    "Highlight": {
+      "category": "text",
+      "description": "A sentence where one word gets a hand-drawn marker (rough-notation).",
+      "props": {
+        "text": "string (required)",
+        "mark": "the word to mark (required)",
+        "anchor": "swipe word",
+        "size": "px, 84"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "text",
+        "mark"
+      ]
+    },
+    "KineticList": {
+      "category": "text",
+      "description": "Items that pop in one by one.",
+      "props": {
+        "items": "string[] (required)",
+        "anchorPrefix": "'item' -> anchors item0,item1...",
+        "size": "px, 62"
+      },
+      "anchors": [
+        "item0",
+        "item1",
+        "..."
+      ],
+      "required": [
+        "items"
+      ]
+    },
+    "BrowserWindow": {
+      "category": "ui",
+      "description": "A browser window that swings in with a REAL screenshot (or a skeleton). Optional slow zoom to a spot.",
+      "props": {
+        "url": "string",
+        "title": "string",
+        "image": "path inside public/, e.g. assets/repo.png",
+        "anchor": "swing-in word",
+        "zoom": "{x,y,scale} fractions"
+      },
+      "anchors": [
+        "any"
+      ],
+      "evidence": true
+    },
+    "Terminal": {
+      "category": "ui",
+      "description": "Dark terminal that types commands; lines starting with > are output.",
+      "props": {
+        "lines": "string[] (required)",
+        "prompt": "'$'",
+        "anchor": "first command word",
+        "cps": "30"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "lines"
+      ]
+    },
+    "PhoneFrame": {
+      "category": "ui",
+      "description": "A phone showing a post or a screenshot, likes count up.",
+      "props": {
+        "title": "string",
+        "text": "string (italic accent text)",
+        "image": "public path",
+        "likes": "number",
+        "anchor": "start word"
+      },
+      "anchors": [
+        "any"
+      ]
+    },
+    "ChatBubbles": {
+      "category": "ui",
+      "description": "A chat conversation; bubbles appear in turn.",
+      "props": {
+        "messages": "[{from:'you'|'ai', text}] (required)",
+        "anchorPrefix": "'m' -> m0,m1..."
+      },
+      "anchors": [
+        "m0",
+        "m1",
+        "..."
+      ],
+      "required": [
+        "messages"
+      ]
+    },
+    "NotebookPage": {
+      "category": "ui",
+      "description": "Ruled notebook page with an italic title and bullets (calm explainer look).",
+      "props": {
+        "title": "string (required)",
+        "bullets": "string[]",
+        "anchorPrefix": "'b' -> b0,b1..."
+      },
+      "anchors": [
+        "b0",
+        "b1",
+        "..."
+      ],
+      "required": [
+        "title"
+      ]
+    },
+    "CommentBox": {
+      "category": "ui",
+      "description": "The 'Comment WORD' call to action: types the keyword, flips to Posted, shows the reward line.",
+      "props": {
+        "keyword": "string (required)",
+        "anchor": "start word",
+        "reward": "string",
+        "typeAnchor": "word on which the keyword is typed (the box is visible from the cut)"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "keyword"
+      ]
+    },
+    "BarChart": {
+      "category": "data",
+      "description": "Bars that grow with values counting up; one highlighted.",
+      "props": {
+        "bars": "[{label,value}] (required)",
+        "unit": "string",
+        "highlight": "index",
+        "title": "string",
+        "anchor": "start word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "bars"
+      ]
+    },
+    "LineChart": {
+      "category": "data",
+      "description": "A line that draws itself with a final value counter.",
+      "props": {
+        "points": "number[] (required)",
+        "label": "string",
+        "unit": "string",
+        "anchor": "start word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "points"
+      ]
+    },
+    "Timeline": {
+      "category": "data",
+      "description": "Horizontal timeline with dated events.",
+      "props": {
+        "events": "[{date,label}] (required)",
+        "anchorPrefix": "'e' -> e0,e1..."
+      },
+      "anchors": [
+        "e0",
+        "e1",
+        "..."
+      ],
+      "required": [
+        "events"
+      ]
+    },
+    "Checklist": {
+      "category": "data",
+      "description": "Items that tick off one by one.",
+      "props": {
+        "items": "string[] (required)",
+        "anchorPrefix": "'c' -> c0,c1...",
+        "heading": "string, e.g. 'CLAUDE IS BUILDING'",
+        "progress": "true = a progress bar fills as items tick"
+      },
+      "anchors": [
+        "c0",
+        "c1",
+        "..."
+      ],
+      "required": [
+        "items"
+      ]
+    },
+    "Versus": {
+      "category": "data",
+      "description": "Two things face to face with a VS badge.",
+      "props": {
+        "left": "string (required)",
+        "right": "string (required)",
+        "badge": "'VS'",
+        "leftSub": "string",
+        "rightSub": "string",
+        "anchor": "start word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "left",
+        "right"
+      ]
+    },
+    "RouteMap": {
+      "category": "data",
+      "description": "Parchment map with a route that draws itself and labelled stops.",
+      "props": {
+        "points": "[{x:0..1,y:0..1,label}] (required)",
+        "title": "string"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "points"
+      ]
+    },
+    "ProofCard": {
+      "category": "evidence",
+      "description": "REAL proof: a captured screenshot, slow zoom to the key region, hand-drawn circle, source named.",
+      "props": {
+        "image": "public path (required)",
+        "source": "string (required)",
+        "caption": "string",
+        "highlight": "{x,y,w,h} fractions of the image",
+        "anchor": "circle word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "image",
+        "source"
+      ],
+      "evidence": true
+    },
+    "EvidenceCard": {
+      "category": "evidence",
+      "description": "A case file, polaroid or ticket with title, lines, redacted words and a stamp.",
+      "props": {
+        "variant": "'case-file'|'polaroid'|'ticket'",
+        "title": "string (required)",
+        "lines": "string[]",
+        "stamp": "string",
+        "redact": "string[] words to black out",
+        "image": "public path (polaroid)",
+        "anchor": "start word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "title"
+      ]
+    },
+    "Scene3D": {
+      "category": "3d",
+      "description": "LEGACY (R3F, primitive characters). Kept so old projects still render; new work uses Stage3D.",
+      "props": {
+        "set": "starfield|desk-night|block-world|noir-room|studio",
+        "light": "studio|night|noir|golden|bright-sky",
+        "characters": "[{variant:'voxel'|'blocky'|'lowpoly'|'stick'|'noir', x,z,rotY, pose, mood, speaks, skin,shirt,pants,hair,beard,glasses,badge, pose2+poseAnchor}]",
+        "creatures": "[{kind:'box'|'screen'|'cloud', x,y,z,scale,color,kickAnchor}]",
+        "camera": "{shot:'wide'|'medium'|'close'|'desk'|'presenter', move, fov}",
+        "bg": "hex",
+        "wall": "true = a screen wall of charts behind the studio set"
+      },
+      "anchors": [
+        "any (poseAnchor, kickAnchor)"
+      ],
+      "poses": [
+        "idle",
+        "relax",
+        "slump",
+        "point",
+        "open",
+        "cheer",
+        "think",
+        "shrug",
+        "wave",
+        "panic",
+        "brace",
+        "cower",
+        "phone",
+        "reach",
+        "halt",
+        "walk"
+      ],
+      "moods": [
+        "calm",
+        "happy",
+        "scared",
+        "worried",
+        "angry",
+        "sad",
+        "surprised",
+        "relieved",
+        "smirk"
+      ]
+    },
+    "FileList": {
+      "category": "ui",
+      "description": "Folder listing with one row selected (yellow outline) or an empty rename box.",
+      "props": {
+        "title": "'FILES'",
+        "items": "string[] (required)",
+        "select": "index of the selected row",
+        "input": "true = the selected row is an empty rename box",
+        "anchor": "selection word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "items"
+      ]
+    },
+    "Ledger": {
+      "category": "data",
+      "description": "A price list with lines struck through one by one and a total (what I pay for).",
+      "props": {
+        "title": "string",
+        "items": "[{name, price}] (required)",
+        "total": "string",
+        "anchorPrefix": "'i' -> i0,i1...",
+        "strike": "boolean, true"
+      },
+      "anchors": [
+        "i0",
+        "i1",
+        "..."
+      ],
+      "required": [
+        "items"
+      ]
+    },
+    "ProfileCard": {
+      "category": "evidence",
+      "description": "A creator profile with a video grid, one tile highlighted and a sticker badge (9M VIEWS). Use real numbers only.",
+      "props": {
+        "name": "string (required)",
+        "handle": "string",
+        "stat": "'169K subscribers'",
+        "tiles": "[{views}] (required)",
+        "highlight": "tile index",
+        "badge": "string",
+        "anchor": "start word"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "name",
+        "tiles"
+      ],
+      "evidence": true
+    },
+    "RepoCard": {
+      "category": "evidence",
+      "description": "A GitHub repository page with the star count circled in red. Capture the real page when possible (ProofCard); use this when a clean redrawn page reads better.",
+      "props": {
+        "repo": "owner/name (required)",
+        "description": "string",
+        "stars": "'105k'",
+        "forks": "string",
+        "commits": "string",
+        "anchor": "word when the circle is drawn"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "repo"
+      ],
+      "evidence": true
+    },
+    "EndCard": {
+      "category": "text",
+      "description": "Closing card: serif headline with an accent word, a call-to-action pill and a handle, on a soft gradient.",
+      "props": {
+        "headline": "string (required)",
+        "accent": "word",
+        "cta": "'Comment WORD'",
+        "handle": "'@name'"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "headline"
+      ]
+    },
+    "Stage3D": {
+      "category": "3d",
+      "description": "A directed 3D shot with the film-look engine (soft shadows, depth of field, bloom). Characters are sculpted/rigged (kind human|critter|blocky|stick), the world is a named environment, and the camera is a motivated cinematography spec.",
+      "props": {
+        "world": "home-studio|... (src/three/worlds.js)",
+        "worldOpts": "object",
+        "cast": "[{id,kind,look,at:[x,z],rotY,pose:[[t,gesture]],mood:[[t,mood]],lookAt:id,reach:[{target,side,from,to}],speaks}]",
+        "props3d": "[{id,kind:'giftbox',at:[x,y,z],open:[startSec,durSec]}]",
+        "camera": "{framing, angle, subject, offset, movement:{type,why,from,to,target,duration,start,profile,curve,focus}} (docs/CINEMATOGRAPHY.md)",
+        "look": "{bloom,aperture,exposure,vignette,grain}"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "camera"
+      ]
+    },
+    "HtmlBlock": {
+      "category": "overlay",
+      "description": "Plays a HyperFrames-style HTML block (HTML + CSS + paused GSAP timeline on window.__timelines) seeked by the Remotion frame: ONE clock. Use for ready-made registry blocks (lower thirds, kinetic type, transitions) where they beat rebuilding them.",
+      "props": {
+        "src": "path in public/, e.g. hyperframes/lower-third.html (required)",
+        "id": "timeline id (default: first)",
+        "vars": "{key: value}: given to the block as window.__hfVariables (HyperFrames contract) and as {{key}} text replacements",
+        "at": "seconds into the shot when it starts",
+        "fit": "'contain' (default: whole block visible) or 'cover' (fills the 9:16 frame, crops a 16:9 block)",
+        "replace": "[[from, to], ...]: exact text replacements in the block's source (blocks configured by a literal CONFIG object, e.g. mk-progress-stat: [['value: 22,','value: 20,']]). A missing 'from' text fails loudly."
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "src"
+      ]
+    },
+    "FlowDiagram": {
+      "category": "data",
+      "description": "A vertical flow of steps animated with GSAP (seeked by the Remotion frame): each step pops on its spoken word, the arrow draws just before.",
+      "props": {
+        "nodes": "string[] (required)",
+        "anchorPrefix": "'n' -> anchors n0,n1...",
+        "title": "string"
+      },
+      "anchors": [
+        "n0",
+        "n1",
+        "..."
+      ],
+      "required": [
+        "nodes"
+      ]
+    },
+    "RemocnBlock": {
+      "category": "remocn",
+      "description": "One component from the remocn registry (350+ animations, backgrounds, transitions, app-screen simulations, captions). Install it first with tools/remocn.mjs; it runs on our timeline.",
+      "props": {
+        "name": "remocn component name, e.g. 'claude-code' (required, must be installed)",
+        "props": "the component's own props (see `node tools/remocn.mjs info <name>`)",
+        "anchor": "spoken-word anchor where it starts",
+        "at": "seconds into the shot when it starts, 0",
+        "scale": "1; about 1.1 makes a 16:9 app window fill a 9:16 frame (1.2 clips the edges)",
+        "dy": "px to move it up (negative) or down"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "name"
+      ]
+    },
+    "PlateShot": {
+      "category": "3d",
+      "description": "A photoreal PLATE (path-traced in Blender, renderers/blender) with a real camera move: depth-driven parallax push, pull, truck, crane, orbit. Fast and film-like; for moves up to about 8 degrees or 12 percent push.",
+      "props": {
+        "plate": "public path of the plate (required)",
+        "depth": "public path of its depth map (required)",
+        "move": "{kind: push|pull|truck-left|truck-right|crane-up|crane-down|orbit-left|orbit-right|still, amount 0..1, from, to, ease}",
+        "overscan": "0.12 (what the plate was rendered with)",
+        "focus": "0..1 depth that stays put, 0.5",
+        "strength": "parallax size, 0.045",
+        "grain": "0.012",
+        "handheld": "0..1"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "plate",
+        "depth"
+      ]
+    },
+    "Footage": {
+      "category": "evidence",
+      "description": "A real clip: a Playwright screen recording of a real site, a Blender sequence or footage you own, muted, with an optional browser window, slow zoom and a source line.",
+      "props": {
+        "src": "public path of the mp4 (required)",
+        "from": "seconds into the clip",
+        "speed": "1",
+        "fit": "'cover'|'contain'",
+        "zoom": "{from,to}",
+        "focus": "[x,y] 0..1",
+        "window": "'none'|'browser'",
+        "url": "shown in the browser window",
+        "source": "small line: what it is and where from"
+      },
+      "anchors": [
+        "any"
+      ],
+      "required": [
+        "src"
+      ],
+      "evidence": true
+    },
+    "InkShot": {
+      "category": "3d",
+      "description": "A shot drawn by the inkbeat 3D toon engine (renderers/inkbeat, see ink-plan.json): same storyboard, gates, voice, captions timing, critics and QA as every other shot. Only valid in packs with engine inkbeat.",
+      "props": {
+        "note": "what the shot shows (optional)"
+      },
+      "anchors": [
+        "any"
+      ]
+    },
+    "RadialMenu": {
+      "category": "data",
+      "description": "An options wheel (weapon wheel, mode picker): 3 to 8 sectors that light one by one on their spoken words, a hub label. Turns a spoken LIST of options into one picture.",
+      "props": {
+        "items": "string[] (required)",
+        "center": "hub text",
+        "title": "small caps title",
+        "anchorPrefix": "'item' -> item0, item1...",
+        "color": "hex"
+      },
+      "anchors": [
+        "item0",
+        "item1",
+        "..."
+      ],
+      "required": [
+        "items"
+      ]
+    },
+    "Devices": {
+      "category": "ui",
+      "description": "Two to four labelled phones side by side (where it is posted, where it runs); each pops in on its spoken word.",
+      "props": {
+        "items": "[{label, sub, color}] or string[] (required)",
+        "anchorPrefix": "'d' -> d0, d1...",
+        "screens": "public image per device (optional)"
+      },
+      "anchors": [
+        "d0",
+        "d1",
+        "..."
+      ],
+      "required": [
+        "items"
+      ]
+    }
+  },
+  "transitions": [
+    "cut",
+    "fade",
+    "dip",
+    "slide",
+    "whip",
+    "wipe",
+    "mask",
+    "swing",
+    "zoom"
+  ],
+  "sfx": [
+    "whoosh",
+    "swish",
+    "pop",
+    "tick",
+    "type",
+    "stamp",
+    "ding",
+    "count",
+    "thud",
+    "slam",
+    "boing",
+    "zip",
+    "sparkle",
+    "tock",
+    "plop",
+    "gulp",
+    "bubbles",
+    "sizzle",
+    "inhale",
+    "heartbeat",
+    "alarm",
+    "slide",
+    "riser",
+    "boom",
+    "zap",
+    "blip"
+  ],
+  "caption_presets": [
+    "word-pop",
+    "one-word",
+    "boxed",
+    "phrase",
+    "typewriter",
+    "karaoke",
+    "headline (top-left, grey until spoken, red italic accent: editorial)",
+    "dialogue (top pill with speaker tag: 3D story)",
+    "caps-plate",
+    "caps-plate (small UPPERCASE words on a dark rounded plate: neon-stage look)"
+  ],
+  "effects": "style.json 'effects': {grain, vignette, bokeh, rain, halftone, paper}",
+  "shot_fields": {
+    "bg": "background colour for this shot: 'paper' | a name from style.json bgs (dark, slate, green, red ...) | a hex",
+    "presenter": "{pose, mood, hidden}: the illustrated host's gesture for this shot (editorial packs with a presenter). poses: idle point open wave think shrug; moods: calm happy surprised worried smirk",
+    "speaker": "name shown as a tag above dialogue captions",
+    "overlays": "graphics on top of the main component, see overlays"
+  },
+  "overlays": {
+    "label": "{left, right, rightAccent}: mono HUD row at the top ('// 03 · step one' ... 'LAYERS 2/4')",
+    "step-chip": "{n, of, x, y, anchor}: black numbered square with progress dots",
+    "step-label": "{text, n, of, y, anchor}: dark pill 'STEP 2 · ONE FOLDER' with yellow dashes (top centre)",
+    "sticker": "{text, color, rotate, x, y, size, anchor}: tilted outlined label ('9M VIEWS')",
+    "tags": "{items:[{text,color}], x, y, anchor}: pills with dots ('free', 'open source')",
+    "callout": "{text, x, y, rotate, anchor}: white speech label",
+    "cursor": "{from:[x,y], to:[x,y], dur, anchor}: arrow cursor with motion lines, then a click ripple",
+    "scribble": "{kind:'circle'|'underline'|'highlight'|'box'|'strike'|'crossed'|'bracket', x, y, w, h, color, anchor}: hand-drawn annotation around a region (official @remotion/rough-notation)",
+    "hearts": "{x, y, count, anchor}: hearts floating up",
+    "calendar": "{month, day, weekday, x, y, anchor}",
+    "waveform": "{x, y, bars, color}: audio bars that move with the voice",
+    "warning": "{text, x, y, anchor}: yellow-bordered warning bar",
+    "progress": "{name, to, w, x, y, dur, anchor}: file progress card",
+    "backword": "{text, color, y, size}: huge glowing word behind everything",
+    "plaque": "headline plaque at the top: text (2-5 words), texts [{anchor|at, text}] to change the plaque inside one shot, kicker (small line), y (px, 170), size (52), caps (true), border",
+    "counter": "a number that counts up in a dark box: from, to, dur (1.6 s), prefix, suffix, label, y (px), size (76), color; starts on its anchor",
+    "bubble": "a character's emoji thought bubble: emoji, text (1-3 words), x, y (px), size; pops on its anchor",
+    "burst": "neon streaks that punctuate ONE impact word: x, y (px), color, count (14); on its anchor",
+    "impact": "{text, x, y (px), size (220), rotate (-6), color, shadow, anchor}: a giant outlined word that slams in with a shake on its anchor (KILLED, FREE, #1)",
+    "remocn": "{name, props, scale (0.7), x, y (px shift), anchor|at}: a remocn component floating over the 3D stage so the characters stay in frame",
+    "focus-ring": {
+      "description": "A pulsing ring that says 'look here' on a point (the reference reels put one on every object the narrator is about to name).",
+      "props": {
+        "x": "px",
+        "y": "px",
+        "r": "radius px, 120",
+        "color": "hex",
+        "anchor": "word"
+      }
+    },
+    "verdict": {
+      "description": "A full-width verdict banner: PASSED/POSTED/DONE in green, or FAILED/FLOPPED with a shake and a RETRY button. Use for the problem in the hook and the result at the end (the skin gives the words).",
+      "props": {
+        "text": "string (required)",
+        "tone": "'good'|'bad' (inferred from the text)",
+        "sub": "small line",
+        "retry": "true|string (bad only)",
+        "y": "px",
+        "anchor": "word"
+      }
+    },
+    "price-tag": {
+      "description": "A tag that hangs from a point and swings: $0 FREE, or a price. Put it on the thing that is free or costs something.",
+      "props": {
+        "text": "string (required)",
+        "sub": "small caps line",
+        "color": "hex",
+        "x": "px",
+        "y": "px",
+        "anchor": "word"
+      }
+    },
+    "rain": {
+      "description": "Bills, coins or confetti falling over the whole frame on a word (thousands of dollars, a win).",
+      "props": {
+        "kind": "'bills'|'coins'|'confetti'",
+        "count": "22",
+        "dur": "2.4",
+        "colors": "hex[] (confetti)",
+        "anchor": "word"
+      }
+    },
+    "prop": {
+      "description": "A picture of a thing or idea (Noto emoji) as a sticker-prop with a short animation. The universal overlay for an unusual idea: a brain for memory, a roadblock for a bottleneck, a stack of coins for cost.",
+      "props": {
+        "emoji": "one emoji (required)",
+        "anim": "'pop'|'drop'|'spin'|'shake'|'float'|'stack'",
+        "size": "190",
+        "count": "stack height (1-6)",
+        "text": "small caption under it",
+        "x": "px",
+        "y": "px",
+        "anchor": "word"
+      }
+    }
+  }
+}

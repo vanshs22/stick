@@ -1,0 +1,21 @@
+# Copy to .github/workflows/clean-install.yml in the repository that contains reel-studio/ (adjust working-directory if the folder name differs).
+# Runs the clean-room test (fresh install + doctor + self-tests + a small real render) on Linux, macOS and Windows.
+# NOT YET RUN: this file was written on Linux only; the first run on windows-latest and macos-latest is the real test of install.ps1.
+name: clean-install
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  clean-room:
+    strategy:
+      fail-fast: false
+      matrix: { os: [ubuntu-latest, macos-latest, windows-latest] }
+    runs-on: ${{ matrix.os }}
+    defaults: { run: { working-directory: reel-studio } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: clean-room install and test (models skipped: 340 MB voice download is tested separately)
+        run: node tools/clean_room.mjs --skip-models
+        env: { REMOTION_GL: swangle }

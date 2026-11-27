@@ -1,0 +1,26 @@
+{
+ "title": "What if you never slept",
+ "topic": "a stickman what-if survival explainer",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 20,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "teach one idea clearly",
+ "style_pack": "stickman-3d",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "word-pop"
+ },
+ "cta": {
+  "keyword": "SLEEP",
+  "text": "Comment SLEEP"
+ }
+}

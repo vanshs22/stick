@@ -1,0 +1,160 @@
+{
+ "format": "story",
+ "promise": "A tiny mystery in 16 seconds: a box, a key, a reaction.",
+ "audience_pain": "beginners who want to make things with free tools",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "Last night, a mysterious box showed up at my door."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Last night, a mysterious box showed up at my door."
+   },
+   {
+    "pattern": "alternative",
+    "line": "A box arrived and nobody knows who sent it."
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 20,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 20,
+   "to_pct": 40,
+   "job": "set the one picture",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 40,
+   "to_pct": 60,
+   "job": "one idea, one verb",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 60,
+   "to_pct": 80,
+   "job": "show real evidence",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "twist",
+   "from_pct": 80,
+   "to_pct": 100,
+   "job": "turn it",
+   "lines": [
+    "L05"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "hero tells it to camera"
+  },
+  {
+   "at": "L03",
+   "device": "hero opens the box"
+  },
+  {
+   "at": "L04",
+   "device": "the key rises out of the box"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "Stage3D",
+   "why": "Stage3D carries this beat because the planned visual is: establish the room, the table and the box"
+  },
+  {
+   "line": "L02",
+   "device": "Stage3D",
+   "why": "Stage3D carries this beat because the planned visual is: hero tells it to camera"
+  },
+  {
+   "line": "L03",
+   "device": "Stage3D",
+   "why": "Stage3D carries this beat because the planned visual is: hero opens the box"
+  },
+  {
+   "line": "L04",
+   "device": "Stage3D",
+   "why": "Stage3D carries this beat because the planned visual is: the key rises out of the box"
+  },
+  {
+   "line": "L05",
+   "device": "Stage3D",
+   "why": "Stage3D carries this beat because the planned visual is: hero reacts"
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L03",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L04",
+   "sfx": "sparkle",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "KEY",
+  "line": "L05"
+ },
+ "loop": {
+  "echo": ""
+ },
+ "share": {
+  "reason": "The reveal is a clean surprise people re-watch.",
+  "comment_bait": "Comment KEY for what you would open"
+ },
+ "duration_sec": 16
+}

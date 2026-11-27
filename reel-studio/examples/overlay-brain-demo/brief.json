@@ -1,0 +1,29 @@
+{
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "creators who post short video",
+ "goal": "show the free clip workflow",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.0
+ },
+ "music": {
+  "direction": "upbeat"
+ },
+ "captions": {
+  "preset": "word-pop"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "One long video, five clips",
+ "topic": "turning one long video into short clips for TikTok, Reels and Shorts",
+ "duration_sec": 30,
+ "style_pack": "editorial-sticker",
+ "cta": {
+  "keyword": "CLIP",
+  "text": "Comment CLIP"
+ }
+}

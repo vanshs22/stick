@@ -1,0 +1,170 @@
+{
+ "format": "tutorial",
+ "promise": "You know the one command that renders a Remotion video.",
+ "audience_pain": "beginners who want to understand one idea in 15 seconds",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "Remotion renders a video from one terminal command."
+   },
+   {
+    "pattern": "alternative",
+    "line": "One terminal command renders a whole video."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Stop rendering videos by hand."
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 20,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 20,
+   "to_pct": 40,
+   "job": "set the one picture",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 40,
+   "to_pct": 60,
+   "job": "one idea, one verb",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 60,
+   "to_pct": 80,
+   "job": "show real evidence",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 80,
+   "to_pct": 100,
+   "job": "ask once, one keyword",
+   "lines": [
+    "L05"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "a two-item checklist ticks: install, then done"
+  },
+  {
+   "at": "L03",
+   "device": "a terminal types the render command and prints the result"
+  },
+  {
+   "at": "L04",
+   "device": "the real CLI render documentation page with the command highlighted"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "BrowserWindow",
+   "why": "The claim is about a real tool, so the opening shows the real site (a Playwright capture with its capture date), not a d"
+  },
+  {
+   "line": "L02",
+   "device": "Checklist",
+   "why": "Setup is a sequence of small steps; a ticking checklist shows that it is short and finished, which a sentence cannot sho"
+  },
+  {
+   "line": "L03",
+   "device": "Terminal",
+   "why": "The step is a command: typing it letter by letter on the word \"render\" shows exactly what to type. The output lines are "
+  },
+  {
+   "line": "L04",
+   "device": "ProofCard",
+   "why": "The line says the docs list every option, so the real docs page (captured with Playwright, text verified inside the fram"
+  },
+  {
+   "line": "L05",
+   "device": "EndCard",
+   "why": "One headline and the ask, in the pack's own end-card layout."
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L02",
+   "sfx": "tick",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L03",
+   "sfx": "type",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L04",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L05",
+   "sfx": "ding",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "REMOTION",
+  "line": "L05"
+ },
+ "loop": {
+  "echo": ""
+ },
+ "share": {
+  "reason": "It is a command people copy and paste.",
+  "comment_bait": "Save for the next project"
+ },
+ "duration_sec": 15
+}

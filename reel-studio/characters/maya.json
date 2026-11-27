@@ -1,0 +1,46 @@
+{
+ "id": "maya",
+ "name": "Maya",
+ "kind": "human",
+ "role": "host",
+ "silhouette": "a warm, quick explainer: shoulder-length dark hair, round glasses, a yellow jacket",
+ "height_m": 1.7,
+ "look": {
+  "skin": "#C98B62",
+  "hair": "#1F1410",
+  "shirt": "#F2B84B",
+  "pants": "#2A3350",
+  "shoes": "#F2F2F2",
+  "iris": "#4A3426",
+  "hairStyle": "long",
+  "glasses": "round",
+  "eyeScale": 1.12
+ },
+ "world": "home-studio",
+ "personality": "warm, quick, curious",
+ "default_emotion": "calm",
+ "emotion_range": [
+  "calm",
+  "happy",
+  "curious",
+  "surprised",
+  "worried",
+  "sad",
+  "angry",
+  "smirk",
+  "scared",
+  "relieved",
+  "determined"
+ ],
+ "voice": {
+  "gender": "female",
+  "tone": "warm, quick, curious",
+  "voice_id": "af_heart",
+  "speed": 1.0
+ },
+ "do_not": [
+  "change hair, glasses or colours between shots",
+  "wear another character's silhouette"
+ ],
+ "locked": true
+}

@@ -1,0 +1,137 @@
+{
+ "resolution": [
+  1920,
+  1080
+ ],
+ "samples": 40,
+ "hdri": "assets/polyhaven/photo_studio_loft_hall/photo_studio_loft_hall_1k.hdr",
+ "hdri_strength": 1.0,
+ "hdri_rotation": 40,
+ "ground": {
+  "texture": "assets/polyhaven/wood_table_001",
+  "size": 30,
+  "uv_scale": 5
+ },
+ "objects": [
+  {
+   "model": "assets/polyhaven/modern_arm_chair_01/modern_arm_chair_01_1k.gltf",
+   "pos": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    -25
+   ],
+   "fit_height": 1.0
+  },
+  {
+   "prim": "sphere",
+   "size": 0.45,
+   "pos": [
+    0.9,
+    -0.4,
+    0.225
+   ],
+   "material": {
+    "color": [
+     0.95,
+     0.95,
+     1.0
+    ],
+    "rough": 0.02,
+    "transmission": 1.0,
+    "ior": 1.5
+   }
+  },
+  {
+   "prim": "cylinder",
+   "size": 0.3,
+   "depth": 0.5,
+   "pos": [
+    -0.9,
+    -0.3,
+    0.25
+   ],
+   "bevel": 0.01,
+   "material": {
+    "color": [
+     0.8,
+     0.1,
+     0.05
+    ],
+    "rough": 0.25,
+    "metal": 0.0
+   }
+  }
+ ],
+ "lights": [
+  {
+   "type": "AREA",
+   "pos": [
+    2.5,
+    -2.5,
+    2.8
+   ],
+   "energy": 260,
+   "size": 2.0,
+   "look_at": [
+    0,
+    0,
+    0.5
+   ],
+   "color": [
+    1.0,
+    0.93,
+    0.82
+   ]
+  }
+ ],
+ "camera": {
+  "pos": [
+   -1.6,
+   -2.2,
+   0.7
+  ],
+  "look_at": [
+   0.1,
+   0,
+   0.5
+  ],
+  "fov": 36,
+  "fstop": 2.2,
+  "focus": [
+   0.1,
+   0,
+   0.5
+  ]
+ },
+ "film": {
+  "look": "AgX",
+  "exposure": 0.0,
+  "bloom": 0.25,
+  "grain": 0.012,
+  "vignette": 0.3,
+  "chroma": 0.002
+ },
+ "assets": [
+  {
+   "kind": "hdri",
+   "id": "photo_studio_loft_hall",
+   "res": "1k"
+  },
+  {
+   "kind": "texture",
+   "id": "wood_table_001",
+   "res": "1k"
+  },
+  {
+   "kind": "model",
+   "id": "modern_arm_chair_01",
+   "res": "1k"
+  }
+ ],
+ "overscan": 0.12
+}

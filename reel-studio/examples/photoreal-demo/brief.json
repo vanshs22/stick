@@ -1,0 +1,25 @@
+{
+ "platform": "youtube",
+ "aspect": "16:9",
+ "language": "en",
+ "audience": "people who want to see what path tracing in code looks like",
+ "goal": "show the photoreal engine",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 0.95
+ },
+ "music": {
+  "direction": "cinematic"
+ },
+ "captions": {
+  "preset": "phrase"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "One chair, path traced",
+ "topic": "photoreal plates in code",
+ "duration_sec": 12,
+ "style_pack": "photoreal-cine"
+}

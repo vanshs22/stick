@@ -1,0 +1,21 @@
+{
+ "topic": "turning one long video into clips",
+ "angle": "An illustrative three-step workflow: drop a long video, let a clipper find moments, post to three platforms.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "This is an illustrative workflow written to demonstrate the overlay director; the tool and the claims about it are generic.",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://www.remotion.dev/docs/captions",
+   "title": "Remotion docs: captions (how word-timed captions are made)",
+   "captured_at": "2026-11-18T20:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

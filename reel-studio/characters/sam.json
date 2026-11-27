@@ -1,0 +1,45 @@
+{
+ "id": "sam",
+ "name": "Sam",
+ "kind": "human",
+ "role": "newcomer",
+ "silhouette": "a lively newcomer: curly red-brown hair, freckled, a blue tee",
+ "height_m": 1.7,
+ "look": {
+  "skin": "#F0C6A0",
+  "hair": "#8A3F22",
+  "shirt": "#3F7BE0",
+  "pants": "#2B2F3A",
+  "shoes": "#FFFFFF",
+  "iris": "#2F6B4A",
+  "hairStyle": "curly",
+  "eyeScale": 1.2
+ },
+ "world": "home-studio",
+ "personality": "excited, unsure, funny",
+ "default_emotion": "calm",
+ "emotion_range": [
+  "calm",
+  "happy",
+  "curious",
+  "surprised",
+  "worried",
+  "sad",
+  "angry",
+  "smirk",
+  "scared",
+  "relieved",
+  "determined"
+ ],
+ "voice": {
+  "gender": "male",
+  "tone": "excited, unsure, funny",
+  "voice_id": "am_adam",
+  "speed": 1.0
+ },
+ "do_not": [
+  "change hair, glasses or colours between shots",
+  "wear another character's silhouette"
+ ],
+ "locked": true
+}

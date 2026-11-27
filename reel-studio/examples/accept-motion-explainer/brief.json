@@ -1,0 +1,29 @@
+{
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "beginners who want to understand one idea in 15 seconds",
+ "goal": "teach one idea clearly",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "headline"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "The cache effect",
+ "topic": "what a cache does to load time",
+ "duration_sec": 17,
+ "style_pack": "editorial-sticker",
+ "cta": {
+  "keyword": "CACHE",
+  "text": "Comment CACHE"
+ }
+}

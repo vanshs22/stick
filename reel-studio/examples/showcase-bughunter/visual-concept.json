@@ -1,0 +1,60 @@
+{
+ "status": "ready",
+ "style_pack": "editorial-sticker",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "What if Claude thought like a senior bug hunter?",
+   "approach": "motion-graphics",
+   "adds_information": "Big type over a real server-room photo shows the idea before the voice finishes it."
+  },
+  {
+   "line_id": "L02",
+   "line": "One free repo gives Claude Code over eighty hunting skills.",
+   "approach": "data-viz",
+   "adds_information": "A counting 80+ puts a number on the promise, and the sticker says it is free and MIT licensed."
+  },
+  {
+   "line_id": "L03",
+   "line": "It is called Claude BugHunter, and over eight thousand developers starred it.",
+   "approach": "evidence-card",
+   "adds_information": "The repo’s own star-history chart is the evidence for \"over eight thousand developers starred it\"."
+  },
+  {
+   "line_id": "L04",
+   "line": "Install it once, then describe your target in plain English.",
+   "approach": "designed-ui",
+   "adds_information": "The terminal shows the exact commands to type, which the voice cannot."
+  },
+  {
+   "line_id": "L05",
+   "line": "The right skill loads by itself: recon, hunting, or reporting.",
+   "approach": "designed-ui",
+   "adds_information": "Three ticks make the sequence recon, hunt, report visible."
+  },
+  {
+   "line_id": "L06",
+   "line": "Fifteen slash commands, and six hundred eighty-one real report patterns.",
+   "approach": "motion-graphics",
+   "adds_information": "Three numbers from the README pop in as they are spoken."
+  },
+  {
+   "line_id": "L07",
+   "line": "And a seven-question gate checks scope before anything is submitted.",
+   "approach": "evidence-card",
+   "adds_information": "The README paragraph is on screen as proof that scope is enforced."
+  },
+  {
+   "line_id": "L08",
+   "line": "It is only for targets you own, or are authorized to test.",
+   "approach": "evidence-card",
+   "adds_information": "SECURITY.md states who the tool is for, in the repo’s own words."
+  },
+  {
+   "line_id": "L09",
+   "line": "Comment HUNT, and start thinking like a bug hunter.",
+   "approach": "designed-ui",
+   "adds_information": "The comment box shows the exact keyword to type."
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "type": "object",
+ "required": ["schema_version", "style_id", "keep", "improve", "change"],
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": { "type": "integer", "minimum": 1 },
+  "style_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+  "derived_from": { "type": "array", "items": { "type": "string" } },
+  "keep": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 8 } },
+  "improve": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 8 } },
+  "change": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 8 } },
+  "min_palette_delta_e": { "type": "number", "minimum": 5 }
+ }
+}

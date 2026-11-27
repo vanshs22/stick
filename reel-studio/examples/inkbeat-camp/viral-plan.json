@@ -1,0 +1,96 @@
+{
+ "format": "explainer",
+ "promise": "Know that a small detail can decide a story.",
+ "audience_pain": "small owners who think the product alone sells",
+ "hook": {
+  "options": [
+   {
+    "pattern": "mystery",
+    "line": "One small tent decided the whole battle that night."
+   },
+   {
+    "pattern": "contradiction",
+    "line": "The battle was won by a rug."
+   },
+   {
+    "pattern": "object",
+    "line": "This rug hides the whole plan."
+   }
+  ],
+  "chosen": 0,
+  "why": "a number the viewer cannot picture yet, then the turn explains it"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 30,
+   "job": "the number",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 30,
+   "to_pct": 75,
+   "job": "the objection then the turn",
+   "lines": [
+    "L02",
+    "L03"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 75,
+   "to_pct": 100,
+   "job": "payoff",
+   "lines": [
+    "L04"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L03"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "happy"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L03",
+   "device": "a push on the pointing hand"
+  }
+ ],
+ "overlay_plan": [],
+ "sound_plan": [
+  {
+   "at": "L01",
+   "sfx": "pop"
+  }
+ ],
+ "loop": "the last line echoes battle",
+ "cta": {
+  "keyword": "",
+  "text": "Always read the floor before the battle."
+ },
+ "share": {
+  "reason": "validating: it is not the product, it is the signal",
+  "audience": "small business owners"
+ },
+ "share_reason": "validating: it is not the product, it is the signal"
+}

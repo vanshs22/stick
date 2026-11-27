@@ -1,0 +1,96 @@
+{
+ "format": "explainer",
+ "promise": "Know why a queue sells more noodles than a menu.",
+ "audience_pain": "small owners who think the product alone sells",
+ "hook": {
+  "options": [
+   {
+    "pattern": "odd number",
+    "line": "Three hundred bowls sell here every single night."
+   },
+   {
+    "pattern": "contradiction",
+    "line": "The best noodle stall has ordinary noodles."
+   },
+   {
+    "pattern": "mystery object",
+    "line": "This queue is the real menu."
+   }
+  ],
+  "chosen": 0,
+  "why": "a number the viewer cannot picture yet, then the turn explains it"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 30,
+   "job": "the number",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 30,
+   "to_pct": 75,
+   "job": "the objection then the turn",
+   "lines": [
+    "L02",
+    "L03"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 75,
+   "to_pct": 100,
+   "job": "payoff",
+   "lines": [
+    "L04"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L03"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "happy"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L03",
+   "device": "a push on the pointing hand"
+  }
+ ],
+ "overlay_plan": [],
+ "sound_plan": [
+  {
+   "at": "L01",
+   "sfx": "pop"
+  }
+ ],
+ "loop": "the last line echoes bowls from the hook",
+ "cta": {
+  "keyword": "",
+  "text": "A long queue sells bowls."
+ },
+ "share": {
+  "reason": "validating: it is not the product, it is the signal",
+  "audience": "small business owners"
+ },
+ "share_reason": "validating: it is not the product, it is the signal"
+}

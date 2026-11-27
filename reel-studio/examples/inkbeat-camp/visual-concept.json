@@ -1,0 +1,30 @@
+{
+ "status": "ready",
+ "style_pack": "drawn-camp-3d",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "One small tent decided the whole battle that night.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  },
+  {
+   "line_id": "L02",
+   "line": "Not the swords. Not the cannons.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  },
+  {
+   "line_id": "L03",
+   "line": "But the map hidden under the rug.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  },
+  {
+   "line_id": "L04",
+   "line": "Always read the floor before the battle.",
+   "approach": "character-3d",
+   "adds_information": "the cook performs the line in the market set: a shrug, a point, a smile, which text alone cannot show"
+  }
+ ]
+}

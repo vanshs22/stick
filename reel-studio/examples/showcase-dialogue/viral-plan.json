@@ -1,0 +1,263 @@
+{
+ "format": "dialogue-comedy",
+ "promise": "You stop trusting the browser padlock to prove a site is safe.",
+ "audience_pain": "everyday internet users who trust the padlock",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "The padlock is on, so this site is safe, right?"
+   },
+   {
+    "pattern": "alternative",
+    "line": "The padlock lies. Here is the proof."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Nearly all phishing sites show the padlock."
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 12,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "stakes",
+   "from_pct": 12,
+   "to_pct": 25,
+   "job": "say what is lost or wrong",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 25,
+   "to_pct": 38,
+   "job": "one idea, one verb",
+   "lines": [
+    "L07"
+   ]
+  },
+  {
+   "beat": "mechanism",
+   "from_pct": 38,
+   "to_pct": 50,
+   "job": "show how it works",
+   "lines": [
+    "L06"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 50,
+   "to_pct": 62,
+   "job": "show real evidence",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "objection",
+   "from_pct": 62,
+   "to_pct": 75,
+   "job": "voice the doubt",
+   "lines": [
+    "L05"
+   ]
+  },
+  {
+   "beat": "twist",
+   "from_pct": 75,
+   "to_pct": 88,
+   "job": "turn it",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 88,
+   "to_pct": 100,
+   "job": "ask once, one keyword",
+   "lines": [
+    "L08"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L07"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L02"
+   ],
+   "emotion": "determined"
+  },
+  {
+   "lines": [
+    "L03"
+   ],
+   "emotion": "shock"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "calm"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "fear"
+  },
+  {
+   "lines": [
+    "L06"
+   ],
+   "emotion": "calm"
+  },
+  {
+   "lines": [
+    "L07"
+   ],
+   "emotion": "proud"
+  },
+  {
+   "lines": [
+    "L08"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "a WRONG stamp slams over the idea that the padlock means safe"
+  },
+  {
+   "at": "L03",
+   "device": "Leo is shocked: a two-word jolt"
+  },
+  {
+   "at": "L04",
+   "device": "11 percent counts up: how few people understand the lock"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "BrowserWindow",
+   "why": "The question is about the padlock in a browser, so the picture is a browser address bar with the padlock Leo is pointing"
+  },
+  {
+   "line": "L02",
+   "device": "Stamp",
+   "why": "Maya contradicts Leo; a verdict stamp on the word Wrong is the fastest picture of a contradiction."
+  },
+  {
+   "line": "L03",
+   "device": "Stamp",
+   "why": "A two-word shock needs a one-beat picture: a big stamp that slams on the first word, so the jolt lands before the next f"
+  },
+  {
+   "line": "L04",
+   "device": "BigStat",
+   "why": "The line is a number; counting it up while it is spoken makes the number the picture."
+  },
+  {
+   "line": "L05",
+   "device": "Versus",
+   "why": "Leo is afraid because the two sites look the same to him; a side-by-side makes that fear visible."
+  },
+  {
+   "line": "L06",
+   "device": "ProofCard",
+   "why": "Maya states what the lock means; the proof is Google\u2019s own post (a real capture with its date), not a drawing."
+  },
+  {
+   "line": "L07",
+   "device": "Checklist",
+   "why": "Leo states the new habit; two ticking items turn advice into something to copy."
+  },
+  {
+   "line": "L08",
+   "device": "CommentBox",
+   "why": "The call to action is a comment, so the picture is the comment field typing the keyword."
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L02",
+   "sfx": "stamp",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L03",
+   "sfx": "boom",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L04",
+   "sfx": "count",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L05",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L06",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L07",
+   "sfx": "tick",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L08",
+   "sfx": "type",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "LOCK",
+  "line": "L08"
+ },
+ "loop": {
+  "echo": "padlock"
+ },
+ "share": {
+  "reason": "It corrects a belief most people hold, in two voices.",
+  "comment_bait": "Comment LOCK for the checklist"
+ },
+ "duration_sec": 28
+}

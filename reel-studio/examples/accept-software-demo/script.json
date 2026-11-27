@@ -1,0 +1,61 @@
+{
+ "title": "Render from the terminal",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Remotion renders a video from one terminal command.",
+   "emphasis": [
+    "one"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L02",
+   "beat": "setup",
+   "text": "Install it once, then forget the setup.",
+   "emphasis": [
+    "once"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "Run npx remotion render, then your composition name.",
+   "emphasis": [
+    "render"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L04",
+   "beat": "proof",
+   "text": "The docs list every option you can pass.",
+   "emphasis": [
+    "docs"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L05",
+   "beat": "cta",
+   "text": "Save this for your next project.",
+   "emphasis": [
+    "Save"
+   ],
+   "visual_hint": ""
+  }
+ ],
+ "est_seconds": 15
+}

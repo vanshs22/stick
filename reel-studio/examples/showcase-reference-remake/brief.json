@@ -1,0 +1,32 @@
+{
+ "title": "Incognito is not invisible",
+ "topic": "what Incognito mode does and does not hide",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 18,
+ "language": "en",
+ "audience": "everyday internet users who trust private browsing",
+ "goal": "change one belief: Incognito hides history from your browser, not from your boss, school or network",
+ "style_pack": "stickman-3d",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.04
+ },
+ "music": {
+  "direction": "upbeat"
+ },
+ "captions": {
+  "preset": "dialogue"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "cta": {
+  "keyword": "HIDE",
+  "text": "Comment HIDE"
+ },
+ "delivery": {
+  "upscale": true
+ }
+}

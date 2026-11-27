@@ -1,0 +1,247 @@
+{
+ "status": "done",
+ "reference": "podcast3d",
+ "inspected": [
+  "the user reference image: a stylised 3D young man at a microphone in a night studio"
+ ],
+ "model_can_see_images": true,
+ "looked_at": [
+  "the user reference image: a stylised 3D young man at a microphone in a night studio"
+ ],
+ "measured": null,
+ "_note": "WORKED EXAMPLE written by looking at the image (the file is not stored in the toolkit, so nothing is measured here). With a real file, `style_brief.mjs --template` fills \"measured\" and you add what you SEE.",
+ "medium": {
+  "kind": "3d-stylized",
+  "look_in_one_line": "soft stylised 3D in the Pixar-like family: round friendly faces, very large glossy eyes, volumetric hair, warm practical lights against a cool night, shallow depth of field",
+  "render_traits": [
+   "soft subsurface-looking skin with a faint blush",
+   "glossy hair clumps with rim highlights",
+   "knit fabric with a visible weave",
+   "warm amber practical lights plus one cool back light",
+   "neon accent sign that glows and tints nearby surfaces",
+   "strong background blur (portrait lens feel)"
+  ]
+ },
+ "character": {
+  "present": "true",
+  "count": "1",
+  "role": "creator speaking into a podcast microphone",
+  "age_look": "young adult",
+  "build": "slim, relaxed shoulders",
+  "head": {
+   "shape": "round with a soft jaw and full cheeks",
+   "size_vs_body": "head about 1/4.5 of the visible body (stylised, larger than real)"
+  },
+  "eyes": {
+   "size_vs_face": "each eye about 1/5 of the face width, wider than a real eye",
+   "shape": "round-almond with a clear white around a large iris",
+   "iris_hex": "#6B3F22",
+   "highlights": "one bright catch-light at the upper left of each iris plus a faint second one below",
+   "lids_lashes": "visible upper lids, dark lash line, brows sit high and arched over the eyes"
+  },
+  "brows": "thick, dark (#15110F), strongly arched, lifted for excitement",
+  "nose": "small, rounded tip with a soft bridge, little nostril detail",
+  "mouth": "wide open smile, upper teeth visible, soft pink inner mouth, round cheeks pushed up",
+  "ears": "visible, slightly large, same skin tone with a pink inner edge",
+  "hair": {
+   "style": "short wavy swept-back top with loose curls falling on the forehead and a tapered side",
+   "volume": "voluminous: grouped clumps, not individual strands",
+   "color_hex": "#16110F",
+   "shading": "glossy highlights on the clump tops and a soft rim light"
+  },
+  "skin": {
+   "tone_hex": "#E6B28C",
+   "shading": "soft glow (subsurface feel), pink blush on cheeks and nose, warm shadow under the chin"
+  },
+  "outfit": {
+   "garment": "heavy black pullover hoodie, hood bunched behind the neck",
+   "color_hex": "#1D1D21",
+   "fabric": "chunky knit that catches a thin warm highlight along the folds",
+   "details": "drawstring cords hanging at the centre, thick sleeves with soft folds"
+  },
+  "hands": {
+   "detail": "five distinct fingers with rounded tips and soft knuckles",
+   "gesture": "open palm turned up toward the viewer, fingers relaxed and slightly spread"
+  },
+  "expression": "delighted and animated: brows up, eyes wide, big open smile",
+  "pose": "leaning toward the microphone, torso turned slightly, one hand gesturing to explain",
+  "proportions_notes": "long neck is hidden by the hoodie; hands are large and expressive",
+  "identity_note": "a stylised original character design: make a NEW character, do not recreate this face as a named person"
+ },
+ "environment": {
+  "place": "a creator or podcast studio at night, wall behind with shelves",
+  "background_depth": "three layers: mic in the foreground, the speaker, then shelf and wall that fall into strong blur",
+  "set_dressing": [
+   {
+    "item": "wall shelf with a warm LED strip under it",
+    "position": "left, upper half",
+    "colour_hex": "#FFA23A",
+    "emissive": "true"
+   },
+   {
+    "item": "trailing houseplant (pothos) hanging from the shelf",
+    "position": "left, top to middle",
+    "colour_hex": "#3E7A3A",
+    "emissive": "false"
+   },
+   {
+    "item": "framed award plaque with a play-button symbol",
+    "position": "left, middle",
+    "colour_hex": "#CFCFD2",
+    "emissive": "false"
+   },
+   {
+    "item": "small collectible figurine",
+    "position": "left, on the shelf",
+    "colour_hex": "#7A5A3A",
+    "emissive": "false"
+   },
+   {
+    "item": "row of books",
+    "position": "left, shelf",
+    "colour_hex": "#B7A58A",
+    "emissive": "false"
+   },
+   {
+    "item": "glowing globe lamp",
+    "position": "left, lower shelf",
+    "colour_hex": "#FFD98A",
+    "emissive": "true"
+   },
+   {
+    "item": "computer monitor showing a mountain landscape",
+    "position": "right edge, middle",
+    "colour_hex": "#6FA0E6",
+    "emissive": "true"
+   },
+   {
+    "item": "neon rocket sign",
+    "position": "right, upper wall",
+    "colour_hex": "#E070FF",
+    "emissive": "true"
+   },
+   {
+    "item": "office chair back",
+    "position": "behind the speaker, left",
+    "colour_hex": "#25262B",
+    "emissive": "false"
+   },
+   {
+    "item": "broadcast microphone on a boom stand",
+    "position": "foreground, lower right",
+    "colour_hex": "#17181B",
+    "emissive": "false"
+   }
+  ],
+  "practical_lights": [
+   {
+    "item": "shelf LED strip",
+    "colour_hex": "#FFA23A"
+   },
+   {
+    "item": "globe lamp",
+    "colour_hex": "#FFD98A"
+   },
+   {
+    "item": "neon rocket sign",
+    "colour_hex": "#E070FF"
+   },
+   {
+    "item": "monitor",
+    "colour_hex": "#6FA0E6"
+   }
+  ],
+  "screens_text": "the monitor shows a mountain wallpaper; the award shows a play symbol (do not copy brand marks)",
+  "textures": "wood shelf, leaf detail on the plant, matte book spines, brushed metal on the microphone"
+ },
+ "lighting": {
+  "key": {
+   "side": "front-left, slightly above",
+   "colour_hex": "#FFD2A6",
+   "softness": "very soft"
+  },
+  "fill": "low, cool blue from the room",
+  "rim": {
+   "colour_hex": "#4A6FD0",
+   "side": "right edge of the face and hood"
+  },
+  "practicals": "amber shelf light and the lamp warm the left side; the magenta neon tints the right wall and a little of the hair",
+  "ambient": "dark blue-teal night, low level",
+  "contrast": "medium-high",
+  "mood": "cosy creator night, energetic",
+  "time_of_day": "night",
+  "volumetrics": "none"
+ },
+ "camera": {
+  "framing": "medium-close-up",
+  "angle": "eye-level",
+  "lens_feel": "portrait 50-85mm: slight compression, strong background blur",
+  "dof": {
+   "subject_sharp": "true",
+   "background_blur": "strong"
+  },
+  "composition": {
+   "subject_position": "right of centre, face in the upper third",
+   "foreground_objects": "microphone in the lower right, close and partly out of focus",
+   "headroom": "tight (hair near the top edge)",
+   "negative_space": "lower left where the hand gestures"
+  },
+  "movement": "n/a (a still image)"
+ },
+ "colour": {
+  "dominant_hex": "#22222B",
+  "accent_hex": "#E070FF",
+  "grade": "amber and orange on the left against blue-violet night on the right, with one magenta accent",
+  "saturation": "medium-high"
+ },
+ "post": {
+  "bloom": "subtle to moderate on the neon and lamp",
+  "vignette": "subtle",
+  "grain": "none",
+  "other": "soft focus falloff, gentle halation on bright lights"
+ },
+ "text_graphics": {
+  "captions": "none in the image",
+  "overlays_ui": "none in the image"
+ },
+ "motion_and_pacing": {
+  "applies": "false",
+  "cuts_per_10s": "n/a",
+  "camera_moves": "n/a",
+  "character_motion": "n/a for a still: for a film use bouncy, expressive gestures",
+  "lip_sync_and_blinks": "n/a for a still"
+ },
+ "audio_and_story": {
+  "sound": "n/a for an image",
+  "format": "podcast or creator talking clip"
+ },
+ "what_makes_it_this_style": [
+  "eyes are very large, round and glossy with a clear catch-light",
+  "the head is big and soft, the face reads as friendly at a glance",
+  "hair is voluminous in glossy clumps with a rim highlight",
+  "skin has a soft glow and a blush, never flat colour",
+  "two-temperature light: warm amber on one side, cool blue on the other, plus one neon accent",
+  "strong background blur with a close foreground object",
+  "a rich lived-in set with many small warm light sources"
+ ],
+ "must_keep": [
+  "stylised 3D with large glossy eyes and a big friendly head",
+  "warm amber against cool blue night lighting with one neon accent",
+  "shallow depth of field with a foreground microphone",
+  "a studio set with shelves, a plant and a glowing lamp",
+  "hair as voluminous glossy clumps",
+  "expressive hand gestures while speaking"
+ ],
+ "free_to_change": [
+  "the character (age, hair colour and cut, outfit colour, skin tone)",
+  "the neon sign shape and colour",
+  "the objects on the shelf",
+  "the topic and what the character says",
+  "the hue of the palette"
+ ],
+ "brand_marks_to_avoid": [
+  "the play-button award plaque (a platform brand mark): use a generic trophy or a plain frame",
+  "any real logo on the screen or clothing",
+  "do not recreate this exact face as a recognisable named person"
+ ]
+}

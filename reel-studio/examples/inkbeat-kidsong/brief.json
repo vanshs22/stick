@@ -1,0 +1,25 @@
+{
+ "platform": "youtube",
+ "aspect": "16:9",
+ "language": "en",
+ "audience": "toddlers and parents",
+ "goal": "a gentle song intro",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "af_heart",
+  "speed": 0.9
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "phrase"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "Little star",
+ "topic": "a nursery song",
+ "duration_sec": 10,
+ "style_pack": "kidsong-3d"
+}

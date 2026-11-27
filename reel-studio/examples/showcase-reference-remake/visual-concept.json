@@ -1,0 +1,48 @@
+{
+ "status": "ready",
+ "style_pack": "stickman-3d",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Incognito mode makes me invisible online, right?",
+   "approach": "character-3d",
+   "adds_information": "Two friends and a laptop show who believes what before the correction."
+  },
+  {
+   "line_id": "L02",
+   "line": "Wrong. Your boss, school and Wi-Fi may still see.",
+   "approach": "character-3d",
+   "adds_information": "Zoe’s certain face and the sticker name who can still see, which the voice only lists."
+  },
+  {
+   "line_id": "L03",
+   "line": "Wait, what?!",
+   "approach": "character-3d",
+   "adds_information": "Dan’s shock face and a giant word make the jolt visible."
+  },
+  {
+   "line_id": "L04",
+   "line": "It only hides history from your browser.",
+   "approach": "evidence-card",
+   "adds_information": "Google’s own page on screen is the source for the claim."
+  },
+  {
+   "line_id": "L05",
+   "line": "So my boss saw everything?!",
+   "approach": "character-3d",
+   "adds_information": "The fear face and a slow pull-out carry what the line only implies."
+  },
+  {
+   "line_id": "L06",
+   "line": "Maybe. Close that tab.",
+   "approach": "character-3d",
+   "adds_information": "Zoe’s shrug lands the dry answer in the wider frame."
+  },
+  {
+   "line_id": "L07",
+   "line": "Save this before incognito fools you. Comment HIDE.",
+   "approach": "designed-ui",
+   "adds_information": "The comment box shows the exact keyword to type."
+  }
+ ]
+}

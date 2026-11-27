@@ -1,0 +1,60 @@
+{
+ "title": "Free videos with code",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "No animator? No problem.",
+   "beat": "hook",
+   "emphasis": [
+    "problem"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "You can make this style with code.",
+   "beat": "setup",
+   "emphasis": [
+    "code"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "Step one, open a terminal.",
+   "beat": "step",
+   "emphasis": [
+    "terminal"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "Step two, type one line.",
+   "beat": "step",
+   "emphasis": [
+    "line"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "Step three, press enter and wait.",
+   "beat": "step",
+   "emphasis": [
+    "enter"
+   ]
+  },
+  {
+   "id": "L06",
+   "text": "Comment VIDEO and I will send every step.",
+   "beat": "cta",
+   "emphasis": [
+    "VIDEO"
+   ]
+  },
+  {
+   "id": "L07",
+   "text": "Save this so you can come back to it.",
+   "beat": "save"
+  }
+ ],
+ "est_seconds": 18
+}

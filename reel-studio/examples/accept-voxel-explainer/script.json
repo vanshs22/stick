@@ -1,0 +1,61 @@
+{
+ "title": "An API is a waiter",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "What does an API actually do?",
+   "emphasis": [
+    "actually"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L02",
+   "beat": "setup",
+   "text": "It is a waiter between you and the kitchen.",
+   "emphasis": [
+    "waiter"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C3"
+   ]
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "You send an order, and the waiter carries it.",
+   "emphasis": [
+    "order"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L04",
+   "beat": "proof",
+   "text": "Then the answer comes back on a plate.",
+   "emphasis": [
+    "plate"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L05",
+   "beat": "cta",
+   "text": "Save this to remember it.",
+   "emphasis": [
+    "Save"
+   ],
+   "visual_hint": ""
+  }
+ ],
+ "est_seconds": 14
+}

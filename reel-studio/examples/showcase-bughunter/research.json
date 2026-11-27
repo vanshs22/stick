@@ -1,0 +1,87 @@
+{
+ "topic": "Claude-BugHunter",
+ "angle": "A free MIT-licensed skill bundle that loads bug-hunting expertise into Claude Code, with scope and authorisation built in.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "claude-bughunter is a Claude Code skill bundle for bug hunting and external red-team work with 83 skills (the README; the repository description says 82), so \"over eighty\" holds either way.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1",
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "The repository has more than eight thousand stars (8,975 and 1,345 forks per the GitHub API on 2026-11-17) and an MIT licence.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C3",
+   "text": "Install it as a Claude Code plugin (/plugin marketplace add elementalsouls/Claude-BugHunter, then /plugin install claude-bughunter@elementalsouls) or by cloning and running the install script; then describe what you are testing in plain English and the relevant skill loads automatically.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C4",
+   "text": "Skills load by topic, covering recon and OSINT, web-app hunting, enterprise platforms, and reporting and validation.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C5",
+   "text": "The bundle ships 15 slash commands and 681 disclosed-report patterns across 24 core vulnerability classes.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2"
+   ]
+  },
+  {
+   "id": "C6",
+   "text": "The workflow has a 7-Question Gate before anything is submitted, and its question 3 asks whether the asset is in scope.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2",
+    "SRC3"
+   ]
+  },
+  {
+   "id": "C7",
+   "text": "The skills are intended for assets you own or have written authorization to assess: in-scope bug-bounty programmes, authorised pentests with a signed rules of engagement, CTFs, your own infrastructure and lab targets.",
+   "status": "verified",
+   "source_ids": [
+    "SRC3"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "SRC1",
+   "title": "GitHub: elementalsouls/Claude-BugHunter (repository page and API)",
+   "captured_at": "2026-11-17T14:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "SRC2",
+   "title": "README.md of the repository",
+   "captured_at": "2026-11-17T14:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC3",
+   "url": "SRC3",
+   "title": "SECURITY.md of the repository",
+   "captured_at": "2026-11-17T14:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

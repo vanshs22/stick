@@ -1,0 +1,467 @@
+{
+ "style_pack": "original-creatures",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "meet the team",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [
+     {
+      "variant": "stick",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.8,
+        "open"
+       ]
+      ],
+      "mood": "happy",
+      "x": -0.4
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.2,
+      "z": 0.3,
+      "scale": 1.2,
+      "color": "#F0683C",
+      "kickAnchor": "team"
+     },
+     {
+      "kind": "box",
+      "x": 0.55,
+      "z": 0.9,
+      "scale": 1,
+      "color": "#F2C12E",
+      "kickAnchor": "tiny"
+     },
+     {
+      "kind": "cloud",
+      "x": -0.05,
+      "z": 1.1,
+      "scale": 0.9,
+      "color": "#4a46c9"
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "team",
+     "line": "L01",
+     "word": "team"
+    },
+    {
+     "name": "tiny",
+     "line": "L01",
+     "word": "tiny"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "team",
+     "gain": 0.5
+    },
+    {
+     "type": "boing",
+     "anchor": "tiny",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// minion squad",
+     "right": "3 AGENTS"
+    }
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: meet the team"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "one minion, one job",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0,
+      "z": 0.4,
+      "scale": 1.3,
+      "color": "#F0683C",
+      "kickAnchor": "job"
+     }
+    ],
+    "camera": {
+     "shot": "creature",
+     "move": "orbit"
+    }
+   },
+   "anchors": [
+    {
+     "name": "job",
+     "line": "L02",
+     "word": "job"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boing",
+     "anchor": "job",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "ONE JOB",
+     "color": "#F2C12E",
+     "rotate": -6,
+     "x": 300,
+     "y": 380,
+     "anchor": "job"
+    }
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: one minion, one job"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "reader minion",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": 0.05,
+      "z": 0.2,
+      "scale": 1.3,
+      "color": "#F2C12E",
+      "kickAnchor": "reads"
+     },
+     {
+      "kind": "cloud",
+      "x": -0.45,
+      "z": 0.9,
+      "scale": 0.9,
+      "color": "#4a46c9"
+     }
+    ],
+    "camera": {
+     "shot": "creature",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "reads",
+     "line": "L03",
+     "word": "reads"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "reads",
+     "gain": 0.5
+    },
+    {
+     "type": "sparkle",
+     "anchor": "reads",
+     "gain": 0.3
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Minion 1 · the reader",
+     "n": 1,
+     "of": 3
+    }
+   ],
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: reader minion"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "writer minion types",
+   "shot_type": "screen-demo",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "minion write login.py",
+     "> def login(user): ...",
+     "> 42 lines written"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "go",
+     "line": "L04",
+     "word": "writes"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "go",
+     "dur": 1.4
+    }
+   ],
+   "transition_out": {
+    "type": "zoom",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Minion 2 · the writer",
+     "n": 2,
+     "of": 3
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: writer minion types"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "checker ticks",
+   "shot_type": "data",
+   "component": "Checklist",
+   "props": {
+    "heading": "MINION 3 IS CHECKING",
+    "items": [
+     "no typos",
+     "tests pass",
+     "no secrets",
+     "looks clean"
+    ],
+    "progress": true,
+    "anchorPrefix": "c"
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L05",
+     "word": "checks"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "c0",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "Minion 3 · the checker",
+     "n": 3,
+     "of": 3
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "Checklist carries this beat because the planned visual is: checker ticks"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "you are the boss",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "studio",
+    "characters": [
+     {
+      "variant": "stick",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.5,
+        "cheer"
+       ]
+      ],
+      "mood": "smirk",
+      "x": 0,
+      "z": -0.2
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "box",
+      "x": -0.45,
+      "z": 0.7,
+      "scale": 1.1,
+      "color": "#F0683C",
+      "kickAnchor": "orders"
+     },
+     {
+      "kind": "box",
+      "x": 0.45,
+      "z": 0.7,
+      "scale": 1.1,
+      "color": "#F2C12E",
+      "kickAnchor": "orders"
+     },
+     {
+      "kind": "cloud",
+      "x": 0,
+      "z": 1.3,
+      "scale": 0.9,
+      "color": "#4a46c9"
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "pull"
+    }
+   },
+   "anchors": [
+    {
+     "name": "orders",
+     "line": "L06",
+     "word": "orders"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boing",
+     "anchor": "orders",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "mask",
+    "sound": "swish"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: you are the boss"
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "cta",
+   "shot_type": "typography",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "MINIONS",
+    "reward": "the full blueprint"
+   },
+   "anchors": [
+    {
+     "name": "c",
+     "line": "L07",
+     "word": "MINIONS"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "c",
+     "gain": 0.3
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish"
+   },
+   "overlays": [
+    {
+     "type": "tags",
+     "items": [
+      {
+       "text": "free",
+       "color": "#2FA3A0"
+      },
+      {
+       "text": "agents",
+       "color": "#F0683C"
+      }
+     ],
+     "x": 240,
+     "y": 330
+    }
+   ],
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: cta"
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "end",
+   "shot_type": "typography",
+   "component": "EndCard",
+   "props": {
+    "headline": "Save this for later",
+    "accent": "later",
+    "cta": "Comment MINIONS",
+    "handle": "@reelstudio"
+   },
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   },
+   "approach": "designed-ui",
+   "why_renderer": "EndCard carries this beat because the planned visual is: end"
+  }
+ ]
+}

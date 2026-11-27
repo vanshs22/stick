@@ -1,0 +1,5 @@
+{
+  "fps": 30, "width": 1080, "height": 1920, "duration": 4, "style": "none", "audio": "",
+  "shots": [{"id": "S01", "start": 0, "end": 4, "component": "TitleCard", "props": {"text": "Placeholder: run tools/timing/build_timeline.mjs", "accent": "timeline"}, "lines": [], "anchors": {}}],
+  "captions": {"preset": "word-pop", "chunks": []}, "words": []
+}

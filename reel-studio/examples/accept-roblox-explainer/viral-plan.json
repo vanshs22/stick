@@ -1,0 +1,170 @@
+{
+ "format": "explainer",
+ "promise": "You understand a cache as \"a saved copy that makes the second visit fast\".",
+ "audience_pain": "beginners who want to understand one idea in 15 seconds",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "Why does a website load instantly the second time?"
+   },
+   {
+    "pattern": "alternative",
+    "line": "The second visit is faster because of one trick."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Your browser keeps a secret copy."
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 20,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 20,
+   "to_pct": 40,
+   "job": "set the one picture",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 40,
+   "to_pct": 60,
+   "job": "one idea, one verb",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 60,
+   "to_pct": 80,
+   "job": "show real evidence",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 80,
+   "to_pct": 100,
+   "job": "ask once, one keyword",
+   "lines": [
+    "L05"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L04"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "the avatar explains; a trophy on a podium stands for the saved answer"
+  },
+  {
+   "at": "L03",
+   "device": "close on the laptop typing a slow fetch while a counter climbs to 800 ms"
+  },
+  {
+   "at": "L04",
+   "device": "same laptop, instant: the counter drops to 40 ms and the avatar points at the saved copy"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "Stage3D",
+   "why": "A 3D avatar beside a stalled laptop sets up the question in the same world the answer will use, so the second visit can "
+  },
+  {
+   "line": "L02",
+   "device": "Stage3D",
+   "why": "The saved answer is an object you cannot see in a sentence: a trophy on a podium makes \"saves the answer\" something the "
+  },
+  {
+   "line": "L03",
+   "device": "Stage3D",
+   "why": "A counter climbing next to a laptop that is visibly typing gives the word \"slow\" a number, which is the information the "
+  },
+  {
+   "line": "L04",
+   "device": "Stage3D",
+   "why": "Repeating the S03 setup with the number collapsing makes the before/after comparison visual: same props, different numbe"
+  },
+  {
+   "line": "L05",
+   "device": "Stage3D",
+   "why": "The call to action is a person talking to the viewer, so the avatar faces the camera with the keyword on a plaque."
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L02",
+   "sfx": "sparkle",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L03",
+   "sfx": "tick",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L04",
+   "sfx": "ding",
+   "why": "tied to the card or cut of this shot"
+  },
+  {
+   "line": "L05",
+   "sfx": "pop",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "CACHE",
+  "line": "L05"
+ },
+ "loop": {
+  "echo": ""
+ },
+ "share": {
+  "reason": "People send it to a friend who asks why a site is slow the first time.",
+  "comment_bait": "Comment CACHE for the one-line rule"
+ },
+ "duration_sec": 14
+}

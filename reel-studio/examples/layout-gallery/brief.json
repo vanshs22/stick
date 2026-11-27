@@ -1,0 +1,25 @@
+{
+ "platform": "youtube",
+ "aspect": "16:9",
+ "language": "en",
+ "audience": "layout test",
+ "goal": "exercise every card",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "word-pop"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "Layout gallery",
+ "topic": "layout gallery",
+ "duration_sec": 120,
+ "style_pack": "editorial-notebook"
+}

@@ -1,0 +1,833 @@
+{
+ "style_pack": "stickman-3d",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "two friends at a laptop: Dan states his belief",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "A comic argument needs two bodies in one room; the 3D two-shot shows who believes what before a word of the answer.",
+   "props": {
+    "world": "home-studio",
+    "worldOpts": {
+     "day": true,
+     "wall": "#EAE3F4",
+     "wood": "#C9A070",
+     "accent": "#7B5CF0",
+     "sofa": [
+      -0.1,
+      -2.7
+     ]
+    },
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "look": {
+       "scarf": "#F2B84B"
+      },
+      "at": [
+       -0.42,
+       0.25
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "explain"
+       ],
+       [
+        1.6,
+        "hold-up"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "curious"
+       ],
+       [
+        2,
+        "happy"
+       ]
+      ],
+      "lookAt": "zoe",
+      "speaks": true,
+      "speaker": "DAN"
+     },
+     {
+      "id": "zoe",
+      "kind": "stick",
+      "look": {
+       "body": "#2b2140",
+       "head": "#2b2140",
+       "glove": "#FFD6E8",
+       "shoe": "#FFD6E8",
+       "scarf": "#F0599A",
+       "scale": 0.95
+      },
+      "at": [
+       0.42,
+       0.25
+      ],
+      "rotY": -0.35,
+      "pose": "idle",
+      "mood": [
+       [
+        0,
+        "calm"
+       ],
+       [
+        2.4,
+        "smirk"
+       ]
+      ],
+      "lookAt": "dan",
+      "speaks": true,
+      "speaker": "ZOE"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0,
+       0,
+       0.7
+      ]
+     },
+     {
+      "id": "lap",
+      "kind": "laptop",
+      "at": [
+       0,
+       0.57,
+       0.7
+      ],
+      "desk": false,
+      "scale": 0.9,
+      "lines": [
+       "# incognito",
+       "$ browse --private",
+       "> hidden?"
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "three-quarter",
+     "az": 0,
+     "subject": "lap",
+     "offset": [
+      0,
+      0.05
+     ],
+     "focus": {
+      "target": "lap",
+      "aperture": 0.003
+     },
+     "movement": {
+      "type": "dolly-push",
+      "why": "Starts wide so the viewer sees both friends and the laptop, then eases toward Dan as he says invisible.",
+      "from": {
+       "framing": "wide"
+      },
+      "to": {
+       "framing": "medium-wide"
+      },
+      "target": "lap",
+      "duration": 3.2,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "lap",
+       "aperture": 0.003
+      },
+      "constraints": [
+       "both friends stay inside the safe zone"
+      ]
+     }
+    },
+    "look": {
+     "exposure": 0.92,
+     "bloom": 0.14
+    }
+   },
+   "anchors": [
+    {
+     "name": "incognito",
+     "line": "L01",
+     "word": "Incognito"
+    },
+    {
+     "name": "invisible",
+     "line": "L01",
+     "word": "invisible"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "plaque",
+     "text": "INCOGNITO = INVISIBLE?",
+     "kicker": "ARE YOU SURE",
+     "y": 1330,
+     "anchor": "incognito"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "incognito",
+     "gain": 0.5
+    },
+    {
+     "type": "tick",
+     "anchor": "invisible",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "Zoe cuts in; the whip carries the contradiction"
+   },
+   "speaker": "DAN"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "Zoe corrects him: close-up with the three who can still see",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "The correction is a face: Zoe, close, certain. The sticker names who can still see, which the voice only lists.",
+   "props": {
+    "world": "home-studio",
+    "worldOpts": {
+     "day": true,
+     "wall": "#EAE3F4",
+     "wood": "#C9A070",
+     "accent": "#7B5CF0",
+     "sofa": [
+      -0.1,
+      -2.7
+     ]
+    },
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "look": {
+       "scarf": "#F2B84B"
+      },
+      "at": [
+       -0.42,
+       0.25
+      ],
+      "rotY": 0.5,
+      "pose": "idle",
+      "mood": "worried",
+      "lookAt": "zoe",
+      "speaks": true,
+      "speaker": "DAN"
+     },
+     {
+      "id": "zoe",
+      "kind": "stick",
+      "look": {
+       "body": "#2b2140",
+       "head": "#2b2140",
+       "glove": "#FFD6E8",
+       "shoe": "#FFD6E8",
+       "scarf": "#F0599A",
+       "scale": 0.95
+      },
+      "at": [
+       0.42,
+       0.25
+      ],
+      "rotY": -0.5,
+      "pose": [
+       [
+        0,
+        "point"
+       ],
+       [
+        1.4,
+        "explain"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "determined"
+       ],
+       [
+        2.2,
+        "smirk"
+       ]
+      ],
+      "lookAt": "dan",
+      "speaks": true,
+      "speaker": "ZOE"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0,
+       0,
+       0.7
+      ]
+     },
+     {
+      "id": "lap",
+      "kind": "laptop",
+      "at": [
+       0,
+       0.57,
+       0.7
+      ],
+      "desk": false,
+      "scale": 0.9,
+      "lines": [
+       "# incognito",
+       "$ browse --private",
+       "> hidden?"
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "three-quarter",
+     "az": -24,
+     "subject": "zoe",
+     "offset": [
+      0,
+      0
+     ],
+     "focus": {
+      "target": "zoe",
+      "aperture": 0.003
+     },
+     "movement": {
+      "type": "static"
+     }
+    },
+    "look": {
+     "exposure": 0.92,
+     "bloom": 0.14
+    }
+   },
+   "anchors": [
+    {
+     "name": "wrong",
+     "line": "L02",
+     "word": "Wrong"
+    },
+    {
+     "name": "boss",
+     "line": "L02",
+     "word": "boss"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "BOSS \u00b7 SCHOOL \u00b7 WI-FI",
+     "rotate": -4,
+     "x": 540,
+     "y": 520,
+     "size": 50,
+     "anchor": "boss"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "stamp",
+     "anchor": "wrong",
+     "gain": 0.7
+    },
+    {
+     "type": "pop",
+     "anchor": "boss",
+     "gain": 0.45
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "a reaction cut: the information changes, there is no motion to sell"
+   },
+   "speaker": "ZOE"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "Dan is shocked: extreme close-up, giant WHAT?!",
+   "shot_type": "character",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "Two words need one beat: his face, tight, and the word itself so the jolt lands before the facts.",
+   "props": {
+    "world": "home-studio",
+    "worldOpts": {
+     "day": true,
+     "wall": "#EAE3F4",
+     "wood": "#C9A070",
+     "accent": "#7B5CF0",
+     "sofa": [
+      -0.1,
+      -2.7
+     ]
+    },
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "look": {
+       "scarf": "#F2B84B"
+      },
+      "at": [
+       -0.42,
+       0.25
+      ],
+      "rotY": 0.5,
+      "pose": [
+       [
+        0,
+        "hands-on-head"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "surprised"
+       ]
+      ],
+      "lookAt": "zoe",
+      "speaks": true,
+      "speaker": "DAN"
+     },
+     {
+      "id": "zoe",
+      "kind": "stick",
+      "look": {
+       "body": "#2b2140",
+       "head": "#2b2140",
+       "glove": "#FFD6E8",
+       "shoe": "#FFD6E8",
+       "scarf": "#F0599A",
+       "scale": 0.95
+      },
+      "at": [
+       0.42,
+       0.25
+      ],
+      "rotY": -0.5,
+      "pose": "idle",
+      "mood": "calm",
+      "lookAt": "dan",
+      "speaks": true,
+      "speaker": "ZOE"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0,
+       0,
+       0.7
+      ]
+     },
+     {
+      "id": "lap",
+      "kind": "laptop",
+      "at": [
+       0,
+       0.57,
+       0.7
+      ],
+      "desk": false,
+      "scale": 0.9,
+      "lines": [
+       "# incognito",
+       "$ browse --private",
+       "> hidden?"
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "close-up",
+     "angle": "three-quarter",
+     "az": 16,
+     "subject": "dan",
+     "offset": [
+      0,
+      0.02
+     ],
+     "focus": {
+      "target": "dan",
+      "aperture": 0.003
+     },
+     "movement": {
+      "type": "static"
+     }
+    },
+    "look": {
+     "exposure": 1,
+     "bloom": 0.2
+    }
+   },
+   "anchors": [
+    {
+     "name": "wait",
+     "line": "L03",
+     "word": "Wait"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "impact",
+     "text": "WHAT?!",
+     "x": 540,
+     "y": 560,
+     "size": 200,
+     "rotate": -6,
+     "color": "#FFD23F",
+     "anchor": "wait"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boom",
+     "anchor": "wait",
+     "gain": 0.55
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "the proof comes next: a plain cut keeps the rhythm"
+   },
+   "speaker": "DAN"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "the real Chrome Help page, scrolled to who can still observe your activity",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "approach": "evidence-card",
+   "why_renderer": "Zoe states what Incognito really does; the proof is Google\u2019s own help page (a real capture with its date) over a blurred real photo, not a drawing.",
+   "props": {
+    "image": "assets/web/incognito/page.png",
+    "source": "support.google.com/chrome \u00b7 Browse in Incognito mode",
+    "caption": "Google Chrome Help",
+    "highlight": {
+     "x": 0.0833,
+     "y": 0.3951,
+     "w": 0.8333,
+     "h": 0.4938
+    }
+   },
+   "bgImage": {
+    "src": "assets/bg/city.jpg",
+    "dim": 0.5,
+    "blur": 8,
+    "zoom": 1.12,
+    "scrim": "light"
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC1",
+    "asset_id": "web/incognito"
+   },
+   "anchors": [],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.12,
+     "gain": 0.6,
+     "why": "the proof card appears"
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "back to the people: the whip returns to the characters"
+   },
+   "speaker": "ZOE"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05",
+    "L06"
+   ],
+   "visual_intent": "Dan realises, Zoe answers dry: a slow pull-out like the reference",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "character-3d",
+   "why_renderer": "Fear then a dry answer is one exchange; the pull-out (the reference\u2019s own camera habit) lets both faces carry it.",
+   "props": {
+    "world": "home-studio",
+    "worldOpts": {
+     "day": true,
+     "wall": "#EAE3F4",
+     "wood": "#C9A070",
+     "accent": "#7B5CF0",
+     "sofa": [
+      -0.1,
+      -2.7
+     ]
+    },
+    "cast": [
+     {
+      "id": "dan",
+      "kind": "stick",
+      "look": {
+       "scarf": "#F2B84B"
+      },
+      "at": [
+       -0.42,
+       0.25
+      ],
+      "rotY": 0.35,
+      "pose": [
+       [
+        0,
+        "cower"
+       ],
+       [
+        1.6,
+        "slump"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "scared"
+       ],
+       [
+        2.1,
+        "sad"
+       ]
+      ],
+      "lookAt": "zoe",
+      "speaks": true,
+      "speaker": "DAN"
+     },
+     {
+      "id": "zoe",
+      "kind": "stick",
+      "look": {
+       "body": "#2b2140",
+       "head": "#2b2140",
+       "glove": "#FFD6E8",
+       "shoe": "#FFD6E8",
+       "scarf": "#F0599A",
+       "scale": 0.95
+      },
+      "at": [
+       0.42,
+       0.25
+      ],
+      "rotY": -0.35,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2,
+        "shrug"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "calm"
+       ],
+       [
+        2,
+        "smirk"
+       ]
+      ],
+      "lookAt": "dan",
+      "speaks": true,
+      "speaker": "ZOE"
+     }
+    ],
+    "props3d": [
+     {
+      "id": "table",
+      "kind": "sidetable",
+      "at": [
+       0,
+       0,
+       0.7
+      ]
+     },
+     {
+      "id": "lap",
+      "kind": "laptop",
+      "at": [
+       0,
+       0.57,
+       0.7
+      ],
+      "desk": false,
+      "scale": 0.9,
+      "lines": [
+       "# incognito",
+       "$ browse --private",
+       "> hidden?"
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium-wide",
+     "angle": "three-quarter",
+     "az": 0,
+     "subject": "lap",
+     "offset": [
+      0,
+      0.05
+     ],
+     "focus": {
+      "target": "lap",
+      "aperture": 0.003
+     },
+     "movement": {
+      "type": "dolly-pull",
+      "why": "Pulls out from Dan\u2019s fear to both of them, the reference\u2019s own camera habit, so Zoe\u2019s dry line lands in a wider frame.",
+      "from": {
+       "framing": "medium-wide"
+      },
+      "to": {
+       "framing": "wide"
+      },
+      "target": "lap",
+      "duration": 3.9,
+      "start": 0,
+      "profile": "ease-in-out",
+      "curve": "sine",
+      "focus": {
+       "target": "lap",
+       "aperture": 0.003
+      },
+      "constraints": [
+       "both friends stay inside the safe zone at the end"
+      ]
+     }
+    },
+    "look": {
+     "exposure": 0.92,
+     "bloom": 0.14
+    }
+   },
+   "anchors": [
+    {
+     "name": "boss",
+     "line": "L05",
+     "word": "boss"
+    },
+    {
+     "name": "tab",
+     "line": "L06",
+     "word": "tab"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "heartbeat",
+     "anchor": "boss",
+     "gain": 0.4
+    },
+    {
+     "type": "pop",
+     "anchor": "tab",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "dip",
+    "sound": "none",
+    "why": "a beat of rest before the call to action"
+   },
+   "speaker": "DAN"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "the comment box asks for HIDE, over a blurred real city night",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "approach": "designed-ui",
+   "why_renderer": "The call to action is a comment; the box shows the exact keyword to type, over the same real photo as the proof so the film closes in one world.",
+   "props": {
+    "keyword": "HIDE",
+    "reward": "I will send you the checklist",
+    "typeAnchor": "Comment"
+   },
+   "bgImage": {
+    "src": "assets/bg/city.jpg",
+    "dim": 0.5,
+    "blur": 8,
+    "zoom": 1.14,
+    "flip": true,
+    "scrim": "light"
+   },
+   "anchors": [
+    {
+     "name": "Comment",
+     "line": "L07",
+     "word": "Comment"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "Comment",
+     "gain": 0.4
+    },
+    {
+     "type": "ding",
+     "at": "end",
+     "offset": -0.7,
+     "gain": 0.8,
+     "why": "the keyword is posted: success sound"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "last shot"
+   },
+   "speaker": "ZOE"
+  }
+ ]
+}

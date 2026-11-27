@@ -1,0 +1,76 @@
+{
+  "id": "anime-cinematic",
+  "name": "Anime cinematic (cel-shaded 3D with a film grade)",
+  "family": "3d",
+  "cadence": "film-cinematic",
+  "engine": "inkbeat",
+  "formats": [
+    "16:9",
+    "9:16"
+  ],
+  "description": "Cel-shaded 3D that behaves like animation: a two-band cel ramp, a thin coloured line, hard backlight, a painted sky with lit cloud edges, strong halation. A better variant than an anime filter: characters animate on twos (12 drawings a second) while the camera stays smooth, the line colour follows the light (indigo by day, wine at dusk), held frames and slow parallax replace constant motion, and impact frames are designed (two inverted frames), not random flashes.",
+  "tokens": {
+    "colors": {
+      "bg": "#1f5fd8",
+      "ink": "#FFFFFF",
+      "ink2": "#FFFFFF",
+      "muted": "#b8b0d8",
+      "card": "#26346e",
+      "accent": "#e8483a",
+      "accentSoft": "#e8483a33",
+      "good": "#5ad07a",
+      "bad": "#ff5a5a"
+    },
+    "fonts": {
+      "sans": "Poppins",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1344,
+      "right_margin": 120
+    }
+  },
+  "effects": {
+    "vignette": 0.12
+  },
+  "rules": [
+    "Two-band cel shading with a narrow soft edge; one hard shadow shape per form, no gradients inside a band.",
+    "A thin coloured line (about 1.6 px at 1080 wide), colour follows the light: indigo by day, wine at dusk, never pure black.",
+    "Light is backlight: a low sun behind the subject, a bright rim, halation on highlights (bloom threshold 0.8-0.85).",
+    "Skies are painted and graded (deep blue to warm horizon, lit cloud edges); at least a third of the wide shots are sky-heavy (subject low in the frame, face at 0.7+).",
+    "Characters: small head, long limbs, very large eyes (eyeScale 1.5), a few lashes, saturated hair colour; animate on twos, camera smooth.",
+    "Acting by holds: a 3-8 s held frame, a slow lateral parallax slide, a long pause shot (a still street, a swaying wire) before an emotional line.",
+    "Impact frame: 2 frames of inverted colour with a speed-line burst, only on the hit of a line; at most once every 10 seconds.",
+    "Mono no aware shots: petals, wires, clouds as cutaways; ambient sound under them."
+  ],
+  "components": [
+    "inkbeat/Story",
+    "inkbeat/Character3D"
+  ],
+  "camera_language": "Held frames and motivated moves. Wide low-angle sky shots; slow dolly or lateral slide with parallax; close-up on the eyes for emotion; a push only when a thought lands; no whips, no orbits, no shake except the impact frame. Cut on the sound, not on a timer.",
+  "typography": "Subtitles rather than burned captions in long-form; clean sans, white with a thin dark outline, lower third.",
+  "transitions": [
+    "cut",
+    "long dissolve",
+    "match cut on motion",
+    "flash-white for an impact only"
+  ],
+  "audio_direction": "piano or strings with a restrained pulse, room tone and wind under holds, hard single hits on impact frames, a silence before the emotional line",
+  "pitfalls": [
+    "A power wire thicker than 0.01 reads as a beam; keep wires hairline.",
+    "Petals as ink-outlined spheres turn into black dots: leave out or make unlit.",
+    "Hair and face outlines at 3 px look like a comic, not cel animation: keep the line 1.5 px.",
+    "Do not copy a specific studio's characters or compositions; use the techniques."
+  ],
+  "looks": [
+    "anime-day",
+    "anime-dusk"
+  ],
+  "references": [
+    "skills/camera-grammar/SKILL.md",
+    "skills/inkbeat/SKILL.md"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+ "status": "ready",
+ "style_pack": "kidsong-3d",
+ "lines": [
+  {
+   "line_id": "L01",
+   "line": "Hello little star.",
+   "approach": "character-3d",
+   "adds_information": "the character performs the line: a wave, a sing, an invitation, a calm close, which text alone cannot show"
+  },
+  {
+   "line_id": "L02",
+   "line": "Twinkle, twinkle.",
+   "approach": "character-3d",
+   "adds_information": "the character performs the line: a wave, a sing, an invitation, a calm close, which text alone cannot show"
+  },
+  {
+   "line_id": "L03",
+   "line": "Sing it with me.",
+   "approach": "character-3d",
+   "adds_information": "the character performs the line: a wave, a sing, an invitation, a calm close, which text alone cannot show"
+  },
+  {
+   "line_id": "L04",
+   "line": "Good night.",
+   "approach": "character-3d",
+   "adds_information": "the character performs the line: a wave, a sing, an invitation, a calm close, which text alone cannot show"
+  }
+ ]
+}

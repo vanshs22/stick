@@ -1,0 +1,45 @@
+{
+ "id": "rex",
+ "name": "Rex",
+ "kind": "human",
+ "role": "villain",
+ "silhouette": "a sharp rival: slick dark hair, a black jacket, a smirk that sits on the face",
+ "height_m": 1.7,
+ "look": {
+  "skin": "#D9A27A",
+  "hair": "#0B0B0F",
+  "shirt": "#1B1B22",
+  "pants": "#14141A",
+  "shoes": "#2B2B30",
+  "iris": "#3A2A20",
+  "hairStyle": "quiff",
+  "eyeScale": 0.9
+ },
+ "world": "home-studio",
+ "personality": "smooth, amused, cold",
+ "default_emotion": "calm",
+ "emotion_range": [
+  "calm",
+  "happy",
+  "curious",
+  "surprised",
+  "worried",
+  "sad",
+  "angry",
+  "smirk",
+  "scared",
+  "relieved",
+  "determined"
+ ],
+ "voice": {
+  "gender": "male",
+  "tone": "smooth, amused, cold",
+  "voice_id": "bm_george",
+  "speed": 1.0
+ },
+ "do_not": [
+  "change hair, glasses or colours between shots",
+  "wear another character's silhouette"
+ ],
+ "locked": true
+}

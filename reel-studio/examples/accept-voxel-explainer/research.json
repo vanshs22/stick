@@ -1,0 +1,45 @@
+{
+ "topic": "what an API does",
+ "angle": "An API is a contract: you send a request in the agreed shape and the other side sends back a response.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "An API is a set of rules that lets software interact with another program, as opposed to a human user interface.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "If one side sends a request structured a particular way, the other side responds in an agreed way.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2",
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C3",
+   "text": "The waiter-between-you-and-the-kitchen picture is a teaching analogy, not a technical claim.",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://developer.mozilla.org/en-US/docs/Glossary/API",
+   "title": "MDN glossary: API",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "https://www.redhat.com/en/topics/api/what-are-application-programming-interfaces",
+   "title": "Red Hat: What is an API?",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "official"
+  }
+ ]
+}

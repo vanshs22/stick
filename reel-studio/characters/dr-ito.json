@@ -1,0 +1,46 @@
+{
+ "id": "dr-ito",
+ "name": "Dr Ito",
+ "kind": "human",
+ "role": "expert",
+ "silhouette": "a patient expert: silver hair, a teal coat, thin glasses",
+ "height_m": 1.7,
+ "look": {
+  "skin": "#E6BE9A",
+  "hair": "#B9BFC7",
+  "shirt": "#2F8F8A",
+  "pants": "#303642",
+  "shoes": "#D8D8D8",
+  "iris": "#35404A",
+  "hairStyle": "bob",
+  "glasses": "square",
+  "eyeScale": 0.92
+ },
+ "world": "home-studio",
+ "personality": "precise, kind, unhurried",
+ "default_emotion": "calm",
+ "emotion_range": [
+  "calm",
+  "happy",
+  "curious",
+  "surprised",
+  "worried",
+  "sad",
+  "angry",
+  "smirk",
+  "scared",
+  "relieved",
+  "determined"
+ ],
+ "voice": {
+  "gender": "female",
+  "tone": "precise, kind, unhurried",
+  "voice_id": "bf_emma",
+  "speed": 1.0
+ },
+ "do_not": [
+  "change hair, glasses or colours between shots",
+  "wear another character's silhouette"
+ ],
+ "locked": true
+}

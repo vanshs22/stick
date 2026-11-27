@@ -1,0 +1,15 @@
+{
+ "pack": "original-creatures",
+ "status": "stage3d",
+ "example": "experiment-critter",
+ "shots": [
+  "S01",
+  "S02",
+  "S05"
+ ],
+ "rendered_at": "2026-11-16T06:12:18.007Z",
+ "motion": "motion.mp4",
+ "sample": "sample.mp4",
+ "sample_source": "sample-original-creatures.mp4",
+ "sample_made_at": "2026-11-17T07:18:55.111Z"
+}

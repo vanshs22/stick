@@ -1,0 +1,94 @@
+{
+ "title": "Incognito is not invisible",
+ "language": "en",
+ "cast": {
+  "DAN": {
+   "gender": "male",
+   "tone": "playful",
+   "role": "confident, wrong"
+  },
+  "ZOE": {
+   "gender": "female",
+   "tone": "warm",
+   "role": "calm, right"
+  }
+ },
+ "est_seconds": 17,
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Incognito mode makes me invisible online, right?",
+   "speaker": "DAN",
+   "emotion": "curious",
+   "emphasis": [
+    "invisible"
+   ]
+  },
+  {
+   "id": "L02",
+   "beat": "stakes",
+   "text": "Wrong. Your boss, school and Wi-Fi may still see.",
+   "speaker": "ZOE",
+   "emotion": "determined",
+   "claims": [
+    "C1"
+   ],
+   "emphasis": [
+    "Wrong"
+   ]
+  },
+  {
+   "id": "L03",
+   "beat": "twist",
+   "text": "Wait, what?!",
+   "speaker": "DAN",
+   "emotion": "shock",
+   "pause_after": 0.1
+  },
+  {
+   "id": "L04",
+   "beat": "proof",
+   "text": "It only hides history from your browser.",
+   "speaker": "ZOE",
+   "emotion": "calm",
+   "claims": [
+    "C2"
+   ],
+   "emphasis": [
+    "history"
+   ]
+  },
+  {
+   "id": "L05",
+   "beat": "objection",
+   "text": "So my boss saw everything?!",
+   "speaker": "DAN",
+   "emotion": "fear",
+   "tts_text": "So... my boss saw everything?!",
+   "emphasis": [
+    "boss"
+   ]
+  },
+  {
+   "id": "L06",
+   "beat": "mechanism",
+   "text": "Maybe. Close that tab.",
+   "speaker": "ZOE",
+   "emotion": "sarcastic",
+   "emphasis": [
+    "tab"
+   ]
+  },
+  {
+   "id": "L07",
+   "beat": "cta",
+   "text": "Save this before incognito fools you. Comment HIDE.",
+   "speaker": "ZOE",
+   "emotion": "happy",
+   "emphasis": [
+    "HIDE"
+   ]
+  }
+ ]
+}

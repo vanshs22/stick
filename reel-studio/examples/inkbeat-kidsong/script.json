@@ -1,0 +1,47 @@
+{
+ "title": "Little star",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Hello little star.",
+   "emphasis": [
+    "star"
+   ],
+   "visual_hint": "",
+   "emotion": "happy"
+  },
+  {
+   "id": "L02",
+   "beat": "step",
+   "text": "Twinkle, twinkle.",
+   "emphasis": [
+    "twinkle"
+   ],
+   "visual_hint": "",
+   "emotion": "happy"
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "Sing it with me.",
+   "emphasis": [
+    "me"
+   ],
+   "visual_hint": "",
+   "emotion": "happy"
+  },
+  {
+   "id": "L04",
+   "beat": "cta",
+   "text": "Good night.",
+   "emphasis": [
+    "night"
+   ],
+   "visual_hint": "",
+   "emotion": "calm"
+  }
+ ],
+ "est_seconds": 8
+}

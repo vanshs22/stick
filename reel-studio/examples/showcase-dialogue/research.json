@@ -1,0 +1,63 @@
+{
+ "topic": "what the browser padlock does and does not mean",
+ "angle": "The padlock proves the connection is encrypted, not that the site is honest.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "In Google research from 2021 only 11 percent of study participants correctly understood the precise meaning of the lock icon.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "Nearly all phishing sites use HTTPS and therefore also display the lock icon.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C3",
+   "text": "Chrome replaced the lock icon with a neutral \"tune\" icon (announced May 2023, shipped from Chrome 117).",
+   "status": "verified",
+   "source_ids": [
+    "SRC1",
+    "SRC3"
+   ]
+  },
+  {
+   "id": "C4",
+   "text": "The lock icon only shows that the connection is secure; it does not show that the site is trustworthy.",
+   "status": "verified",
+   "source_ids": [
+    "SRC2",
+    "SRC1"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://blog.chromium.org/2023/05/an-update-on-lock-icon.html",
+   "title": "Chromium Blog: An Update on the Lock Icon",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC2",
+   "url": "https://blog.chromium.org/2021/07/increasing-https-adoption.html",
+   "title": "Chromium Blog: Increasing HTTPS adoption",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  },
+  {
+   "id": "SRC3",
+   "url": "https://www.bleepingcomputer.com/news/google/google-will-remove-secure-website-indicators-in-chrome-117/",
+   "title": "BleepingComputer: Google will remove secure website indicators in Chrome 117",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "secondary"
+  }
+ ]
+}

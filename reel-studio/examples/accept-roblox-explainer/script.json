@@ -1,0 +1,61 @@
+{
+ "title": "Why the second visit is fast",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Why does a website load instantly the second time?",
+   "emphasis": [
+    "instantly"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L02",
+   "beat": "setup",
+   "text": "Because a cache saves the answer.",
+   "emphasis": [
+    "cache"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L03",
+   "beat": "step",
+   "text": "The first visit is slow. It fetches everything.",
+   "emphasis": [
+    "slow"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L04",
+   "beat": "proof",
+   "text": "The next visit just reads the saved copy.",
+   "emphasis": [
+    "saved"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L05",
+   "beat": "cta",
+   "text": "Save this, and comment CACHE.",
+   "emphasis": [
+    "CACHE"
+   ],
+   "visual_hint": ""
+  }
+ ],
+ "est_seconds": 14
+}

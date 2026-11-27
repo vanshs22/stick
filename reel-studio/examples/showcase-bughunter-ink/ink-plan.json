@@ -1,0 +1,777 @@
+{
+ "_doc": "Inkbeat storyboard: shots and camera beats anchored to WORDS [line, word, nth] (line 0-based as in words.json). Beats start ~0.2 s before their word. Moves: PUSH PULL MACRO PUNCH ORBIT_L ORBIT_R CRANE_UP CRANE_DOWN DOLLY_L DOLLY_R TILT_UP TILT_DOWN WHIP SHAKE, or any move with a 'to' lens spec (a move between two framings).",
+ "title": "Claude BugHunter",
+ "tailSec": 0.7,
+ "accent": [
+  "hunter",
+  "hunt"
+ ],
+ "shots": [
+  {
+   "id": "S01",
+   "from": null,
+   "mood": "lamp",
+   "note": "hook: low hero, the question lands on 'senior bug hunter'",
+   "hero": {
+    "at": [
+     -0.9,
+     0,
+     -1.3
+    ],
+    "yaw": 0.7
+   },
+   "cam": {
+    "preset": "heroLow",
+    "side": -30,
+    "fov": 56
+   },
+   "acts": [
+    {
+     "at": null,
+     "face": {
+      "brows": "raised",
+      "mouth": "o",
+      "look": 0.3
+     },
+     "pose": {
+      "armR": [
+       70,
+       100
+      ],
+      "armRFwd": 40,
+      "headTilt": -6
+     }
+    },
+    {
+     "at": [
+      0,
+      "senior",
+      1
+     ],
+     "face": {
+      "brows": "neutral",
+      "mouth": "smirk"
+     }
+    }
+   ],
+   "beats": [
+    {
+     "at": [
+      0,
+      "Claude",
+      1
+     ],
+     "move": "PUSH"
+    },
+    {
+     "at": [
+      0,
+      "senior",
+      1
+     ],
+     "move": "ORBIT_R",
+     "deg": 18
+    },
+    {
+     "at": [
+      0,
+      "hunter?",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.15
+    }
+   ]
+  },
+  {
+   "id": "S02",
+   "from": [
+    1,
+    "One",
+    1
+   ],
+   "mood": "lamp",
+   "note": "80+ skills: the shelf is the key object, hero small in the lower third",
+   "hero": {
+    "at": [
+     -0.5,
+     0,
+     -1.3
+    ],
+    "yaw": 0.4
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      0.6,
+      1.5,
+      1.5
+     ],
+     "at": [
+      -1.8,
+      1.7,
+      -3.2
+     ],
+     "fov": 62,
+     "face": 0.45,
+     "near": 4.2
+    }
+   },
+   "acts": [
+    {
+     "at": null,
+     "face": {
+      "mouth": "grin",
+      "brows": "raised"
+     },
+     "pose": {
+      "armR": [
+       80,
+       20
+      ],
+      "armRFwd": 40
+     }
+    }
+   ],
+   "beats": [
+    {
+     "at": [
+      1,
+      "Claude",
+      1
+     ],
+     "move": "DOLLY_L",
+     "side": 0.35
+    },
+    {
+     "at": [
+      1,
+      "eighty",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.2
+    },
+    {
+     "at": [
+      1,
+      "skills.",
+      1
+     ],
+     "move": "MACRO",
+     "frac": 0.25
+    }
+   ],
+   "show": {
+    "tags": [
+     "shelf"
+    ]
+   }
+  },
+  {
+   "id": "S03",
+   "from": [
+    2,
+    "It",
+    1
+   ],
+   "mood": "golden",
+   "note": "8K stars: macro on the jar, orbit on 'eight thousand', punch on 'stars'",
+   "hero": {
+    "at": [
+     -0.9,
+     0,
+     -0.2
+    ],
+    "yaw": 0.4,
+    "hidden": true
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      -1.3,
+      1.45,
+      0.3
+     ],
+     "at": [
+      -2.55,
+      1.15,
+      -1.2
+     ],
+     "fov": 50,
+     "face": 0.42,
+     "near": 2.2
+    }
+   },
+   "blur": 2.2,
+   "focus": [
+    -2.55,
+    1.1,
+    -1.2
+   ],
+   "acts": [],
+   "beats": [
+    {
+     "at": [
+      2,
+      "called",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.1
+    },
+    {
+     "at": [
+      2,
+      "over",
+      1
+     ],
+     "move": "ORBIT_L",
+     "deg": 22
+    },
+    {
+     "at": [
+      2,
+      "stars.",
+      1
+     ],
+     "move": "PUNCH",
+     "frac": 0.12
+    }
+   ],
+   "show": {
+    "tags": [
+     "stars"
+    ]
+   }
+  },
+  {
+   "id": "S04",
+   "from": [
+    3,
+    "Install",
+    1
+   ],
+   "mood": "lamp",
+   "note": "install and describe: medium on the hero beside the glowing laptop",
+   "hero": {
+    "at": [
+     0.55,
+     0,
+     -1.9
+    ],
+    "yaw": 0.2
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      1.2,
+      1.5,
+      0.9
+     ],
+     "at": [
+      1.0,
+      1.35,
+      -2.2
+     ],
+     "fov": 62,
+     "face": 0.42,
+     "near": 3.2
+    }
+   },
+   "show": {
+    "screen": "> hunt acme.com"
+   },
+   "acts": [
+    {
+     "at": null,
+     "face": {
+      "mouth": "smile",
+      "brows": "neutral",
+      "look": 0.6
+     },
+     "pose": {
+      "armR": [
+       50,
+       90
+      ],
+      "armRFwd": 55,
+      "headNod": 6
+     }
+    }
+   ],
+   "beats": [
+    {
+     "at": [
+      3,
+      "Install",
+      1
+     ],
+     "move": "PUSH"
+    },
+    {
+     "at": [
+      3,
+      "describe",
+      1
+     ],
+     "move": "DOLLY_R",
+     "side": 0.12
+    },
+    {
+     "at": [
+      3,
+      "plain",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.1
+    }
+   ]
+  },
+  {
+   "id": "S05",
+   "from": [
+    4,
+    "The",
+    1
+   ],
+   "mood": "night",
+   "note": "the right skill loads by itself: three books glow and slide out",
+   "hero": {
+    "at": [
+     -0.9,
+     0,
+     -1.3
+    ],
+    "yaw": 0.4,
+    "hidden": true
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      -1.0,
+      1.8,
+      -0.2
+     ],
+     "at": [
+      -2.4,
+      2.0,
+      -3.5
+     ],
+     "fov": 55,
+     "face": 0.45,
+     "near": 3.4
+    }
+   },
+   "blur": 1.4,
+   "focus": [
+    -2.4,
+    2.0,
+    -3.6
+   ],
+   "show": {
+    "pop": 14.5,
+    "tags": [
+     "shelf"
+    ]
+   },
+   "acts": [],
+   "beats": [
+    {
+     "at": [
+      4,
+      "loads",
+      1
+     ],
+     "move": "CRANE_UP"
+    },
+    {
+     "at": [
+      4,
+      "recon,",
+      1
+     ],
+     "move": "ORBIT_R",
+     "deg": 16
+    },
+    {
+     "at": [
+      4,
+      "reporting.",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.14
+    }
+   ]
+  },
+  {
+   "id": "S06",
+   "from": [
+    5,
+    "Fifteen",
+    1
+   ],
+   "mood": "lamp",
+   "note": "15 commands then 681 reports: ONE move from the board to the cabinet",
+   "hero": {
+    "at": [
+     -0.9,
+     0,
+     -1.3
+    ],
+    "yaw": 0.4,
+    "hidden": true
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      1.2,
+      1.9,
+      -0.3
+     ],
+     "at": [
+      2.2,
+      2.6,
+      -3.9
+     ],
+     "fov": 52,
+     "face": 0.45,
+     "near": 3.8
+    }
+   },
+   "blur": 1.2,
+   "focus": [
+    2.2,
+    2.5,
+    -3.9
+   ],
+   "acts": [],
+   "beats": [
+    {
+     "at": [
+      5,
+      "commands,",
+      1
+     ],
+     "move": "PUNCH"
+    },
+    {
+     "at": [
+      5,
+      "six",
+      1
+     ],
+     "move": "DOLLY_R",
+     "dur": 0.9,
+     "to": {
+      "aim": {
+       "from": [
+        2.0,
+        1.4,
+        -0.5
+       ],
+       "at": [
+        3.3,
+        1.5,
+        -2.9
+       ],
+       "fov": 55,
+       "face": 0.45,
+       "near": 3.0
+      }
+     }
+    },
+    {
+     "at": [
+      5,
+      "report",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.12
+    },
+    {
+     "at": [
+      5,
+      "patterns.",
+      1
+     ],
+     "move": "PUNCH",
+     "frac": 0.1
+    }
+   ],
+   "show": {
+    "tags": [
+     "commands",
+     "reports"
+    ]
+   }
+  },
+  {
+   "id": "S07",
+   "from": [
+    6,
+    "And",
+    1
+   ],
+   "mood": "cold",
+   "note": "the gate: closed through the sentence, opens on 'submitted'",
+   "hero": {
+    "at": [
+     -1.0,
+     0,
+     -1.4
+    ],
+    "yaw": 0.95
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      1.6,
+      1.3,
+      1.9
+     ],
+     "at": [
+      0.0,
+      1.3,
+      -1.3
+     ],
+     "fov": 64,
+     "face": 0.42,
+     "near": 3.4
+    }
+   },
+   "blur": 1.6,
+   "focus": [
+    0.45,
+    1.2,
+    -1.3
+   ],
+   "show": {
+    "gate": 26.8,
+    "tags": []
+   },
+   "acts": [
+    {
+     "at": null,
+     "face": {
+      "mouth": "flat",
+      "brows": "worried",
+      "look": 0.8
+     },
+     "pose": {
+      "armL": [
+       8,
+       8
+      ],
+      "armR": [
+       8,
+       8
+      ],
+      "headTilt": 4
+     }
+    },
+    {
+     "at": [
+      6,
+      "submitted.",
+      1
+     ],
+     "face": {
+      "mouth": "smile",
+      "brows": "raised"
+     }
+    }
+   ],
+   "beats": [
+    {
+     "at": [
+      6,
+      "seven-question",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.12
+    },
+    {
+     "at": [
+      6,
+      "gate",
+      1
+     ],
+     "move": "ORBIT_L",
+     "deg": 15
+    },
+    {
+     "at": [
+      6,
+      "submitted.",
+      1
+     ],
+     "move": "PUNCH",
+     "frac": 0.1
+    }
+   ]
+  },
+  {
+   "id": "S08",
+   "from": [
+    7,
+    "It",
+    1
+   ],
+   "mood": "cold",
+   "note": "authorized only: the certificate on the wall, hero beside it",
+   "hero": {
+    "at": [
+     2.7,
+     0,
+     -0.5
+    ],
+    "yaw": -0.5
+   },
+   "cam": {
+    "aim": {
+     "from": [
+      1.3,
+      1.6,
+      1.6
+     ],
+     "at": [
+      3.2,
+      1.75,
+      -0.7
+     ],
+     "fov": 60,
+     "face": 0.45,
+     "near": 3.4
+    }
+   },
+   "blur": 1.4,
+   "focus": [
+    4.0,
+    1.9,
+    -1.2
+   ],
+   "acts": [
+    {
+     "at": null,
+     "face": {
+      "mouth": "smile",
+      "brows": "neutral"
+     },
+     "pose": {
+      "armR": [
+       60,
+       40
+      ],
+      "armRFwd": 30
+     }
+    }
+   ],
+   "beats": [
+    {
+     "at": [
+      7,
+      "only",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.08
+    },
+    {
+     "at": [
+      7,
+      "authorized",
+      1
+     ],
+     "move": "PUSH",
+     "frac": 0.08
+    },
+    {
+     "at": [
+      7,
+      "test.",
+      1
+     ],
+     "move": "PUNCH"
+    }
+   ]
+  },
+  {
+   "id": "S09",
+   "from": [
+    8,
+    "Comment",
+    1
+   ],
+   "mood": "golden",
+   "note": "payoff: hero low and big, arm up, the HUNT poster behind; pull back then punch on 'hunter'",
+   "hero": {
+    "at": [
+     -0.3,
+     0,
+     -1.0
+    ],
+    "yaw": 0.2
+   },
+   "cam": {
+    "preset": "heroLow",
+    "side": -20,
+    "fov": 58,
+    "fill": 0.45
+   },
+   "acts": [
+    {
+     "at": null,
+     "face": {
+      "mouth": "grin",
+      "brows": "raised",
+      "eyes": "wide"
+     },
+     "pose": {
+      "armR": [
+       150,
+       20
+      ],
+      "armRFwd": 20,
+      "armL": [
+       20,
+       20
+      ]
+     }
+    }
+   ],
+   "beats": [
+    {
+     "at": [
+      8,
+      "Comment",
+      1
+     ],
+     "move": "PUSH"
+    },
+    {
+     "at": [
+      8,
+      "start",
+      1
+     ],
+     "move": "ORBIT_L",
+     "deg": 18
+    },
+    {
+     "at": [
+      8,
+      "hunter.",
+      1
+     ],
+     "move": "PUNCH",
+     "frac": 0.14
+    }
+   ]
+  }
+ ]
+}

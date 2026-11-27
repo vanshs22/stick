@@ -1,0 +1,15 @@
+{
+ "pack": "editorial-notebook",
+ "status": "2d",
+ "example": "software-explainer",
+ "shots": [
+  "S01",
+  "S04",
+  "S06"
+ ],
+ "rendered_at": "2026-11-16T06:10:33.454Z",
+ "motion": "motion.mp4",
+ "sample": "sample.mp4",
+ "sample_source": "accept-software-demo.mp4",
+ "sample_made_at": "2026-11-17T07:18:38.573Z"
+}

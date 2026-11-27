@@ -1,0 +1,28 @@
+export type Word = {w: string; t: number; hi: boolean; e?: string};   // e: an emoji shown right after the word (assets/emoji/<codepoints>.png)
+export type Chunk = {t0: number; t1: number; words: Word[]};
+export type Shot = {
+  id: string;
+  start: number; // seconds, film time
+  end: number;
+  component: string;
+  blocks?: {src: string; id?: string; vars?: Record<string, string>; at?: number}[]; // HyperFrames-style overlay blocks (HtmlBlock) on top of any shot
+  props: Record<string, any>;
+  lines: string[];
+  anchors: Record<string, number>; // name -> film time of the spoken word
+  camera?: {framing?: string; movement?: string; focus?: string};
+  transition_out?: {type?: string; sound?: string};
+  intent?: string;
+  bgImage?: {src: string; scrim?: 'dark' | 'light'; dim?: number; blur?: number; zoom?: number; focus?: [number, number]; flip?: boolean}; // a real photo behind the shot (public path, e.g. assets/bg/city.jpg): slow ken-burns + a dark scrim so text stays readable
+  bg?: string; // 'paper' | a name from style.json bgs | a hex colour
+  speaker?: string; // shown as a tag above dialogue captions
+  presenter?: {pose?: string; mood?: string; hidden?: boolean; look?: Record<string, any>};
+  overlays?: Overlay[];
+};
+export type Overlay = {type: string; anchor?: string; at?: number; x?: number; y?: number; place?: 'dock' | 'strip' | 'card' | 'free'; [k: string]: any};
+export type Timeline = {
+  fps: number; width: number; height: number; duration: number; style: string; audio: string;
+  shots: Shot[];
+  captions: {preset: string; chunks: Chunk[]};
+  words: {w: string; line: number; s: number; e: number; speaker?: string}[];
+};
+export type ShotProps = {shot: Shot} & Record<string, any>;

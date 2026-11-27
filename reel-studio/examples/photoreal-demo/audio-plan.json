@@ -1,0 +1,18 @@
+{
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 0.95,
+  "pronunciations": {}
+ },
+ "music": {
+  "direction": "cinematic",
+  "bed": "genre:cinematic@72",
+  "gain_db": -1
+ },
+ "mix": {
+  "target_lufs": -14,
+  "true_peak_db": -1.5
+ },
+ "mode": "narrated_music"
+}

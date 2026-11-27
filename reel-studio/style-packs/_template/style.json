@@ -1,0 +1,19 @@
+{
+  "id": "template",
+  "name": "Template",
+  "family": "2d",
+  "description": "Copy this folder, rename it, fill every field. One line on the look and what it is best for.",
+  "tokens": {
+    "colors": {"bg": "#FAF9F5", "ink": "#141413", "ink2": "#3D3D3A", "muted": "#8C8A82", "card": "#FFFFFF", "accent": "#D97757", "accentSoft": "#F6E3D9", "good": "#4E9A5B", "bad": "#C94A3A"},
+    "fonts": {"sans": "Inter", "serif": "InstrumentSerif", "mono": "JetBrainsMono"},
+    "safe_zone": {"top": 180, "bottom": 1380, "caption_y": 1440, "right_margin": 120}
+  },
+  "rules": ["One accent colour, used for the single most important word or number per shot.", "Shots last 1.5 to 3.5 seconds.", "Captions: word-pop, one accent word."],
+  "components": ["TitleCard", "BigStat"],
+  "camera_language": "Slow push-ins only; no handheld.",
+  "typography": "Sans headlines, italic serif accent word, mono labels.",
+  "transitions": ["cut", "mask-reveal"],
+  "audio_direction": "upbeat bed, soft pops and ticks, no loud effects",
+  "pitfalls": ["Text over busy images without a plate."],
+  "references": []
+}

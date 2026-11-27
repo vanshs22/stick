@@ -1,0 +1,237 @@
+{
+ "type": "object",
+ "required": [
+  "style_pack",
+  "shots"
+ ],
+ "properties": {
+  "style_pack": {
+   "type": "string",
+   "minLength": 1
+  },
+  "shots": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "line_ids",
+     "visual_intent",
+     "shot_type",
+     "component"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^S\\d{2,3}$"
+     },
+     "line_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "pattern": "^L\\d{2,3}$"
+      },
+      "minItems": 1
+     },
+     "visual_intent": {
+      "type": "string",
+      "minLength": 1
+     },
+     "shot_type": {
+      "type": "string",
+      "enum": [
+       "screen-demo",
+       "ui",
+       "diagram",
+       "data",
+       "3d-scene",
+       "character",
+       "typography",
+       "evidence",
+       "metaphor",
+       "mixed"
+      ]
+     },
+     "component": {
+      "type": "string",
+      "minLength": 1
+     },
+     "props": {
+      "type": "object"
+     },
+     "evidence": {
+      "type": "object",
+      "required": [],
+      "properties": {
+       "required": {
+        "type": "boolean"
+       },
+       "source_id": {
+        "type": "string"
+       },
+       "capture_actions": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "asset_id": {
+        "type": "string"
+       }
+      }
+     },
+     "camera": {
+      "type": "object",
+      "required": [],
+      "properties": {
+       "framing": {
+        "type": "string"
+       },
+       "movement": {
+        "type": "string"
+       },
+       "focus": {
+        "type": "string"
+       }
+      }
+     },
+     "anchors": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "name",
+        "line",
+        "word"
+       ],
+       "properties": {
+        "name": {
+         "type": "string",
+         "minLength": 1
+        },
+        "line": {
+         "type": "string",
+         "pattern": "^L\\d{2,3}$"
+        },
+        "word": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     },
+     "overlay": {
+      "type": "object"
+     },
+     "transition_out": {
+      "type": "object",
+      "required": [],
+      "properties": {
+       "type": {
+        "type": "string"
+       },
+       "sound": {
+        "type": "string"
+       }
+      }
+     },
+     "sfx": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "type"
+       ],
+       "properties": {
+        "type": {
+         "type": "string",
+         "minLength": 1
+        },
+        "anchor": {
+         "type": "string"
+        },
+        "offset": {
+         "type": "number"
+        },
+        "at": {
+         "type": "string",
+         "enum": [
+          "start",
+          "end"
+         ]
+        },
+        "gain": {
+         "type": "number",
+         "minimum": 0,
+         "maximum": 1.5
+        },
+        "dur": {
+         "type": "number"
+        }
+       }
+      }
+     },
+     "bg": {
+      "type": "string"
+     },
+     "speaker": {
+      "type": "string"
+     },
+     "presenter": {
+      "type": "object"
+     },
+     "overlays": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "type"
+       ],
+       "properties": {
+        "type": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     },
+     "notes": {
+      "type": "string"
+     },
+     "approach": {
+      "type": "string",
+      "enum": [
+       "screenshot",
+       "designed-ui",
+       "motion-graphics",
+       "character-3d",
+       "physical-3d",
+       "metaphor-env",
+       "data-viz",
+       "evidence-card",
+       "combo"
+      ],
+      "description": "What kind of picture carries the line."
+     },
+     "why_renderer": {
+      "type": "string",
+      "description": "Why this renderer/component suits the idea (the critic rejects DRAFT or empty reasons)."
+     },
+     "layers": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "For approach 'combo': the layers combined (e.g. 3d character, real capture, 2d overlay)."
+     },
+     "deviation_reason": {
+      "type": "string"
+     }
+    }
+   },
+   "minItems": 3
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "storyboard"
+}

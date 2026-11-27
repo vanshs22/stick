@@ -1,0 +1,207 @@
+{
+ "style_pack": "photoreal-cine",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "A slow push on the chair: the object is the story, the plate is a real lens with depth of field.",
+   "shot_type": "3d-scene",
+   "component": "PlateShot",
+   "approach": "physical-3d",
+   "why_renderer": "A slow push on the chair: the object is the story, the plate is a real lens with depth of field.",
+   "props": {
+    "plate": "assets/plates/plate-a.jpg",
+    "depth": "assets/plates/plate-a.depth.png",
+    "overscan": 0.12,
+    "move": {
+     "kind": "push",
+     "amount": 0.6
+    },
+    "grain": 0.012
+   },
+   "anchors": [
+    {
+     "name": "ten",
+     "line": "L01",
+     "word": "ten"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "10 YEARS",
+     "x": 0.76,
+     "y": 0.2,
+     "place": "free",
+     "anchor": "ten",
+     "rotate": -4,
+     "size": 54
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "ten",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "hold the picture"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "paper",
+   "visual_intent": "A small orbit reveals the frame and the seat: the parallax shows depth a flat picture cannot.",
+   "shot_type": "3d-scene",
+   "component": "PlateShot",
+   "approach": "physical-3d",
+   "why_renderer": "A small orbit reveals the frame and the seat: the parallax shows depth a flat picture cannot.",
+   "props": {
+    "plate": "assets/plates/plate-b.jpg",
+    "depth": "assets/plates/plate-b.depth.png",
+    "overscan": 0.12,
+    "move": {
+     "kind": "orbit-right",
+     "amount": 0.6
+    },
+    "grain": 0.012
+   },
+   "anchors": [
+    {
+     "name": "Oak",
+     "line": "L02",
+     "word": "Oak"
+    },
+    {
+     "name": "screw",
+     "line": "L02",
+     "word": "screw"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "callout",
+     "text": "oak + leather",
+     "x": 0.2,
+     "y": 0.22,
+     "place": "free",
+     "anchor": "Oak",
+     "size": 40
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "Oak",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "hold the picture"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "dark",
+   "visual_intent": "the cost of one photoreal frame, as a number",
+   "shot_type": "typography",
+   "component": "BigStat",
+   "approach": "motion-graphics",
+   "why_renderer": "The line claims every pixel is path traced; the number that matters to a maker is what one frame costs. This was measured by tools/photoreal.mjs doctor on an 8-core CPU, no GPU.",
+   "props": {
+    "value": 55,
+    "suffix": " s",
+    "label": "per 1080p frame, 8 CPU cores, no GPU",
+    "anchor": "pixel"
+   },
+   "anchors": [
+    {
+     "name": "pixel",
+     "line": "L03",
+     "word": "pixel"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "pixel",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "back to the picture"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "The closing shot returns to the first plate with an orbit the other way: the same object, a new angle, proving the camera is free.",
+   "shot_type": "3d-scene",
+   "component": "PlateShot",
+   "approach": "physical-3d",
+   "why_renderer": "The closing shot returns to the first plate with an orbit the other way: the same object, a new angle, proving the camera is free.",
+   "props": {
+    "plate": "assets/plates/plate-c.jpg",
+    "depth": "assets/plates/plate-c.depth.png",
+    "overscan": 0.12,
+    "move": {
+     "kind": "orbit-left",
+     "amount": 0.5
+    },
+    "grain": 0.012
+   },
+   "anchors": [
+    {
+     "name": "Any",
+     "line": "L04",
+     "word": "Any"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "Any",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "hold the picture"
+   },
+   "presenter": {
+    "hidden": true
+   }
+  }
+ ]
+}

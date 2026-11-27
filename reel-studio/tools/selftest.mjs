@@ -1,0 +1,94 @@
+#!/usr/bin/env node
+// Does this install work?  node tools/selftest.mjs [--full]
+// Fast (about 20 s): approval workflow, cinematography solver, example storyboards, critics on a good and a bad fixture, audio measurement.
+// --full adds (need Chrome and the Kokoro files): real voice casting and emotion, a voice sample, Playwright capture on a local page, the HTML/GSAP/HyperFrames/remocn adapters, one rendered 3D still.
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { TK, PY, run, syncProject, timing, stills } from './lib/pipeline.mjs';
+const full = process.argv.includes('--full'), res = [];
+const t = async (name, fn) => { try { const m = await fn(); res.push([true, name, m || '']); } catch (e) { res.push([false, name, String(e.message || e).split('\n').slice(0, 4).join(' | ')]); } };
+const sh = (cmd, args, o) => { const r = run(cmd, args, o); if (r.status) throw new Error((r.stderr || r.stdout || `exit ${r.status}`).trim().slice(-400)); return r.stdout; };
+const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'reel-selftest-'));
+
+await t('approval workflow (gates, stale approvals, receipts)', () => sh('node', [path.join(TK, 'tools/selftest_state.mjs')]).trim().split('\n').pop());
+await t('pipeline end-to-end: approval chain, final fingerprints, delivery profile, audio gates, visual critic, assets, readiness', () => sh('node', [path.join(TK, 'tools/selftest_pipeline.mjs')]).trim().split('\n').pop());
+await t('every tool script parses (a syntax error in any .mjs/.py tool is caught here)', () => { const bad = []; const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (/node_modules|\.venv|\.bin|remotion-template|reel-projects/.test(e.name) ? [] : e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)])); for (const f of [...walk(path.join(TK, 'tools')), ...walk(path.join(TK, 'scripts'))]) { if (f.endsWith('.mjs') && run('node', ['--check', f]).status) bad.push(path.relative(TK, f)); if (f.endsWith('.py') && run(PY, ['-c', `import ast,sys;ast.parse(open(sys.argv[1],encoding='utf8').read())`, f]).status) bad.push(path.relative(TK, f)); } if (bad.length) throw new Error('unparseable: ' + bad.join(', ')); return 'all tools parse'; });
+await t('v2 contracts: camera, caption, cast, world, upgrade, scorecard, style-dna schemas reject planted defects; packs still valid', () => sh('node', [path.join(TK, 'tools/selftest_schemas.mjs')]).trim().split('\n').pop());
+await t('voice casting rules (gender match, unique voices)', () => sh('node', [path.join(TK, 'tools/selftest_voice.mjs')]).trim().split('\n').slice(-2).join(' | '));
+await t('story craft lint + 3D look as data (ink_look validator, example file)', () => { sh('node', [path.join(TK, 'tools/selftest_story.mjs')]); const ex = JSON.parse(fs.readFileSync(path.join(TK, 'skills/style-studio/ink-variants.example.json'), 'utf8')); const r = sh('node', [path.join(TK, 'tools/ink/look_check.mjs'), path.join(TK, 'skills/style-studio/ink-variants.example.json')]); return 'story lint ok; ' + ex.length + ' example look(s)'; });
+await t('overlay brain: device rules, skins, budget, and the critic notices a number with no picture', () => sh('node', [path.join(TK, 'tools/selftest_overlay_brain.mjs')], { timeout: 300000 }).trim().split('\n').pop().slice(0, 150));
+await t('music genres: tempo, audible beat, spectrum, level (7 genres)', () => sh('node', [path.join(TK, 'tools/selftest_music.mjs')], { timeout: 300000 }).trim().split('\n').pop().slice(0, 140));
+await t('the six locked characters match their schema and every emotion has a face', () => { const d = path.join(TK, 'characters'), fs_ = fs.readdirSync(d).filter((f) => f.endsWith('.json')); if (fs_.length < 6) throw new Error('fewer than 6 characters'); for (const f of fs_) { sh('node', [path.join(TK, 'tools/validate.mjs'), 'character', path.join(d, f)]); } const G = fs.readFileSync(path.join(TK, 'remotion-template/src/three/gestures.js'), 'utf8'); for (const m of ['calm', 'happy', 'surprised', 'worried', 'sad', 'angry', 'smirk', 'scared', 'determined']) if (!new RegExp(`\\b${m}:`).test(G)) throw new Error('no mood ' + m); return `${fs_.length} characters, 9 moods`; });
+await t('emoji pictures: code points and the caption word carry them', () => { const T = fs.readFileSync(path.join(TK, 'tools/timing/build_timeline.mjs'), 'utf8'), C = fs.readFileSync(path.join(TK, 'remotion-template/src/engine/Captions.tsx'), 'utf8'); if (!/emj\[norm/.test(T) || !/<Emo e=/.test(C)) throw new Error('emoji wiring missing'); return 'timeline + caption wiring present'; });
+await t('photoreal engine: scene renderer, doctor and PlateShot are present; Blender renders when installed', () => { for (const f of ['renderers/blender/render_scene.py', 'tools/photoreal.mjs', 'remotion-template/src/components/PlateShot.tsx', 'docs/PHOTOREAL.md']) if (!fs.existsSync(path.join(TK, f))) throw new Error('missing ' + f); if (!fs.existsSync(path.join(TK, '.venv-blender'))) return 'files present (Blender not installed here: bash install.sh --with-photoreal)'; return sh('node', [path.join(TK, 'tools/photoreal.mjs'), 'doctor'], { timeout: 300000 }).trim().slice(0, 140); });
+await t('youtube package + critic (chapters, SRT, thumbnail; planted defects caught)', () => sh('node', [path.join(TK, 'tools/selftest_youtube.mjs')]).trim().split('\n').pop().slice(0, 140));
+await t('landscape overlay placement by role is in the template (the measured proof is the --full layout lab)', () => { const T = fs.readFileSync(path.join(TK, 'remotion-template/src/engine/Overlays.tsx'), 'utf8'), S = fs.readFileSync(path.join(TK, 'remotion-template/src/engine/ShotRouter.tsx'), 'utf8'); if (!/DOCKED/.test(T) || !/export const STRIP/.test(T) || !/DOCK\.v/.test(S)) throw new Error('landscape overlay placement is missing'); return 'placement by role present'; });
+await t('viral script rubric (weak flagged, strong passes, TODO plan refused)', () => sh('node', [path.join(TK, 'tools/selftest_viral.mjs')]).trim().split('\n').pop().slice(0, 140));
+await t('style reference chain (brief measured and validated, map honest about gaps, style check)', () => sh('node', [path.join(TK, 'tools/selftest_style.mjs')]).trim().split('\n').pop().slice(0, 150));
+await t('twist engine: copy-without-twist fails, a real twist passes', () => sh('node', [path.join(TK, 'tools/selftest_twist.mjs')]).trim().split('\n').pop());
+await t('inkbeat plan: anchors resolve to word times, pacing is measured', () => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'ink-')), ex = path.join(TK, 'examples/showcase-bughunter-ink'), o = sh('node', [path.join(TK, 'tools/ink/plan.mjs'), path.join(ex, 'ink-plan.json'), path.join(ex, 'words.json'), d]); const m = /= (\d+)\/min/.exec(o); if (!/9 shots/.test(o) || !m || +m[1] < 45 || +m[1] > 70 || !fs.existsSync(path.join(d, 'src/story/plan.gen.ts'))) throw new Error(o); return o.split('\n')[0].slice(0, 140); });
+await t('every style pack names a known cadence profile (common camera grammar)', () => { const pr = JSON.parse(fs.readFileSync(path.join(TK, 'skills/camera-grammar/profiles.json'), 'utf8')), bad = []; let n = 0; for (const d of fs.readdirSync(path.join(TK, 'style-packs'))) { const f = path.join(TK, 'style-packs', d, 'style.json'); if (d.startsWith('_') || !fs.existsSync(f)) continue; n++; const c = JSON.parse(fs.readFileSync(f, 'utf8')).cadence; if (!pr[c]) bad.push(`${d}:${c}`); } if (bad.length) throw new Error('no/unknown cadence: ' + bad.join(', ')); return `${n} packs, ${Object.keys(pr).filter((x) => x[0] !== '_').length} profiles`; });
+await t('every style works in both layouts: packs declare 9:16 and 16:9, no layout code hard-codes 1080x1920', () => { const bad = []; for (const d of fs.readdirSync(path.join(TK, 'style-packs'))) { const f = path.join(TK, 'style-packs', d, 'style.json'); if (d.startsWith('_') || !fs.existsSync(f)) continue; const fm = JSON.parse(fs.readFileSync(f, 'utf8')).formats || []; if (!(fm.includes('9:16') && fm.includes('16:9'))) bad.push(d); }
+  const hard = []; for (const dir of ['engine', 'components']) for (const f of fs.readdirSync(path.join(TK, 'remotion-template/src', dir))) if (f !== 'tokens.ts' && /\.(tsx?|jsx?)$/.test(f)) fs.readFileSync(path.join(TK, 'remotion-template/src', dir, f), 'utf8').split('\n').forEach((l, i) => { if (!/^\s*(\/\/|\*|\/\*)/.test(l) && /\b(1920|1080)\b/.test(l.replace(/\/\*.*?\*\//g, '').replace(/\/\/.*$/, ''))) hard.push(`${dir}/${f}:${i + 1}`); });
+  if (bad.length || hard.length) throw new Error(`packs without both formats: ${bad.join(', ') || 'none'}; hard-coded frame size: ${hard.join(', ') || 'none'}`); return 'all packs declare both, layout code is frame-size free'; });
+await t('highlights follow the capture of the layout (sync_highlights)', () => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'hl-')); fs.mkdirSync(path.join(d, 'storyboard'), { recursive: true }); fs.mkdirSync(path.join(d, 'assets/web/x'), { recursive: true });
+  fs.writeFileSync(path.join(d, 'storyboard/storyboard.json'), JSON.stringify({ shots: [{ id: 'S01', props: { image: 'assets/web/x/page.png', highlight: { x: 0.1, y: 0.3, w: 0.5, h: 0.2 } } }, { id: 'S02', props: { image: 'assets/web/x/page.png', highlight_manual: true, highlight: { x: 0.1, y: 0.3, w: 0.5, h: 0.2 } } }] }));
+  fs.writeFileSync(path.join(d, 'assets/web/x/capture.json'), JSON.stringify({ highlights: { a: { x: 0.06, y: 0.39, w: 0.54, h: 0.22 } } }));
+  sh('node', [path.join(TK, 'tools/sync_highlights.mjs'), d]); const o = JSON.parse(fs.readFileSync(path.join(d, 'storyboard/storyboard.json'), 'utf8')).shots; if (o[0].props.highlight.y !== 0.39 || o[1].props.highlight.y !== 0.3) throw new Error('highlight not synced / manual shot changed'); return 'follows the capture, leaves highlight_manual alone'; });
+await t('cinematography solver and critic', () => sh('node', [path.join(TK, 'tools/selftest_cinematography.mjs')]).trim().split('\n').pop());
+await t('example projects are present', () => {
+  const ex = fs.readdirSync(path.join(TK, 'examples')).filter((d) => fs.existsSync(path.join(TK, 'examples', d, 'storyboard.json')) || fs.existsSync(path.join(TK, 'examples', d, 'storyboard/storyboard.json')));
+  if (!ex.length) throw new Error('no examples'); return `${ex.length} examples found`;
+});
+await t('script critic: catches a bad script, passes a good one', async () => {
+  const mk = (name, lines) => { const P = path.join(tmp, name); fs.mkdirSync(path.join(P, 'script'), { recursive: true }); fs.writeFileSync(path.join(P, 'brief.json'), JSON.stringify({ duration_sec: 20 })); fs.writeFileSync(path.join(P, 'script/script.json'), JSON.stringify({ title: 't', lines: lines.map((x, i) => ({ id: `L0${i + 1}`, text: x, beat: 'x' })) })); return P; };
+  const { run: scriptCritic } = await import('./critics/script.mjs'); const log = console.log; console.log = () => {};
+  try {
+    const bad = await scriptCritic(mk('bad', ['Hello everyone and welcome back to my channel today.', 'It works fine.', 'It works fine.']));
+    const good = await scriptCritic(mk('good', ['Why did my box show up with no sender?', 'I opened it slowly.', 'Inside was a golden key.']));
+    if (bad.verdict === 'pass') throw new Error('bad script passed'); if (good.verdict !== 'pass') throw new Error('good script failed: ' + JSON.stringify(good.findings.map((f) => f.problem)));
+  } finally { console.log = log; }
+  return 'bad=revise good=pass';
+});
+await t('research critic: flags a claim with a missing source', async () => {
+  const P = path.join(tmp, 'res'); fs.mkdirSync(path.join(P, 'research'), { recursive: true }); fs.writeFileSync(path.join(P, 'research/research.json'), JSON.stringify({ sources: [{ id: 's1', url: 'https://a.example/x' }], claims: [{ id: 'C1', text: 'x', source_ids: ['nope'] }] }));
+  const { run: r } = await import('./critics/research.mjs'); const log = console.log; console.log = () => {}; let out; try { out = await r(P, { online: false }); } finally { console.log = log; }
+  if (!out.findings.some((f) => /does not exist/.test(f.problem))) throw new Error('missing-source claim not flagged');
+});
+await t('remocn: the registry index parses and search ranks by use-for text (offline sample)', async () => {
+  const { parseIndex, score } = await import('./remocn.mjs'); const sample = '## Typography\n\n| Component | Use for | Avoid for | Length | Vibe | Tier | Deps | Docs |\n|---|---|---|---|---|---|---|---|\n | `soft-blur-in` | A hero headline needs the soft reveal. | You want a hard exit. | 60f | premium | remocn | — | [docs](https://remocn.dev/docs/typography/soft-blur-in.md) | \n | `claude-code` | Depicting a coding-agent terminal. | Generic terminal. | 160f | tech | remocn | `@remocn/caret` | [docs](https://remocn.dev/docs/ai/claude-code.md) | \n';
+  const e = parseIndex(sample); if (e.length !== 2 || e[0].name !== 'soft-blur-in' || e[1].deps[0] !== '@remocn/caret' || e[0].length !== '60f') throw new Error('index not parsed: ' + JSON.stringify(e));
+  if (score(e[0], 'headline reveal') <= score(e[1], 'headline reveal')) throw new Error('search ranking wrong');
+});
+await t('next + scaffold: a fresh project asks for intake; a script becomes a valid draft storyboard', async () => {
+  const P = path.join(tmp, 'nx'); sh('node', [path.join(TK, 'tools/new_project.mjs'), 'nx', '--dir', tmp]); const n1 = sh('node', [path.join(TK, 'tools/next.mjs'), P]); if (!/NEXT: intake/.test(n1)) throw new Error('next.mjs did not ask for intake: ' + n1.slice(0, 120));
+  fs.writeFileSync(path.join(P, 'brief.json'), JSON.stringify({ title: 'T', topic: 't', platform: 'instagram-reels', duration_sec: 20, language: 'en', style_pack: 'stickman-3d', cta: { keyword: 'GO' } }));
+  fs.mkdirSync(path.join(P, 'script'), { recursive: true }); fs.writeFileSync(path.join(P, 'script/script.json'), JSON.stringify({ title: 'T', language: 'en', lines: [{ id: 'L01', text: 'Why is this so hard?', beat: 'hook' }, { id: 'L02', text: 'Run npx remotion render now.', beat: 'step' }, { id: 'L03', text: 'Comment GO for the link.', beat: 'cta' }] }));
+  sh('node', [path.join(TK, 'tools/scaffold_storyboard.mjs'), P]); const sb = JSON.parse(fs.readFileSync(path.join(P, 'storyboard/storyboard.json'), 'utf8')), man = JSON.parse(fs.readFileSync(path.join(TK, 'remotion-template/src/components/manifest.json'), 'utf8')).components;
+  if (sb.shots.length !== 3 || sb.shots.some((x) => !man[x.component])) throw new Error('bad draft: ' + sb.shots.map((x) => x.component)); if (sb.shots[1].component !== 'Terminal' || sb.shots[2].component !== 'EndCard') throw new Error('expected Terminal then EndCard, got ' + sb.shots.map((x) => x.component));
+});
+await t('vision critic refuses to claim it looked when it did not', () => {
+  const P = path.join(tmp, 'vis'), sb = path.join(P, 'review/storyboard'); fs.mkdirSync(sb, { recursive: true });
+  for (const n of ['S01', 'S02', 'S03']) sh('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'color=c=gray:s=32x32:d=0.1', '-frames:v', '1', path.join(sb, `${n}.png`)]);
+  sh('node', [path.join(TK, 'tools/critique.mjs'), P, 'vision', '--packet', 'camera']); fs.writeFileSync(path.join(P, 'f.json'), JSON.stringify({ inspected: [], findings: [] }));
+  const r = run('node', [path.join(TK, 'tools/critique.mjs'), P, 'vision', '--submit', 'camera', '--file', path.join(P, 'f.json')]); if (r.status === 0 || !/inspected/.test(r.stderr)) throw new Error('empty submission accepted or rejected for the wrong reason: ' + r.stderr.slice(0, 200));
+});
+await t('python side: numpy, scipy, opencv, pillow import', () => { sh(PY, ['-c', 'import numpy, scipy, cv2, PIL; print("ok")']); });
+await t('ffmpeg works (and a 1 s test clip can be made)', () => { sh('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'color=c=red:s=64x64:d=1', path.join(tmp, 't.mp4')]); if (!fs.existsSync(path.join(tmp, 't.mp4'))) throw new Error('no output'); });
+if (full) {
+  await t('layout lab: all 28 card shots in 16:9 AND 9:16, measured (no text cut off, no tag over a card\'s words, cards inside their zone)', () => sh('node', [path.join(TK, 'tools/layout_lab.mjs'), '--aspect', 'both', '--at', '0.8', '--out', path.join(tmp, 'lab')], { timeout: 1700000 }).trim().split('\n').filter((l) => /^(pass|revise|fail)/.test(l)).join(' | '));
+  await t('voice sample (Kokoro)', () => { const P = path.join(tmp, 'v'); fs.mkdirSync(path.join(P, 'data'), { recursive: true }); fs.writeFileSync(path.join(P, 'data/tts.json'), JSON.stringify({ lines: [{ id: 'L01', text: 'This is a test of the voice.' }] })); sh(PY, [path.join(TK, 'tools/audio/voice.py'), '.'], { cwd: P, env: { ...process.env, TTS_SCRIPT: 'data/tts.json' } }); if (!fs.existsSync(path.join(P, 'data/narration.wav'))) throw new Error('no narration.wav'); });
+  await t('audio chain: Kokoro voice, faster-whisper alignment, event-tied cues, mix levels', () => sh('node', [path.join(TK, 'tools/selftest_audio.mjs')], { timeout: 900000 }).trim().split('\n').filter(Boolean).pop());
+  await t('Playwright capture (local page): actions, scroll, wait, recording, provenance, honest failures', () => sh('node', [path.join(TK, 'tools/selftest_capture.mjs')]).trim().split('\n').pop());
+  await t('reference ingestion: MP4, MOV, image, website, repo, video URL (known material)', () => sh('node', [path.join(TK, 'tools/selftest_reference.mjs')], { timeout: 900000 }).trim().split('\n').filter(Boolean).pop());
+  await t('HTML/GSAP + HyperFrames + remocn adapters: deterministic frames through the real renderer', () => sh('node', [path.join(TK, 'tools/selftest_hyperframes.mjs')], { timeout: 1500000 }).trim().split('\n').filter(Boolean).pop());
+  await t('one rendered 3D still (stickman-3d example)', () => {
+    sh('node', [path.join(TK, 'tools/run_example.mjs'), 'experiment-stick', 'st', '--dir', tmp], { env: { ...process.env, REEL_TEST_MODE: '1' } });
+    const P = path.join(tmp, 'st'); syncProject(P); timing(P); stills(P, ['S01']);
+    const f = path.join(P, 'review/storyboard/S01.png'); if (!fs.existsSync(f) || fs.statSync(f).size < 20000) throw new Error('still missing or empty'); return `${fs.statSync(f).size} bytes`;
+  });
+}
+fs.rmSync(tmp, { recursive: true, force: true });
+for (const [ok, n, m] of res) console.log(`${ok ? 'PASS' : 'FAIL'}  ${n}${m ? '  ' + m : ''}`);
+const bad = res.filter((r) => !r[0]).length; console.log(bad ? `\n${bad} check(s) failed. See TROUBLESHOOTING.md or run: node tools/doctor.mjs` : `\nAll ${res.length} checks passed.`); process.exit(bad ? 1 : 0);

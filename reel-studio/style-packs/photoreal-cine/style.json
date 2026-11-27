@@ -1,0 +1,80 @@
+{
+  "id": "photoreal-cine",
+  "name": "Photoreal cinematic (Blender plates)",
+  "family": "3d",
+  "cadence": "film-cinematic",
+  "formats": [
+    "16:9",
+    "9:16"
+  ],
+  "description": "Path-traced plates from the Blender engine with real lenses and depth of field, moved by depth-parallax camera moves. Dark neutral grade, glass cards, one warm accent. No people (see docs/PHOTOREAL.md).",
+  "tokens": {
+    "colors": {
+      "bg": "#0B0C10",
+      "ink": "#F3F1EA",
+      "ink2": "#CFCBC0",
+      "muted": "#8E8C85",
+      "card": "#15171D",
+      "accent": "#F2A23A",
+      "accentSoft": "#F2A23A33",
+      "good": "#5CC48A",
+      "bad": "#E5604D"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120
+    },
+    "chrome": "glass",
+    "caption": {
+      "fill": "#FFFFFF",
+      "stroke": "rgba(6,6,10,0.92)"
+    }
+  },
+  "effects": {
+    "vignette": 0.18,
+    "grain": 0.05
+  },
+  "rules": [
+    "The picture is a path-traced plate: HDRI light, PBR materials, a real lens (35-50 mm look, f/1.8-2.8) with depth of field. Never flat-lit.",
+    "One warm accent, used on the single most important word; the rest is neutral.",
+    "Camera moves are slow and motivated (push 4-12 percent, orbit under 8 degrees, crane under 10 percent); a hold of 2.5 s is fine. No whip pans on parallax plates.",
+    "Cards are glass panels placed beside or below the subject, never over it. Overlays dock to the card edge.",
+    "Grade: AgX, lifted blacks, bloom only on highlights, fine grain. Keep skin tones out: this engine has no people."
+  ],
+  "components": [
+    "RouteMap",
+    "Timeline",
+    "EvidenceCard",
+    "ProofCard",
+    "TitleCard",
+    "Stamp",
+    "BigStat"
+  ],
+  "camera_language": "Slow push-ins on the subject, one orbit reveal per scene, rack focus between foreground and subject via the focus point, handheld 0.2-0.4 for documentary feel.",
+  "typography": "Serif italic for places, mono for dates.",
+  "transitions": [
+    "fade",
+    "cut",
+    "wipe"
+  ],
+  "audio_direction": "calm bed, paper slide whooshes, stamp on dates",
+  "pitfalls": [
+    "Parallax over 8 degrees tears edges at depth jumps: use a Blender sequence for bigger moves.",
+    "A flat HDRI with no key light looks like a catalogue; add one warm area light for direction.",
+    "Over-bloom turns glass into fog; keep bloom under 0.35."
+  ],
+  "references": [
+    "faceless-shorts paper-atlas"
+  ],
+  "defaults": {
+    "captions": "phrase",
+    "music": "bed"
+  }
+}

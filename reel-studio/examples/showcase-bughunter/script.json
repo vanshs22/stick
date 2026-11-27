@@ -1,0 +1,117 @@
+{
+ "title": "Claude BugHunter",
+ "language": "en",
+ "est_seconds": 38,
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "What if Claude thought like a senior bug hunter?",
+   "emotion": "curious",
+   "emphasis": [
+    "senior"
+   ]
+  },
+  {
+   "id": "L02",
+   "beat": "stakes",
+   "text": "One free repo gives Claude Code over eighty hunting skills.",
+   "emotion": "excited",
+   "emphasis": [
+    "free",
+    "eighty"
+   ],
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L03",
+   "beat": "setup",
+   "text": "It is called Claude BugHunter, with over eight thousand stars.",
+   "emotion": "proud",
+   "emphasis": [
+    "BugHunter",
+    "eight"
+   ],
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L04",
+   "beat": "mechanism",
+   "text": "Install it once, then describe your target in plain English.",
+   "emotion": "determined",
+   "emphasis": [
+    "plain"
+   ],
+   "claims": [
+    "C3"
+   ]
+  },
+  {
+   "id": "L05",
+   "beat": "step",
+   "text": "The right skill loads by itself: recon, hunting, or reporting.",
+   "emotion": "calm",
+   "emphasis": [
+    "recon",
+    "hunting",
+    "reporting"
+   ],
+   "claims": [
+    "C4"
+   ]
+  },
+  {
+   "id": "L06",
+   "beat": "proof",
+   "text": "Fifteen slash commands, and six hundred eighty-one real report patterns.",
+   "emotion": "proud",
+   "emphasis": [
+    "Fifteen",
+    "six"
+   ],
+   "claims": [
+    "C5"
+   ]
+  },
+  {
+   "id": "L07",
+   "beat": "twist",
+   "text": "And a seven-question gate checks scope before anything is submitted.",
+   "emotion": "shock",
+   "emphasis": [
+    "seven",
+    "scope"
+   ],
+   "claims": [
+    "C6"
+   ]
+  },
+  {
+   "id": "L08",
+   "beat": "objection",
+   "text": "It is only for targets you own, or are authorized to test.",
+   "emotion": "calm",
+   "emphasis": [
+    "only",
+    "authorized"
+   ],
+   "claims": [
+    "C7"
+   ],
+   "pause_after": 0.5
+  },
+  {
+   "id": "L09",
+   "beat": "cta",
+   "text": "Comment HUNT, and start thinking like a bug hunter.",
+   "emotion": "happy",
+   "emphasis": [
+    "HUNT"
+   ]
+  }
+ ]
+}

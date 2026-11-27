@@ -1,0 +1,255 @@
+{
+ "style_pack": "editorial-notebook",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "the real Remotion home page in a browser window",
+   "shot_type": "evidence",
+   "component": "BrowserWindow",
+   "approach": "screenshot",
+   "why_renderer": "The claim is about a real tool, so the opening shows the real site (a Playwright capture with its capture date), not a drawing of it.",
+   "props": {
+    "url": "remotion.dev",
+    "title": "Remotion",
+    "image": "assets/web/home/page.png",
+    "anchor": "one"
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC1",
+    "asset_id": "web/home"
+   },
+   "anchors": [
+    {
+     "name": "one",
+     "line": "L01",
+     "word": "one"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "cursor",
+     "from": [
+      800,
+      1100
+     ],
+     "to": [
+      540,
+      900
+     ],
+     "dur": 0.9,
+     "anchor": "one"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "one",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish",
+    "why": "from the website to the install step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "slate",
+   "visual_intent": "a two-item checklist ticks: install, then done",
+   "shot_type": "ui",
+   "component": "Checklist",
+   "approach": "designed-ui",
+   "why_renderer": "Setup is a sequence of small steps; a ticking checklist shows that it is short and finished, which a sentence cannot show.",
+   "props": {
+    "items": [
+     "npm i remotion @remotion/cli",
+     "Chrome downloads itself"
+    ],
+    "heading": "INSTALL ONCE",
+    "progress": true,
+    "anchorPrefix": "c"
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L02",
+     "word": "Install"
+    },
+    {
+     "name": "c1",
+     "line": "L02",
+     "word": "forget"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "c0",
+     "gain": 0.4
+    },
+    {
+     "type": "ding",
+     "anchor": "c1",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "wipe",
+    "sound": "none",
+    "why": "from setup to the command itself"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "a terminal types the render command and prints the result",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "approach": "designed-ui",
+   "why_renderer": "The step is a command: typing it letter by letter on the word \"render\" shows exactly what to type. The output lines are an illustration of the result (labelled), the command is the real syntax.",
+   "props": {
+    "lines": [
+     "npx remotion render MyVideo out.mp4",
+     "> Rendering frames 0-149 (illustration of the output)",
+     "> out.mp4 written"
+    ],
+    "anchor": "render",
+    "cps": 34
+   },
+   "anchors": [
+    {
+     "name": "render",
+     "line": "L03",
+     "word": "render"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 03 \u00b7 one command",
+     "right": "ILLUSTRATED OUTPUT"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "render",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "slide",
+    "sound": "swish",
+    "why": "from the command to the page that documents it"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "curious"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "the real CLI render documentation page with the command highlighted",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "approach": "evidence-card",
+   "why_renderer": "The line says the docs list every option, so the real docs page (captured with Playwright, text verified inside the frame) is the proof.",
+   "props": {
+    "image": "assets/web/cli-render/page.png",
+    "source": "remotion.dev \u00b7 CLI render docs",
+    "caption": "The render command and its options",
+    "anchor": "docs"
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC2",
+    "asset_id": "web/cli-render"
+   },
+   "anchors": [
+    {
+     "name": "docs",
+     "line": "L04",
+     "word": "docs"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "docs",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "bg": "paper",
+   "visual_intent": "end card",
+   "shot_type": "typography",
+   "component": "EndCard",
+   "approach": "designed-ui",
+   "why_renderer": "One headline and the ask, in the pack's own end-card layout.",
+   "props": {
+    "headline": "One command.",
+    "accent": "One",
+    "cta": "Save this",
+    "handle": "@reelstudio"
+   },
+   "anchors": [],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "ding",
+     "at": "start",
+     "offset": 0.4,
+     "why": "the end card lands",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy"
+   }
+  }
+ ]
+}

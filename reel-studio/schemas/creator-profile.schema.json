@@ -1,0 +1,92 @@
+{
+ "type": "object",
+ "required": [
+  "niche",
+  "audience"
+ ],
+ "properties": {
+  "niche": {
+   "type": "string",
+   "minLength": 1
+  },
+  "subniches": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "audience": {
+   "type": "string",
+   "minLength": 1
+  },
+  "topics": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "tone": {
+   "type": "string"
+  },
+  "avoid": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "default_platform": {
+   "type": "string",
+   "enum": [
+    "instagram-reels",
+    "tiktok",
+    "youtube-shorts",
+    "youtube",
+    "linkedin",
+    "x"
+   ]
+  },
+  "default_duration_sec": {
+   "type": "number"
+  },
+  "voice_defaults": {
+   "type": "object"
+  },
+  "approved_styles": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "knowledge_files": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "feedback_history": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "video",
+     "note"
+    ],
+    "properties": {
+     "video": {
+      "type": "string",
+      "minLength": 1
+     },
+     "note": {
+      "type": "string",
+      "minLength": 1
+     },
+     "at": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "creator-profile"
+}

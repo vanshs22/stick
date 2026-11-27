@@ -1,0 +1,66 @@
+{
+ "reference": "couple",
+ "idea": "Same two-person comic argument, but 3-second shots, a real Chrome Help proof card, event-tied sound, and a last line that loops to the hook.",
+ "keep": [
+  {
+   "metric": "cuts_per_10s",
+   "ref": 0.85,
+   "range": [
+    0.64,
+    1.19
+   ]
+  },
+  {
+   "metric": "median_shot",
+   "ref": 5.88,
+   "range": [
+    4.12,
+    6.76
+   ]
+  },
+  {
+   "metric": "brightness",
+   "ref": 0.549,
+   "range": [
+    0.35,
+    0.75
+   ]
+  }
+ ],
+ "improve": [
+  {
+   "id": "proof_layer",
+   "min_shots": 1,
+   "rule": "Show real evidence the reference does not: real captures (page, repo, post, terminal) on screen."
+  },
+  {
+   "id": "event_sound",
+   "ref_per_10s": null,
+   "rule": "Sound tied to visual events at a density near the reference, with no sound that has no cause."
+  },
+  {
+   "id": "loop_ending",
+   "rule": "The last line echoes a content word of the first line, so the replay feels seamless."
+  },
+  {
+   "id": "tighter_pace",
+   "max_median": 5.88,
+   "min_cuts_per_10s": 0.77,
+   "rule": "Same family of pace, never slower: median shot no longer than the reference, cuts per 10 s at least 90 percent of it."
+  },
+  {
+   "id": "emotional_range",
+   "min_emotions": 3,
+   "only_if_speakers": true,
+   "rule": "At least three different emotions across the spoken lines (story and dialogue films)."
+  }
+ ],
+ "never_copy": [
+  "script and wording",
+  "characters",
+  "scenes and shots",
+  "logos and brand marks",
+  "music"
+ ],
+ "created_at": "2026-11-17T08:30:23.885Z"
+}

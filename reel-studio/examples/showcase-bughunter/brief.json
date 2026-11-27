@@ -1,0 +1,32 @@
+{
+ "title": "Claude BugHunter",
+ "topic": "Claude-BugHunter: a free Claude Code skill bundle that makes Claude work like a bug hunter",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 40,
+ "language": "en",
+ "audience": "developers and security learners who use Claude Code",
+ "goal": "explain what the repo is, how it works, and that it is for authorised testing only",
+ "style_pack": "editorial-sticker",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_fenrir",
+  "speed": 1.03
+ },
+ "music": {
+  "direction": "dark synthwave bed"
+ },
+ "captions": {
+  "preset": "headline"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "cta": {
+  "keyword": "HUNT",
+  "text": "Comment HUNT"
+ },
+ "delivery": {
+  "upscale": true
+ }
+}

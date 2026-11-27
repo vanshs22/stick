@@ -1,0 +1,21 @@
+{
+ "topic": "a nursery song intro",
+ "angle": "A gentle toddler song intro in a soft 3D playroom.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "This is an original character and song intro made for the toolkit demo.",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://polyhaven.com/license",
+   "title": "Reference: licence terms of the free assets used elsewhere in the toolkit",
+   "captured_at": "2026-11-18T20:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

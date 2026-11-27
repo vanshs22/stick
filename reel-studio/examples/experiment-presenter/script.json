@@ -1,0 +1,44 @@
+{
+ "title": "The golden key",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "Last night, a mysterious box showed up at my door.",
+   "beat": "hook",
+   "emphasis": [
+    "mysterious"
+   ]
+  },
+  {
+   "id": "L02",
+   "text": "I picked it up, and I had no idea who sent it.",
+   "beat": "setup",
+   "emphasis": [
+    "no idea"
+   ]
+  },
+  {
+   "id": "L03",
+   "text": "So I opened it.",
+   "beat": "step",
+   "emphasis": [
+    "opened"
+   ]
+  },
+  {
+   "id": "L04",
+   "text": "And inside was a tiny golden key.",
+   "beat": "proof",
+   "emphasis": [
+    "golden"
+   ]
+  },
+  {
+   "id": "L05",
+   "text": "No way.",
+   "beat": "twist"
+  }
+ ],
+ "est_seconds": 16
+}

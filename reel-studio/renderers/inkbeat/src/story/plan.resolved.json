@@ -1,0 +1,39 @@
+{
+ "total": 11.637,
+ "events": 7,
+ "per_min": 36.1,
+ "shots": [
+  {
+   "id": "S01",
+   "t": 0,
+   "end": 4.051,
+   "beats": [
+    "0.7 PUSH on \"tent\""
+   ]
+  },
+  {
+   "id": "S02",
+   "t": 4.051,
+   "end": 6.4,
+   "beats": [
+    "4.2 ORBIT_R on \"swords\""
+   ]
+  },
+  {
+   "id": "S03",
+   "t": 6.4,
+   "end": 8.162,
+   "beats": [
+    "6.4 MACRO on \"map\""
+   ]
+  },
+  {
+   "id": "S04",
+   "t": 8.162,
+   "end": 11.637,
+   "beats": [
+    "8.7 PUSH on \"floor\""
+   ]
+  }
+ ]
+}

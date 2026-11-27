@@ -1,0 +1,93 @@
+{
+  "id": "voxel-studio",
+  "name": "Voxel studio",
+  "family": "3d",
+  "cadence": "explainer-2d",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "description": "LEGACY (old react-three-fiber Scene3D). Kept so old projects render. Use voxel-explainer for new work. Light-grey studio with a wall of live charts, blocky characters and floating label chips. Data and finance explainers.",
+  "tokens": {
+    "colors": {
+      "bg": "#E4E4E8",
+      "ink": "#111111",
+      "ink2": "#111111",
+      "muted": "#6a6a72",
+      "card": "#FFFFFF",
+      "accent": "#1FA855",
+      "accentSoft": "#1FA85533",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 300,
+      "content_bottom": 1120
+    },
+    "chrome": "clean"
+  },
+  "effects": {
+    "vignette": 0.08
+  },
+  "rules": [
+    "Light stage with a chart wall; characters in hats or uniforms (original designs).",
+    "Label chips with green outlines float over objects (tags overlay).",
+    "Title bar at the top (step-label), caption box at the bottom with a green accent.",
+    "Slow camera: long 2-5 s shots; props explain the idea (rings, bars, glass columns).",
+    "Keep green for good, red for bad, amber for in-between."
+  ],
+  "components": [
+    "Scene3D",
+    "BigStat",
+    "BarChart",
+    "LineChart",
+    "Versus",
+    "Checklist",
+    "Timeline"
+  ],
+  "camera_language": "Medium, slow push or orbit.",
+  "typography": "Heavy sans, dark on white boxes.",
+  "transitions": [
+    "cut",
+    "slide",
+    "fade"
+  ],
+  "audio_direction": "light upbeat bed, pop on chips, tick on counters",
+  "pitfalls": [
+    "Copying the original characters.",
+    "Chart wall too busy behind captions."
+  ],
+  "references": [
+    "reference video ref2"
+  ],
+  "defaults": {
+    "captions": "boxed",
+    "music": "upbeat",
+    "scene3d": {
+      "set": "studio",
+      "light": "studio",
+      "wall": true,
+      "characters": [
+        {
+          "variant": "voxel",
+          "pose": "open",
+          "mood": "calm",
+          "skin": "#B8643A",
+          "shirt": "#1d2a52",
+          "hair": "#22160f",
+          "badge": "#F2C12E"
+        }
+      ]
+    }
+  },
+  "legacy": true
+}

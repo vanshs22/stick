@@ -1,0 +1,25 @@
+{
+ "platform": "youtube",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "people who like food and small business stories",
+ "goal": "explain why a queue sells noodles",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.0
+ },
+ "music": {
+  "direction": "warm night market"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "The queue is the ad",
+ "topic": "why a night-market noodle stall sells 300 bowls",
+ "duration_sec": 11,
+ "style_pack": "lantern-market-3d",
+ "captions": {
+  "preset": "phrase"
+ }
+}

@@ -1,0 +1,512 @@
+{
+ "style_pack": "editorial-sticker",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "a login page with a padlock in the address bar: what Leo trusts",
+   "shot_type": "evidence",
+   "component": "BrowserWindow",
+   "approach": "screenshot",
+   "why_renderer": "The question is about the padlock in a browser, so the picture is a browser address bar with the padlock Leo is pointing at.",
+   "props": {
+    "url": "https://my-bank-login.example",
+    "title": "Sign in to your bank",
+    "anchor": "padlock"
+   },
+   "anchors": [
+    {
+     "name": "padlock",
+     "line": "L01",
+     "word": "padlock"
+    },
+    {
+     "name": "safe",
+     "line": "L01",
+     "word": "safe"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "label",
+     "left": "// 01 \u00b7 the trust trick",
+     "right": "PADLOCK",
+     "rightAccent": true
+    },
+    {
+     "type": "scribble",
+     "kind": "circle",
+     "x": 560,
+     "y": 480,
+     "w": 720,
+     "h": 90,
+     "color": "#E8381A",
+     "anchor": "safe"
+    },
+    {
+     "type": "sticker",
+     "text": "PADLOCK: ON",
+     "rotate": -4,
+     "x": 790,
+     "y": 700,
+     "size": 48,
+     "anchor": "padlock"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "padlock",
+     "gain": 0.5
+    },
+    {
+     "type": "tick",
+     "anchor": "safe",
+     "gain": 0.45
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "the motion of the cut"
+   },
+   "presenter": {
+    "pose": "think",
+    "mood": "calm"
+   },
+   "speaker": "Leo"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "dark",
+   "visual_intent": "a WRONG stamp slams over the idea that the padlock means safe",
+   "shot_type": "typography",
+   "component": "Stamp",
+   "approach": "motion-graphics",
+   "why_renderer": "Maya contradicts Leo; a verdict stamp on the word Wrong is the fastest picture of a contradiction.",
+   "props": {
+    "text": "WRONG",
+    "anchor": "Wrong",
+    "rotate": -8,
+    "size": 190,
+    "color": "#FFFFFF"
+   },
+   "anchors": [
+    {
+     "name": "Wrong",
+     "line": "L02",
+     "word": "Wrong"
+    },
+    {
+     "name": "phishing",
+     "line": "L02",
+     "word": "phishing"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "NEARLY ALL PHISHING SITES USE HTTPS",
+     "rotate": -3,
+     "x": 540,
+     "y": 1010,
+     "size": 44,
+     "anchor": "phishing"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "stamp",
+     "anchor": "Wrong",
+     "gain": 0.8
+    },
+    {
+     "type": "pop",
+     "anchor": "phishing",
+     "gain": 0.45
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "the motion of the cut"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "smirk",
+    "look": {
+     "beard": false,
+     "curly": false,
+     "hair": "#4a2316",
+     "skin": "#E3A57F",
+     "jacket": "#7a2e5e",
+     "shirt": "#7a2e5e",
+     "longHair": true
+    }
+   },
+   "speaker": "Maya"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "Leo is shocked: a two-word jolt",
+   "shot_type": "typography",
+   "component": "Stamp",
+   "approach": "motion-graphics",
+   "why_renderer": "A two-word shock needs a one-beat picture: a big stamp that slams on the first word, so the jolt lands before the next fact.",
+   "props": {
+    "text": "WHAT?!",
+    "anchor": "Wait",
+    "rotate": 6,
+    "size": 230,
+    "color": "#E8381A"
+   },
+   "anchors": [
+    {
+     "name": "Wait",
+     "line": "L03",
+     "word": "Wait"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "boom",
+     "anchor": "Wait",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "plain cut: the information changes, no motion to sell"
+   },
+   "presenter": {
+    "pose": "idle",
+    "mood": "surprised"
+   },
+   "speaker": "Leo"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "slate",
+   "visual_intent": "11 percent counts up: how few people understand the lock",
+   "shot_type": "diagram",
+   "component": "BigStat",
+   "approach": "data-viz",
+   "why_renderer": "The line is a number; counting it up while it is spoken makes the number the picture.",
+   "props": {
+    "value": 11,
+    "suffix": "%",
+    "label": "understood the lock (Google, 2021)",
+    "anchor": "eleven"
+   },
+   "anchors": [
+    {
+     "name": "eleven",
+     "line": "L04",
+     "word": "eleven"
+    },
+    {
+     "name": "chrome",
+     "line": "L04",
+     "word": "Chrome"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "CHROME REPLACED IT",
+     "rotate": 4,
+     "x": 540,
+     "y": 620,
+     "size": 44,
+     "anchor": "chrome"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "count",
+     "anchor": "eleven",
+     "gain": 0.5
+    },
+    {
+     "type": "pop",
+     "anchor": "chrome",
+     "gain": 0.45
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "the motion of the cut"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm",
+    "look": {
+     "beard": false,
+     "curly": false,
+     "hair": "#4a2316",
+     "skin": "#E3A57F",
+     "jacket": "#7a2e5e",
+     "shirt": "#7a2e5e",
+     "longHair": true
+    }
+   },
+   "speaker": "Maya"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "bg": "paper",
+   "visual_intent": "the real bank and the fake bank look identical: both have the padlock",
+   "shot_type": "diagram",
+   "component": "Versus",
+   "approach": "designed-ui",
+   "why_renderer": "Leo is afraid because the two sites look the same to him; a side-by-side makes that fear visible.",
+   "props": {
+    "left": "REAL BANK",
+    "right": "FAKE BANK",
+    "leftSub": "padlock: yes",
+    "rightSub": "padlock: yes",
+    "anchor": "password"
+   },
+   "anchors": [
+    {
+     "name": "password",
+     "line": "L05",
+     "word": "password"
+    },
+    {
+     "name": "fake",
+     "line": "L05",
+     "word": "fake"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "scribble",
+     "kind": "circle",
+     "x": 550,
+     "y": 1085,
+     "w": 400,
+     "h": 84,
+     "color": "#E8381A",
+     "anchor": "fake"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "password",
+     "gain": 0.45
+    },
+    {
+     "type": "heartbeat",
+     "anchor": "fake",
+     "gain": 0.45
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "the motion of the cut"
+   },
+   "presenter": {
+    "pose": "shrug",
+    "mood": "worried"
+   },
+   "speaker": "Leo"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "bg": "green",
+   "visual_intent": "the real Chromium blog post that explains what the lock means",
+   "shot_type": "evidence",
+   "component": "ProofCard",
+   "approach": "evidence-card",
+   "why_renderer": "Maya states what the lock means; the proof is Google\u2019s own post (a real capture with its date), not a drawing.",
+   "props": {
+    "image": "assets/web/chromium/page.png",
+    "source": "blog.chromium.org \u00b7 An Update on the Lock Icon",
+    "caption": "\u201cThe lock icon is meant to indicate that the network connection is a secure channel\u201d",
+    "anchor": "connection",
+    "highlight": {
+     "x": 0.03,
+     "y": 0.775,
+     "w": 0.94,
+     "h": 0.1
+    }
+   },
+   "evidence": {
+    "required": true,
+    "source_id": "SRC1",
+    "asset_id": "web/chromium"
+   },
+   "anchors": [
+    {
+     "name": "connection",
+     "line": "L06",
+     "word": "connection"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "connection",
+     "gain": 0.7
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "plain cut: the information changes, no motion to sell"
+   },
+   "presenter": {
+    "pose": "point",
+    "mood": "calm",
+    "look": {
+     "beard": false,
+     "curly": false,
+     "hair": "#4a2316",
+     "skin": "#E3A57F",
+     "jacket": "#7a2e5e",
+     "shirt": "#7a2e5e",
+     "longHair": true
+    }
+   },
+   "speaker": "Maya"
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "bg": "paper",
+   "visual_intent": "two habits tick in: read the address, ignore the icon",
+   "shot_type": "diagram",
+   "component": "Checklist",
+   "approach": "designed-ui",
+   "why_renderer": "Leo states the new habit; two ticking items turn advice into something to copy.",
+   "props": {
+    "items": [
+     "Read the address",
+     "Ignore the icon"
+    ],
+    "heading": "THE NEW HABIT"
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L07",
+     "word": "address"
+    },
+    {
+     "name": "c1",
+     "line": "L07",
+     "word": "icon"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "c0",
+     "gain": 0.5
+    },
+    {
+     "type": "tick",
+     "anchor": "c1",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "plain cut: the information changes, no motion to sell"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "happy"
+   },
+   "speaker": "Leo"
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "bg": "dark",
+   "visual_intent": "the comment box asks for the keyword LOCK",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "approach": "designed-ui",
+   "why_renderer": "The call to action is a comment, so the picture is the comment field typing the keyword.",
+   "props": {
+    "keyword": "LOCK",
+    "anchor": "Comment",
+    "reward": "I will send you the checklist"
+   },
+   "anchors": [
+    {
+     "name": "Comment",
+     "line": "L08",
+     "word": "Comment"
+    }
+   ],
+   "overlays": [],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "Comment",
+     "gain": 0.4
+    },
+    {
+     "type": "ding",
+     "at": "end",
+     "offset": -0.6,
+     "gain": 0.85,
+     "why": "the keyword is posted: success sound"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "the motion of the cut"
+   },
+   "presenter": {
+    "pose": "wave",
+    "mood": "happy",
+    "look": {
+     "beard": false,
+     "curly": false,
+     "hair": "#4a2316",
+     "skin": "#E3A57F",
+     "jacket": "#7a2e5e",
+     "shirt": "#7a2e5e",
+     "longHair": true
+    }
+   },
+   "speaker": "Maya"
+  }
+ ]
+}

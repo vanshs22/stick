@@ -1,0 +1,21 @@
+{
+ "topic": "night-market noodle stall",
+ "angle": "A short story with a turn: the queue is the advertisement.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "This is an original character and story made for the toolkit test.",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://polyhaven.com/license",
+   "title": "Reference: licence terms of the free assets used elsewhere in the toolkit",
+   "captured_at": "2026-11-18T20:00:00Z",
+   "type": "primary"
+  }
+ ]
+}

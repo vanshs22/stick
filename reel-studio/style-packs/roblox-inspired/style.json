@@ -1,0 +1,112 @@
+{
+  "id": "roblox-inspired",
+  "name": "Roblox-inspired world",
+  "family": "3d",
+  "cadence": "explainer-2d",
+  "formats": [
+    "9:16",
+    "16:9"
+  ],
+  "description": "A bright block-toy world: soft plastic bricks, stud-textured baseplate, tidy houses, fences, block trees and drifting block clouds, with a chunky block character whose painted face really acts. Story and 'did you know' videos.",
+  "tokens": {
+    "colors": {
+      "bg": "#8CC8F6",
+      "ink": "#111111",
+      "ink2": "#111111",
+      "muted": "#4a6a8a",
+      "card": "#FFFFFF",
+      "accent": "#FFE600",
+      "accentSoft": "#FFE60044",
+      "good": "#4E9A5B",
+      "bad": "#C94A3A"
+    },
+    "fonts": {
+      "sans": "Inter",
+      "serif": "InstrumentSerif",
+      "mono": "JetBrainsMono"
+    },
+    "safe_zone": {
+      "top": 180,
+      "bottom": 1380,
+      "caption_y": 1440,
+      "right_margin": 120,
+      "content_top": 260,
+      "content_bottom": 1340
+    },
+    "caption": {
+      "fill": "#FFE600"
+    },
+    "chrome": "sticker"
+  },
+  "effects": {},
+  "rules": [
+    "Everything is a soft-edged plastic brick: no thin geometry, no realistic textures.",
+    "Studs on the ground and a few props; flat saturated colour blocking; sun from the front-left with a soft shadow.",
+    "The character is rigid like a toy (shoulders and hips turn, no elbows or knees) but the painted face does the acting: eyes, brows, mouth.",
+    "Environment tells the story: a tower grows, a storm darkens the sky, doors open. Props move; the character does not teleport.",
+    "One-word captions in yellow with a thick dark outline, sitting below the chest.",
+    "Keep the camera low-key: moves only for reveals."
+  ],
+  "components": [
+    "Stage3D",
+    "BigStat",
+    "BarChart",
+    "Timeline"
+  ],
+  "camera_language": "Low, friendly eye-level; wide to show the world and the character in it, medium-wide three-quarter for actions so the arm and the object are both visible, close-up on the painted face for emotion. Blocky bodies are wide: over-the-shoulder needs the camera 2.5 m back.",
+  "typography": "One-word captions, 118 px.",
+  "transitions": [
+    "whip",
+    "cut",
+    "zoom"
+  ],
+  "audio_direction": "light bed, whoosh on every camera move, pop on reveals",
+  "pitfalls": [
+    "The wide torso blocks the object in over-the-shoulder: use medium-wide three-quarter.",
+    "The cap hides the brows in extreme close-ups: stay at medium-close-up or wider.",
+    "Bright sky washes out yellow captions: keep the dark outline at 12 px or more."
+  ],
+  "references": [
+    "reference video ref8"
+  ],
+  "defaults": {
+    "captions": "one-word",
+    "music": "bed",
+    "stage3d": {
+      "world": "block-yard",
+      "worldOpts": {},
+      "cast": {
+        "blocky": {
+          "skin": "#F2C68E",
+          "shirt": "#2f9a5a",
+          "pants": "#27386b",
+          "hat": "#D8402F",
+          "nameTag": "Builder_7"
+        }
+      },
+      "look": {
+        "bloom": 0.18,
+        "bloomThreshold": 0.93
+      }
+    },
+    "backdrop": {
+      "world": "block-yard",
+      "worldOpts": {},
+      "camera": {
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "house",
+        "offset": [
+          0,
+          -0.1
+        ],
+        "movement": {
+          "type": "static"
+        }
+      },
+      "look": {
+        "aperture": 0.02
+      }
+    }
+  }
+}

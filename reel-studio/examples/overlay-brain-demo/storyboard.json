@@ -1,0 +1,540 @@
+{
+ "style_pack": "editorial-sticker",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "bg": "paper",
+   "visual_intent": "the question as a big title, with the three weeks and the failure shown on top",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "approach": "motion-graphics",
+   "why_renderer": "A short title carries the question; the director adds the number and the failure banner on their words, which a sentence alone would not show.",
+   "props": {
+    "text": "Why you flop",
+    "accent": "flop",
+    "anchor": "flop"
+   },
+   "anchors": [
+    {
+     "name": "flop",
+     "line": "L01",
+     "word": "flop"
+    },
+    {
+     "name": "ov1_three",
+     "line": "L01",
+     "word": "Three"
+    },
+    {
+     "name": "ov1_video",
+     "line": "L01",
+     "word": "video"
+    },
+    {
+     "name": "ov1_flop",
+     "line": "L01",
+     "word": "flop."
+    }
+   ],
+   "overlays": [
+    {
+     "type": "counter",
+     "to": 3,
+     "label": "WEEKS",
+     "dur": 0.9,
+     "anchor": "ov1_three",
+     "from_director": true
+    },
+    {
+     "x": 790,
+     "y": 520,
+     "type": "bubble",
+     "text": "weeks per video?",
+     "emoji": "🤔",
+     "size": 32,
+     "anchor": "ov1_video",
+     "from_director": true
+    },
+    {
+     "type": "verdict",
+     "text": "FLOPPED",
+     "tone": "bad",
+     "retry": true,
+     "anchor": "ov1_flop",
+     "from_director": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "flop",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "next step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "bg": "paper",
+   "visual_intent": "a terminal where the long video is dropped in",
+   "shot_type": "ui",
+   "component": "Terminal",
+   "approach": "designed-ui",
+   "why_renderer": "The step is an action: a terminal shows the exact thing to do and the output proves it worked.",
+   "props": {
+    "lines": [
+     "clipper drop long-video.mp4",
+     "> reading 42 minutes",
+     "> found 5 moments"
+    ],
+    "anchor": "drop",
+    "cps": 30
+   },
+   "anchors": [
+    {
+     "name": "drop",
+     "line": "L02",
+     "word": "drop"
+    },
+    {
+     "name": "ov2_free",
+     "line": "L02",
+     "word": "free"
+    },
+    {
+     "name": "ov2_first",
+     "line": "L02",
+     "word": "First"
+    },
+    {
+     "name": "ov2_drop",
+     "line": "L02",
+     "word": "drop"
+    },
+    {
+     "name": "ov2_no",
+     "line": "L02",
+     "word": "no"
+    }
+   ],
+   "overlays": [
+    {
+     "x": 780,
+     "y": 470,
+     "type": "price-tag",
+     "text": "$0",
+     "sub": "FREE",
+     "color": "#FF5C7A",
+     "anchor": "ov2_free",
+     "from_director": true
+    },
+    {
+     "type": "step-label",
+     "text": "STEP 1/4",
+     "n": 1,
+     "of": 4,
+     "anchor": "ov2_first",
+     "from_director": true
+    },
+    {
+     "type": "cursor",
+     "from": [
+      300,
+      1000
+     ],
+     "to": [
+      620,
+      820
+     ],
+     "dur": 0.7,
+     "anchor": "ov2_drop",
+     "from_director": true
+    },
+    {
+     "x": 880,
+     "y": 440,
+     "type": "calendar",
+     "month": "EVERY",
+     "day": "30",
+     "weekday": "MONTHLY",
+     "crossed": true,
+     "anchor": "ov2_no",
+     "from_director": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "drop",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "next step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "bg": "paper",
+   "visual_intent": "a wheel whose sectors light on jokes, stories and fights",
+   "shot_type": "data",
+   "component": "RadialMenu",
+   "approach": "data-viz",
+   "why_renderer": "A spoken list of three kinds of moment becomes one object with one lit slot per word, so the viewer sees the options being named.",
+   "props": {
+    "items": [
+     "JOKES",
+     "STORIES",
+     "FIGHTS"
+    ],
+    "center": "BEST MOMENTS",
+    "anchorPrefix": "item"
+   },
+   "anchors": [
+    {
+     "name": "item0",
+     "line": "L03",
+     "word": "jokes"
+    },
+    {
+     "name": "item1",
+     "line": "L03",
+     "word": "stories"
+    },
+    {
+     "name": "item2",
+     "line": "L03",
+     "word": "fights"
+    },
+    {
+     "name": "ov3_next",
+     "line": "L03",
+     "word": "Next"
+    },
+    {
+     "name": "ov3_november",
+     "line": "L03",
+     "word": "November"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "STEP 2/4",
+     "n": 2,
+     "of": 4,
+     "anchor": "ov3_next",
+     "from_director": true
+    },
+    {
+     "x": 880,
+     "y": 440,
+     "type": "calendar",
+     "month": "NOV",
+     "day": "19",
+     "weekday": "",
+     "anchor": "ov3_november",
+     "from_director": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "item0",
+     "gain": 0.35
+    },
+    {
+     "type": "tick",
+     "anchor": "item1",
+     "gain": 0.35
+    },
+    {
+     "type": "ding",
+     "anchor": "item2",
+     "gain": 0.35
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "next step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "bg": "paper",
+   "visual_intent": "two steps tick off as they are spoken",
+   "shot_type": "ui",
+   "component": "Checklist",
+   "approach": "designed-ui",
+   "why_renderer": "Two things happen after the cut: each ticks on its word, and the progress bar shows the job finishing.",
+   "props": {
+    "items": [
+     "Cut to vertical",
+     "Add captions"
+    ],
+    "heading": "AUTOMATIC",
+    "progress": true,
+    "anchorPrefix": "c"
+   },
+   "anchors": [
+    {
+     "name": "c0",
+     "line": "L04",
+     "word": "cuts"
+    },
+    {
+     "name": "c1",
+     "line": "L04",
+     "word": "captions"
+    },
+    {
+     "name": "ov4_then",
+     "line": "L04",
+     "word": "Then"
+    },
+    {
+     "name": "ov4_ten",
+     "line": "L04",
+     "word": "ten"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "STEP 3/4",
+     "n": 3,
+     "of": 4,
+     "anchor": "ov4_then",
+     "from_director": true
+    },
+    {
+     "type": "counter",
+     "to": 10,
+     "label": "SECONDS",
+     "dur": 0.9,
+     "anchor": "ov4_ten",
+     "from_director": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "c0",
+     "gain": 0.4
+    },
+    {
+     "type": "ding",
+     "anchor": "c1",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "next step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "bg": "paper",
+   "visual_intent": "three phones, one per platform",
+   "shot_type": "ui",
+   "component": "Devices",
+   "approach": "designed-ui",
+   "why_renderer": "Three platforms named in a row are three devices that pop in on their names: the viewer sees where it ends up.",
+   "props": {
+    "items": [
+     {
+      "label": "TikTok",
+      "color": "#FF5C7A"
+     },
+     {
+      "label": "Reels",
+      "color": "#B07CFF"
+     },
+     {
+      "label": "Shorts",
+      "color": "#FF4D4D"
+     }
+    ],
+    "anchorPrefix": "d"
+   },
+   "anchors": [
+    {
+     "name": "d0",
+     "line": "L05",
+     "word": "TikTok"
+    },
+    {
+     "name": "d1",
+     "line": "L05",
+     "word": "Reels"
+    },
+    {
+     "name": "d2",
+     "line": "L05",
+     "word": "Shorts"
+    },
+    {
+     "name": "ov5_last",
+     "line": "L05",
+     "word": "Last"
+    },
+    {
+     "name": "ov5_post",
+     "line": "L05",
+     "word": "post"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "step-label",
+     "text": "STEP 4/4",
+     "n": 4,
+     "of": 4,
+     "anchor": "ov5_last",
+     "from_director": true
+    },
+    {
+     "type": "cursor",
+     "from": [
+      300,
+      1000
+     ],
+     "to": [
+      620,
+      820
+     ],
+     "dur": 0.7,
+     "anchor": "ov5_post",
+     "from_director": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "d0",
+     "gain": 0.35
+    },
+    {
+     "type": "pop",
+     "anchor": "d1",
+     "gain": 0.35
+    },
+    {
+     "type": "pop",
+     "anchor": "d2",
+     "gain": 0.35
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "next step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "bg": "paper",
+   "visual_intent": "the one ask: the box types the keyword",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "approach": "designed-ui",
+   "why_renderer": "The call to action is one word to type, so the box types it on the spoken word and flips to Posted.",
+   "props": {
+    "keyword": "CLIP",
+    "anchor": "Comment",
+    "reward": "I will send you the tool",
+    "typeAnchor": "CLIP"
+   },
+   "anchors": [
+    {
+     "name": "Comment",
+     "line": "L06",
+     "word": "Comment"
+    },
+    {
+     "name": "CLIP",
+     "line": "L06",
+     "word": "CLIP"
+    },
+    {
+     "name": "ov6_no",
+     "line": "L06",
+     "word": "No"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "verdict",
+     "text": "POSTED",
+     "tone": "good",
+     "sub": "",
+     "anchor": "ov6_no",
+     "from_director": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "tick",
+     "anchor": "CLIP",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none",
+    "why": "next step"
+   },
+   "presenter": {
+    "pose": "open",
+    "mood": "calm"
+   }
+  }
+ ]
+}

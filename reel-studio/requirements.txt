@@ -1,0 +1,12 @@
+# Python side of the toolkit (installed into ./.venv by install.sh / install.ps1)
+numpy
+scipy
+pillow
+soundfile
+onnxruntime
+kokoro-onnx          # free local voice (Kokoro-82M, Apache-2.0)
+faster-whisper       # word timing + pronunciation check (model downloads on first use)
+opencv-python-headless<5   # reference video analysis
+yt-dlp               # optional: reference video download
+imageio-ffmpeg       # ffmpeg fallback when the system has none
+static-ffmpeg        # real ffmpeg AND ffprobe for machines that have neither (downloaded once)

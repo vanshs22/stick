@@ -1,0 +1,217 @@
+{
+ "_doc": "A SKIN is the visual language of one topic: what a step, a win, a failure, a price, a list and a result LOOK like in that world. The reference reels skinned a GTA explainer as a game HUD (MISSION 1/4, MISSION FAILED, a route map, a weapon wheel, MISSION PASSED) and a skills explainer as a dev terminal with skill nodes. tools/overlay_director.mjs picks the skin by topic keywords (or style-packs/<id>/style.json overlay_skin, or --skin) and uses its words and device preferences. Add your own: id, match[], words{}, prefer{}, accent, vocabulary.",
+ "skins": [
+  {
+   "id": "game-hud",
+   "match": [
+    "game",
+    "gta",
+    "gaming",
+    "gamer",
+    "stream",
+    "streamer",
+    "esport",
+    "level",
+    "quest",
+    "boss",
+    "minecraft",
+    "fortnite",
+    "roblox"
+   ],
+   "words": {
+    "step": "MISSION {n}/{N}",
+    "pass": "MISSION PASSED",
+    "fail": "MISSION FAILED",
+    "free": "FREE",
+    "header": "YOUR FIRST CLIP"
+   },
+   "prefer": {
+    "list": "RadialMenu",
+    "process": "RouteMap",
+    "compare": "Versus"
+   },
+   "accent": "#B6FF3B",
+   "vocabulary": "Everything is a game interface: a mission header with a step counter, waypoints on a map for steps, a weapon wheel for a list of options, a loot counter for money, FAILED with a RETRY button for the problem, PASSED for the result."
+  },
+  {
+   "id": "dev-terminal",
+   "match": [
+    "code",
+    "coding",
+    "developer",
+    "claude",
+    "cursor",
+    "github",
+    "api",
+    "install",
+    "skill",
+    "skills",
+    "terminal",
+    "programming",
+    "software",
+    "app",
+    "website",
+    "prompt",
+    "ai agent",
+    "llm"
+   ],
+   "words": {
+    "step": "STEP {n}/{N}",
+    "pass": "BUILD PASSED",
+    "fail": "BUILD FAILED",
+    "free": "FREE / MIT",
+    "header": "SETUP"
+   },
+   "prefer": {
+    "list": "KineticList",
+    "process": "FlowDiagram",
+    "compare": "Versus"
+   },
+   "accent": "#B6FF3B",
+   "vocabulary": "Terminals, file trees, skill nodes joined by lines, stars and licence chips, a lines-of-code counter, a diff for before/after, green PASS and red FAIL."
+  },
+  {
+   "id": "finance-ticker",
+   "match": [
+    "money",
+    "invest",
+    "investing",
+    "stock",
+    "stocks",
+    "trading",
+    "trade",
+    "crypto",
+    "bitcoin",
+    "income",
+    "profit",
+    "revenue",
+    "salary",
+    "budget",
+    "price",
+    "savings",
+    "tax",
+    "bank",
+    "wealth",
+    "rich"
+   ],
+   "words": {
+    "step": "STEP {n}/{N}",
+    "pass": "PROFIT",
+    "fail": "LOSS",
+    "free": "$0",
+    "header": "THE NUMBERS"
+   },
+   "prefer": {
+    "list": "BarChart",
+    "process": "Timeline",
+    "compare": "Versus"
+   },
+   "accent": "#4FE08A",
+   "vocabulary": "A ticker strip, candlesticks, a big counter for every figure, red and green deltas, a price tag on every cost, falling bills for money made."
+  },
+  {
+   "id": "news-desk",
+   "match": [
+    "news",
+    "report",
+    "breaking",
+    "election",
+    "policy",
+    "law",
+    "court",
+    "government",
+    "scandal",
+    "investigation",
+    "crisis",
+    "war",
+    "economy"
+   ],
+   "words": {
+    "step": "PART {n}/{N}",
+    "pass": "CONFIRMED",
+    "fail": "DEBUNKED",
+    "free": "FREE",
+    "header": "THE STORY"
+   },
+   "prefer": {
+    "list": "Timeline",
+    "process": "Timeline",
+    "compare": "Versus"
+   },
+   "accent": "#FF4D4D",
+   "vocabulary": "A lower-third for every name, a dated headline card with its source, a map pin for every place, a stamp for CONFIRMED or DEBUNKED."
+  },
+  {
+   "id": "creator-studio",
+   "match": [
+    "video",
+    "videos",
+    "clip",
+    "clips",
+    "reel",
+    "reels",
+    "tiktok",
+    "youtube",
+    "shorts",
+    "creator",
+    "content",
+    "edit",
+    "editing",
+    "caption",
+    "captions",
+    "podcast",
+    "thumbnail",
+    "viral",
+    "followers",
+    "views"
+   ],
+   "words": {
+    "step": "STEP {n}/{N}",
+    "pass": "POSTED",
+    "fail": "FLOPPED",
+    "free": "FREE",
+    "header": "THE WORKFLOW"
+   },
+   "prefer": {
+    "list": "RadialMenu",
+    "process": "FlowDiagram",
+    "compare": "Versus"
+   },
+   "accent": "#FF5C7A",
+   "vocabulary": "A timeline with clips, phones with platform labels, a views counter that climbs, a comment thread, POSTED and FLOPPED stamps."
+  },
+  {
+   "id": "explainer-notebook",
+   "match": [
+    "how",
+    "why",
+    "what",
+    "learn",
+    "study",
+    "science",
+    "history",
+    "explain",
+    "idea",
+    "brain",
+    "habit",
+    "health",
+    "sleep",
+    "psychology"
+   ],
+   "words": {
+    "step": "{n} of {N}",
+    "pass": "GOT IT",
+    "fail": "MYTH",
+    "free": "FREE",
+    "header": "THE IDEA"
+   },
+   "prefer": {
+    "list": "KineticList",
+    "process": "FlowDiagram",
+    "compare": "Versus"
+   },
+   "accent": "#E8512A",
+   "vocabulary": "Notebook paper, hand-drawn circles and arrows, a sticker for the one word that matters, a diagram that builds line by line."
+  }
+ ]
+}

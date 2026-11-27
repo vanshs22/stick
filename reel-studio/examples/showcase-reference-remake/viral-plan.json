@@ -1,0 +1,240 @@
+{
+ "format": "dialogue-comedy",
+ "promise": "You stop trusting Incognito to hide you from your boss, school or Wi-Fi.",
+ "audience_pain": "People open Incognito at work or school to feel hidden.",
+ "hook": {
+  "options": [
+   {
+    "pattern": "open-loop question",
+    "line": "Incognito mode makes me invisible online, right?"
+   },
+   {
+    "pattern": "contradiction",
+    "line": "Incognito does not make you invisible."
+   },
+   {
+    "pattern": "accusation / you",
+    "line": "You are using Incognito wrong."
+   }
+  ],
+  "chosen": 0,
+  "why": "A confident wrong belief said as a question: the viewer needs the correction."
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 17,
+   "job": "Dan states the belief",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 17,
+   "to_pct": 33,
+   "job": "Zoe contradicts him with who can still see",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "twist",
+   "from_pct": 33,
+   "to_pct": 50,
+   "job": "Dan jolts: shock beat",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 50,
+   "to_pct": 66,
+   "job": "Zoe says what it really does, with the real Chrome Help page on screen",
+   "lines": [
+    "L04"
+   ]
+  },
+  {
+   "beat": "twist",
+   "from_pct": 66,
+   "to_pct": 83,
+   "job": "Dan realises the stakes (fear) and Zoe lands the dry answer",
+   "lines": [
+    "L05",
+    "L06"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 83,
+   "to_pct": 100,
+   "job": "Zoe asks for the keyword and loops back to incognito",
+   "lines": [
+    "L07"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L06"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L02"
+   ],
+   "emotion": "determined"
+  },
+  {
+   "lines": [
+    "L03"
+   ],
+   "emotion": "shock"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "calm"
+  },
+  {
+   "lines": [
+    "L05"
+   ],
+   "emotion": "fear"
+  },
+  {
+   "lines": [
+    "L06"
+   ],
+   "emotion": "sarcastic"
+  },
+  {
+   "lines": [
+    "L07"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L03",
+   "device": "jolt: close-up on Dan plus a giant WHAT?! impact word and a boom"
+  },
+  {
+   "at": "L04",
+   "device": "cut from 3D to the real Chrome Help page, highlighted, over a blurred real photo"
+  },
+  {
+   "at": "L05",
+   "device": "slow push-in on the fear face"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "plaque (headline banner like the reference) INCOGNITO = INVISIBLE?",
+   "why": "the reference uses a yellow banner; ours changes text as the claim flips"
+  },
+  {
+   "line": "L02",
+   "device": "sticker BOSS · SCHOOL · WI-FI",
+   "why": "names who can still see, which the voice only lists"
+  },
+  {
+   "line": "L03",
+   "device": "impact WHAT?!",
+   "why": "the shock is the picture"
+  },
+  {
+   "line": "L04",
+   "device": "ProofCard real capture with highlight",
+   "why": "a source on screen for the claim"
+  },
+  {
+   "line": "L07",
+   "device": "CommentBox HIDE",
+   "why": "shows the exact keyword"
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L01",
+   "sfx": "pop",
+   "why": "the banner appears"
+  },
+  {
+   "line": "L02",
+   "sfx": "stamp",
+   "why": "WRONG lands"
+  },
+  {
+   "line": "L03",
+   "sfx": "boom",
+   "why": "the impact word"
+  },
+  {
+   "line": "L04",
+   "sfx": "pop",
+   "why": "the proof card appears"
+  },
+  {
+   "line": "L05",
+   "sfx": "heartbeat",
+   "why": "fear"
+  },
+  {
+   "line": "L07",
+   "sfx": "ding",
+   "why": "the keyword is posted"
+  }
+ ],
+ "cta": {
+  "keyword": "HIDE",
+  "line": "L07"
+ },
+ "loop": {
+  "echo": "incognito"
+ },
+ "share": {
+  "reason": "People send it to a colleague who \"goes incognito\" at work.",
+  "comment_bait": "Comment HIDE for the checklist"
+ },
+ "reference": {
+  "name": "couple",
+  "keep": [
+   "pace: median shot 5.88s",
+   "0.85 cuts per 10 s",
+   "caption zone y n/a"
+  ],
+  "twist": "Same two-person comic argument, but 3-second shots, a real Chrome Help proof card, event-tied sound, and a last line that loops to the hook.",
+  "beat_grid": [
+   {
+    "slot": 1,
+    "from": 0,
+    "to": 4.09,
+    "reference_length": 2.67,
+    "camera": "pull out"
+   },
+   {
+    "slot": 2,
+    "from": 4.09,
+    "to": 18,
+    "reference_length": 9.08,
+    "camera": "pull out"
+   }
+  ]
+ },
+ "duration_sec": 18
+}

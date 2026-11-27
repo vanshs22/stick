@@ -1,0 +1,13 @@
+{
+ "topic": "a mysterious box and a golden key (style experiment)",
+ "angle": "A fiction short used to compare three art styles on one identical script.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "The story (a mystery box with a golden key) is invented. It makes no factual claim about the real world.",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": []
+}

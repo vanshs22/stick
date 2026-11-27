@@ -1,0 +1,735 @@
+{
+ "id": "drawn-camp-3d",
+ "name": "Drawn Camp 3D",
+ "family": "3d",
+ "cadence": "beat-short",
+ "engine": "inkbeat",
+ "formats": [
+  "16:9",
+  "9:16"
+ ],
+ "description": "Samurai camp tent, drawn stick hero in a dense textured 3D set (3D look made in Style Studio, \"Camp tent, drawn stick hero\")",
+ "tokens": {
+  "colors": {
+   "bg": "#ffd23a",
+   "ink": "#FFFFFF",
+   "ink2": "#FFFFFF",
+   "muted": "#b8b0d8",
+   "card": "#fff8ee",
+   "accent": "#ff5a7a",
+   "accentSoft": "#ff5a7a33",
+   "good": "#5ad07a",
+   "bad": "#ff5a5a"
+  },
+  "fonts": {
+   "sans": "Poppins",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1344,
+   "right_margin": 120
+  }
+ },
+ "effects": {
+  "vignette": 0.08
+ },
+ "rules": [
+  "Look: Samurai camp tent, drawn stick hero in a dense textured 3D set",
+  "The set, hero and light are the data in ink_look: change them with Style Studio (refine), not by adding code.",
+  "Camera: the shot ladder in docs/CAMERA-GRAMMAR.md; every key fact in the story is an object in the set.",
+  "No flashing, no strobing; screen shake only on an impact beat."
+ ],
+ "components": [
+  "inkbeat/Story",
+  "inkbeat/Character3D"
+ ],
+ "camera_language": "Toddler-eye-level wide establishing, medium of the hero, close-up on the face on the chorus. Cuts every 2-4 s on the beat; a slow push on the hero while a verse builds; a slide to a new object when the lyric names it. No handheld, no whip, no shake.",
+ "typography": "Poppins ExtraBold, lyric lines in large lowercase, high contrast, never over the face.",
+ "transitions": [
+  "cut on the beat",
+  "slide",
+  "dissolve (scene change only)"
+ ],
+ "audio_direction": "a sung melody in a major key, 90-110 BPM, claps and chimes on the beat, soft pops for objects appearing; no sudden loud sounds, no bass drops",
+ "pitfalls": [
+  "Pastel washes: keep exposure at 0.8 and saturation at 1.6 or the room goes milky.",
+  "Sharp props (a corner box) break the rule: use rounded boxes only.",
+  "A fast zoom pulse on every beat is the over-stimulating pattern; keep zooms under 8 percent and slow."
+ ],
+ "looks": [
+  "kids-day",
+  "kids-night"
+ ],
+ "references": [
+  "skills/camera-grammar/SKILL.md",
+  "skills/inkbeat/SKILL.md"
+ ],
+ "ink_look": {
+  "ink": 1,
+  "sky": false,
+  "blur": 1.6,
+  "hero": {
+   "base": "zackd",
+   "height": 1.65,
+   "build": {
+    "headScale": 1.5,
+    "torso": "barrel",
+    "torsoWidth": 1.12,
+    "torsoHeight": 0.95,
+    "limb": 0.17,
+    "neck": 0.3,
+    "armLength": 1.15,
+    "hand": 0.5
+   },
+   "look": {
+    "skin": "#fbf6ec",
+    "outfit": "jacket",
+    "colors": {
+     "top": "#2f8a7a",
+     "inner": "#f4ead2",
+     "bottom": "#15151b",
+     "shoes": "#15151b",
+     "accent": "#c8372d"
+    },
+    "hair": "crop",
+    "hairColor": "#15151b",
+    "face": {
+     "eyeScale": 0.55,
+     "blush": 0,
+     "brow": 1.3,
+     "eyeColor": "#111111"
+    }
+   }
+  },
+  "set": {
+   "floor": {
+    "c": "#6a4a36",
+    "tex": "planks",
+    "size": [
+     10,
+     9
+    ]
+   },
+   "walls": {
+    "c": "#c8bca8",
+    "tex": "fabric",
+    "sides": [
+     "back",
+     "left",
+     "right"
+    ],
+    "h": 5.3
+   },
+   "props": [
+    {
+     "k": "box",
+     "s": [
+      10,
+      0.04,
+      9
+     ],
+     "p": [
+      0,
+      0.02,
+      -2
+     ],
+     "c": "#4e362a",
+     "tex": "planks",
+     "ts": 1.2
+    },
+    {
+     "k": "panel",
+     "pat": "rug",
+     "c": "#8a1f24",
+     "c2": "#2a3a68",
+     "c3": "#e8b84a",
+     "n": 8,
+     "s": [
+      4.6,
+      0.03,
+      4
+     ],
+     "p": [
+      0,
+      0.05,
+      -2.3
+     ]
+    },
+    {
+     "k": "panel",
+     "pat": "canvas",
+     "c": "#d2c8b6",
+     "c2": "#8a7a62",
+     "n": 6,
+     "s": [
+      5.4,
+      0.06,
+      9.6
+     ],
+     "p": [
+      -2.5,
+      4.2,
+      -2
+     ],
+     "r": [
+      0,
+      0,
+      0.38
+     ]
+    },
+    {
+     "k": "panel",
+     "pat": "canvas",
+     "c": "#d2c8b6",
+     "c2": "#8a7a62",
+     "n": 6,
+     "s": [
+      5.4,
+      0.06,
+      9.6
+     ],
+     "p": [
+      2.5,
+      4.2,
+      -2
+     ],
+     "r": [
+      0,
+      0,
+      -0.38
+     ]
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.045,
+      0.045,
+      5.5
+     ],
+     "p": [
+      -2.5,
+      4.14,
+      -6.2
+     ],
+     "r": [
+      0,
+      0,
+      1.9507963267948965
+     ],
+     "c": "#c8a050",
+     "cast": false,
+     "repeat": {
+      "n": 8,
+      "step": [
+       0,
+       0,
+       1.3
+      ]
+     }
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.045,
+      0.045,
+      5.5
+     ],
+     "p": [
+      2.5,
+      4.14,
+      -6.2
+     ],
+     "r": [
+      0,
+      0,
+      1.1907963267948967
+     ],
+     "c": "#c8a050",
+     "cast": false,
+     "repeat": {
+      "n": 8,
+      "step": [
+       0,
+       0,
+       1.3
+      ]
+     }
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.07,
+      0.07,
+      9.4
+     ],
+     "p": [
+      0,
+      5.12,
+      -2
+     ],
+     "r": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "c": "#6a4a34",
+     "tex": "wood"
+    },
+    {
+     "k": "box",
+     "s": [
+      2.4,
+      1.5,
+      0.04
+     ],
+     "p": [
+      0,
+      2.2,
+      -6.42
+     ],
+     "c": "#6a8ac8",
+     "e": "#6a8ac8",
+     "ei": 0.3,
+     "tex": "none"
+    },
+    {
+     "k": "panel",
+     "pat": "stripes",
+     "c": "#e8dcc0",
+     "c2": "#2a2a3a",
+     "n": 3,
+     "s": [
+      1.3,
+      0.9,
+      0.05
+     ],
+     "p": [
+      0,
+      3.9,
+      -6.35
+     ]
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.55,
+      0.3,
+      0.28
+     ],
+     "p": [
+      -3,
+      0.62,
+      -3.4
+     ],
+     "c": "#2a2a32",
+     "tex": "metal"
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.05,
+      0.05,
+      0.6
+     ],
+     "p": [
+      -3,
+      0.3,
+      -3.4
+     ],
+     "c": "#2a2a32",
+     "tex": "metal"
+    },
+    {
+     "k": "glow",
+     "s": [
+      0.1
+     ],
+     "p": [
+      -3.15,
+      0.78,
+      -3.45
+     ],
+     "c": "#ff7a2a",
+     "k2": 0.85,
+     "sc": [
+      1.3,
+      0.7,
+      1.3
+     ],
+     "repeat": {
+      "n": 4,
+      "step": [
+       0.1,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "k": "round",
+     "s": [
+      1.1,
+      0.62,
+      0.7
+     ],
+     "p": [
+      -3.8,
+      0.34,
+      -5.4
+     ],
+     "c": "#b3261e",
+     "tex": "wood",
+     "rad": 0.04
+    },
+    {
+     "k": "round",
+     "s": [
+      0.95,
+      0.5,
+      0.6
+     ],
+     "p": [
+      -3.8,
+      0.9,
+      -5.4
+     ],
+     "c": "#7a1a14",
+     "tex": "wood",
+     "rad": 0.04
+    },
+    {
+     "k": "box",
+     "s": [
+      1.1,
+      0.06,
+      0.74
+     ],
+     "p": [
+      -3.8,
+      0.34,
+      -5.4
+     ],
+     "c": "#d8a040"
+    },
+    {
+     "k": "box",
+     "s": [
+      0.7,
+      0.08,
+      0.5
+     ],
+     "p": [
+      3.5,
+      0.06,
+      -5.2
+     ],
+     "c": "#3a2a22",
+     "tex": "wood"
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.05,
+      0.05,
+      1.6
+     ],
+     "p": [
+      3.5,
+      0.9,
+      -5.2
+     ],
+     "c": "#3a2a22",
+     "tex": "wood"
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.34,
+      0.46,
+      0.95
+     ],
+     "p": [
+      3.5,
+      1.3,
+      -5.2
+     ],
+     "c": "#c8372d",
+     "tex": "fabric"
+    },
+    {
+     "k": "box",
+     "s": [
+      1.1,
+      0.16,
+      0.2
+     ],
+     "p": [
+      3.5,
+      1.72,
+      -5.2
+     ],
+     "c": "#a82a22"
+    },
+    {
+     "k": "cone",
+     "s": [
+      0.34,
+      0.4
+     ],
+     "p": [
+      3.5,
+      2,
+      -5.2
+     ],
+     "c": "#2a2a32",
+     "tex": "metal"
+    },
+    {
+     "k": "panel",
+     "pat": "waves",
+     "c": "#e8dcc0",
+     "c2": "#2f8a7a",
+     "n": 5,
+     "s": [
+      2,
+      2.3,
+      0.06
+     ],
+     "p": [
+      4,
+      1.2,
+      -3.6
+     ],
+     "r": [
+      0,
+      -0.55,
+      0
+     ]
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.09,
+      0.09,
+      0.9
+     ],
+     "p": [
+      1.9,
+      0.14,
+      -3.6
+     ],
+     "r": [
+      0,
+      0.6,
+      1.5707963267948966
+     ],
+     "c": "#e8dcc0",
+     "tex": "paper"
+    },
+    {
+     "k": "round",
+     "s": [
+      1.7,
+      0.42,
+      0.95
+     ],
+     "p": [
+      2.4,
+      0.23,
+      -4.3
+     ],
+     "c": "#6a4a34",
+     "tex": "wood",
+     "rad": 0.04
+    },
+    {
+     "k": "sph",
+     "s": [
+      0.16
+     ],
+     "p": [
+      2,
+      0.6,
+      -4.3
+     ],
+     "c": "#1a1a22"
+    },
+    {
+     "k": "cyl",
+     "s": [
+      0.01,
+      0.01,
+      1.2
+     ],
+     "p": [
+      -2.2,
+      4,
+      -4
+     ],
+     "c": "#2a2a32",
+     "repeat": {
+      "n": 2,
+      "step": [
+       4.4,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "k": "glow",
+     "s": [
+      0.26
+     ],
+     "p": [
+      -2.2,
+      3.3,
+      -4
+     ],
+     "c": "#ff5a1a",
+     "k2": 0.8,
+     "sc": [
+      1,
+      1.3,
+      1
+     ],
+     "anim": "bob",
+     "repeat": {
+      "n": 2,
+      "step": [
+       4.4,
+       0,
+       0
+      ],
+      "colors": [
+       "#ff5a1a",
+       "#ff9a10"
+      ]
+     }
+    },
+    {
+     "k": "label",
+     "text": "CAMP",
+     "p": [
+      0,
+      3.3,
+      -6.3
+     ],
+     "w": 1.5,
+     "h": 0.4,
+     "fg": "#e8dcc0",
+     "bg": "#2a2a3a"
+    }
+   ],
+   "lights": [
+    {
+     "p": [
+      -2.6,
+      1.3,
+      -3
+     ],
+     "color": "#ff8a40",
+     "intensity": 7,
+     "distance": 6
+    },
+    {
+     "p": [
+      2.2,
+      2.6,
+      -3.6
+     ],
+     "color": "#ffc070",
+     "intensity": 4,
+     "distance": 8
+    },
+    {
+     "p": [
+      0,
+      3.6,
+      -1.5
+     ],
+     "color": "#ffe0b0",
+     "intensity": 2,
+     "distance": 10
+    }
+   ]
+  },
+  "moods": {
+   "main": {
+    "base": "lamp",
+    "patch": {
+     "note": "tent interior: warm tungsten, cool bounce, no outline on the world, ink on the character",
+     "lights": {
+      "hemi": {
+       "sky": "#d8d4e4",
+       "ground": "#6a5048",
+       "intensity": 0.85
+      },
+      "key": {
+       "color": "#f0e8f4",
+       "intensity": 2,
+       "dir": [
+        0.4,
+        0.9,
+        0.6
+       ]
+      },
+      "rim": {
+       "color": "#8aa8ff",
+       "intensity": 1.6
+      },
+      "fill": {
+       "color": "#8a94d8",
+       "intensity": 0.6
+      }
+     },
+     "fog": {
+      "color": "#3a2e3a",
+      "density": 0.003
+     },
+     "toon": {
+      "ramp": "smooth",
+      "shadowTint": [
+       0.82,
+       0.84,
+       1.1
+      ],
+      "shadowAmt": 0.5,
+      "paint": 0
+     },
+     "post": {
+      "outline": {
+       "enabled": false
+      },
+      "dof": {
+       "maxBlurPx": 2
+      },
+      "bloom": {
+       "strength": 0.6
+      },
+      "vignette": {
+       "amount": 0.25
+      },
+      "grade": {
+       "saturation": 1.15,
+       "contrast": 1.1,
+       "exposure": 0.9,
+       "shadowTint": "#2a2a70",
+       "highlightTint": "#ffe0b8"
+      }
+     }
+    }
+   }
+  }
+ },
+ "studio": {
+  "from": "kidsong-3d",
+  "look": "v1",
+  "brief": "Samurai camp tent, drawn stick hero in a dense textured 3D set",
+  "approved_by_quote": "TEST RUN: the user asked the agent to match the videoplayback.mp4 reference style; not a real client pick",
+  "approved_at": "2026-11-19T13:20:31.207Z"
+ }
+}

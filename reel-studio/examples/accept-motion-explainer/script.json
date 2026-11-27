@@ -1,0 +1,61 @@
+{
+ "title": "The cache effect",
+ "language": "en",
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "Same page, two visits: eight hundred milliseconds, then forty.",
+   "emphasis": [
+    "forty"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L02",
+   "beat": "setup",
+   "text": "The first visit fetches every file from a far away server.",
+   "emphasis": [
+    "far"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C1"
+   ]
+  },
+  {
+   "id": "L03",
+   "beat": "mechanism",
+   "text": "A cache keeps a copy close to you.",
+   "emphasis": [
+    "copy"
+   ],
+   "visual_hint": ""
+  },
+  {
+   "id": "L04",
+   "beat": "proof",
+   "text": "So the second visit skips the trip, and is twenty times faster.",
+   "emphasis": [
+    "twenty"
+   ],
+   "visual_hint": "",
+   "claims": [
+    "C2"
+   ]
+  },
+  {
+   "id": "L05",
+   "beat": "cta",
+   "text": "Save this, and comment CACHE.",
+   "emphasis": [
+    "CACHE"
+   ],
+   "visual_hint": ""
+  }
+ ],
+ "est_seconds": 17
+}

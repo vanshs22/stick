@@ -1,0 +1,10 @@
+[
+ {"id":"clean-modern","name":"Clean modern","headline":{"font":"Inter","weight":800},"supporting":{"font":"InstrumentSerif"},"ui":{"font":"JetBrainsMono"},"caption":{"font":"Inter","weight":900},"best_for":"explainers, tech, calm authority"},
+ {"id":"editorial","name":"Editorial serif","headline":{"font":"Fraunces","weight":700},"supporting":{"font":"InstrumentSerif"},"ui":{"font":"JetBrainsMono"},"caption":{"font":"Manrope","weight":800},"best_for":"essays, culture, history"},
+ {"id":"tech","name":"Tech grotesk","headline":{"font":"SpaceGrotesk","weight":700},"supporting":{"font":"InstrumentSerif"},"ui":{"font":"SpaceMono"},"caption":{"font":"SpaceGrotesk","weight":700},"best_for":"software, AI, developer tools"},
+ {"id":"punchy","name":"Punchy poster","headline":{"font":"ArchivoBlack","weight":400,"case":"upper"},"supporting":{"font":"PlayfairDisplay"},"ui":{"font":"DMSans"},"caption":{"font":"ArchivoBlack","weight":400},"best_for":"hooks, finance, bold claims"},
+ {"id":"friendly","name":"Friendly rounded","headline":{"font":"Fredoka","weight":700},"supporting":{"font":"Caveat"},"ui":{"font":"DMSans"},"caption":{"font":"Fredoka","weight":700},"best_for":"kids, how-tos, characters"},
+ {"id":"cinematic","name":"Cinematic condensed","headline":{"font":"BebasNeue","weight":400,"case":"upper"},"supporting":{"font":"DMSerifDisplay"},"ui":{"font":"Oswald"},"caption":{"font":"Oswald","weight":700},"best_for":"mystery, trailers, noir"},
+ {"id":"comic","name":"Comic energy","headline":{"font":"Bangers","weight":400,"case":"upper"},"supporting":{"font":"LilitaOne"},"ui":{"font":"Fredoka"},"caption":{"font":"Bangers","weight":400},"best_for":"comedy, story-time, block worlds"},
+ {"id":"typewriter","name":"Documentary typewriter","headline":{"font":"SpaceMono","weight":700,"case":"upper"},"supporting":{"font":"PlayfairDisplay"},"ui":{"font":"SpaceMono"},"caption":{"font":"SpaceMono","weight":700},"best_for":"true crime, evidence, history"}
+]

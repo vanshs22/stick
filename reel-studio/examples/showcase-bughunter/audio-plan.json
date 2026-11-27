@@ -1,0 +1,22 @@
+{
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_fenrir",
+  "speed": 1.03,
+  "pronunciations": {
+   "BugHunter": "Bug Hunter",
+   "acme.com": "acme dot com"
+  }
+ },
+ "music": {
+  "direction": "dark synthwave bed",
+  "bed": "file",
+  "file": "assets/music/bed.mp3",
+  "gain_db": 0
+ },
+ "mix": {
+  "target_lufs": -14,
+  "true_peak_db": -1.5
+ },
+ "mode": "narrated_music"
+}

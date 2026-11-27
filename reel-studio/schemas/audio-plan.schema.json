@@ -1,0 +1,236 @@
+{
+ "type": "object",
+ "required": [
+  "voice",
+  "music",
+  "mix"
+ ],
+ "properties": {
+  "voice": {
+   "type": "object",
+   "required": [
+    "engine"
+   ],
+   "properties": {
+    "engine": {
+     "type": "string",
+     "minLength": 1
+    },
+    "voice": {
+     "type": "string"
+    },
+    "speed": {
+     "type": "number"
+    },
+    "pronunciations": {
+     "type": "object"
+    }
+   }
+  },
+  "music": {
+   "type": "object",
+   "required": [
+    "direction"
+   ],
+   "properties": {
+    "direction": {
+     "type": "string",
+     "minLength": 1
+    },
+    "file": {
+     "type": "string"
+    },
+    "bed": {
+     "type": "string",
+     "pattern": "^(bed|tension|upbeat|none|file|genre:(lofi|phonk|trap|corporate|cinematic|synthwave|house)(@\\d{2,3})?)$",
+     "description": "built-in bed, none, file (with music.file), or genre:<name>[@bpm] built for this film by tools/audio/music_lab.py"
+    },
+    "gain_db": {
+     "type": "number"
+    },
+    "key": {
+     "type": "string"
+    },
+    "arc": {
+     "type": "array",
+     "items": {
+      "type": "number"
+     }
+    },
+    "seed": {
+     "type": "integer"
+    }
+   }
+  },
+  "mix": {
+   "type": "object",
+   "required": [
+    "target_lufs",
+    "true_peak_db"
+   ],
+   "properties": {
+    "target_lufs": {
+     "type": "number",
+     "minimum": -23,
+     "maximum": -9
+    },
+    "true_peak_db": {
+     "type": "number",
+     "maximum": 0
+    },
+    "duck_db": {
+     "type": "number"
+    }
+   }
+  },
+  "notes": {
+   "type": "string"
+  },
+  "mode": {
+   "type": "string",
+   "enum": [
+    "narrated",
+    "narrated_music",
+    "music_only",
+    "silent",
+    "custom"
+   ],
+   "description": "What audio the finished video must have. 'silent' = intentionally no audio; every other mode FAILS the build when its audio is missing."
+  },
+  "music_by_beat": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "beat_id",
+     "mood",
+     "energy"
+    ],
+    "properties": {
+     "beat_id": {
+      "type": "string"
+     },
+     "mood": {
+      "type": "string",
+      "enum": [
+       "tense",
+       "curious",
+       "playful",
+       "warm",
+       "epic",
+       "sad",
+       "eerie",
+       "triumphant",
+       "calm",
+       "chaotic"
+      ]
+     },
+     "bpm": {
+      "type": "number",
+      "minimum": 50,
+      "maximum": 200
+     },
+     "genre": {
+      "type": "string"
+     },
+     "energy": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+     },
+     "source": {
+      "type": "string",
+      "enum": [
+       "library",
+       "music_lab"
+      ]
+     },
+     "query": {
+      "type": "string"
+     },
+     "duck_db": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 12
+     }
+    }
+   }
+  },
+  "sfx_palette": {
+   "type": "object"
+  },
+  "sfx_rules": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "trigger",
+     "role"
+    ],
+    "properties": {
+     "trigger": {
+      "type": "string",
+      "enum": [
+       "cut",
+       "keyword",
+       "reveal",
+       "move",
+       "number",
+       "impact"
+      ]
+     },
+     "role": {
+      "type": "string"
+     },
+     "gain_db": {
+      "type": "number",
+      "minimum": -30,
+      "maximum": 0
+     },
+     "max_per_10s": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+     },
+     "offset_ms": {
+      "type": "number",
+      "minimum": -200,
+      "maximum": 200
+     }
+    }
+   }
+  },
+  "voices": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "character_id",
+     "engine",
+     "voice"
+    ],
+    "properties": {
+     "character_id": {
+      "type": "string"
+     },
+     "engine": {
+      "type": "string"
+     },
+     "voice": {
+      "type": "string"
+     },
+     "speed": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 1.6
+     },
+     "pitch": {
+      "type": "number"
+     }
+    }
+   }
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "audio-plan"
+}

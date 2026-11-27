@@ -1,0 +1,108 @@
+{
+ "title": "The padlock lie",
+ "language": "en",
+ "cast": {
+  "LEO": {
+   "gender": "male",
+   "tone": "playful",
+   "role": "trusting user"
+  },
+  "MAYA": {
+   "gender": "female",
+   "tone": "warm",
+   "role": "security-savvy friend"
+  }
+ },
+ "est_seconds": 28,
+ "lines": [
+  {
+   "id": "L01",
+   "beat": "hook",
+   "text": "The padlock is on, so this site is safe, right?",
+   "speaker": "LEO",
+   "emotion": "curious",
+   "emphasis": [
+    "safe"
+   ]
+  },
+  {
+   "id": "L02",
+   "beat": "stakes",
+   "text": "Wrong. Nearly all phishing sites show that padlock too.",
+   "speaker": "MAYA",
+   "emotion": "determined",
+   "claims": [
+    "C2"
+   ],
+   "emphasis": [
+    "Wrong"
+   ]
+  },
+  {
+   "id": "L03",
+   "beat": "twist",
+   "text": "Wait, what?",
+   "speaker": "LEO",
+   "emotion": "shock",
+   "pause_after": 0.15
+  },
+  {
+   "id": "L04",
+   "beat": "proof",
+   "text": "Only eleven percent understand the lock. Chrome replaced it.",
+   "speaker": "MAYA",
+   "emotion": "calm",
+   "claims": [
+    "C1",
+    "C3"
+   ],
+   "emphasis": [
+    "eleven"
+   ]
+  },
+  {
+   "id": "L05",
+   "beat": "objection",
+   "text": "So my password was about to go to a fake site?",
+   "speaker": "LEO",
+   "emotion": "fear",
+   "tts_text": "So... my password was about to go to a fake site?",
+   "emphasis": [
+    "fake"
+   ]
+  },
+  {
+   "id": "L06",
+   "beat": "mechanism",
+   "text": "The lock only means the connection is encrypted.",
+   "speaker": "MAYA",
+   "emotion": "calm",
+   "claims": [
+    "C4"
+   ],
+   "emphasis": [
+    "connection"
+   ]
+  },
+  {
+   "id": "L07",
+   "beat": "step",
+   "text": "Check the address, not the icon.",
+   "speaker": "LEO",
+   "emotion": "proud",
+   "emphasis": [
+    "address"
+   ]
+  },
+  {
+   "id": "L08",
+   "beat": "cta",
+   "text": "Save this before a padlock fools you. Comment LOCK.",
+   "speaker": "MAYA",
+   "emotion": "happy",
+   "emphasis": [
+    "LOCK"
+   ]
+  }
+ ]
+}

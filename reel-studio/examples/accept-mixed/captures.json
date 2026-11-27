@@ -1,0 +1,44 @@
+[
+ {
+  "id": "web/fundamentals",
+  "src": "SRC1",
+  "url": "https://www.remotion.dev/docs/the-fundamentals",
+  "viewport": "480x486",
+  "actions": [
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ],
+  "expect": [
+   "frame number"
+  ]
+ },
+ {
+  "id": "web/github",
+  "src": "SRC3",
+  "url": "https://github.com/remotion-dev/remotion",
+  "viewport": "480x486",
+  "actions": [
+   {
+    "do": "wait",
+    "ms": 1200
+   },
+   {
+    "do": "scroll",
+    "y": 250
+   },
+   {
+    "do": "wait",
+    "ms": 900
+   },
+   {
+    "do": "screenshot",
+    "name": "page"
+   }
+  ],
+  "expect": [
+   "watching"
+  ]
+ }
+]

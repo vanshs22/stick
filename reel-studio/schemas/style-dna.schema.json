@@ -1,0 +1,78 @@
+{
+ "type": "object",
+ "required": ["schema_version", "meta", "structure", "shots", "camera", "captions", "palette", "motion", "audio", "unmeasured"],
+ "additionalProperties": false,
+ "properties": {
+  "schema_version": { "type": "integer", "minimum": 1 },
+  "meta": {
+   "type": "object",
+   "required": ["src_hash", "duration_s", "fps", "aspect", "n_shots"],
+   "additionalProperties": false,
+   "properties": {
+    "src_hash": { "type": "string", "minLength": 8 },
+    "duration_s": { "type": "number", "minimum": 1 },
+    "fps": { "type": "number", "minimum": 1 },
+    "aspect": { "type": "string", "enum": ["9:16", "1:1", "16:9", "4:5"] },
+    "n_shots": { "type": "integer", "minimum": 1 }
+   }
+  },
+  "structure": {
+   "type": "object",
+   "required": ["beats"],
+   "additionalProperties": false,
+   "properties": {
+    "beats": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["t0", "t1", "type"], "properties": { "t0": { "type": "number", "minimum": 0 }, "t1": { "type": "number", "minimum": 0 }, "type": { "type": "string", "enum": ["hook", "setup", "beat", "payoff", "cta"] }, "tag": { "type": "string" } } } }
+   }
+  },
+  "shots": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "required": ["t0", "t1", "move", "confidence"],
+    "additionalProperties": false,
+    "properties": {
+     "t0": { "type": "number", "minimum": 0 },
+     "t1": { "type": "number", "minimum": 0 },
+     "framing": { "type": "string" },
+     "angle": { "type": "string" },
+     "move": { "type": "string" },
+     "move_mag": { "type": "number" },
+     "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+    }
+   }
+  },
+  "camera": { "type": "object" },
+  "captions": { "type": "object" },
+  "palette": {
+   "type": "object",
+   "required": ["dominant"],
+   "additionalProperties": false,
+   "properties": {
+    "dominant": { "type": "array", "minItems": 2, "items": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" } },
+    "accent": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "bg": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+   }
+  },
+  "motion": { "type": "object", "required": ["cuts_per_10s"], "properties": { "cuts_per_10s": { "type": "number", "minimum": 0 }, "mean_flow": { "type": "number" }, "zoom_events": { "type": "integer", "minimum": 0 } } },
+  "audio": {
+   "type": "object",
+   "required": ["lufs"],
+   "additionalProperties": false,
+   "properties": {
+    "lufs": { "type": "number" },
+    "lra": { "type": "number", "minimum": 0 },
+    "bpm": { "type": "number", "minimum": 30, "maximum": 260 },
+    "beat_grid": { "type": "array", "items": { "type": "number" } },
+    "speech_wpm": { "type": "number", "minimum": 0 },
+    "music_mood": { "type": "string" },
+    "sfx_onsets": { "type": "array", "items": { "type": "number" } },
+    "voice_music_db": { "type": "number" }
+   }
+  },
+  "cast_hint": { "type": "object" },
+  "world_hint": { "type": "object" },
+  "vlm": { "type": "array", "items": { "type": "object" } },
+  "unmeasured": { "type": "array", "items": { "type": "string", "minLength": 3 } }
+ }
+}

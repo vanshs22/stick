@@ -1,0 +1,26 @@
+{
+ "title": "The golden key",
+ "topic": "a mysterious box and a golden key (style experiment)",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 16,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "teach one idea clearly",
+ "style_pack": "stylized-3d-presenter",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.0
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "dialogue"
+ },
+ "cta": {
+  "keyword": "KEY",
+  "text": "Comment KEY"
+ }
+}

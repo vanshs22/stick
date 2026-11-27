@@ -1,0 +1,73 @@
+{
+ "reference": "couple",
+ "source": "/projects/sandbox/work/proj/final-test/references/couple/source.mp4",
+ "duration": 11.75,
+ "cuts_per_10s": 0.85,
+ "median_shot": 5.88,
+ "shortest": 2.67,
+ "longest": 9.08,
+ "camera_moves": {
+  "pull out": 2
+ },
+ "static_share": 0,
+ "caption_y": null,
+ "loudness_lufs": -12.3,
+ "sfx_onsets": [
+  4.53,
+  5.3,
+  5.67,
+  9.28,
+  11,
+  11.34,
+  11.46,
+  16.09,
+  16.21,
+  16.3,
+  16.36,
+  16.54,
+  16.64,
+  16.73
+ ],
+ "onsets_per_10s": 11.8,
+ "palette": [
+  "#423A56",
+  "#69668A",
+  "#ACA7C0",
+  "#E8DED9",
+  "#92A235",
+  "#F6E715"
+ ],
+ "brightness": 0.549,
+ "saturation": 0.386,
+ "target_duration": 18,
+ "scale": 1.532,
+ "beat_grid": [
+  {
+   "slot": 1,
+   "from": 0,
+   "to": 4.09,
+   "reference_length": 2.67,
+   "camera": "pull out"
+  },
+  {
+   "slot": 2,
+   "from": 4.09,
+   "to": 18,
+   "reference_length": 9.08,
+   "camera": "pull out"
+  }
+ ],
+ "keep": [
+  "median shot about 5.88 s (0.85 cuts per 10 s)",
+  "camera: pull out",
+  "loudness near -12.3 LUFS",
+  "palette family #423A56 #69668A #ACA7C0"
+ ],
+ "improve": [
+  "a hook that lands in the first 2 s (the reference may start slowly)",
+  "an extra readable device the reference lacks (a proof card, a counter, a sticker on the key word)",
+  "sound tied to every visual event, with a hit on the reveal",
+  "a last line that loops to the first",
+  "captions with one highlighted word, kept clear of faces"
+ ]
+}

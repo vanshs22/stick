@@ -1,0 +1,136 @@
+{
+ "format": "explainer",
+ "promise": "You see that Remotion makes a video the way you make a web page.",
+ "audience_pain": "beginners who want to understand one idea in 15 seconds",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "What if making a video was as simple as writing a web page?"
+   },
+   {
+    "pattern": "alternative",
+    "line": "Making a video can be as simple as writing a web page."
+   },
+   {
+    "pattern": "alternative",
+    "line": "73,667 developers star one tool for making videos in code."
+   }
+  ],
+  "chosen": 0,
+  "why": "the line already in the script: specific and says why to keep watching"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 25,
+   "job": "state the question or claim that makes the viewer need the answer",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "setup",
+   "from_pct": 25,
+   "to_pct": 50,
+   "job": "set the one picture",
+   "lines": [
+    "L02"
+   ]
+  },
+  {
+   "beat": "proof",
+   "from_pct": 50,
+   "to_pct": 75,
+   "job": "show real evidence",
+   "lines": [
+    "L03"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 75,
+   "to_pct": 100,
+   "job": "ask once, one keyword",
+   "lines": [
+    "L04"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L03"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L04"
+   ],
+   "emotion": "happy"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L02",
+   "device": "DRAFT: the real page \"The core idea | Remotion\" on a floating screen (setup)"
+  },
+  {
+   "at": "L03",
+   "device": "DRAFT: the real page \"GitHub - remotion-dev/remotion: \ud83c\udfa5 Make videos pro\" on a floating scr"
+  },
+  {
+   "at": "L04",
+   "device": "DRAFT: both characters ask for the comment (cta)"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "line": "L01",
+   "device": "Stage3D",
+   "why": "A glowing laptop between the two cubies asks the question in the pack's own neon stage: the characters react, the set pi"
+  },
+  {
+   "line": "L02",
+   "device": "Stage3D",
+   "why": "The claim is about what the Remotion docs say, so a REAL capture of the docs page hangs in the 3D stage (a floating scre"
+  },
+  {
+   "line": "L03",
+   "device": "Stage3D",
+   "why": "The star count is a fact about a real repository, so the real GitHub page is the proof, again on the floating screen, wi"
+  },
+  {
+   "line": "L04",
+   "device": "Stage3D",
+   "why": "The ask belongs to the characters: both face the camera with the plaque naming the keyword."
+  }
+ ],
+ "sound_plan": [
+  {
+   "line": "L04",
+   "sfx": "zap",
+   "why": "tied to the card or cut of this shot"
+  }
+ ],
+ "cta": {
+  "keyword": "REMOTION",
+  "line": "L04"
+ },
+ "loop": {
+  "echo": ""
+ },
+ "share": {
+  "reason": "Developers send it to a friend who wants to automate videos.",
+  "comment_bait": "Comment REMOTION for the docs link"
+ },
+ "duration_sec": 16
+}

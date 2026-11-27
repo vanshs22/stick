@@ -1,0 +1,106 @@
+{
+ "format": "tutorial",
+ "promise": "You will see the three-step way to turn one long video into clips.",
+ "audience_pain": "creators who wait weeks to post one video",
+ "hook": {
+  "options": [
+   {
+    "pattern": "as written",
+    "line": "Three weeks per video? You flop."
+   },
+   {
+    "pattern": "alternative",
+    "line": "Why does your video flop?"
+   },
+   {
+    "pattern": "alternative",
+    "line": "Three weeks for one post is too long."
+   }
+  ],
+  "chosen": 0,
+  "why": "a number and a problem the viewer knows"
+ },
+ "beats": [
+  {
+   "beat": "hook",
+   "from_pct": 0,
+   "to_pct": 20,
+   "job": "the problem",
+   "lines": [
+    "L01"
+   ]
+  },
+  {
+   "beat": "step",
+   "from_pct": 20,
+   "to_pct": 85,
+   "job": "three steps",
+   "lines": [
+    "L02",
+    "L03",
+    "L04",
+    "L05"
+   ]
+  },
+  {
+   "beat": "cta",
+   "from_pct": 85,
+   "to_pct": 100,
+   "job": "one ask",
+   "lines": [
+    "L06"
+   ]
+  }
+ ],
+ "open_loops": [
+  {
+   "opens": "L01",
+   "closes": "L06"
+  }
+ ],
+ "emotion_arc": [
+  {
+   "lines": [
+    "L01"
+   ],
+   "emotion": "curious"
+  },
+  {
+   "lines": [
+    "L06"
+   ],
+   "emotion": "proud"
+  }
+ ],
+ "retention": [
+  {
+   "at": "L03",
+   "device": "a wheel lights on each kind of moment"
+  },
+  {
+   "at": "L05",
+   "device": "three phones pop in on their names"
+  }
+ ],
+ "overlay_plan": [
+  {
+   "at": "L01",
+   "type": "verdict"
+  }
+ ],
+ "sound_plan": [
+  {
+   "at": "L01",
+   "sfx": "pop"
+  }
+ ],
+ "loop": "the verdict at the end answers the failure at the start",
+ "cta": {
+  "keyword": "CLIP",
+  "text": "Comment CLIP"
+ },
+ "share": {
+  "reason": "creators send workflows to other creators",
+  "audience": "short-video creators"
+ }
+}

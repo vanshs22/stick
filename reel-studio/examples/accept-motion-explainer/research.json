@@ -1,0 +1,29 @@
+{
+ "topic": "what a cache does to load time",
+ "angle": "A cache keeps a nearby copy, so the repeat visit skips the trip to the server.",
+ "claims": [
+  {
+   "id": "C1",
+   "text": "A cache stores a response and reuses it for later requests, so a repeat visit can skip fetching it again.",
+   "status": "verified",
+   "source_ids": [
+    "SRC1"
+   ]
+  },
+  {
+   "id": "C2",
+   "text": "The 800 ms and 40 ms load times (and \"twenty times faster\") are illustrative figures chosen for the picture, not a measurement. The film must not present them as measured data.",
+   "status": "opinion",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "SRC1",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching",
+   "title": "MDN: HTTP caching",
+   "captured_at": "2026-11-16T22:00:00Z",
+   "type": "primary"
+  }
+ ]
+}
