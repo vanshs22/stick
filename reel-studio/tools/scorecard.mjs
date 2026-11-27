@@ -11,10 +11,10 @@ import { check, loadSchema } from './validate.mjs';
 export const STAGES = {
   script: { critics: ['script', 'viral'], weight: 10, pass: 85 },
   storyboard: { critics: ['storyboard', 'logic', 'visual'], weight: 25, pass: 85, noBlocker: true },
-  audio: { critics: ['voice', 'music'], weight: 10, pass: 80 },
+  audio: { critics: ['voice', 'music', 'mood'], weight: 10, pass: 80 },
   captions: { critics: ['captions'], weight: 10, pass: 90 },
-  sfx: { critics: ['sfx'], weight: 10, pass: 85 },
-  overlays: { critics: ['layout', 'frames'], weight: 20, pass: 85 },
+  sfx: { critics: ['sfx', 'sync'], weight: 10, pass: 85 },
+  overlays: { critics: ['overlays', 'layout', 'frames'], weight: 20, pass: 85 },
   final: { critics: ['video', 'final'], weight: 15, pass: 90 },
 };
 export const MAX_ROUNDS = 3, OVERALL_PASS = 88;

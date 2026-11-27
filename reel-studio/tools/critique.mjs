@@ -9,11 +9,11 @@ import path from 'node:path';
 const [, , proj, what = 'all', ...rest] = process.argv;
 if (!proj) { console.error('usage: critique.mjs <project> <critic|all|stage:x|vision ...>'); process.exit(2); }
 const P = path.resolve(proj);
-const MOD = { logic: 'logic', layout: 'layout', research: 'research', script: 'script', storyboard: 'storyboard', visual: 'visual', captions: 'captions', audio: 'audio', frames: 'frames', video: 'video', final: 'video', reference: 'reference', toolchain: 'toolchain', viral: 'viral', style: 'style', youtube: 'youtube' };
-const STAGE = { research: ['research'], script: ['script', 'viral'], storyboard: ['storyboard', 'logic', 'visual'], captions: ['captions'], audio: ['audio'], render: ['frames', 'layout', 'video', 'reference', 'style', 'toolchain', 'youtube'] };
+const MOD = { logic: 'logic', sync: 'sync', overlays: 'overlays', mood: 'mood', layout: 'layout', research: 'research', script: 'script', storyboard: 'storyboard', visual: 'visual', captions: 'captions', audio: 'audio', frames: 'frames', video: 'video', final: 'video', reference: 'reference', toolchain: 'toolchain', viral: 'viral', style: 'style', youtube: 'youtube' };
+const STAGE = { research: ['research'], script: ['script', 'viral'], storyboard: ['storyboard', 'logic', 'visual'], captions: ['captions', 'overlays'], audio: ['audio', 'mood', 'sync'], render: ['frames', 'layout', 'video', 'reference', 'style', 'toolchain', 'youtube'] };
 const load = async (m) => { const x = await import(`./critics/${m}.mjs`); return x.run_ || x.run; };
 if (what === 'vision') { const f = await load('vision'); await f(P, rest); process.exit(0); }
-const names = what === 'all' ? ['research', 'script', 'storyboard', 'logic', 'visual', 'captions', 'audio', 'frames', 'video', 'layout', 'reference', 'toolchain', 'viral', 'style', 'youtube'] : what.startsWith('stage:') ? STAGE[what.slice(6)] : [what];
+const names = what === 'all' ? ['research', 'script', 'storyboard', 'logic', 'overlays', 'mood', 'sync', 'visual', 'captions', 'audio', 'frames', 'video', 'layout', 'reference', 'toolchain', 'viral', 'style', 'youtube'] : what.startsWith('stage:') ? STAGE[what.slice(6)] : [what];
 if (!names || names.some((n) => !MOD[n])) { console.error(`unknown critic/stage "${what}"`); process.exit(2); }
 const seen = new Set(), reports = [];
 for (const n of names) {

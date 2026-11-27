@@ -32,4 +32,5 @@ node tools/fix_plan.mjs <P>            # what to change and the smallest re-run
 
 ## What the logic critic covers and does not
 Covers (storyboard JSON, before any render): characters overlapping each other, standing inside furniture or scenery, back turned to what they look at or talk to, mood against the line emotion, same character or prop changing between shots. Floor footprints only: arms, hats, and animated paths are not checked. Footprints and radii live in `remotion-template/src/three/cast-data.json`; add one for every new prop or character kind or the critic cannot see it.
-Not yet covered (planned): overlay timing against word times, caption or overlay over a face in rendered pixels, SFX onset against the visual event, music mood against the script, mouth against narration, 180 degree rule in dialogue.
+Also covered: overlay anchor, shot window, read time and price tag on a number (`overlays` critic); music mood against the beat's line emotions (`mood`); where each sound cue really starts in `data/mix.wav` (`sync`); a named speaker needs a speaking character.
+Not yet covered (planned): caption or overlay over a face in rendered pixels, 180 degree rule in dialogue, mouth shape against the narration envelope at render time.

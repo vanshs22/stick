@@ -47,6 +47,11 @@ export async function run(P) {
     else if (dv >= 0.8) r.add('minor', { shot_id: s.id, line_id: ln.id, problem: `${who.id}'s mood is a weak fit for a "${ln.emotion}" line`, evidence: `valence gap ${f2(dv)}`, expected: 'closer mood', fix: `Pick a closer mood for ${who.id}` });
   }
 
+  r.check('mouth: a line spoken by a named character has a speaking character in its shot (a character may also voice narration)');
+  if (sc) for (const ln of sc.lines) {
+    const s = shots.find((x) => x.line_ids?.includes(ln.id)); if (!s) continue; const { cast } = bodies.get(s.id), talkers = cast.filter((c) => c.speaks), voiced = ln.speaker && !/^(narrator|voiceover|vo)$/i.test(ln.speaker);
+    if (voiced && cast.length && !talkers.length) r.add('major', { shot_id: s.id, line_id: ln.id, problem: `"${ln.speaker}" speaks but nobody in ${s.id} has speaks:true`, evidence: `cast: ${cast.map((c) => c.id).join(', ')}`, expected: 'the speaker\'s mouth moves while the line plays', fix: `Set speaks:true on the character that says ${ln.id}` });
+  }
   r.check('continuity: the same character or prop keeps its kind, size and look across shots in one world');
   const seen = new Map();
   for (const s of shots) {
