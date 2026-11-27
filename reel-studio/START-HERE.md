@@ -8,6 +8,9 @@ install -> brief -> style -> [reference?] -> topic -> research -> VIRAL PLAN + s
 ```
 Run `node tools/next.mjs <project>` after every step: it prints the ONE next step, the skill to read and the exact commands. At a gate it says ASK THE USER and stops. There are only FIVE gates (direction, script, storyboard frames + assets, sound, final): everything a tool can measure is refused by the tool and never asked of the user. You never approve for the user.
 
+## The crew and the shared playbooks
+Who does which stage and which shared rulebook they use: `skills/reel-director/SKILL.md` (crew table, the director's per-scene procedure, how claude-watch-video, the critics, the scorer and the fixer close the loop). Shared learning from the 27 viral references lives in `foundation/playbooks/` (camera, caption, overlay, audio, acting, hook-cta): `node tools/playbook.mjs query <playbook> --when <purpose> --style <pack> --engine <engine>`.
+
 ## The 10 rules that decide quality (details in `skills/reel-craft/SKILL.md`)
 1. **Plan the script before writing it.** `node tools/script_studio.mjs new <P> --format <f>`, write 3 hooks, fill `script/viral-plan.json`, then the script, then `script_studio.mjs score`.
 2. **Hook in 3 seconds**, no greeting; a new fact, picture or sound every 3 seconds; the last line echoes the first.
