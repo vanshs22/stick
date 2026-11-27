@@ -91,7 +91,7 @@ if OCR:
     try:
         import pytesseract
         boxes, words_per, cases, fills = [], [], [], []
-        for t in np.arange(0.25, dur, max(0.5, dur / 100)):
+        for t in np.arange(0.25, dur, max(0.5, dur / 60)):
             f = frame_at(t)
             if f is None: continue
             sc_ = 720 / W; img = cv2.resize(f, (720, int(H * sc_))); d = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT, config='--psm 11')
@@ -105,7 +105,7 @@ if OCR:
             x, y, w_, h_ = low[0][1:]; roi = img[max(0, y):y + h_, max(0, x):x + w_]
             if roi.size: k = cv2.kmeans(roi.reshape(-1, 3).astype(np.float32), 2, None, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0), 2, cv2.KMEANS_PP_CENTERS)[2]; fills.append(roi.reshape(-1, 3)[0:0] if False else k[0 if np.sum(k[0]) > np.sum(k[1]) else 1])
         if len(boxes) >= 5:
-            captions = {'y_pct': round(float(np.median(boxes)) * 100), 'words_visible_median': int(np.median(words_per)), 'case': max(set(cases), key=cases.count), 'coverage': round(len(boxes) / max(1, len(np.arange(0.25, dur, max(0.5, dur / 100)))), 2), 'fill': hexc(np.median(np.array(fills), axis=0)) if fills else None}
+            captions = {'y_pct': round(float(np.median(boxes)) * 100), 'words_visible_median': int(np.median(words_per)), 'case': max(set(cases), key=cases.count), 'coverage': round(len(boxes) / max(1, len(np.arange(0.25, dur, max(0.5, dur / 60)))), 2), 'fill': hexc(np.median(np.array(fills), axis=0)) if fills else None}
         else: unmeasured.append('captions (too little text found by OCR; the video may have none)')
     except Exception as e:
         unmeasured.append(f'captions (OCR failed: {str(e)[:60]})')
