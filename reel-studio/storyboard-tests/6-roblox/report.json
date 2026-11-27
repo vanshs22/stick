@@ -1,0 +1,18 @@
+{
+ "key": "6-roblox",
+ "name": "Roblox story",
+ "ok": true,
+ "secs": 48,
+ "director": {
+  "verdict": "pass",
+  "score": 96,
+  "findings": [
+   "minor: four shots in a row have almost the same length",
+   "minor: same framing and angle three shots in a row"
+  ]
+ },
+ "captions": {
+  "preset": "stroke-word",
+  "accent": "#FFD400"
+ }
+}

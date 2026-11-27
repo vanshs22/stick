@@ -1,41 +1,52 @@
 {
- "style_pack": "editorial-notebook",
+ "style_pack": "neon-dashboard",
  "shots": [
   {
    "id": "S01",
    "line_ids": [
     "L01"
    ],
-   "visual_intent": "headline",
+   "visual_intent": "hook headline with a battery dial dropping",
    "shot_type": "typography",
    "component": "TitleCard",
    "props": {
-    "text": "Captions fail in three ways",
-    "accent": "three"
+    "text": "Battery dead by noon?",
+    "accent": "noon"
    },
-   "transition_out": {
-    "type": "whip",
-    "sound": "whoosh"
-   },
-   "presenter": {
-    "pose": "wave",
-    "mood": "happy"
-   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "dies"
+    }
+   ],
    "overlays": [
     {
-     "type": "label",
-     "left": "// captions",
-     "right": "3 MISTAKES"
+     "type": "dial",
+     "label": "12%",
+     "sub": "BATTERY",
+     "from": 0.9,
+     "to": 0.12,
+     "anchor": "a0",
+     "y": 1080,
+     "color": "#FF5A4E"
     }
    ],
    "approach": "motion-graphics",
-   "why_renderer": "TitleCard carries this beat because the planned visual is: headline",
+   "why_renderer": "The board is the picture: one base card and an infographic that builds on the spoken words.",
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
+   },
    "purpose": "hook",
-   "why": "hook: close + push, about 0.5-1.5 s (playbook camera/hook-punch-in); the line works as \"hook\"",
+   "why": "hook: close + push, about 0.5-1.5 s (playbook camera/hook-punch-in); the line works as \"hook\", curious",
    "acting": {
     "function": "hook",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "curious"
    },
    "camera": {
     "framing": "close",
@@ -45,67 +56,58 @@
   {
    "id": "S02",
    "line_ids": [
-    "L02",
-    "L03",
-    "L04"
+    "L02"
    ],
-   "visual_intent": "three mistakes tick in",
-   "shot_type": "diagram",
-   "component": "Checklist",
+   "visual_intent": "settings path typed, a step card pins step one",
+   "shot_type": "ui",
+   "component": "Typewriter",
    "props": {
-    "items": [
-     "Too small to read",
-     "On top of the face",
-     "Wrong word highlighted"
-    ]
+    "text": "Settings > Battery > Background activity",
+    "anchor": "a0",
+    "size": 44
    },
    "anchors": [
     {
-     "name": "c0",
+     "name": "a0",
      "line": "L02",
-     "word": "small"
+     "word": "settings"
     },
     {
-     "name": "c1",
-     "line": "L03",
-     "word": "face"
-    },
-    {
-     "name": "c2",
-     "line": "L04",
-     "word": "wrong"
+     "name": "a1",
+     "line": "L02",
+     "word": "sort"
     }
    ],
-   "sfx": [
+   "overlays": [
     {
-     "type": "tick",
-     "anchor": "c0"
-    },
-    {
-     "type": "tick",
-     "anchor": "c1"
-    },
-    {
-     "type": "tick",
-     "anchor": "c2"
+     "type": "step-card",
+     "chip": "STEP 1/3",
+     "title": "Sort by background",
+     "lines": [
+      "Battery",
+      "Background activity",
+      "Highest first"
+     ],
+     "progress": 0.34,
+     "anchor": "a1",
+     "y": 1060
     }
    ],
+   "approach": "motion-graphics",
+   "why_renderer": "The board is the picture: one base card and an infographic that builds on the spoken words.",
    "transition_out": {
-    "type": "slide",
-    "sound": "swish"
+    "type": "cut",
+    "sound": "none"
    },
    "presenter": {
-    "pose": "think",
-    "mood": "worried"
+    "hidden": true
    },
-   "approach": "designed-ui",
-   "why_renderer": "Checklist carries this beat because the planned visual is: three mistakes tick in",
    "purpose": "list-item",
-   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", determined",
    "acting": {
     "function": "list-item",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "determined"
    },
    "camera": {
     "framing": "medium",
@@ -115,54 +117,129 @@
   {
    "id": "S03",
    "line_ids": [
-    "L05"
+    "L03"
    ],
-   "visual_intent": "bad versus good",
-   "shot_type": "diagram",
-   "component": "Versus",
+   "visual_intent": "forty percent counts up, three apps are tagged",
+   "shot_type": "data",
+   "component": "BigStat",
    "props": {
-    "left": "small + centred",
-    "right": "big + low + one accent",
-    "badge": "VS"
+    "value": 40,
+    "suffix": "%",
+    "label": "of your power, in the background",
+    "anchor": "a0"
    },
    "anchors": [
     {
-     "name": "v",
-     "line": "L05",
-     "word": "fix"
-    }
-   ],
-   "sfx": [
+     "name": "a0",
+     "line": "L03",
+     "word": "forty"
+    },
     {
-     "type": "pop",
-     "anchor": "v"
+     "name": "a1",
+     "line": "L03",
+     "word": "Three"
     }
    ],
+   "overlays": [
+    {
+     "type": "device-list",
+     "rows": [
+      {
+       "label": "Photo sync",
+       "tag": "18%",
+       "tone": "bad",
+       "at": 0.4
+      },
+      {
+       "label": "Maps",
+       "tag": "14%",
+       "tone": "bad",
+       "at": 0.9
+      },
+      {
+       "label": "Social feed",
+       "tag": "8%",
+       "tone": "bad",
+       "at": 1.4
+      },
+      {
+       "label": "Messages",
+       "tag": "OK",
+       "tone": "good",
+       "at": 1.9
+      }
+     ],
+     "anchor": "a1",
+     "y": 1400
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "The board is the picture: one base card and an infographic that builds on the spoken words.",
    "transition_out": {
     "type": "cut",
     "sound": "none"
    },
    "presenter": {
-    "pose": "open",
-    "mood": "happy"
+    "hidden": true
    },
-   "overlays": [
-    {
-     "type": "sticker",
-     "text": "FIX",
-     "anchor": "v",
-     "x": 800,
-     "y": 470
-    }
-   ],
-   "approach": "designed-ui",
-   "why_renderer": "Versus carries this beat because the planned visual is: bad versus good",
-   "purpose": "list-item",
-   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "purpose": "emotion",
+   "why": "emotion: extreme-close + push, about 0.9-1.6 s (playbook camera/emotion-extreme-closeup); the line works as \"list-item\", fear",
    "acting": {
     "function": "list-item",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "fear"
+   },
+   "camera": {
+    "framing": "extreme-close",
+    "movement": "push"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "twice as long: the gauge doubles",
+   "shot_type": "typography",
+   "component": "TitleCard",
+   "props": {
+    "text": "Twice as long",
+    "accent": "Twice"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "twice"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "dial",
+     "label": "2x",
+     "sub": "BATTERY LIFE",
+     "from": 0.2,
+     "to": 0.9,
+     "anchor": "a0",
+     "y": 1080,
+     "color": "#C8F848"
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "The board is the picture: one base card and an infographic that builds on the spoken words.",
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
+   },
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", excited",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "excited"
    },
    "camera": {
     "framing": "medium",
@@ -170,43 +247,113 @@
    }
   },
   {
-   "id": "S04",
+   "id": "S05",
    "line_ids": [
-    "L06",
-    "L07"
+    "L05"
+   ],
+   "visual_intent": "one service in the middle, four spokes",
+   "shot_type": "diagram",
+   "component": "TitleCard",
+   "props": {
+    "text": "One sync service",
+    "accent": "One"
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "syncing"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hub",
+     "text": "SYNC",
+     "items": [
+      {
+       "label": "Mail",
+       "at": 0.5
+      },
+      {
+       "label": "Photos",
+       "at": 1
+      },
+      {
+       "label": "Maps",
+       "at": 1.5
+      },
+      {
+       "label": "Watch",
+       "at": 2
+      }
+     ],
+     "r": 260,
+     "y": 1180,
+     "anchor": "a0"
+    }
+   ],
+   "approach": "motion-graphics",
+   "why_renderer": "The board is the picture: one base card and an infographic that builds on the spoken words.",
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
+   },
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", calm",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "calm"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
    ],
    "visual_intent": "comment call to action",
    "shot_type": "ui",
    "component": "CommentBox",
    "props": {
-    "keyword": "CAPTIONS"
+    "keyword": "BATTERY",
+    "anchor": "a0",
+    "typeAnchor": "a1",
+    "reward": "and I will send you the full checklist"
    },
    "anchors": [
     {
-     "name": "k",
+     "name": "a0",
      "line": "L06",
-     "word": "CAPTIONS"
-    }
-   ],
-   "sfx": [
+     "word": "Comment"
+    },
     {
-     "type": "ding",
-     "anchor": "k",
-     "offset": 0.4
+     "name": "a1",
+     "line": "L06",
+     "word": "battery"
     }
    ],
-   "presenter": {
-    "pose": "wave",
-    "mood": "happy"
+   "approach": "motion-graphics",
+   "why_renderer": "The board is the picture: one base card and an infographic that builds on the spoken words.",
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
    },
-   "approach": "designed-ui",
-   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action",
+   "presenter": {
+    "hidden": true
+   },
    "purpose": "cta",
-   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\"",
+   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\", happy",
    "acting": {
     "function": "cta",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "happy"
    },
    "camera": {
     "framing": "medium",

@@ -2,12 +2,13 @@
  "key": "4-board",
  "name": "Whiteboard / blackboard explainer",
  "ok": true,
- "secs": 30,
+ "secs": 38,
  "director": {
   "verdict": "pass",
-  "score": 96,
+  "score": 94,
   "findings": [
-   "minor: cut rate 2.1 per 10 s, the style's references use 0.3",
+   "minor: four shots in a row have almost the same length",
+   "minor: cut rate 2.6 per 10 s, the style's references use 0.3",
    "minor: same framing and angle three shots in a row"
   ]
  },

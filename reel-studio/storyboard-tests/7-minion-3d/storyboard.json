@@ -1,0 +1,434 @@
+{
+ "style_pack": "stylized-3d-presenter",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "worried close-up",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "desk-night",
+    "characters": [
+     {
+      "variant": "lowpoly",
+      "pose": "think",
+      "mood": "worried",
+      "glasses": true,
+      "skin": "#F1CBA8",
+      "shirt": "#F4CB3A",
+      "hair": "#3a2418"
+     }
+    ],
+    "camera": {
+     "shot": "close",
+     "move": "push"
+    }
+   },
+   "sfx": [
+    {
+     "type": "thud",
+     "at": "start",
+     "offset": 0.1,
+     "gain": 0.4,
+     "why": "on-screen event: worried close-up"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: worried close-up",
+   "purpose": "hook",
+   "why": "hook: close + push, about 0.5-1.5 s (playbook camera/hook-punch-in); the line works as \"hook\"",
+   "acting": {
+    "function": "hook",
+    "gesture": "lean-in",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "close",
+    "movement": "push"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "helper hops when asked",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "desk-night",
+    "characters": [
+     {
+      "variant": "lowpoly",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.6,
+        "open"
+       ]
+      ],
+      "mood": "calm",
+      "glasses": true,
+      "skin": "#F1CBA8",
+      "shirt": "#F4CB3A",
+      "hair": "#3a2418"
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "cloud",
+      "x": -0.5,
+      "y": 0.83,
+      "z": 0.9,
+      "scale": 0.9,
+      "color": "#4a46c9",
+      "kickAnchor": "helper"
+     }
+    ],
+    "camera": {
+     "shot": "desk",
+     "move": "drift"
+    }
+   },
+   "anchors": [
+    {
+     "name": "helper",
+     "line": "L02",
+     "word": "helper"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "anchor": "helper"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: helper hops when asked",
+   "purpose": "establish",
+   "why": "establish: wide + orbit, about 4-9 s (playbook camera/establish-wide-orbit); the line works as \"explain\"",
+   "acting": {
+    "function": "explain",
+    "gesture": "explain",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "wide",
+    "movement": "orbit"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "typing on a terminal",
+   "shot_type": "screen-demo",
+   "component": "Terminal",
+   "props": {
+    "lines": [
+     "build login page",
+     "> done in 1 minute"
+    ]
+   },
+   "anchors": [
+    {
+     "name": "go",
+     "line": "L03",
+     "word": "built"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "type",
+     "anchor": "go",
+     "dur": 1
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "approach": "designed-ui",
+   "why_renderer": "Terminal carries this beat because the planned visual is: typing on a terminal",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "surprised reaction",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "desk-night",
+    "characters": [
+     {
+      "variant": "lowpoly",
+      "pose": "panic",
+      "mood": "surprised",
+      "glasses": true,
+      "skin": "#F1CBA8",
+      "shirt": "#F4CB3A",
+      "hair": "#3a2418"
+     }
+    ],
+    "creatures": [
+     {
+      "kind": "screen",
+      "x": -0.9,
+      "y": 0.83,
+      "z": 0.9,
+      "scale": 0.9,
+      "color": "#232329",
+      "kickAnchor": "blues"
+     }
+    ],
+    "camera": {
+     "shot": "close",
+     "move": "push"
+    }
+   },
+   "anchors": [
+    {
+     "name": "blues",
+     "line": "L04",
+     "word": "blues"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boing",
+     "anchor": "blues",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "dip",
+    "sound": "none"
+   },
+   "speaker": "Helper",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: surprised reaction",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05",
+    "L06"
+   ],
+   "visual_intent": "shrug then lesson",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "desk-night",
+    "characters": [
+     {
+      "variant": "lowpoly",
+      "pose": [
+       [
+        0,
+        "shrug"
+       ],
+       [
+        2,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "sad"
+       ],
+       [
+        2,
+        "smirk"
+       ]
+      ],
+      "glasses": true,
+      "skin": "#F1CBA8",
+      "shirt": "#F4CB3A",
+      "hair": "#3a2418"
+     }
+    ],
+    "camera": {
+     "shot": "medium",
+     "move": "pull"
+    }
+   },
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: shrug then lesson",
+   "purpose": "reveal",
+   "why": "reveal: medium + whip, about 1.2-2.5 s (playbook camera/reveal-whip-hold); the line works as \"reveal\"",
+   "acting": {
+    "function": "reveal",
+    "gesture": "step-back",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "whip"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "comment call to action",
+   "shot_type": "ui",
+   "component": "CommentBox",
+   "props": {
+    "keyword": "BLUES",
+    "reward": "and I will send the checklist"
+   },
+   "anchors": [
+    {
+     "name": "k",
+     "line": "L07",
+     "word": "BLUES"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "anchor": "k",
+     "offset": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "approach": "designed-ui",
+   "why_renderer": "CommentBox carries this beat because the planned visual is: comment call to action",
+   "purpose": "cta",
+   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\"",
+   "acting": {
+    "function": "cta",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "happy sign-off",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "desk-night",
+    "characters": [
+     {
+      "variant": "lowpoly",
+      "glasses": true,
+      "skin": "#F1CBA8",
+      "shirt": "#F4CB3A",
+      "hair": "#3a2418",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.5,
+        "cheer"
+       ]
+      ],
+      "mood": "happy"
+     }
+    ],
+    "camera": {
+     "shot": "hero",
+     "move": "push"
+    }
+   },
+   "sfx": [
+    {
+     "type": "sparkle",
+     "at": "start",
+     "offset": 0.1,
+     "gain": 0.5,
+     "why": "on-screen event: happy sign-off"
+    }
+   ],
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   },
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "SAVE THIS",
+     "color": "#F4CB3A",
+     "rotate": -5,
+     "x": 330,
+     "y": 420
+    }
+   ],
+   "speaker": "Me",
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: happy sign-off",
+   "purpose": "cta",
+   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\"",
+   "acting": {
+    "function": "cta",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  }
+ ]
+}

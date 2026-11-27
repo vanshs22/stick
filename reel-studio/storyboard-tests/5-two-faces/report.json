@@ -1,0 +1,17 @@
+{
+ "key": "5-two-faces",
+ "name": "Two-person deep thinking",
+ "ok": true,
+ "secs": 46,
+ "director": {
+  "verdict": "pass",
+  "score": 98,
+  "findings": [
+   "minor: same framing and angle three shots in a row"
+  ]
+ },
+ "captions": {
+  "preset": "quote-side",
+  "accent": "#FFD400"
+ }
+}

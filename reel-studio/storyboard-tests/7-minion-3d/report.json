@@ -1,0 +1,19 @@
+{
+ "key": "7-minion-3d",
+ "name": "Claude minion + round-faced 3D person",
+ "ok": true,
+ "secs": 54,
+ "director": {
+  "verdict": "pass",
+  "score": 94,
+  "findings": [
+   "minor: four shots in a row have almost the same length",
+   "minor: same framing and angle three shots in a row",
+   "minor: same framing and angle three shots in a row"
+  ]
+ },
+ "captions": {
+  "preset": "phrase",
+  "accent": "#FFD400"
+ }
+}

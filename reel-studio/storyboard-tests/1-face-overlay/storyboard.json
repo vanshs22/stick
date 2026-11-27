@@ -28,7 +28,8 @@
      "color": "#E8671A"
     },
     "zoom": 1.14,
-    "faceLabel": "your face-cam footage"
+    "faceLabel": "your face-cam footage",
+    "character": "x"
    },
    "anchors": [
     {
@@ -80,7 +81,8 @@
      "color": "#E8671A"
     },
     "zoom": 1,
-    "faceLabel": "your face-cam footage"
+    "faceLabel": "your face-cam footage",
+    "character": "y"
    },
    "anchors": [
     {
@@ -132,7 +134,8 @@
      "color": "#7B5CF0"
     },
     "zoom": 1.18,
-    "faceLabel": "your face-cam footage"
+    "faceLabel": "your face-cam footage",
+    "character": "x"
    },
    "anchors": [
     {
@@ -177,7 +180,8 @@
      "color": "#111111"
     },
     "zoom": 1.2,
-    "faceLabel": "your face-cam footage"
+    "faceLabel": "your face-cam footage",
+    "character": "y"
    },
    "anchors": [
     {

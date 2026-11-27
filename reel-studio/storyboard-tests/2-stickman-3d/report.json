@@ -1,0 +1,15 @@
+{
+ "key": "2-stickman-3d",
+ "name": "2D stickman in a 3D world",
+ "ok": true,
+ "secs": 47,
+ "director": {
+  "verdict": "pass",
+  "score": 100,
+  "findings": []
+ },
+ "captions": {
+  "preset": "phrase",
+  "accent": "#FFD400"
+ }
+}

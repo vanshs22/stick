@@ -28,7 +28,7 @@
      "from": 0.9,
      "to": 0.12,
      "anchor": "a0",
-     "y": 900,
+     "y": 1080,
      "color": "#FF5A4E"
     }
    ],
@@ -37,6 +37,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
    }
   },
   {
@@ -76,7 +79,7 @@
      ],
      "progress": 0.34,
      "anchor": "a1",
-     "y": 1000
+     "y": 1060
     }
    ],
    "approach": "motion-graphics",
@@ -84,6 +87,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
    }
   },
   {
@@ -142,7 +148,7 @@
       }
      ],
      "anchor": "a1",
-     "y": 1180
+     "y": 1400
     }
    ],
    "approach": "motion-graphics",
@@ -150,6 +156,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
    }
   },
   {
@@ -179,7 +188,7 @@
      "from": 0.2,
      "to": 0.9,
      "anchor": "a0",
-     "y": 900,
+     "y": 1080,
      "color": "#C8F848"
     }
    ],
@@ -188,6 +197,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
    }
   },
   {
@@ -232,7 +244,7 @@
       }
      ],
      "r": 260,
-     "y": 980,
+     "y": 1180,
      "anchor": "a0"
     }
    ],
@@ -241,6 +253,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
    }
   },
   {
@@ -274,6 +289,9 @@
    "transition_out": {
     "type": "cut",
     "sound": "none"
+   },
+   "presenter": {
+    "hidden": true
    }
   }
  ]

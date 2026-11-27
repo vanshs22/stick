@@ -7,56 +7,85 @@
    "text": "Can I ask you something strange?",
    "speaker": "near",
    "emotion": "curious",
-   "beat": "hook"
+   "beat": "hook",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L02",
    "text": "When you think, who is talking?",
    "speaker": "near",
    "emotion": "curious",
-   "beat": "step"
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L03",
    "text": "And who is listening?",
    "speaker": "far",
    "emotion": "calm",
-   "beat": "step"
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L04",
    "text": "Then there are two of you.",
    "speaker": "near",
    "emotion": "calm",
-   "beat": "step"
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L05",
    "text": "Every night, one of them is scared.",
    "speaker": "far",
    "emotion": "fear",
-   "beat": "step"
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L06",
    "text": "Which one is you?",
    "speaker": "near",
    "emotion": "curious",
-   "beat": "step"
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L07",
    "text": "Neither. You are the one who noticed.",
    "speaker": "far",
    "emotion": "calm",
-   "beat": "step"
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L08",
    "text": "Tonight, when the voice starts, do not argue. Listen.",
    "speaker": "near",
    "emotion": "determined",
-   "beat": "cta"
+   "beat": "cta",
+   "emphasis": [],
+   "visual_hint": ""
   }
- ]
+ ],
+ "language": "en",
+ "cast": {
+  "near": {
+   "gender": "male",
+   "tone": "curious",
+   "role": "the voice you hear"
+  },
+  "far": {
+   "gender": "female",
+   "tone": "calm",
+   "role": "the one listening"
+  }
+ }
 }

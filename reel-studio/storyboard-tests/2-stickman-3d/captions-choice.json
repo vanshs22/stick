@@ -1,0 +1,22 @@
+{
+ "schema_version": 1,
+ "style_pack": "stickman-3d",
+ "content": "story",
+ "emotion": "calm",
+ "entry": "sentence-glow",
+ "preset": "phrase",
+ "accent": "#FFD400",
+ "weight": 500,
+ "position": {
+  "anchor": "bottom",
+  "y": null
+ },
+ "scale": 0.95,
+ "signature": "none",
+ "differs_from": [],
+ "ranked": [
+  "sentence-glow 4",
+  "one-word-bounce-yellow 3",
+  "seam-pill-mono -1"
+ ]
+}

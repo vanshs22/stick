@@ -1,0 +1,429 @@
+{
+ "style_pack": "roblox-inspired",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "hero and tower",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "block-world",
+    "characters": [
+     {
+      "variant": "blocky",
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        0.7,
+        "point"
+       ]
+      ],
+      "mood": "happy",
+      "skin": "#F4C98C",
+      "shirt": "#2f7f4a",
+      "hair": "#3a2a1a",
+      "x": -0.4
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "pull"
+    },
+    "tower": 10
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": "start",
+     "offset": 0.1,
+     "why": "on-screen event: hero and tower"
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: hero and tower",
+   "purpose": "hook",
+   "why": "hook: close + push, about 0.5-1.5 s (playbook camera/hook-punch-in); the line works as \"hook\"",
+   "acting": {
+    "function": "hook",
+    "gesture": "lean-in",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "close",
+    "movement": "push"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "building blocks",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "block-world",
+    "characters": [
+     {
+      "variant": "blocky",
+      "pose": "reach",
+      "mood": "happy",
+      "skin": "#F4C98C",
+      "shirt": "#2f7f4a",
+      "hair": "#3a2a1a",
+      "x": -0.3,
+      "rotY": -0.5
+     }
+    ],
+    "camera": {
+     "shot": "desk",
+     "move": "orbit"
+    },
+    "tower": 10
+   },
+   "anchors": [
+    {
+     "name": "d",
+     "line": "L02",
+     "word": "day"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "thud",
+     "anchor": "d",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: building blocks",
+   "purpose": "establish",
+   "why": "establish: wide + orbit, about 4-9 s (playbook camera/establish-wide-orbit); the line works as \"list-item\"",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "wide",
+    "movement": "orbit"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "storm arrives",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "block-world",
+    "light": "night",
+    "characters": [
+     {
+      "variant": "blocky",
+      "pose": "halt",
+      "mood": "worried",
+      "skin": "#F4C98C",
+      "shirt": "#2f7f4a",
+      "hair": "#3a2a1a",
+      "x": -0.3
+     }
+    ],
+    "camera": {
+     "shot": "over",
+     "move": "push"
+    },
+    "tower": 10,
+    "storm": true
+   },
+   "anchors": [
+    {
+     "name": "s",
+     "line": "L03",
+     "word": "storm"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "alarm",
+     "anchor": "s",
+     "gain": 0.3
+    },
+    {
+     "type": "thud",
+     "anchor": "s",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: storm arrives",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "wind shakes",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "block-world",
+    "light": "night",
+    "characters": [
+     {
+      "variant": "blocky",
+      "pose": [
+       [
+        0,
+        "brace"
+       ],
+       [
+        0.8,
+        "panic"
+       ]
+      ],
+      "mood": "scared",
+      "skin": "#F4C98C",
+      "shirt": "#2f7f4a",
+      "hair": "#3a2a1a",
+      "x": -0.3
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "drift"
+    },
+    "tower": 10,
+    "storm": true
+   },
+   "anchors": [
+    {
+     "name": "w",
+     "line": "L04",
+     "word": "wind"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh",
+     "anchor": "w",
+     "gain": 0.6
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "swish"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: wind shakes",
+   "purpose": "reveal",
+   "why": "reveal: medium + whip, about 1.2-2.5 s (playbook camera/reveal-whip-hold); the line works as \"reveal\"",
+   "acting": {
+    "function": "reveal",
+    "gesture": "step-back",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "whip"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "holding on",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "block-world",
+    "characters": [
+     {
+      "variant": "blocky",
+      "pose": [
+       [
+        0,
+        "brace"
+       ],
+       [
+        0.9,
+        "reach"
+       ]
+      ],
+      "mood": "angry",
+      "skin": "#F4C98C",
+      "shirt": "#2f7f4a",
+      "hair": "#3a2a1a",
+      "x": -0.3
+     }
+    ],
+    "camera": {
+     "shot": "hero",
+     "move": "push"
+    },
+    "tower": 12,
+    "storm": true,
+    "light": "night"
+   },
+   "anchors": [
+    {
+     "name": "b",
+     "line": "L05",
+     "word": "building"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "thud",
+     "anchor": "b",
+     "gain": 0.5
+    }
+   ],
+   "transition_out": {
+    "type": "zoom",
+    "sound": "swish"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: holding on",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\"",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "above the clouds",
+   "shot_type": "character",
+   "component": "Scene3D",
+   "props": {
+    "set": "block-world",
+    "characters": [
+     {
+      "variant": "blocky",
+      "pose": "cheer",
+      "mood": "relieved",
+      "skin": "#F4C98C",
+      "shirt": "#2f7f4a",
+      "hair": "#3a2a1a",
+      "x": -0.3
+     }
+    ],
+    "camera": {
+     "shot": "wide",
+     "move": "push"
+    },
+    "tower": 14
+   },
+   "anchors": [
+    {
+     "name": "c",
+     "line": "L06",
+     "word": "clouds"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "sparkle",
+     "anchor": "c",
+     "gain": 0.5
+    },
+    {
+     "type": "ding",
+     "anchor": "c",
+     "gain": 0.4
+    }
+   ],
+   "transition_out": {
+    "type": "mask",
+    "sound": "swish"
+   },
+   "approach": "physical-3d",
+   "why_renderer": "Scene3D carries this beat because the planned visual is: above the clouds",
+   "purpose": "payoff",
+   "why": "payoff: wide + pull, about 1.5-2.5 s (playbook camera/payoff-pull-back); the line works as \"payoff-line\"",
+   "acting": {
+    "function": "payoff-line",
+    "gesture": "cheer",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "wide",
+    "movement": "pull"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "cta",
+   "shot_type": "typography",
+   "component": "EndCard",
+   "props": {
+    "headline": "Follow for the next floor",
+    "accent": "floor",
+    "cta": "Comment TOWER",
+    "handle": "@reelstudio"
+   },
+   "transition_out": {
+    "type": "fade",
+    "sound": "none"
+   },
+   "approach": "designed-ui",
+   "why_renderer": "EndCard carries this beat because the planned visual is: cta",
+   "purpose": "cta",
+   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\"",
+   "acting": {
+    "function": "cta",
+    "gesture": "point",
+    "expression": "neutral"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  }
+ ]
+}

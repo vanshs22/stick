@@ -6,37 +6,50 @@
    "id": "L01",
    "text": "Your phone battery dies by noon, and one hidden setting is why.",
    "beat": "hook",
-   "emotion": "curious"
+   "emotion": "curious",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L02",
    "text": "Open settings, then battery, and sort by background activity.",
    "beat": "step",
-   "emotion": "determined"
+   "emotion": "determined",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L03",
    "text": "Three apps are secretly using forty percent of your power.",
    "beat": "step",
-   "emotion": "fear"
+   "emotion": "fear",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L04",
    "text": "Turn those three off, and your battery lasts twice as long.",
    "beat": "proof",
-   "emotion": "excited"
+   "emotion": "excited",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L05",
    "text": "Everything else keeps syncing through one small background service.",
    "beat": "step",
-   "emotion": "calm"
+   "emotion": "calm",
+   "emphasis": [],
+   "visual_hint": ""
   },
   {
    "id": "L06",
    "text": "Comment battery and I will send you the full checklist.",
    "beat": "cta",
-   "emotion": "happy"
+   "emotion": "happy",
+   "emphasis": [],
+   "visual_hint": ""
   }
- ]
+ ],
+ "language": "en"
 }

@@ -267,7 +267,7 @@
     "size_ratio": 0.7,
     "payoff_scale": 1.6,
     "hold_s_per_word": 0.35,
-    "preset": "dialogue",
+    "preset": "quote-side",
     "content": [
      "dialogue",
      "reflective"

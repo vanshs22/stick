@@ -1,17 +1,17 @@
 {
  "schema_version": 1,
- "style_pack": "editorial-notebook",
+ "style_pack": "neon-dashboard",
  "content": "tutorial",
  "emotion": "calm",
  "entry": "kicker-headline",
  "preset": "headline",
  "accent": "#FFD400",
- "weight": 500,
+ "weight": 800,
  "position": {
   "anchor": "middle",
   "y": null
  },
- "scale": 0.95,
+ "scale": 1.1,
  "signature": "none",
  "differs_from": [],
  "ranked": [
