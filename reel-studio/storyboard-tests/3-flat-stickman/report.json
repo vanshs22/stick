@@ -2,12 +2,12 @@
  "key": "3-flat-stickman",
  "name": "2D stickman (flat, series HUD)",
  "ok": true,
- "secs": 32,
+ "secs": 47,
  "director": {
   "verdict": "pass",
   "score": 98,
   "findings": [
-   "minor: four shots in a row have almost the same length"
+   "minor: same framing and angle three shots in a row"
   ]
  },
  "captions": {

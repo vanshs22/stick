@@ -15,14 +15,14 @@
    "severity": "minor",
    "fix_target": "storyboard",
    "shot_id": "S04",
-   "problem": "four shots in a row have almost the same length",
-   "evidence": "2.8, 2.6, 2.8, 2.8 s",
-   "expected": "neighbouring shots differ by at least 25 %",
-   "fix": "Lengthen or shorten one of them"
+   "problem": "same framing and angle three shots in a row",
+   "evidence": "medium|",
+   "expected": "change the angle when the meaning changes",
+   "fix": "Vary framing or angle"
   }
  ],
  "notes": [
   "Taste (is this camera choice the best one?) needs eyes: watch the render frames (tools/reference/watch.mjs) and the vision critics."
  ],
- "checked_at": "2026-11-27T20:52:22.232Z"
+ "checked_at": "2026-11-27T21:21:15.364Z"
 }

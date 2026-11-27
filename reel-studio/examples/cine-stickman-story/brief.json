@@ -1,0 +1,29 @@
+{
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "people who like short stickman comedy",
+ "goal": "a gripping series opener in 25 seconds",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.05
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "stroke-word"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "Lights out part 1",
+ "topic": "a hundred players, one spotlight: stay in the light or vanish",
+ "duration_sec": 25,
+ "style_pack": "cine-stickman",
+ "cta": {
+  "keyword": "LIGHT",
+  "text": "Follow for part 2"
+ }
+}

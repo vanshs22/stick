@@ -9,7 +9,7 @@ import path from 'node:path';
 import { load } from './playbook.mjs';
 import { autoCaption } from './lib/keywords.mjs';
 
-export const PACK_LABEL = { 'sketchy-stickman': 'flat-stickman', 'facecam-overlay': 'face-overlay', 'doodle-explainer': 'split-host', 'neon-dashboard': 'board', 'editorial-notebook': 'board', 'roblox-inspired': 'roblox', 'voxel-explainer': 'roblox', 'voxel-studio': 'roblox', 'claude-minions': 'minion-3d', 'stylized-3d-presenter': 'minion-3d', 'stickman-3d': 'stickman-3d-world', 'stickman-world': 'stickman-3d-world', 'inkbeat': 'stickman-3d-world', 'two-faces': 'two-faces' };
+export const PACK_LABEL = { 'sketchy-stickman': 'flat-stickman', 'cine-stickman': 'flat-stickman', 'facecam-overlay': 'face-overlay', 'doodle-explainer': 'split-host', 'neon-dashboard': 'board', 'editorial-notebook': 'board', 'roblox-inspired': 'roblox', 'voxel-explainer': 'roblox', 'voxel-studio': 'roblox', 'claude-minions': 'minion-3d', 'stylized-3d-presenter': 'minion-3d', 'stickman-3d': 'stickman-3d-world', 'stickman-world': 'stickman-3d-world', 'inkbeat': 'stickman-3d-world', 'two-faces': 'two-faces' };
 const FEEL = { curious: 'calm', calm: 'calm', neutral: 'calm', whisper: 'calm', proud: 'calm', fear: 'tense', anger: 'tense', determined: 'tense', sad: 'tense', happy: 'funny', excited: 'funny', sarcastic: 'funny', shock: 'shocking' };
 const LOUD = new Set(['excited', 'shock', 'anger', 'happy']);
 const ACCENTS = ['#FFD400', '#7CFF4F', '#FF7A3D', '#4DE1FF', '#FF4D8D', '#B28DFF'];

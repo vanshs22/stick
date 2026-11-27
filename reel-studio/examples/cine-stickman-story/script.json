@@ -1,0 +1,96 @@
+{
+ "title": "Lights out part 1",
+ "language": "en",
+ "voice": "am_michael",
+ "cast": {
+  "rex": {
+   "gender": "male",
+   "tone": "cocky",
+   "role": "the loud one"
+  },
+  "dan": {
+   "gender": "male",
+   "tone": "dry",
+   "role": "the careful one"
+  },
+  "host": {
+   "gender": "female",
+   "tone": "silky",
+   "role": "Madame Lumen, the host"
+  }
+ },
+ "lines": [
+  {
+   "id": "L01",
+   "text": "Bro, I would survive a blackout way longer than you.",
+   "speaker": "rex",
+   "emotion": "sarcastic",
+   "beat": "hook",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L02",
+   "text": "Sure. Then the lights went out.",
+   "speaker": "dan",
+   "emotion": "determined",
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L03",
+   "text": "A hundred kids. One stage. One spotlight.",
+   "speaker": "host",
+   "emotion": "calm",
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L04",
+   "text": "You've been selected! Stay in the light, and you stay alive.",
+   "speaker": "host",
+   "emotion": "excited",
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L05",
+   "text": "Wait. What happens in the dark?",
+   "speaker": "rex",
+   "emotion": "fear",
+   "beat": "step",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L06",
+   "text": "Nobody has ever come back to say.",
+   "speaker": "host",
+   "emotion": "sarcastic",
+   "beat": "twist",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L07",
+   "text": "Rex... the lights are moving.",
+   "speaker": "dan",
+   "emotion": "fear",
+   "beat": "twist",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L08",
+   "text": "Last one in the light wins. Follow for part two.",
+   "speaker": "host",
+   "emotion": "happy",
+   "beat": "cta",
+   "emphasis": [],
+   "visual_hint": ""
+  }
+ ]
+}

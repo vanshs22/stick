@@ -16,6 +16,7 @@ import {InkShot} from './InkShot';
 import {StickScene} from './StickScene';
 import {FaceCam} from './FaceCam';
 import {TwoFaces} from './TwoFaces';
+import {CineStick} from './CineStick';
 import {Devices, RadialMenu} from './reelkit';
 import {EndCard, FileList, Ledger, ProfileCard, RepoCard} from './more';
 import type {ShotProps} from '../engine/types';
@@ -29,5 +30,5 @@ export const REGISTRY: Record<string, React.FC<ShotProps>> = {
   TitleCard, BigStat, Typewriter, Stamp, Highlight, KineticList,
   BrowserWindow, Terminal, PhoneFrame, ChatBubbles, NotebookPage, CommentBox,
   BarChart, LineChart, Timeline, Checklist, Versus, RouteMap,
-  ProofCard, EvidenceCard, Scene3D, Stage3D, HtmlBlock, RemocnBlock, FlowDiagram, PlateShot, Footage, InkShot, StickScene, FaceCam, TwoFaces, RadialMenu, Devices, FileList, Ledger, ProfileCard, RepoCard, EndCard,
+  ProofCard, EvidenceCard, Scene3D, Stage3D, HtmlBlock, RemocnBlock, FlowDiagram, PlateShot, Footage, InkShot, StickScene, FaceCam, TwoFaces, CineStick, RadialMenu, Devices, FileList, Ledger, ProfileCard, RepoCard, EndCard,
 };

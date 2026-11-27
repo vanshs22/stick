@@ -1,0 +1,585 @@
+{
+ "style_pack": "cine-stickman",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "two friends on a bedroom floor, the loud one smug",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "bedroom",
+    "cast": [
+     {
+      "id": "rex",
+      "x": 0.27,
+      "look": {
+       "hat": "capback",
+       "hatColor": "#D8342B",
+       "shirt": "#8D9199"
+      },
+      "mood": "smug",
+      "pose": "point"
+     },
+     {
+      "id": "dan",
+      "x": 0.74,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "neutral",
+      "pose": "idle",
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 1.02,
+     "push": 0.05
+    },
+    "light": {
+     "tint": "#0a1030",
+     "tintAlpha": 0.25,
+     "glow": {
+      "x": 0.2,
+      "y": 0.3,
+      "color": "#6f8cff",
+      "r": 380,
+      "alpha": 0.25
+     }
+    }
+   },
+   "speaker": "rex",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "survive"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "lights out: extreme close-up on the careful one",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "void",
+    "cast": [
+     {
+      "id": "dan",
+      "x": 0.5,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "worried",
+      "pose": "shock"
+     }
+    ],
+    "camera": {
+     "on": "dan",
+     "zoom": 2.7,
+     "push": 0.08,
+     "shake": 3
+    },
+    "light": {
+     "vignette": 1.0
+    }
+   },
+   "speaker": "dan",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "lights"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "the stage: a hundred kids in one spotlight, the host appears",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "stage",
+    "crowd": {
+     "n": 80,
+     "seed": 3,
+     "y": 0.8
+    },
+    "cast": [
+     {
+      "id": "host",
+      "x": 0.5,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "happy",
+      "pose": "explain",
+      "scale": 0.8,
+      "y": 0.86
+     },
+     {
+      "id": "rex",
+      "x": 0.41,
+      "look": {
+       "hat": "capback",
+       "hatColor": "#D8342B",
+       "shirt": "#8D9199"
+      },
+      "mood": "scared",
+      "pose": "idle",
+      "scale": 0.5,
+      "y": 0.9
+     },
+     {
+      "id": "dan",
+      "x": 0.6,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "worried",
+      "pose": "idle",
+      "scale": 0.5,
+      "y": 0.9,
+      "flip": true
+     }
+    ],
+    "camera": {
+     "zoom": 1.0,
+     "push": 0.03
+    },
+    "light": {
+     "cone": {
+      "x": 0.5,
+      "alpha": 0.6,
+      "width": 0.3
+     }
+    }
+   },
+   "speaker": "host",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "spotlight"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "close-up on the host laughing in the light",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "stage",
+    "cast": [
+     {
+      "id": "host",
+      "x": 0.5,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "laugh",
+      "pose": "point",
+      "scale": 1.0,
+      "y": 0.9
+     }
+    ],
+    "camera": {
+     "on": "host",
+     "zoom": 1.7,
+     "push": 0.06
+    },
+    "light": {
+     "cone": {
+      "x": 0.5,
+      "alpha": 0.7,
+      "width": 0.25
+     }
+    }
+   },
+   "speaker": "host",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "alive"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "close-up on the loud one, sweating",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "void",
+    "cast": [
+     {
+      "id": "rex",
+      "x": 0.5,
+      "look": {
+       "hat": "capback",
+       "hatColor": "#D8342B",
+       "shirt": "#8D9199"
+      },
+      "mood": "worried",
+      "pose": "shock"
+     }
+    ],
+    "camera": {
+     "on": "rex",
+     "zoom": 2.8,
+     "push": 0.07,
+     "shake": 2
+    },
+    "light": {
+     "glow": {
+      "x": 0.5,
+      "y": 0.4,
+      "color": "#4a6aff",
+      "r": 500,
+      "alpha": 0.18
+     },
+     "vignette": 1.0
+    }
+   },
+   "speaker": "rex",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "dark"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "the host smiles, a skull on the TV",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "stage",
+    "cast": [
+     {
+      "id": "host",
+      "x": 0.38,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "smug",
+      "pose": "idle",
+      "scale": 0.9,
+      "y": 0.9
+     }
+    ],
+    "tv": {
+     "x": 0.76,
+     "y": 0.22
+    },
+    "camera": {
+     "zoom": 1.1,
+     "push": 0.04,
+     "at": [
+      0.5,
+      0.5
+     ]
+    },
+    "light": {
+     "cone": {
+      "x": 0.38,
+      "alpha": 0.5,
+      "width": 0.26
+     },
+     "glow": {
+      "x": 0.8,
+      "y": 0.22,
+      "color": "#9fd6ff",
+      "r": 360,
+      "alpha": 0.3
+     }
+    }
+   },
+   "speaker": "host",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L06",
+     "word": "Nobody"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "close-up on the careful one, red light creeping in",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "void",
+    "cast": [
+     {
+      "id": "dan",
+      "x": 0.5,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "scared",
+      "pose": "idle"
+     }
+    ],
+    "camera": {
+     "on": "dan",
+     "zoom": 2.6,
+     "push": 0.06,
+     "shake": 2.5
+    },
+    "light": {
+     "glow": {
+      "x": 0.5,
+      "y": 0.45,
+      "color": "#ff2a2a",
+      "r": 560,
+      "alpha": 0.4
+     },
+     "vignette": 1.0
+    }
+   },
+   "speaker": "dan",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L07",
+     "word": "moving"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": 99,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "end card: title, part number, follow",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "void",
+    "cast": [
+     {
+      "id": "host",
+      "x": 0.5,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "smug",
+      "pose": "point",
+      "scale": 0.7,
+      "y": 0.9
+     }
+    ],
+    "camera": {
+     "zoom": 1.0,
+     "push": 0.02
+    },
+    "light": {
+     "cone": {
+      "x": 0.5,
+      "alpha": 0.35,
+      "width": 0.22
+     }
+    }
+   },
+   "speaker": "host",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L08",
+     "word": "part"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "LIGHTS OUT",
+     "color": "#FFFFFF",
+     "size": 96,
+     "x": 540,
+     "y": 420,
+     "rotate": 0,
+     "anchor": "a0"
+    },
+    {
+     "type": "sticker",
+     "text": "PART 1",
+     "color": "#FF3B30",
+     "size": 72,
+     "x": 540,
+     "y": 560,
+     "rotate": 0,
+     "anchor": "a0"
+    },
+    {
+     "type": "sticker",
+     "text": "FOLLOW FOR PART 2",
+     "color": "#FFFFFF",
+     "size": 44,
+     "x": 540,
+     "y": 650,
+     "rotate": 0,
+     "anchor": "a0"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

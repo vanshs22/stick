@@ -1,59 +1,71 @@
 {
- "style_pack": "sketchy-stickman",
+ "style_pack": "cine-stickman",
  "shots": [
   {
    "id": "S01",
    "line_ids": [
     "L01"
    ],
-   "visual_intent": "wide two-shot: Dan smug across the table from Sam",
+   "visual_intent": "two friends on a bedroom floor, the loud one smug",
    "shot_type": "character",
-   "component": "StickScene",
+   "component": "CineStick",
    "approach": "motion-graphics",
-   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
    "props": {
-    "set": "kitchen",
-    "speaker": "dan",
+    "bg": "bedroom",
     "cast": [
      {
-      "id": "dan",
-      "kind": "stick",
-      "x": 0.3,
+      "id": "rex",
+      "x": 0.27,
+      "look": {
+       "hat": "capback",
+       "hatColor": "#D8342B",
+       "shirt": "#8D9199"
+      },
       "mood": "smug",
-      "pose": "explain",
-      "shirt": "#D8342B",
-      "hair": "none",
-      "seated": true
+      "pose": "point"
      },
      {
-      "id": "sam",
-      "kind": "stick",
-      "x": 0.7,
+      "id": "dan",
+      "x": 0.74,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
       "mood": "neutral",
       "pose": "idle",
-      "shirt": "#26356B",
-      "hair": "short",
-      "hairColor": "#1b1b1b",
-      "seated": true,
       "flip": true
      }
     ],
     "camera": {
-     "zoom": 1,
-     "focus": [
-      0.5,
-      0.6
-     ],
-     "push": 0.04
+     "zoom": 1.02,
+     "push": 0.05
+    },
+    "light": {
+     "tint": "#0a1030",
+     "tintAlpha": 0.25,
+     "glow": {
+      "x": 0.2,
+      "y": 0.3,
+      "color": "#6f8cff",
+      "r": 380,
+      "alpha": 0.25
+     }
     }
    },
+   "speaker": "rex",
    "anchors": [
     {
      "name": "a0",
      "line": "L01",
-     "word": "dinner"
+     "word": "survive"
     }
    ],
+   "overlays": [],
    "transition_out": {
     "type": "cut",
     "sound": "none"
@@ -75,65 +87,62 @@
    "line_ids": [
     "L02"
    ],
-   "visual_intent": "punch-in on Sam, delighted",
+   "visual_intent": "lights out: extreme close-up on the careful one",
    "shot_type": "character",
-   "component": "StickScene",
+   "component": "CineStick",
    "approach": "motion-graphics",
-   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
    "props": {
-    "set": "kitchen",
-    "speaker": "sam",
+    "bg": "void",
     "cast": [
      {
       "id": "dan",
-      "kind": "stick",
-      "x": 0.3,
-      "mood": "smug",
-      "pose": "idle",
-      "shirt": "#D8342B",
-      "hair": "none",
-      "seated": true
-     },
-     {
-      "id": "sam",
-      "kind": "stick",
-      "x": 0.7,
-      "mood": "happy",
-      "pose": "explain",
-      "shirt": "#26356B",
-      "hair": "short",
-      "hairColor": "#1b1b1b",
-      "seated": true,
-      "flip": true
+      "x": 0.5,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "worried",
+      "pose": "shock"
      }
     ],
     "camera": {
-     "zoom": 2,
-     "on": "sam",
-     "push": 0.05
+     "on": "dan",
+     "zoom": 2.7,
+     "push": 0.08,
+     "shake": 3
+    },
+    "light": {
+     "vignette": 1
     }
    },
+   "speaker": "dan",
    "anchors": [
     {
      "name": "a0",
      "line": "L02",
-     "word": "fancy"
+     "word": "lights"
     }
    ],
+   "overlays": [],
    "transition_out": {
     "type": "cut",
     "sound": "none"
    },
-   "purpose": "explain",
-   "why": "explain: medium + push, about 2-5 s (playbook camera/explain-medium-push); the line works as \"explain\", happy",
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", determined",
    "acting": {
-    "function": "explain",
-    "gesture": "explain",
-    "expression": "happy"
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "determined"
    },
    "camera": {
     "framing": "medium",
-    "movement": "push"
+    "movement": "hold"
    }
   },
   {
@@ -141,69 +150,254 @@
    "line_ids": [
     "L03"
    ],
-   "visual_intent": "medium on Dan reaching for his wallet, worried",
+   "visual_intent": "the stage: a hundred kids in one spotlight, the host appears",
    "shot_type": "character",
-   "component": "StickScene",
+   "component": "CineStick",
    "approach": "motion-graphics",
-   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
    "props": {
-    "set": "kitchen",
-    "speaker": "dan",
+    "bg": "stage",
+    "crowd": {
+     "n": 80,
+     "seed": 3,
+     "y": 0.8
+    },
     "cast": [
      {
-      "id": "dan",
-      "kind": "stick",
-      "x": 0.3,
-      "mood": "worried",
-      "pose": "hold",
-      "shirt": "#D8342B",
-      "hair": "none",
-      "seated": true,
-      "prop": "wallet",
-      "propOpen": false
+      "id": "host",
+      "x": 0.5,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "happy",
+      "pose": "explain",
+      "scale": 0.8,
+      "y": 0.86
      },
      {
-      "id": "sam",
-      "kind": "stick",
-      "x": 0.7,
-      "mood": "neutral",
+      "id": "rex",
+      "x": 0.41,
+      "look": {
+       "hat": "capback",
+       "hatColor": "#D8342B",
+       "shirt": "#8D9199"
+      },
+      "mood": "scared",
       "pose": "idle",
-      "shirt": "#26356B",
-      "hair": "short",
-      "hairColor": "#1b1b1b",
-      "seated": true,
+      "scale": 0.5,
+      "y": 0.9
+     },
+     {
+      "id": "dan",
+      "x": 0.6,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "worried",
+      "pose": "idle",
+      "scale": 0.5,
+      "y": 0.9,
       "flip": true
      }
     ],
     "camera": {
-     "zoom": 1.7,
-     "on": "dan",
-     "push": 0.05
+     "zoom": 1,
+     "push": 0.03
+    },
+    "light": {
+     "cone": {
+      "x": 0.5,
+      "alpha": 0.6,
+      "width": 0.3
+     }
     }
    },
+   "speaker": "host",
    "anchors": [
     {
      "name": "a0",
      "line": "L03",
-     "word": "balance"
+     "word": "spotlight"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
     }
    ],
    "transition_out": {
     "type": "cut",
     "sound": "none"
    },
-   "sfx": [
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", calm",
+   "acting": {
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "calm"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "close-up on the host laughing in the light",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "stage",
+    "cast": [
+     {
+      "id": "host",
+      "x": 0.5,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "laugh",
+      "pose": "point",
+      "scale": 1,
+      "y": 0.9
+     }
+    ],
+    "camera": {
+     "on": "host",
+     "zoom": 1.7,
+     "push": 0.06
+    },
+    "light": {
+     "cone": {
+      "x": 0.5,
+      "alpha": 0.7,
+      "width": 0.25
+     }
+    }
+   },
+   "speaker": "host",
+   "anchors": [
     {
-     "type": "tick",
-     "anchor": "a0",
-     "gain": 0.4
+     "name": "a0",
+     "line": "L04",
+     "word": "alive"
     }
    ],
-   "purpose": "emotion",
-   "why": "emotion: extreme-close + push, about 0.9-1.6 s (playbook camera/emotion-extreme-closeup); the line works as \"explain\", fear",
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "purpose": "list-item",
+   "why": "list-item: medium + hold, about 3-8 s (playbook camera/list-long-hold-reveals); the line works as \"list-item\", excited",
    "acting": {
-    "function": "explain",
-    "gesture": "explain",
+    "function": "list-item",
+    "gesture": "point",
+    "expression": "excited"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "hold"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "close-up on the loud one, sweating",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "void",
+    "cast": [
+     {
+      "id": "rex",
+      "x": 0.5,
+      "look": {
+       "hat": "capback",
+       "hatColor": "#D8342B",
+       "shirt": "#8D9199"
+      },
+      "mood": "worried",
+      "pose": "shock"
+     }
+    ],
+    "camera": {
+     "on": "rex",
+     "zoom": 2.8,
+     "push": 0.07,
+     "shake": 2
+    },
+    "light": {
+     "glow": {
+      "x": 0.5,
+      "y": 0.4,
+      "color": "#4a6aff",
+      "r": 500,
+      "alpha": 0.18
+     },
+     "vignette": 1
+    }
+   },
+   "speaker": "rex",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "dark"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "purpose": "emotion",
+   "why": "emotion: extreme-close + push, about 0.9-1.6 s (playbook camera/emotion-extreme-closeup); the line works as \"question\", fear",
+   "acting": {
+    "function": "question",
+    "gesture": "head",
     "expression": "fear"
    },
    "camera": {
@@ -212,77 +406,167 @@
    }
   },
   {
-   "id": "S04",
+   "id": "S06",
    "line_ids": [
-    "L04"
+    "L06"
    ],
-   "visual_intent": "punch-in on Dan's shocked face with a bubble",
+   "visual_intent": "the host smiles, a skull on the TV",
    "shot_type": "character",
-   "component": "StickScene",
+   "component": "CineStick",
    "approach": "motion-graphics",
-   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
    "props": {
-    "set": "kitchen",
-    "speaker": "dan",
+    "bg": "stage",
     "cast": [
      {
-      "id": "dan",
-      "kind": "stick",
-      "x": 0.3,
-      "mood": "shock",
-      "pose": "head",
-      "shirt": "#D8342B",
-      "hair": "none",
-      "seated": true
-     },
-     {
-      "id": "sam",
-      "kind": "stick",
-      "x": 0.7,
-      "mood": "neutral",
+      "id": "host",
+      "x": 0.38,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "smug",
       "pose": "idle",
-      "shirt": "#26356B",
-      "hair": "short",
-      "hairColor": "#1b1b1b",
-      "seated": true,
-      "flip": true
+      "scale": 0.9,
+      "y": 0.9
      }
     ],
-    "camera": {
-     "zoom": 2.3,
-     "on": "dan",
-     "push": 0.05
+    "tv": {
+     "x": 0.76,
+     "y": 0.22
     },
-    "bubble": {
-     "who": "dan",
-     "text": "$4?!",
-     "anchor": "a0"
+    "camera": {
+     "zoom": 1.1,
+     "push": 0.04,
+     "at": [
+      0.5,
+      0.5
+     ]
+    },
+    "light": {
+     "cone": {
+      "x": 0.38,
+      "alpha": 0.5,
+      "width": 0.26
+     },
+     "glow": {
+      "x": 0.8,
+      "y": 0.22,
+      "color": "#9fd6ff",
+      "r": 360,
+      "alpha": 0.3
+     }
     }
    },
+   "speaker": "host",
    "anchors": [
     {
      "name": "a0",
-     "line": "L04",
-     "word": "dollars"
+     "line": "L06",
+     "word": "Nobody"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": null,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
     }
    ],
    "transition_out": {
     "type": "cut",
     "sound": "none"
    },
-   "sfx": [
-    {
-     "type": "pop",
-     "anchor": "a0",
-     "gain": 0.5
-    }
-   ],
-   "purpose": "emotion",
-   "why": "emotion: extreme-close + push, about 0.9-1.6 s (playbook camera/emotion-extreme-closeup); the line works as \"reveal\", shock",
+   "purpose": "reveal",
+   "why": "reveal: medium + whip, about 1.2-2.5 s (playbook camera/reveal-whip-hold); the line works as \"reveal\", sarcastic",
    "acting": {
     "function": "reveal",
     "gesture": "shock",
-    "expression": "shock"
+    "expression": "sarcastic"
+   },
+   "camera": {
+    "framing": "medium",
+    "movement": "whip"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "close-up on the careful one, red light creeping in",
+   "shot_type": "character",
+   "component": "CineStick",
+   "approach": "motion-graphics",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
+   "props": {
+    "bg": "void",
+    "cast": [
+     {
+      "id": "dan",
+      "x": 0.5,
+      "look": {
+       "hat": "none",
+       "hair": "short",
+       "hairColor": "#4a3020",
+       "glasses": true,
+       "top": "hoodie",
+       "shirt": "#2c2f38"
+      },
+      "mood": "scared",
+      "pose": "idle"
+     }
+    ],
+    "camera": {
+     "on": "dan",
+     "zoom": 2.6,
+     "push": 0.06,
+     "shake": 2.5
+    },
+    "light": {
+     "glow": {
+      "x": 0.5,
+      "y": 0.45,
+      "color": "#ff2a2a",
+      "r": 560,
+      "alpha": 0.4
+     },
+     "vignette": 1
+    }
+   },
+   "speaker": "dan",
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L07",
+     "word": "moving"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "hud",
+     "label": "90 MINUTES LEFT",
+     "value": 100,
+     "valueTo": 99,
+     "changeAt": 1.2,
+     "caption": "PLAYERS ALIVE"
+    }
+   ],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "purpose": "emotion",
+   "why": "emotion: extreme-close + push, about 0.9-1.6 s (playbook camera/emotion-extreme-closeup); the line works as \"reveal\", fear",
+   "acting": {
+    "function": "reveal",
+    "gesture": "shock",
+    "expression": "fear"
    },
    "camera": {
     "framing": "extreme-close",
@@ -290,56 +574,83 @@
    }
   },
   {
-   "id": "S05",
+   "id": "S08",
    "line_ids": [
-    "L05"
+    "L08"
    ],
-   "visual_intent": "wide reaction: Sam deadpan, Dan crushed",
+   "visual_intent": "end card: title, part number, follow",
    "shot_type": "character",
-   "component": "StickScene",
+   "component": "CineStick",
    "approach": "motion-graphics",
-   "why_renderer": "A flat stickman scene lets the face carry the joke: a wide two-shot sets the table, a punch-in lands the punchline.",
+   "why_renderer": "Lit vector sets and big faces carry the drama; the HUD carries the stakes.",
    "props": {
-    "set": "kitchen",
-    "speaker": "sam",
+    "bg": "void",
     "cast": [
      {
-      "id": "dan",
-      "kind": "stick",
-      "x": 0.3,
-      "mood": "sad",
-      "pose": "shrug",
-      "shirt": "#D8342B",
-      "hair": "none",
-      "seated": true
-     },
-     {
-      "id": "sam",
-      "kind": "stick",
-      "x": 0.7,
-      "mood": "deadpan",
-      "pose": "cross",
-      "shirt": "#26356B",
-      "hair": "short",
-      "hairColor": "#1b1b1b",
-      "seated": true,
-      "flip": true
+      "id": "host",
+      "x": 0.5,
+      "look": {
+       "hat": "top",
+       "shirt": "#F5F0E6",
+       "halo": "bulbs",
+       "hair": "none"
+      },
+      "mood": "smug",
+      "pose": "point",
+      "scale": 0.7,
+      "y": 0.9
      }
     ],
     "camera": {
      "zoom": 1,
-     "focus": [
-      0.5,
-      0.6
-     ],
-     "push": 0.03
+     "push": 0.02
+    },
+    "light": {
+     "cone": {
+      "x": 0.5,
+      "alpha": 0.35,
+      "width": 0.22
+     }
     }
    },
+   "speaker": "host",
    "anchors": [
     {
      "name": "a0",
-     "line": "L05",
-     "word": "pizza"
+     "line": "L08",
+     "word": "part"
+    }
+   ],
+   "overlays": [
+    {
+     "type": "sticker",
+     "text": "LIGHTS OUT",
+     "color": "#FFFFFF",
+     "size": 96,
+     "x": 540,
+     "y": 420,
+     "rotate": 0,
+     "anchor": "a0"
+    },
+    {
+     "type": "sticker",
+     "text": "PART 1",
+     "color": "#FF3B30",
+     "size": 72,
+     "x": 540,
+     "y": 560,
+     "rotate": 0,
+     "anchor": "a0"
+    },
+    {
+     "type": "sticker",
+     "text": "FOLLOW FOR PART 2",
+     "color": "#FFFFFF",
+     "size": 44,
+     "x": 540,
+     "y": 650,
+     "rotate": 0,
+     "anchor": "a0"
     }
    ],
    "transition_out": {
@@ -347,11 +658,11 @@
     "sound": "none"
    },
    "purpose": "cta",
-   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\", neutral",
+   "why": "cta: medium + hold, about 3-5 s (playbook camera/cta-comment-keyword); the line works as \"cta\", happy",
    "acting": {
     "function": "cta",
     "gesture": "point",
-    "expression": "neutral"
+    "expression": "happy"
    },
    "camera": {
     "framing": "medium",

@@ -659,6 +659,20 @@
       },
       "anchors": []
     },
+    "CineStick": {
+      "category": "scene",
+      "description": "Cinematic flat stickman scene: thick-outline cartoon characters (hoodies, caps, glasses, hair, bulb halo) in dark lit vector sets with spotlight cones, crowds, phone/TV props, glow, close-ups and shake. Backgrounds stage, bedroom, car, control, newsroom, street, void.",
+      "props": {
+        "bg": "stage | bedroom | car | control | newsroom | street | void",
+        "cast": "[{id, x, y, scale, look{shirt, top, hat, hatColor, hair, hairColor, glasses, glowEyes, halo}, mood, pose, flip}]",
+        "crowd": "{n, seed, y}",
+        "camera": "{zoom, on, focus, push, shake, at}",
+        "light": "{cone{x,color,alpha,width}, glow{x,y,color,r,alpha}, tint, vignette}",
+        "phone": "{mood, look}",
+        "tv": "{x, y}"
+      },
+      "anchors": []
+    },
     "FaceCam": {
       "category": "scene",
       "description": "Face-cam layout: your clip (or a placeholder) on a rounded face sheet with a bordered overlay card and a section chip above it; modes split, card, face.",

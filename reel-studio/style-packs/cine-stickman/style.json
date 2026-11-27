@@ -1,0 +1,97 @@
+{
+ "id": "cine-stickman",
+ "name": "Cinematic Stickman (series)",
+ "family": "2d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9",
+  "1:1"
+ ],
+ "schema_version": 1,
+ "description": "Thick-outline white-headed cartoon characters (hoodies, caps, glasses, bulb-halo host) in dark lit vector sets: spotlight cones, crowds, phone and TV screens, glow, extreme close-ups, a stakes HUD that persists across parts, bold one-to-three word captions with one yellow keyword, and a Part-N end card. Dialogue-driven survival and mystery shorts.",
+ "tokens": {
+  "colors": {
+   "bg": "#080C14",
+   "ink": "#F2F2EE",
+   "ink2": "#2B2B2B",
+   "muted": "#8A8D95",
+   "card": "#FFFFFF",
+   "accent": "#FFD400",
+   "accentSoft": "#FFF6A8",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A",
+   "shirtA": "#D8342B",
+   "shirtB": "#26356B",
+   "shirtC": "#F2C230"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 1380,
+   "right_margin": 120,
+   "content_top": 180,
+   "content_bottom": 1380
+  }
+ },
+ "effects": {},
+ "rules": [
+  "Characters: pure white round head, thick black outline, big expressive brows and eyes, teeth on strong emotion, sweat or tears on fear; clothes are flat shapes (hoodie, cap, tee).",
+  "Every shot is lit: a spotlight cone, a red or blue wash, a screen glow; dark vignette; never a flat bright room.",
+  "Close-ups carry the emotion (head fills 70 percent of the frame); wide two-shots set the room.",
+  "HUD top-left across the whole series (label, big number, caption); the number changes on the story beat.",
+  "Captions: bold white one to three words with one yellow keyword; end card: title, PART N, FOLLOW FOR PART N+1."
+ ],
+ "components": [
+  "CineStick"
+ ],
+ "native_moves": [
+  "a punch-in on the face for the punchline, then a wide reaction shot",
+  "a speech bubble popping on the key word",
+  "a prop gag (an empty wallet, a phone) held up to the lens"
+ ],
+ "variation_space": {
+  "structures": [
+   "setup, escalation, deadpan reveal, one-line payoff",
+   "two-person argument that flips who is right at the end",
+   "a lie that grows each shot until the set gives it away"
+  ],
+  "openings": [
+   "cold open on the funniest face",
+   "a bold claim said straight to the other character",
+   "a prop dropped onto the table"
+  ],
+  "endings": [
+   "wide shot, silence, then the reaction face",
+   "the twist line over a tight close-up",
+   "a loop back to the first line with the roles swapped"
+  ]
+ },
+ "camera_language": "Wide two-shot to establish, then tight punch-ins on the speaker's face; shot and reverse shot on dialogue, cut on the line; slow 3 percent per second push inside every hold; no whip pans.",
+ "typography": "stroke-word captions at 70 px, two lines at most; yellow title bar in heavy italic for the square comic variant.",
+ "transitions": [
+  "cut",
+  "dissolve"
+ ],
+ "audio_direction": "Light playful bed at -22 dB under the voice; a pop or thud on each expression swap; one beat of silence before the payoff.",
+ "pitfalls": [
+  "Do not wobble or boil the line: this style is clean.",
+  "Do not leave both characters with the same face for more than a second.",
+  "Keep clothes colours distinct from the set key colour."
+ ],
+ "defaults": {
+  "captions": "stroke-word",
+  "music": "bed"
+ },
+ "files": {
+  "dna": "dna.json",
+  "upgrade": "upgrade.json",
+  "camera": "camera.json",
+  "captions": "captions.json"
+ }
+}
