@@ -10,7 +10,7 @@ import crypto from 'node:crypto';
 import os from 'node:os';
 import { createRequire } from 'node:module';
 import { spawnSync } from 'node:child_process';
-import { TK, defaultGL, run } from '../lib/pipeline.mjs';
+import { TK, defaultGL, run, BROWSER_OPTS } from '../lib/pipeline.mjs';
 const a = process.argv.slice(2), P = path.resolve(a[0] || '.'), opt = (k, d) => (a.includes(k) ? a[a.indexOf(k) + 1] : d), scale0 = Number(opt('--scale', 1)), only = (opt('--shots', '') || '').split(',').filter(Boolean), force = a.includes('--force'), div = Math.max(1, Math.min(4, Number(opt('--fps-div', 1)) || 1));   // --fps-div 2: render every 2nd frame and repeat it (animation on twos, 2x faster; the camera steps at 15 fps, so use it for drafts and drawn looks)
 // the encoder needs whole-pixel sizes: snap the scale to the nearest hundredth whose 1080 and 1920 products are integers (0.667 gave 1279.97 px and failed after the render started)
 const scale = [0, 0.01, -0.01, 0.02, -0.02, 0.03, -0.03, 0.04, -0.04, 0.05, -0.05].map((d) => Math.round((scale0 + d) * 100) / 100).find((x) => x > 0 && Number.isInteger(1080 * x) && Number.isInteger(1920 * x) && Number.isInteger(1920 * x / 2) ) ?? 1; if (scale !== scale0) console.log(`scale ${scale0} -> ${scale} (whole-pixel frame size)`);
@@ -29,9 +29,9 @@ const [shI, shN] = (opt('--shard', '0/1') || '0/1').split('/').map(Number);   //
 const todo = plan.filter((p, i) => (force || !fs.existsSync(p.file)) && (!only.length || only.includes(p.id)) && i % shN === shI);
 console.log(`${plan.length} shots, ${plan.length - todo.length} cached, ${todo.length} to render${todo.length ? ': ' + todo.map((p) => p.id).join(', ') : ''}`);
 if (todo.length) {
-  const t0 = Date.now(), serveUrl = await bundle({ entryPoint: path.join(R, 'src/index.ts'), publicDir: path.join(R, 'public'), onProgress: () => {} }), chromiumOptions = { gl: defaultGL() }, comp = await selectComposition({ serveUrl, id: 'Story', inputProps: { sub: false, quality }, chromiumOptions });
+  const t0 = Date.now(), serveUrl = await bundle({ entryPoint: path.join(R, 'src/index.ts'), publicDir: path.join(R, 'public'), onProgress: () => {} }), chromiumOptions = { gl: defaultGL() }, comp = await selectComposition({ serveUrl, id: 'Story', inputProps: { sub: false, quality }, chromiumOptions, ...BROWSER_OPTS });
   for (const p of todo) { const tmp = p.file + '.part.mp4'; const t1 = Date.now();
-    await renderMedia({ composition: comp, serveUrl, codec: 'h264', outputLocation: tmp, inputProps: { sub: false, quality }, frameRange: [p.from, p.to], muted: true, scale, everyNthFrame: div, concurrency: Number(process.env.REMOTION_CONCURRENCY || Math.min(3, Math.max(2, os.cpus().length - 2))), timeoutInMilliseconds: 600000, chromiumOptions, overwrite: true });
+    await renderMedia({ composition: comp, serveUrl, codec: 'h264', outputLocation: tmp, inputProps: { sub: false, quality }, frameRange: [p.from, p.to], muted: true, scale, everyNthFrame: div, concurrency: Number(process.env.REMOTION_CONCURRENCY || Math.min(3, Math.max(2, os.cpus().length - 2))), timeoutInMilliseconds: 600000, chromiumOptions, ...BROWSER_OPTS, overwrite: true });
     if (div > 1) { const dup = p.file + '.dup.mp4', r = run('ffmpeg', ['-y', '-v', 'error', '-i', tmp, '-vf', `fps=${fps}`, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '14', '-preset', 'fast', dup]); if (r.status) { console.error(r.stderr); process.exit(1); } fs.rmSync(tmp); fs.renameSync(dup, p.file); } else fs.renameSync(tmp, p.file); console.log(`  ${p.id}: frames ${p.from}-${p.to} -> ${path.basename(p.file)} (${((Date.now() - t1) / (p.to - p.from + 1) / 1000).toFixed(1)} s per frame)`); }
   console.log(`rendered in ${Math.round((Date.now() - t0) / 1000)} s`);
 }

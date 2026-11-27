@@ -1,3 +1,5 @@
+import {continueRender, delayRender, staticFile} from 'remotion';
+import {LOCAL_FONTS} from './fonts.local';
 import {loadFont as Inter} from '@remotion/google-fonts/Inter';
 import {loadFont as Manrope} from '@remotion/google-fonts/Manrope';
 import {loadFont as SpaceGrotesk} from '@remotion/google-fonts/SpaceGrotesk';
@@ -31,9 +33,17 @@ export const FONTS: Record<string, Spec> = {
   JetBrainsMono: {load: JetBrainsMono, weights: ['400', '500', '700'], kind: 'mono'}, SpaceMono: {load: SpaceMono, weights: ['400', '700'], kind: 'mono'}, Caveat: {load: Caveat, weights: ['400', '700'], kind: 'hand'},
 };
 const done: Record<string, string> = {};
+/** bundled woff2 files (tools/fonts_localize.mjs): no network, so a render never waits on Google Fonts */
+const loadLocal = (n: string): string | null => {
+  const L = LOCAL_FONTS[n]; if (!L || !L.faces.length || typeof FontFace === 'undefined') return null;
+  const h = delayRender(`font ${n}`, {timeoutInMilliseconds: 60000});
+  Promise.all(L.faces.map((f) => new FontFace(L.family, `url(${staticFile(f.file)}) format('woff2')`, {style: f.style, weight: f.weight}).load().then((ff) => { (document as any).fonts.add(ff); }))).then(() => continueRender(h), () => continueRender(h));
+  return L.family;
+};
 /** load a font by library name and return its CSS family (loaded once) */
 export const fontFamily = (name: string, fallback = 'Inter'): string => {
   const n = FONTS[name] ? name : fallback; if (done[n]) return done[n];
+  const loc = loadLocal(n); if (loc) return (done[n] = loc);
   const s = FONTS[n]; const f = s.load('normal', {weights: s.weights, subsets: ['latin']}); if (s.italic) { try { s.load('italic', {weights: s.weights.slice(0, 1), subsets: ['latin']}); } catch (e) { /* no italic */ } }
   return (done[n] = f.fontFamily);
 };

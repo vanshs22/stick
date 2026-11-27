@@ -1,3 +1,4 @@
+import os from 'node:os';
 // Shared helpers so every tool builds, times and renders a project the same way (no copy-pasted shell).
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -12,6 +13,16 @@ if (fs.existsSync(path.join(TK, '.bin'))) process.env.PATH = path.join(TK, '.bin
 export const PY = process.env.REEL_PY || (fs.existsSync(path.join(TK, '.venv/bin/python')) ? path.join(TK, '.venv/bin/python') : fs.existsSync(path.join(TK, '.venv/Scripts/python.exe')) ? path.join(TK, '.venv/Scripts/python.exe') : 'python3');
 /** the WebGL backend for Remotion: REMOTION_GL if set; else `swangle` on a Linux machine with no GPU device (headless boxes, CI, containers: software WebGL works only with it), else `angle` */
 export const defaultGL = () => process.env.REMOTION_GL || (process.platform === 'linux' && !fs.existsSync('/dev/dri') && !fs.existsSync('/dev/nvidia0') ? 'swangle' : 'angle');
+/** Chrome for Remotion: REEL_CHROME, else a headless shell or Chrome already on the machine (offline or proxied hosts cannot download one). Empty = let Remotion fetch its own. */
+const chromeFound = () => {
+  if (process.env.REEL_CHROME) return { exe: process.env.REEL_CHROME, shell: !/chrome$|google-chrome/.test(process.env.REEL_CHROME) };
+  const roots = ['/opt/pw-browsers', path.join(os.homedir(), '.cache/ms-playwright')];
+  for (const r of roots) { try { for (const d of fs.readdirSync(r).filter((x) => x.startsWith('chromium_headless_shell')).sort().reverse()) { for (const sub of fs.readdirSync(path.join(r, d))) { const f = path.join(r, d, sub, 'chrome-headless-shell'); if (fs.existsSync(f)) return { exe: f, shell: true }; } } } catch { /* next root */ } }
+  for (const f of ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser']) if (fs.existsSync(f)) return { exe: f, shell: false };
+  return null;
+};
+const CF = chromeFound();
+export const BROWSER_OPTS = CF ? { browserExecutable: CF.exe, ...(CF.shell ? {} : { chromeMode: 'chrome-for-testing' }) } : {};
 export const run = (cmd, args, opt = {}) => spawnSync(cmd, args, { encoding: 'utf8', maxBuffer: 1 << 28, shell: process.platform === 'win32' && /^(npm|npx)$/.test(cmd), ...opt });   // npm and npx are .cmd files on Windows: they need a shell
 /** the finished film of a project: the NEWEST renders/*.mp4 that is not a raw/4K/segment file and not an --estimate preview (a stale preview must never be analysed as "the film") */
 export function finalVideo(P) {
@@ -44,7 +55,7 @@ export function syncProject(P, { nodeModules = process.env.REEL_NODE_MODULES || 
   const vend = path.join(R, 'public/vendor'); fs.mkdirSync(vend, { recursive: true }); const gs = path.join(nm, 'gsap/dist/gsap.min.js'); if (fs.existsSync(gs)) fs.copyFileSync(gs, path.join(vend, 'gsap.min.js'));   // local GSAP for HyperFrames-style blocks (no CDN at render time)
   if (fs.existsSync(path.join(P, 'assets'))) fs.cpSync(path.join(P, 'assets'), path.join(R, 'public/assets'), { recursive: true });   // captures and recreations are referenced as image: "assets/<path>"
   { const rg = path.join(R, 'src/data/remocn-registry.ts'); if (!fs.existsSync(rg)) fs.copyFileSync(path.join(T, 'src/data/remocn-registry.ts'), rg); }   // filled by tools/remocn.mjs; never overwritten
-  for (const f of ['hyperframes']) { const sd = path.join(T, 'public', f); if (fs.existsSync(sd)) fs.cpSync(sd, path.join(R, 'public', f), { recursive: true }); }
+  for (const f of ['hyperframes', 'fonts']) { const sd = path.join(T, 'public', f); if (fs.existsSync(sd)) fs.cpSync(sd, path.join(R, 'public', f), { recursive: true }); }
   return R;
 }
 

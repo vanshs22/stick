@@ -8,6 +8,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import os from 'node:os';
 import { createRequire } from 'node:module';
+import { BROWSER_OPTS } from './lib/pipeline.mjs';
 const a = process.argv.slice(2), P = path.resolve(a[0] || '.'), opt = (k, d) => (a.includes(k) ? a[a.indexOf(k) + 1] : d);
 const scale = Number(opt('--scale', 1)), only = opt('--shots', '')?.split(',').filter(Boolean), force = a.includes('--force');
 const R = path.join(P, 'remotion'), req = createRequire(path.join(R, 'package.json'));
@@ -35,10 +36,10 @@ if (a.includes('--dry')) { console.log(plan.map((p) => `${p.id} ${p.hash}`).join
 console.log(`${plan.length} shots, ${plan.length - todo.length} cached, ${todo.length} to render${todo.length ? ': ' + todo.map((p) => p.id).join(', ') : ''}`);
 if (todo.length) {
   const t0 = Date.now(), serveUrl = await bundle({ entryPoint: path.join(R, 'src/index.ts'), publicDir: path.join(R, 'public'), onProgress: () => {} });
-  const chromiumOptions = { gl: process.env.REMOTION_GL || undefined }, comp = await selectComposition({ serveUrl, id: 'Reel', inputProps: { captions: true, safeZones: false }, chromiumOptions });
+  const chromiumOptions = { gl: process.env.REMOTION_GL || undefined }, comp = await selectComposition({ serveUrl, id: 'Reel', inputProps: { captions: true, safeZones: false }, chromiumOptions, ...BROWSER_OPTS });
   for (const p of todo) {
     const tmp = p.file + '.part.mp4';
-    await renderMedia({ composition: comp, serveUrl, codec: 'h264', outputLocation: tmp, inputProps: { captions: true, safeZones: false }, frameRange: [p.from, p.to], muted: true, scale, concurrency: Number(process.env.REMOTION_CONCURRENCY || Math.min(12, Math.max(2, os.cpus().length - 2))), timeoutInMilliseconds: 300000, chromiumOptions, overwrite: true });
+    await renderMedia({ composition: comp, serveUrl, codec: 'h264', outputLocation: tmp, inputProps: { captions: true, safeZones: false }, frameRange: [p.from, p.to], muted: true, scale, concurrency: Number(process.env.REMOTION_CONCURRENCY || Math.min(12, Math.max(2, os.cpus().length - 2))), timeoutInMilliseconds: 300000, chromiumOptions, ...BROWSER_OPTS, overwrite: true });
     fs.renameSync(tmp, p.file); console.log(`  ${p.id}: frames ${p.from}-${p.to} -> ${path.basename(p.file)}`);
   }
   console.log(`rendered in ${Math.round((Date.now() - t0) / 1000)} s`);
