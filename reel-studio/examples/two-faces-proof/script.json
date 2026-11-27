@@ -1,0 +1,62 @@
+{
+ "title": "Who is listening",
+ "voice": "am_michael",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "Can I ask you something strange?",
+   "speaker": "near",
+   "emotion": "curious",
+   "beat": "hook"
+  },
+  {
+   "id": "L02",
+   "text": "When you think, who is talking?",
+   "speaker": "near",
+   "emotion": "curious",
+   "beat": "step"
+  },
+  {
+   "id": "L03",
+   "text": "And who is listening?",
+   "speaker": "far",
+   "emotion": "calm",
+   "beat": "step"
+  },
+  {
+   "id": "L04",
+   "text": "Then there are two of you.",
+   "speaker": "near",
+   "emotion": "calm",
+   "beat": "step"
+  },
+  {
+   "id": "L05",
+   "text": "Every night, one of them is scared.",
+   "speaker": "far",
+   "emotion": "fear",
+   "beat": "step"
+  },
+  {
+   "id": "L06",
+   "text": "Which one is you?",
+   "speaker": "near",
+   "emotion": "curious",
+   "beat": "step"
+  },
+  {
+   "id": "L07",
+   "text": "Neither. You are the one who noticed.",
+   "speaker": "far",
+   "emotion": "calm",
+   "beat": "step"
+  },
+  {
+   "id": "L08",
+   "text": "Tonight, when the voice starts, do not argue. Listen.",
+   "speaker": "near",
+   "emotion": "determined",
+   "beat": "cta"
+  }
+ ]
+}

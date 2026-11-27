@@ -647,6 +647,18 @@
         "cast"
       ]
     },
+    "TwoFaces": {
+      "category": "scene",
+      "description": "Two painted faces on black (one warm-lit near, one cold-lit far) for deep-thinking dialogue films: only the eyes, the breath and a slow push move. Framings two, near, far; the speaker is lit brighter. Captions: preset quote-side.",
+      "props": {
+        "framing": "two | near | far",
+        "speaker": "near | far",
+        "push": "0.03-0.06 slow push over the shot",
+        "look": "{warm, cool, bg} colours",
+        "glance": "0..1 how often the eyes find the other face"
+      },
+      "anchors": []
+    },
     "FaceCam": {
       "category": "scene",
       "description": "Face-cam layout: your clip (or a placeholder) on a rounded face sheet with a bordered overlay card and a section chip above it; modes split, card, face.",
@@ -655,7 +667,10 @@
         "card": "{title, lines[]}",
         "chip": "{n, total, label, color}",
         "zoom": "face punch-in 1..1.4",
-        "faceLabel": "placeholder text"
+        "faceLabel": "placeholder text",
+        "character": "x | y: a presenter sprite fills the face sheet until real footage exists",
+        "pose": "sprite pose (open, point, think...)",
+        "mood": "calm | happy | surprised..."
       },
       "anchors": [
         "any"

@@ -1,0 +1,35 @@
+{
+ "_doc": "The 8 styles the user defined from the 27 references: which example project carries each, used by tools/storyboard_test.mjs.",
+ "1-face-overlay": {
+  "name": "Face with overlay above",
+  "example": "facecam-overlay-proof"
+ },
+ "2-stickman-3d": {
+  "name": "2D stickman in a 3D world",
+  "example": "stickman-survival"
+ },
+ "3-flat-stickman": {
+  "name": "2D stickman (flat, series HUD)",
+  "example": "sketchy-stickman-proof"
+ },
+ "4-board": {
+  "name": "Whiteboard / blackboard explainer",
+  "example": "board-proof"
+ },
+ "5-two-faces": {
+  "name": "Two-person deep thinking",
+  "example": "two-faces-proof"
+ },
+ "6-roblox": {
+  "name": "Roblox story",
+  "example": "roblox-story"
+ },
+ "7-minion-3d": {
+  "name": "Claude minion + round-faced 3D person",
+  "example": "character-story"
+ },
+ "8-split-host": {
+  "name": "Animated host below + explainer above",
+  "example": "doodle-explainer-proof"
+ }
+}

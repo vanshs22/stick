@@ -1,0 +1,47 @@
+{
+ "critic": "director",
+ "target": "8-split-host",
+ "verdict": "pass",
+ "score": 94,
+ "assessment": "automatic",
+ "checks_run": [
+  "purpose: every shot names a purpose and a reason",
+  "fit: the camera fits the shot purpose",
+  "rhythm: shot lengths vary, cut rate fits the style, framings vary"
+ ],
+ "findings": [
+  {
+   "id": "DIR01",
+   "severity": "minor",
+   "fix_target": "storyboard",
+   "shot_id": "S06",
+   "problem": "four shots in a row have almost the same length",
+   "evidence": "3.9, 3.0, 3.0, 2.9 s",
+   "expected": "neighbouring shots differ by at least 25 %",
+   "fix": "Lengthen or shorten one of them"
+  },
+  {
+   "id": "DIR02",
+   "severity": "minor",
+   "fix_target": "storyboard",
+   "problem": "cut rate 2.7 per 10 s, the style's references use 0.8",
+   "evidence": "7 shots in 26 s",
+   "expected": "0.5-1.1 per 10 s",
+   "fix": "Merge shots or hold longer with in-frame changes"
+  },
+  {
+   "id": "DIR03",
+   "severity": "minor",
+   "fix_target": "storyboard",
+   "shot_id": "S04",
+   "problem": "same framing and angle three shots in a row",
+   "evidence": "medium|",
+   "expected": "change the angle when the meaning changes",
+   "fix": "Vary framing or angle"
+  }
+ ],
+ "notes": [
+  "Taste (is this camera choice the best one?) needs eyes: watch the render frames (tools/reference/watch.mjs) and the vision critics."
+ ],
+ "checked_at": "2026-11-27T20:53:06.051Z"
+}

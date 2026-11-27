@@ -1,0 +1,89 @@
+{
+ "id": "two-faces",
+ "name": "Two Faces (deep-thinking dialogue)",
+ "family": "2d",
+ "cadence": "explainer-2d",
+ "formats": [
+  "9:16",
+  "16:9"
+ ],
+ "schema_version": 1,
+ "description": "Read-the-text films: two painted faces on black, one lit warm and one cold, eyes dart and blink, a slow push, quoted lines in the top third aligned toward the speaker, the last line larger. No voice; an ambient pad. Original art; the structure is learned from three reference films that share one painted pair.",
+ "tokens": {
+  "colors": {
+   "bg": "#06060A",
+   "ink": "#F4F1EA",
+   "ink2": "#CFC9BE",
+   "muted": "#8B8579",
+   "card": "#101015",
+   "accent": "#E8B27A",
+   "accentSoft": "#7B5CF033",
+   "good": "#4E9A5B",
+   "bad": "#C94A3A"
+  },
+  "fonts": {
+   "sans": "Inter",
+   "serif": "InstrumentSerif",
+   "mono": "JetBrainsMono"
+  },
+  "safe_zone": {
+   "top": 180,
+   "bottom": 1380,
+   "caption_y": 300,
+   "right_margin": 120,
+   "content_top": 200,
+   "content_bottom": 1700
+  },
+  "chrome": "sticker",
+  "bgs": {
+   "black": "#06060A"
+  }
+ },
+ "effects": {},
+ "rules": [
+  "Two faces only; nothing moves but the eyes, the breath and a slow 3-6 % push.",
+  "Frames: two-shot to open, close-up of the near face for questions, close-up of the far face for the heavy lines, the tightest push on the last line.",
+  "Quoted lines, small, top third; left when the near face speaks, right when the far face speaks; the last line is 1.6x larger.",
+  "No cuts faster than 2.5 s; hold time = 0.35 s per word + 1.2 s.",
+  "No voice by default; one ambient pad mastered to -14 LUFS, a soft tone when the speaker changes."
+ ],
+ "components": [
+  "TwoFaces"
+ ],
+ "native_moves": [
+  "card grows to fill the frame for one beat, then the face returns",
+  "a face punch-in on the keyword"
+ ],
+ "variation_space": {
+  "structures": [
+   "numbered steps with a card each",
+   "one claim, three screenshots, a CTA",
+   "before and after of one document"
+  ],
+  "openings": [
+   "the face saying the result",
+   "the final card first",
+   "a question over the face"
+  ],
+  "endings": [
+   "comment-keyword plate",
+   "the face with the last card pinned above",
+   "a recap card"
+  ]
+ },
+ "camera_language": "Face crops punch in and out on hard cuts; the card animates in place.",
+ "typography": "word-pop captions with an accent keyword.",
+ "transitions": [
+  "cut"
+ ],
+ "audio_direction": "Voice from the clip; music bed 6 dB under, no sound effects.",
+ "pitfalls": [
+  "Do not put captions over the face's mouth.",
+  "Do not hide the face for long stretches."
+ ],
+ "defaults": {
+  "captions": "quote-side",
+  "music": "bed"
+ },
+ "status": "draft"
+}

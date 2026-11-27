@@ -1,0 +1,29 @@
+{
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "language": "en",
+ "audience": "people who like quiet philosophical shorts",
+ "goal": "one unsettling idea in 20 seconds",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.05
+ },
+ "music": {
+  "direction": "ambient"
+ },
+ "captions": {
+  "preset": "quote-side"
+ },
+ "research": {
+  "agent_reach": "no"
+ },
+ "title": "Who is listening",
+ "topic": "when you think, who is talking and who is listening",
+ "duration_sec": 22,
+ "style_pack": "two-faces",
+ "cta": {
+  "keyword": "LISTEN",
+  "text": "Listen tonight."
+ }
+}

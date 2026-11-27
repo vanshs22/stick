@@ -2,49 +2,291 @@
  "schema_version": 1,
  "id": "audio",
  "title": "Audio: voice direction, music choice, SFX palette and placement, mix",
- "read_by": ["audio-manager", "sfx-music-designer", "critic-audio", "build_cues", "mood_pick"],
+ "read_by": [
+  "audio-manager",
+  "sfx-music-designer",
+  "critic-audio",
+  "build_cues",
+  "mood_pick"
+ ],
  "entries": [
-  { "id": "voice-emotion-direction", "when": "writing or voicing any line",
-    "do": "Every line carries emotion (curious, alarmed, smug, deadpan, tender, excited) and function (hook, setup, list-item, turn, payoff, cta). Map to the engine: Chatterbox exaggeration 0.35 calm / 0.6 engaged / 0.85 shocked, lower cfg for slow loose delivery; Kokoro speed 0.95-1.12 and pauses 0.25-0.5 s by function. Read sentences whole, then cut. Hook is faster and higher, payoff slower and lower with a 0.5 s pause before it.",
-    "parameters": { "chatterbox_exaggeration": { "calm": 0.35, "engaged": 0.6, "shocked": 0.85 }, "kokoro_speed": [0.95, 1.12], "pause_before_payoff_s": 0.5 },
-    "evidence": [{ "ref": "r08", "note": "TTS-like narration at 225 wpm, flat: what we must beat" }, { "ref": "r19", "note": "234 wpm, same flatness; no pause before the payoff" }, { "ref": "transcripts27", "note": "tutorials run 3.5-4 words/s; stories 5+ words/s" }],
-    "anti_patterns": ["same speed and pitch on every line", "no breaths", "reading a list at one pitch"], "check": "audio" },
-  { "id": "prosody-gate", "when": "after the narration is generated",
-    "do": "Run tools/audio/prosody.py: pitch range at least 6.5 semitones, loudness dynamics present, pause lengths vary; a flat line is re-read with a changed emotion tag, up to 2 times; otherwise ask the user to record that line.",
-    "parameters": { "pitch_range_st_min": 6.5, "reread_max": 2 },
-    "evidence": [{ "ref": "tools/audio/prosody.py", "note": "existing measure of how alive a read is (flat < 4.5, alive >= 6.5)" }], "check": "audio" },
-  { "id": "dialogue-voices", "when": "two or more speakers (styles 3, 7, 5-with-voice)",
-    "do": "One voice per character, gender matches the character, pitch at least 3 semitones apart, different pace (the mascot quicker and brighter, the human grumbly); 0.15-0.3 s overlap on interruptions; each line tagged with speaker and emotion.",
-    "parameters": { "pitch_gap_st": 3 },
-    "evidence": [{ "ref": "r07", "note": "mascot cheerful vs grumbly developer" }, { "ref": "r13", "note": "multi-voice dialogue with different personalities" }], "check": "audio" },
-  { "id": "music-by-emotion", "when": "choosing the music bed",
-    "do": "Pick by the average valence/arousal of the beat's lines (tools/audio/mood_pick.mjs) and the style tempo: board 105-112 BPM, split-host 110-115, minion 115-120, flat stickman 120-125, Roblox 120-125, face+overlay 135-145, stickman-3d 140-145, two-faces ambient pad no beat. Bed -22 to -28 dB below the voice, duck 4-6 dB under speech with 120 ms attack and 400 ms release, swell +3 dB on the payoff, stop the beat for the last word before the CTA.",
-    "parameters": { "bpm_by_style": { "board": [105, 112], "split-host": [110, 115], "minion-3d": [115, 120], "flat-stickman": [120, 125], "roblox": [120, 125], "face-overlay": [135, 145], "stickman-3d-world": [140, 145], "two-faces": [0, 0] }, "bed_db_under_voice": [-28, -22], "duck_db": [4, 6] },
-    "evidence": [{ "ref": "dna27", "note": "music BPM medians per style: 108, 112, 118, 123, 122, 136, 144" }, { "ref": "r08", "note": "music stem -34.7 dB vs voice -17 dB: bed 17 dB under" }], "check": "music_mood" },
-  { "id": "sfx-density-by-style", "when": "planning sound effects",
-    "do": "Hits per 10 s: board 2-3 (on element pops), host+panel 2-3, face+overlay 1.5-6, flat stickman 3-4 (stings on reveals), minion 2-3, stickman-3d 2-3, Roblox 4-6 (whoosh on every cut + stings), two-faces 0-1. Share of hits that sit on a cut: face+overlay about 40 %, Roblox about 70 %.",
-    "parameters": { "per_10s": { "board": [2, 3], "face-overlay": [1.5, 6], "flat-stickman": [3, 4], "minion-3d": [2, 3], "roblox": [4, 6], "two-faces": [0, 1] }, "on_cut_share": { "face-overlay": 0.4, "roblox": 0.7 } },
-    "evidence": [{ "ref": "r08", "note": "36 hits / 57 s = 6.3 per 10 s, 39 % on cuts, mostly whooshes" }, { "ref": "r19", "note": "3 hits / 22 s = 1.4 per 10 s" }], "check": "sfx_sync" },
-  { "id": "sfx-palette-and-placement", "when": "choosing which sound for which event",
-    "do": "Cut = short whoosh (0.2-0.4 s) starting 40-80 ms before the cut; element pop = soft click or tick; number landing = ding or low impact; reveal = riser then impact on the landing frame; error = short buzz; success = bright chime; typing = key ticks under the voice at -30 dB; each hit within 80 ms of its visual event, gain varied +-2 dB, never the same sample twice in a row, pitch-shift +-1 semitone for repeats.",
-    "parameters": { "lead_ms": [40, 80], "tolerance_ms": 80, "gain_jitter_db": 2 },
-    "evidence": [{ "ref": "r08", "note": "types measured: whoosh, click, ding; bed -55..-60 dB under the voice, hits peak -21..-30 dB" }], "check": "sfx_sync" },
-  { "id": "loudness-and-peaks", "when": "final mix",
-    "do": "Integrated -14 LUFS (+-1), true peak -1 dB or lower, voice always the loudest element, music never above -18 LUFS short-term under speech, no clipping on stacked SFX (limiter after the sum).",
-    "parameters": { "lufs": -14, "true_peak_db": -1 },
-    "evidence": [{ "ref": "dna27", "note": "all 27 references measure -14.0 to -14.2 LUFS" }], "check": "audio" },
-  { "id": "room-and-polish", "when": "making synthetic voices sound human",
-    "do": "Add tiny room tone (-55 dB), breath sounds before long sentences (-32 dB), light de-ess, a 90 Hz high-pass, gentle 2-4 dB presence boost at 3 kHz, 8-12 ms crossfades between joined takes; no heavy compression; for a device voice band-pass 400-3400 Hz.",
-    "parameters": { "hp_hz": 90, "presence_db": [2, 4], "crossfade_ms": [8, 12] },
-    "evidence": [{ "ref": "tools/audio/voice_polish.py", "note": "existing polish step to extend" }], "check": "audio" },
-  { "id": "silent-style-pad", "when": "a read-the-text film with no voice (two-faces)",
-    "do": "One ambient pad or drone, no beat, -24 LUFS integrated; a slow swell under the payoff line; a single low heartbeat or breath at the first and last frame; no SFX except a soft tone when the speaker changes.",
-    "parameters": { "lufs": -24 },
-    "styles": ["two-faces"],
-    "evidence": [{ "ref": "r01", "note": "no speech found (Whisper 0 words); music bed only" }, { "ref": "r09", "note": "same" }, { "ref": "r20", "note": "2 words" }], "check": "audio" },
-  { "id": "sources-and-licences", "when": "fetching music or SFX",
-    "do": "Only CC0 or licence-recorded sources: our pack, Openverse CC0 audio, Internet Archive CC0 sets, the Wyzowl SFX kit (CC0), generated stings; store licence and URL in assets/manifest; never reuse the reference videos' audio.",
-    "parameters": {},
-    "evidence": [{ "ref": "web search", "note": "Openverse API, Internet Archive SSE swooshes, Wyzowl SFX kit are CC0; verify each file" }], "check": "assets" }
+  {
+   "id": "voice-emotion-direction",
+   "when": "writing or voicing any line",
+   "do": "Every line carries emotion (curious, alarmed, smug, deadpan, tender, excited) and function (hook, setup, list-item, turn, payoff, cta). Map to the engine: Chatterbox exaggeration 0.35 calm / 0.6 engaged / 0.85 shocked, lower cfg for slow loose delivery; Kokoro speed 0.95-1.12 and pauses 0.25-0.5 s by function. Read sentences whole, then cut. Hook is faster and higher, payoff slower and lower with a 0.5 s pause before it.",
+   "parameters": {
+    "chatterbox_exaggeration": {
+     "calm": 0.35,
+     "engaged": 0.6,
+     "shocked": 0.85
+    },
+    "kokoro_speed": [
+     0.95,
+     1.12
+    ],
+    "pause_before_payoff_s": 0.5
+   },
+   "evidence": [
+    {
+     "ref": "r08",
+     "note": "TTS-like narration at 225 wpm, flat: what we must beat"
+    },
+    {
+     "ref": "r19",
+     "note": "234 wpm, same flatness; no pause before the payoff"
+    },
+    {
+     "ref": "transcripts27",
+     "note": "tutorials run 3.5-4 words/s; stories 5+ words/s"
+    }
+   ],
+   "anti_patterns": [
+    "same speed and pitch on every line",
+    "no breaths",
+    "reading a list at one pitch"
+   ],
+   "check": "audio"
+  },
+  {
+   "id": "prosody-gate",
+   "when": "after the narration is generated",
+   "do": "Run tools/audio/prosody.py: pitch range at least 6.5 semitones, loudness dynamics present, pause lengths vary; a flat line is re-read with a changed emotion tag, up to 2 times; otherwise ask the user to record that line.",
+   "parameters": {
+    "pitch_range_st_min": 6.5,
+    "reread_max": 2
+   },
+   "evidence": [
+    {
+     "ref": "tools/audio/prosody.py",
+     "note": "existing measure of how alive a read is (flat < 4.5, alive >= 6.5)"
+    }
+   ],
+   "check": "audio"
+  },
+  {
+   "id": "dialogue-voices",
+   "when": "two or more speakers (styles 3, 7, 5-with-voice)",
+   "do": "One voice per character, gender matches the character, pitch at least 3 semitones apart, different pace (the mascot quicker and brighter, the human grumbly); 0.15-0.3 s overlap on interruptions; each line tagged with speaker and emotion.",
+   "parameters": {
+    "pitch_gap_st": 3
+   },
+   "evidence": [
+    {
+     "ref": "r07",
+     "note": "mascot cheerful vs grumbly developer"
+    },
+    {
+     "ref": "r13",
+     "note": "multi-voice dialogue with different personalities"
+    }
+   ],
+   "check": "audio"
+  },
+  {
+   "id": "music-by-emotion",
+   "when": "choosing the music bed",
+   "do": "Pick by the average valence/arousal of the beat's lines (tools/audio/mood_pick.mjs) and the style tempo: board 105-112 BPM, split-host 110-115, minion 115-120, flat stickman 120-125, Roblox 120-125, face+overlay 135-145, stickman-3d 140-145, two-faces ambient pad no beat. Bed -22 to -28 dB below the voice, duck 4-6 dB under speech with 120 ms attack and 400 ms release, swell +3 dB on the payoff, stop the beat for the last word before the CTA.",
+   "parameters": {
+    "bpm_by_style": {
+     "board": [
+      105,
+      112
+     ],
+     "split-host": [
+      110,
+      115
+     ],
+     "minion-3d": [
+      115,
+      120
+     ],
+     "flat-stickman": [
+      120,
+      125
+     ],
+     "roblox": [
+      120,
+      125
+     ],
+     "face-overlay": [
+      135,
+      145
+     ],
+     "stickman-3d-world": [
+      140,
+      145
+     ],
+     "two-faces": [
+      0,
+      0
+     ]
+    },
+    "bed_db_under_voice": [
+     -28,
+     -22
+    ],
+    "duck_db": [
+     4,
+     6
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "dna27",
+     "note": "music BPM medians per style: 108, 112, 118, 123, 122, 136, 144"
+    },
+    {
+     "ref": "r08",
+     "note": "music stem -34.7 dB vs voice -17 dB: bed 17 dB under"
+    }
+   ],
+   "check": "music_mood"
+  },
+  {
+   "id": "sfx-density-by-style",
+   "when": "planning sound effects",
+   "do": "Hits per 10 s: board 2-3 (on element pops), host+panel 2-3, face+overlay 1.5-6, flat stickman 3-4 (stings on reveals), minion 2-3, stickman-3d 2-3, Roblox 4-6 (whoosh on every cut + stings), two-faces 0-1. Share of hits that sit on a cut: face+overlay about 40 %, Roblox about 70 %.",
+   "parameters": {
+    "per_10s": {
+     "board": [
+      2,
+      3
+     ],
+     "face-overlay": [
+      1.5,
+      6
+     ],
+     "flat-stickman": [
+      3,
+      4
+     ],
+     "minion-3d": [
+      2,
+      3
+     ],
+     "roblox": [
+      4,
+      6
+     ],
+     "two-faces": [
+      0,
+      1
+     ]
+    },
+    "on_cut_share": {
+     "face-overlay": 0.4,
+     "roblox": 0.7
+    }
+   },
+   "evidence": [
+    {
+     "ref": "r08",
+     "note": "36 hits / 57 s = 6.3 per 10 s, 39 % on cuts, mostly whooshes"
+    },
+    {
+     "ref": "r19",
+     "note": "3 hits / 22 s = 1.4 per 10 s"
+    }
+   ],
+   "check": "sfx_sync"
+  },
+  {
+   "id": "sfx-palette-and-placement",
+   "when": "choosing which sound for which event",
+   "do": "Cut = short whoosh (0.2-0.4 s) starting 40-80 ms before the cut; element pop = soft click or tick; number landing = ding or low impact; reveal = riser then impact on the landing frame; error = short buzz; success = bright chime; typing = key ticks under the voice at -30 dB; each hit within 80 ms of its visual event, gain varied +-2 dB, never the same sample twice in a row, pitch-shift +-1 semitone for repeats.",
+   "parameters": {
+    "lead_ms": [
+     40,
+     80
+    ],
+    "tolerance_ms": 80,
+    "gain_jitter_db": 2
+   },
+   "evidence": [
+    {
+     "ref": "r08",
+     "note": "types measured: whoosh, click, ding; bed -55..-60 dB under the voice, hits peak -21..-30 dB"
+    }
+   ],
+   "check": "sfx_sync"
+  },
+  {
+   "id": "loudness-and-peaks",
+   "when": "final mix",
+   "do": "Integrated -14 LUFS (+-1), true peak -1 dB or lower, voice always the loudest element, music never above -18 LUFS short-term under speech, no clipping on stacked SFX (limiter after the sum).",
+   "parameters": {
+    "lufs": -14,
+    "true_peak_db": -1
+   },
+   "evidence": [
+    {
+     "ref": "dna27",
+     "note": "all 27 references measure -14.0 to -14.2 LUFS"
+    }
+   ],
+   "check": "audio"
+  },
+  {
+   "id": "room-and-polish",
+   "when": "making synthetic voices sound human",
+   "do": "Add tiny room tone (-55 dB), breath sounds before long sentences (-32 dB), light de-ess, a 90 Hz high-pass, gentle 2-4 dB presence boost at 3 kHz, 8-12 ms crossfades between joined takes; no heavy compression; for a device voice band-pass 400-3400 Hz.",
+   "parameters": {
+    "hp_hz": 90,
+    "presence_db": [
+     2,
+     4
+    ],
+    "crossfade_ms": [
+     8,
+     12
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "tools/audio/voice_polish.py",
+     "note": "existing polish step to extend"
+    }
+   ],
+   "check": "audio"
+  },
+  {
+   "id": "silent-style-pad",
+   "when": "a read-the-text film with no voice (two-faces)",
+   "do": "One ambient pad or drone, no beat, mastered to the platform -14 LUFS like every reference (the three silent films measure -14.1 LUFS); a slow swell under the payoff line; a single low heartbeat or breath at the first and last frame; no SFX except a soft tone when the speaker changes.",
+   "parameters": {
+    "lufs": -14
+   },
+   "styles": [
+    "two-faces"
+   ],
+   "evidence": [
+    {
+     "ref": "r01",
+     "note": "no speech found (Whisper 0 words); music bed only"
+    },
+    {
+     "ref": "r09",
+     "note": "same"
+    },
+    {
+     "ref": "r20",
+     "note": "2 words"
+    }
+   ],
+   "check": "audio"
+  },
+  {
+   "id": "sources-and-licences",
+   "when": "fetching music or SFX",
+   "do": "Only CC0 or licence-recorded sources: our pack, Openverse CC0 audio, Internet Archive CC0 sets, the Wyzowl SFX kit (CC0), generated stings; store licence and URL in assets/manifest; never reuse the reference videos' audio.",
+   "parameters": {},
+   "evidence": [
+    {
+     "ref": "web search",
+     "note": "Openverse API, Internet Archive SSE swooshes, Wyzowl SFX kit are CC0; verify each file"
+    }
+   ],
+   "check": "assets"
+  }
  ]
 }

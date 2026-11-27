@@ -1,0 +1,22 @@
+{
+ "schema_version": 1,
+ "style_pack": "editorial-notebook",
+ "content": "tutorial",
+ "emotion": "calm",
+ "entry": "kicker-headline",
+ "preset": "headline",
+ "accent": "#FFD400",
+ "weight": 500,
+ "position": {
+  "anchor": "middle",
+  "y": null
+ },
+ "scale": 0.95,
+ "signature": "none",
+ "differs_from": [],
+ "ranked": [
+  "kicker-headline 4",
+  "seam-pill-mono 0",
+  "sentence-glow 0"
+ ]
+}

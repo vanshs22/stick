@@ -1,0 +1,19 @@
+{
+ "key": "8-split-host",
+ "name": "Animated host below + explainer above",
+ "ok": true,
+ "secs": 41,
+ "director": {
+  "verdict": "pass",
+  "score": 94,
+  "findings": [
+   "minor: four shots in a row have almost the same length",
+   "minor: cut rate 2.7 per 10 s, the style's references use 0.8",
+   "minor: same framing and angle three shots in a row"
+  ]
+ },
+ "captions": {
+  "preset": "select-box",
+  "accent": "#FFD400"
+ }
+}

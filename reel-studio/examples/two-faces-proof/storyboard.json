@@ -1,0 +1,189 @@
+{
+ "style_pack": "two-faces",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "two framing, near speaks, curious",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "two",
+    "speaker": "near",
+    "push": 0.03,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "near"
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "near framing, near speaks, curious",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "near",
+    "speaker": "near",
+    "push": 0.04,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "near"
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "far framing, far speaks, calm",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "far",
+    "speaker": "far",
+    "push": 0.05,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "far"
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "near framing, near speaks, calm",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "near",
+    "speaker": "near",
+    "push": 0.04,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "near"
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "far framing, far speaks, fear",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "far",
+    "speaker": "far",
+    "push": 0.05,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "far"
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "near framing, near speaks, curious",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "near",
+    "speaker": "near",
+    "push": 0.04,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "near"
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "far framing, far speaks, calm",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "far",
+    "speaker": "far",
+    "push": 0.05,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "far"
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "near framing, near speaks, determined",
+   "shot_type": "character",
+   "component": "TwoFaces",
+   "approach": "motion-graphics",
+   "why_renderer": "Two painted faces are the whole film; the camera only pushes and the eyes decide the feeling.",
+   "props": {
+    "framing": "near",
+    "speaker": "near",
+    "push": 0.07,
+    "glance": 0.5
+   },
+   "anchors": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   },
+   "speaker": "near"
+  }
+ ]
+}

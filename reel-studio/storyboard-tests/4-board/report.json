@@ -1,0 +1,18 @@
+{
+ "key": "4-board",
+ "name": "Whiteboard / blackboard explainer",
+ "ok": true,
+ "secs": 30,
+ "director": {
+  "verdict": "pass",
+  "score": 96,
+  "findings": [
+   "minor: cut rate 2.1 per 10 s, the style's references use 0.3",
+   "minor: same framing and angle three shots in a row"
+  ]
+ },
+ "captions": {
+  "preset": "headline",
+  "accent": "#FFD400"
+ }
+}

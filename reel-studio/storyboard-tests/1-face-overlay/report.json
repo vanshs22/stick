@@ -1,0 +1,17 @@
+{
+ "key": "1-face-overlay",
+ "name": "Face with overlay above",
+ "ok": true,
+ "secs": 29,
+ "director": {
+  "verdict": "pass",
+  "score": 98,
+  "findings": [
+   "minor: same framing and angle three shots in a row"
+  ]
+ },
+ "captions": {
+  "preset": "boxed",
+  "accent": "#FFD400"
+ }
+}

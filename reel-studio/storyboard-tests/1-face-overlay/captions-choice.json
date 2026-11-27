@@ -1,0 +1,22 @@
+{
+ "schema_version": 1,
+ "style_pack": "facecam-overlay",
+ "content": "tutorial",
+ "emotion": "calm",
+ "entry": "seam-pill-mono",
+ "preset": "boxed",
+ "accent": "#FFD400",
+ "weight": 500,
+ "position": {
+  "anchor": "custom",
+  "y": 883
+ },
+ "scale": 0.95,
+ "signature": "none",
+ "differs_from": [],
+ "ranked": [
+  "seam-pill-mono 4",
+  "sentence-glow 0",
+  "keyword-box 0"
+ ]
+}

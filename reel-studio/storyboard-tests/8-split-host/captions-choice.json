@@ -1,0 +1,22 @@
+{
+ "schema_version": 1,
+ "style_pack": "doodle-explainer",
+ "content": "tutorial",
+ "emotion": "calm",
+ "entry": "keyword-box",
+ "preset": "select-box",
+ "accent": "#FFD400",
+ "weight": 500,
+ "position": {
+  "anchor": "bottom",
+  "y": null
+ },
+ "scale": 0.95,
+ "signature": "none",
+ "differs_from": [],
+ "ranked": [
+  "keyword-box 4",
+  "seam-pill-mono 0",
+  "sentence-glow 0"
+ ]
+}

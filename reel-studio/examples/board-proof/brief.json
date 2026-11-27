@@ -1,0 +1,26 @@
+{
+ "title": "Battery dead by noon",
+ "topic": "three background apps drain a phone battery",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 25,
+ "language": "en",
+ "audience": "phone users tired of low battery",
+ "goal": "one fix in 25 seconds",
+ "style_pack": "neon-dashboard",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "select-box"
+ },
+ "cta": {
+  "keyword": "BATTERY",
+  "text": "Comment BATTERY"
+ }
+}

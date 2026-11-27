@@ -1,0 +1,22 @@
+{
+ "schema_version": 1,
+ "style_pack": "sketchy-stickman",
+ "content": "dialogue",
+ "emotion": "funny",
+ "entry": "one-word-bounce-yellow",
+ "preset": "stroke-word",
+ "accent": "#FFD400",
+ "weight": 800,
+ "position": {
+  "anchor": "bottom",
+  "y": null
+ },
+ "scale": 1.1,
+ "signature": "none",
+ "differs_from": [],
+ "ranked": [
+  "one-word-bounce-yellow 4",
+  "sentence-glow -1",
+  "keyword-box -1"
+ ]
+}
