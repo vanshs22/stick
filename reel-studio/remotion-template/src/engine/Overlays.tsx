@@ -6,10 +6,11 @@ import {atLocal, talkAt, useShotTime} from './time';
 import type {Overlay, Shot} from './types';
 import {Img, staticFile} from 'remotion';
 import {REMOCN} from '../data/remocn-registry';
+import {OverlayV3} from './OverlaysV3';
 
 /**
  * Graphics layered ON TOP of a shot's main component, each timed to a spoken word (anchor) or `at` seconds.
- * types: label, step-chip, step-label, sticker, tags, callout, cursor, scribble, doodle, hearts, calendar, waveform, warning, progress, backword
+ * types: dial, hud, hub, step-card, device-list (OverlaysV3.tsx), label, step-chip, step-label, sticker, tags, callout, cursor, scribble, doodle, hearts, calendar, waveform, warning, progress, backword
  * Positions are pixels on the 1080x1920 portrait canvas (scaled to the frame in landscape; fractions of the frame work in both) (x = centre). Every overlay fades out with its shot.
  */
 const shadow = '0 8px 24px rgba(20,20,19,0.18)';
@@ -35,6 +36,7 @@ const One: React.FC<{o: Overlay; shot: Shot}> = ({o, shot}) => {
       return <div style={{position: 'absolute', left: LANDSCAPE || o._role ? (o.x ?? W / 2) - 450 : 0, right: LANDSCAPE || o._role ? W - (o.x ?? W / 2) - 450 : 0, top: LANDSCAPE || o._role ? (o.y ?? 560) - 55 : o.y ?? 560, display: 'flex', justifyContent: 'center', opacity: clamp(a * 1.6), transform: `scale(${0.9 + a * 0.1})`}}><div style={{padding: '12px 36px 14px', borderRadius: 24, background: 'rgba(14,10,24,0.82)', border: '2px solid rgba(255,255,255,0.22)', textAlign: 'center', boxShadow: '0 8px 30px rgba(0,0,0,0.5)'}}>
         <div style={{fontFamily: F.sans, fontWeight: 900, fontSize: o.size || 76, color: o.color || '#fff', fontVariantNumeric: 'tabular-nums', lineHeight: 1.05}}>{(o.prefix || '') + v.toLocaleString('en-US') + (o.suffix || '')}</div>
         {o.label ? <div style={{fontFamily: F.mono, fontSize: 18, letterSpacing: '0.16em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: 4}}>{o.label}</div> : null}</div></div>; }}</T>;
+    case 'dial': case 'hud': case 'hub': case 'step-card': case 'device-list': return <OverlayV3 o={o} shot={shot} />;
     case 'bubble': return <T o={o} shot={shot}>{({a, lt, s}) => (
       <div style={{...pos(o, 540, 1000), transform: `translate(-50%, -50%) scale(${a}) rotate(${Math.sin((lt - s) * 5) * 1.5}deg)`, opacity: clamp(a * 2)}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 10, padding: '12px 22px', borderRadius: 40, background: '#fff', color: '#14101c', fontFamily: F.sans, fontWeight: 800, fontSize: o.size || 34, boxShadow: '0 6px 20px rgba(0,0,0,0.4)', whiteSpace: 'nowrap'}}><span style={{fontSize: (o.size || 34) + 6}}>{o.emoji || '\u{1F914}'}</span><span>{o.text}</span></div>

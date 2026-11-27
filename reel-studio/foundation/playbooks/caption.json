@@ -2,67 +2,393 @@
  "schema_version": 1,
  "id": "caption",
  "title": "Captions: presets, how to choose, how to tweak so no two videos match",
- "read_by": ["caption-chooser", "caption-designer", "critic-caption"],
+ "read_by": [
+  "caption-chooser",
+  "caption-designer",
+  "critic-caption"
+ ],
  "entries": [
-  { "id": "seam-pill-mono", "when": "face + overlay style, tutorial or tool talk, a technical voice",
-    "do": "Mono caps in a dark rounded pill sitting on the seam between the overlay and the face (y 40-50 %); 2-4 words per page; the pill grows to fit; accent only on the current word.",
-    "parameters": { "y_pct": [40, 50], "words": [2, 4], "font": "mono display, weight 600, tracking +4 %", "box": "dark 85 %, radius 10" },
-    "styles": ["face-overlay"],
-    "evidence": [{ "ref": "r11", "note": "'MAKE 100 VERSIONS', 'ARENA SKILL' in a mono dark pill on the seam" }],
-    "anti_patterns": ["pill over the mouth", "more than 4 words"],
-    "how_by_engine": { "2d-flat": "Captions.tsx boxed preset with mono font", "sprite-in-3d": "same", "3d": "same", "face-cam": "native", "board": "bottom pill instead of the seam" }, "check": "captions" },
-  { "id": "one-word-bounce-yellow", "when": "story and dialogue shorts, fast speech, flat or 3D stickman and Roblox",
-    "do": "One to three words at a time, heavy sans, white with black stroke; exactly one keyword per phrase in yellow; a 90 to 100 % scale bounce on entry, nothing on exit; y 64-70 %.",
-    "parameters": { "y_pct": [64, 70], "words": [1, 3], "accent": "#FFD400", "stroke_w": 6, "bounce_ms": 120 },
-    "styles": ["flat-stickman", "roblox", "stickman-3d-world"],
-    "evidence": [{ "ref": "r13", "note": "bold white caps, yellow keyword, y 70 %" }, { "ref": "r23", "note": "one word at a time, thick outline, y 64 %" }, { "ref": "r14", "note": "yellow on HUNT, OPENING, YOU" }],
-    "anti_patterns": ["two accent colours", "accent on filler words"],
-    "how_by_engine": { "2d-flat": "word-pop preset", "sprite-in-3d": "word-pop", "3d": "word-pop", "face-cam": "word-pop lower third", "board": "not the default" }, "check": "captions" },
-  { "id": "sentence-glow", "when": "cinematic 3D, mascot dialogue, calm voice",
-    "do": "A full sentence, 1-2 lines, soft white sans with a 20-30 % shadow and a faint glow; no box; fades in by line, not by word; y 45-50 % when cards sit below, 70 % otherwise.",
-    "parameters": { "y_pct": [45, 70], "lines": 2, "fade_ms": 160 },
-    "styles": ["minion-3d", "stickman-3d-world"],
-    "evidence": [{ "ref": "r07", "note": "sentence captions over the mascot, y about 45 %" }, { "ref": "r18", "note": "speaker tag CLAUDE / YOU over the caption" }, { "ref": "r21", "note": "thin white lowercase, y 70 %" }],
-    "anti_patterns": ["glow so strong the text blurs"],
-    "how_by_engine": { "2d-flat": "phrase preset", "sprite-in-3d": "phrase", "3d": "phrase", "face-cam": "phrase", "board": "not the default" }, "check": "captions" },
-  { "id": "keyword-box", "when": "host-led explainers, voxel/Roblox hosts, any line with a tool or number to remember",
-    "do": "Clean sans, one line; the emphasis word gets a rounded colour box (green or orange) behind it, drawn in 120 ms; the box colour comes from the style palette accent; the other words stay plain white.",
-    "parameters": { "box_radius": 8, "box_alpha": 0.95, "draw_ms": 120 },
-    "styles": ["split-host", "roblox"],
-    "evidence": [{ "ref": "r27", "note": "'millions', 'not', 'scores', 'Virality' in a green frame" }, { "ref": "r12", "note": "orange and green boxes behind 'Higgsfield', 'credits', 'story'" }],
-    "anti_patterns": ["box on every word"],
-    "how_by_engine": { "2d-flat": "select-box preset", "sprite-in-3d": "select-box", "3d": "select-box", "face-cam": "select-box", "board": "native" }, "check": "captions" },
-  { "id": "kicker-headline", "when": "board explainers and any line that is a punch with a lead-in",
-    "do": "Two parts: a small grey lead-in (the setup) above, the punch in huge heavy caps below with one coloured word; they enter 150 ms apart; the headline is at most 4 words.",
-    "parameters": { "kicker_size_ratio": 0.35, "headline_words": 4 },
-    "styles": ["board"],
-    "evidence": [{ "ref": "r16", "note": "'ek developer ne aisa project banaya...' small, 'ANTHROPIC KE CEO BHI' huge with red word" }, { "ref": "r17", "note": "light sentence with a blue keyword, big numeral below" }],
-    "anti_patterns": ["headline longer than the kicker"],
-    "how_by_engine": { "2d-flat": "headline preset", "sprite-in-3d": "headline", "3d": "headline", "face-cam": "headline in the overlay card", "board": "native" }, "check": "captions" },
-  { "id": "quoted-dialogue-side", "when": "two-person dialogue without voice, or any quoted line",
-    "do": "Small white sans in quotes, top third; aligned left when the left character speaks and shifted right when the right one speaks; the previous line fades 300 ms before the next; the payoff line is 1.6x bigger and bolder.",
-    "parameters": { "size_ratio": 0.7, "payoff_scale": 1.6, "hold_s_per_word": 0.35 },
-    "styles": ["two-faces"],
-    "evidence": [{ "ref": "r09", "note": "'Twenty years downstream.' large after small quoted lines" }, { "ref": "r01", "note": "lines placed left or right with the speaker" }, { "ref": "r20", "note": "two lines on screen when the second answers" }],
-    "anti_patterns": ["speaker side random", "hold shorter than reading time"],
-    "how_by_engine": { "2d-flat": "dialogue preset", "sprite-in-3d": "dialogue", "3d": "dialogue", "face-cam": "not used", "board": "not used" }, "check": "captions" },
-  { "id": "original-signatures", "when": "always: the style needs its own caption signature, not a copy",
-    "do": "Add one signature to every preset: ink-drip underline that draws under the emphasis word (stickman), ticker-tape strip for dashboards, torn-paper label for notebook styles, pixel-bit shimmer for voxel. One signature per video, 300-450 ms.",
-    "parameters": { "signature_ms": [300, 450] },
-    "evidence": [{ "ref": "dna27", "note": "none of the 27 references share a signature; ours differ on purpose (upgrade rule)" }],
-    "anti_patterns": ["signature on every word"],
-    "how_by_engine": { "2d-flat": "SVG path draw-on", "sprite-in-3d": "same", "3d": "same", "face-cam": "same", "board": "same" }, "check": "originality" },
-  { "id": "chooser-rules", "when": "choosing and tweaking a preset for a new video",
-    "do": "1) filter presets by style; 2) rank by content type (tutorial, story, dialogue, numbers) and dominant emotion (calm, tense, funny, shocking); 3) tweak: accent colour from the project palette, weight by energy (calm 500, loud 800), words per page by speech rate (fast speech means fewer words), y by the layout safe zone; 4) reject if the same preset + accent + font as any of the last 5 projects; 5) name it and log it in project/captions-choice.json.",
-    "parameters": { "history_n": 5 },
-    "evidence": [{ "ref": "r08", "note": "caption looks change inside one video (serif-italic keyword, green highlight, plain white) so presets should carry variants" }],
-    "anti_patterns": ["the default preset on every project"],
-    "how_by_engine": { "2d-flat": "tools: captions chooser (to build)", "sprite-in-3d": "same", "3d": "same", "face-cam": "same", "board": "same" }, "check": "captions" },
-  { "id": "keyword-scoring", "when": "choosing which word to emphasise",
-    "do": "Score each word: number or currency +3, negation +3, tool/brand/proper noun +2, change verb (fix, break, cut, double) +2, superlative or absolute (free, every, never, only) +2, first word of the sentence +1; take the top word per phrase above 2; never emphasise stop words; the emphasis must match the overlay keyword on screen when one exists.",
-    "parameters": { "min_score": 3 },
-    "evidence": [{ "ref": "r11", "note": "emphasis on 'critique', 'no proof', 'survives'" }, { "ref": "r08", "note": "'every single', 'official', 'hooks', 'comment Claude'" }],
-    "anti_patterns": ["emphasis on 'the', 'and', 'this'"],
-    "how_by_engine": { "2d-flat": "chunker.mjs *accent syntax", "sprite-in-3d": "same", "3d": "same", "face-cam": "same", "board": "same" }, "check": "captions" }
+  {
+   "id": "seam-pill-mono",
+   "when": "face + overlay style, tutorial or tool talk, a technical voice",
+   "do": "Mono caps in a dark rounded pill sitting on the seam between the overlay and the face (y 40-50 %); 2-4 words per page; the pill grows to fit; accent only on the current word.",
+   "parameters": {
+    "y_pct": [
+     40,
+     50
+    ],
+    "words": [
+     2,
+     4
+    ],
+    "font": "mono display, weight 600, tracking +4 %",
+    "box": "dark 85 %, radius 10",
+    "preset": "boxed",
+    "content": [
+     "tutorial",
+     "tool"
+    ],
+    "emotion": [
+     "calm",
+     "tense"
+    ],
+    "zone": "seam"
+   },
+   "styles": [
+    "face-overlay"
+   ],
+   "evidence": [
+    {
+     "ref": "r11",
+     "note": "'MAKE 100 VERSIONS', 'ARENA SKILL' in a mono dark pill on the seam"
+    }
+   ],
+   "anti_patterns": [
+    "pill over the mouth",
+    "more than 4 words"
+   ],
+   "how_by_engine": {
+    "2d-flat": "Captions.tsx boxed preset with mono font",
+    "sprite-in-3d": "same",
+    "3d": "same",
+    "face-cam": "native",
+    "board": "bottom pill instead of the seam"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "one-word-bounce-yellow",
+   "when": "story and dialogue shorts, fast speech, flat or 3D stickman and Roblox",
+   "do": "One to three words at a time, heavy sans, white with black stroke; exactly one keyword per phrase in yellow; a 90 to 100 % scale bounce on entry, nothing on exit; y 64-70 %.",
+   "parameters": {
+    "y_pct": [
+     64,
+     70
+    ],
+    "words": [
+     1,
+     3
+    ],
+    "accent": "#FFD400",
+    "stroke_w": 6,
+    "bounce_ms": 120,
+    "preset": "stroke-word",
+    "content": [
+     "story",
+     "dialogue"
+    ],
+    "emotion": [
+     "tense",
+     "funny",
+     "shocking"
+    ],
+    "zone": "lower"
+   },
+   "styles": [
+    "flat-stickman",
+    "roblox",
+    "stickman-3d-world"
+   ],
+   "evidence": [
+    {
+     "ref": "r13",
+     "note": "bold white caps, yellow keyword, y 70 %"
+    },
+    {
+     "ref": "r23",
+     "note": "one word at a time, thick outline, y 64 %"
+    },
+    {
+     "ref": "r14",
+     "note": "yellow on HUNT, OPENING, YOU"
+    }
+   ],
+   "anti_patterns": [
+    "two accent colours",
+    "accent on filler words"
+   ],
+   "how_by_engine": {
+    "2d-flat": "word-pop preset",
+    "sprite-in-3d": "word-pop",
+    "3d": "word-pop",
+    "face-cam": "word-pop lower third",
+    "board": "not the default"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "sentence-glow",
+   "when": "cinematic 3D, mascot dialogue, calm voice",
+   "do": "A full sentence, 1-2 lines, soft white sans with a 20-30 % shadow and a faint glow; no box; fades in by line, not by word; y 45-50 % when cards sit below, 70 % otherwise.",
+   "parameters": {
+    "y_pct": [
+     45,
+     70
+    ],
+    "lines": 2,
+    "fade_ms": 160,
+    "preset": "phrase",
+    "content": [
+     "story",
+     "dialogue",
+     "tutorial"
+    ],
+    "emotion": [
+     "calm",
+     "tense"
+    ],
+    "zone": "lower"
+   },
+   "styles": [
+    "minion-3d",
+    "stickman-3d-world"
+   ],
+   "evidence": [
+    {
+     "ref": "r07",
+     "note": "sentence captions over the mascot, y about 45 %"
+    },
+    {
+     "ref": "r18",
+     "note": "speaker tag CLAUDE / YOU over the caption"
+    },
+    {
+     "ref": "r21",
+     "note": "thin white lowercase, y 70 %"
+    }
+   ],
+   "anti_patterns": [
+    "glow so strong the text blurs"
+   ],
+   "how_by_engine": {
+    "2d-flat": "phrase preset",
+    "sprite-in-3d": "phrase",
+    "3d": "phrase",
+    "face-cam": "phrase",
+    "board": "not the default"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "keyword-box",
+   "when": "host-led explainers, voxel/Roblox hosts, any line with a tool or number to remember",
+   "do": "Clean sans, one line; the emphasis word gets a rounded colour box (green or orange) behind it, drawn in 120 ms; the box colour comes from the style palette accent; the other words stay plain white.",
+   "parameters": {
+    "box_radius": 8,
+    "box_alpha": 0.95,
+    "draw_ms": 120,
+    "preset": "select-box",
+    "content": [
+     "tutorial",
+     "tool",
+     "numbers"
+    ],
+    "emotion": [
+     "calm",
+     "funny",
+     "shocking"
+    ],
+    "zone": "lower"
+   },
+   "styles": [
+    "split-host",
+    "roblox"
+   ],
+   "evidence": [
+    {
+     "ref": "r27",
+     "note": "'millions', 'not', 'scores', 'Virality' in a green frame"
+    },
+    {
+     "ref": "r12",
+     "note": "orange and green boxes behind 'Higgsfield', 'credits', 'story'"
+    }
+   ],
+   "anti_patterns": [
+    "box on every word"
+   ],
+   "how_by_engine": {
+    "2d-flat": "select-box preset",
+    "sprite-in-3d": "select-box",
+    "3d": "select-box",
+    "face-cam": "select-box",
+    "board": "native"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "kicker-headline",
+   "when": "board explainers and any line that is a punch with a lead-in",
+   "do": "Two parts: a small grey lead-in (the setup) above, the punch in huge heavy caps below with one coloured word; they enter 150 ms apart; the headline is at most 4 words.",
+   "parameters": {
+    "kicker_size_ratio": 0.35,
+    "headline_words": 4,
+    "preset": "headline",
+    "content": [
+     "numbers",
+     "tutorial"
+    ],
+    "emotion": [
+     "shocking",
+     "calm"
+    ],
+    "zone": "upper"
+   },
+   "styles": [
+    "board"
+   ],
+   "evidence": [
+    {
+     "ref": "r16",
+     "note": "'ek developer ne aisa project banaya...' small, 'ANTHROPIC KE CEO BHI' huge with red word"
+    },
+    {
+     "ref": "r17",
+     "note": "light sentence with a blue keyword, big numeral below"
+    }
+   ],
+   "anti_patterns": [
+    "headline longer than the kicker"
+   ],
+   "how_by_engine": {
+    "2d-flat": "headline preset",
+    "sprite-in-3d": "headline",
+    "3d": "headline",
+    "face-cam": "headline in the overlay card",
+    "board": "native"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "quoted-dialogue-side",
+   "when": "two-person dialogue without voice, or any quoted line",
+   "do": "Small white sans in quotes, top third; aligned left when the left character speaks and shifted right when the right one speaks; the previous line fades 300 ms before the next; the payoff line is 1.6x bigger and bolder.",
+   "parameters": {
+    "size_ratio": 0.7,
+    "payoff_scale": 1.6,
+    "hold_s_per_word": 0.35,
+    "preset": "dialogue",
+    "content": [
+     "dialogue",
+     "reflective"
+    ],
+    "emotion": [
+     "calm",
+     "tense"
+    ],
+    "zone": "upper"
+   },
+   "styles": [
+    "two-faces"
+   ],
+   "evidence": [
+    {
+     "ref": "r09",
+     "note": "'Twenty years downstream.' large after small quoted lines"
+    },
+    {
+     "ref": "r01",
+     "note": "lines placed left or right with the speaker"
+    },
+    {
+     "ref": "r20",
+     "note": "two lines on screen when the second answers"
+    }
+   ],
+   "anti_patterns": [
+    "speaker side random",
+    "hold shorter than reading time"
+   ],
+   "how_by_engine": {
+    "2d-flat": "dialogue preset",
+    "sprite-in-3d": "dialogue",
+    "3d": "dialogue",
+    "face-cam": "not used",
+    "board": "not used"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "original-signatures",
+   "when": "always: the style needs its own caption signature, not a copy",
+   "do": "Add one signature to every preset: ink-drip underline that draws under the emphasis word (stickman), ticker-tape strip for dashboards, torn-paper label for notebook styles, pixel-bit shimmer for voxel. One signature per video, 300-450 ms.",
+   "parameters": {
+    "signature_ms": [
+     300,
+     450
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "dna27",
+     "note": "none of the 27 references share a signature; ours differ on purpose (upgrade rule)"
+    }
+   ],
+   "anti_patterns": [
+    "signature on every word"
+   ],
+   "how_by_engine": {
+    "2d-flat": "SVG path draw-on",
+    "sprite-in-3d": "same",
+    "3d": "same",
+    "face-cam": "same",
+    "board": "same"
+   },
+   "check": "originality"
+  },
+  {
+   "id": "chooser-rules",
+   "when": "choosing and tweaking a preset for a new video",
+   "do": "1) filter presets by style; 2) rank by content type (tutorial, story, dialogue, numbers) and dominant emotion (calm, tense, funny, shocking); 3) tweak: accent colour from the project palette, weight by energy (calm 500, loud 800), words per page by speech rate (fast speech means fewer words), y by the layout safe zone; 4) reject if the same preset + accent + font as any of the last 5 projects; 5) name it and log it in project/captions-choice.json.",
+   "parameters": {
+    "history_n": 5
+   },
+   "evidence": [
+    {
+     "ref": "r08",
+     "note": "caption looks change inside one video (serif-italic keyword, green highlight, plain white) so presets should carry variants"
+    }
+   ],
+   "anti_patterns": [
+    "the default preset on every project"
+   ],
+   "how_by_engine": {
+    "2d-flat": "tools: captions chooser (to build)",
+    "sprite-in-3d": "same",
+    "3d": "same",
+    "face-cam": "same",
+    "board": "same"
+   },
+   "check": "captions"
+  },
+  {
+   "id": "keyword-scoring",
+   "when": "choosing which word to emphasise",
+   "do": "Score each word: number or currency +3, negation +3, tool/brand/proper noun +2, change verb (fix, break, cut, double) +2, superlative or absolute (free, every, never, only) +2, first word of the sentence +1; take the top word per phrase above 2; never emphasise stop words; the emphasis must match the overlay keyword on screen when one exists.",
+   "parameters": {
+    "min_score": 3
+   },
+   "evidence": [
+    {
+     "ref": "r11",
+     "note": "emphasis on 'critique', 'no proof', 'survives'"
+    },
+    {
+     "ref": "r08",
+     "note": "'every single', 'official', 'hooks', 'comment Claude'"
+    }
+   ],
+   "anti_patterns": [
+    "emphasis on 'the', 'and', 'this'"
+   ],
+   "how_by_engine": {
+    "2d-flat": "chunker.mjs *accent syntax",
+    "sprite-in-3d": "same",
+    "3d": "same",
+    "face-cam": "same",
+    "board": "same"
+   },
+   "check": "captions"
+  }
  ]
 }

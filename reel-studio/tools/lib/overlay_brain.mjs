@@ -51,6 +51,8 @@ export function detect(text, ctx = {}) {
     if (TIME_WORD.test(t) && n == null && /^\d/.test(prev)) add(i, 'time', 'overlay', { type: 'sticker', text: `${prev} ${t}`.toUpperCase(), color: '#FFD84A', size: 46, rotate: 4 }, 'a duration said with a number', 4);
     // 10. a question: a thinking bubble
     if (/\?$/.test(raw[i]) && i >= 2) add(i, 'question', 'overlay', { type: 'bubble', text: raw.slice(Math.max(0, i - 2), i + 1).join(' ').replace(/\?$/, '?'), emoji: '\u{1F914}', size: 32 }, 'a question the viewer is asked to hold', 3);
+    // 15. speed and level words: a gauge whose needle sweeps on the word (playbook overlay/speed-dial)
+    if ((/^(faster|quicker|speedier|speed|boost|turbo)$/.test(t) || /^\d+x$/.test(t)) && !out.some((d) => d.device === 'dial')) add(i, 'dial', 'overlay', { type: 'dial', label: /^\d+x$/.test(t) ? t.toUpperCase() : (W.fast || 'FASTER'), sub: 'SPEED', from: 0.12, to: 0.94, dur: 0.9 }, `"${raw[i]}" is a level: a gauge sweeps up on the word`, 6);
     // 11. warning words
     if (/^(careful|warning|danger|never|dont|don't|avoid|beware)$/.test(t)) add(i, 'warning', 'overlay', { type: 'warning', text: raw.slice(i, i + 5).join(' ').replace(/[.,!?]$/, '').toUpperCase() }, 'a warning in a plate', 5);
   }

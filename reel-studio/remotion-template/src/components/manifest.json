@@ -724,6 +724,11 @@
   "overlays": {
     "label": "{left, right, rightAccent}: mono HUD row at the top ('// 03 \u00b7 step one' ... 'LAYERS 2/4')",
     "step-chip": "{n, of, x, y, anchor}: black numbered square with progress dots",
+    "dial": "{label, sub, from, to, color, x, y, anchor}: speed/level gauge, needle sweeps from `from` to `to` (0..1) on the word; label is the big text ('10x'), sub the small caps ('SPEED')",
+    "hud": "{label, value, valueTo, changeAt, caption, x, y}: series HUD top-left, red dot + label ('DAYS LEFT'), big value that flicks to valueTo, small caption ('PLAYERS ALIVE')",
+    "hub": "{text, items:[{label, anchor|at}], r, x, y, color}: centre circle with spokes that draw one by one, one item per spoken word",
+    "step-card": "{chip, title, lines[], progress, x, y, color}: white window card with a STEP chip, a title, mono lines and a progress bar",
+    "device-list": "{rows:[{label, tag, tone good|bad|neutral, anchor|at}], x, y}: list card whose tags (Yours / Not recognized / Blocked) land one row at a time",
     "step-label": "{text, n, of, y, anchor}: dark pill 'STEP 2 \u00b7 ONE FOLDER' with yellow dashes (top centre)",
     "sticker": "{text, color, rotate, x, y, size, anchor}: tilted outlined label ('9M VIEWS')",
     "tags": "{items:[{text,color}], x, y, anchor}: pills with dots ('free', 'open source')",
