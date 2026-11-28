@@ -35,7 +35,7 @@ export function drawStick(ctx, W, H, s) {
   ctx.clearRect(0, 0, W, H); ctx.save(); ctx.translate(W / 2, H * 0.985); ctx.scale(u, u); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   const rn = (i) => { const x = Math.sin((i + S0) * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }, wb = (i, a = 1.6) => (rn(i * 7.3 + fr * 0.37) - 0.5) * 2 * a;
   const bob = Math.sin(t * 2.2 + seed) * 3 + Math.abs(Math.sin(walk * Math.PI)) * -12 * (walk ? 1 : 0), lean = pose.lean * R + walk * 0.05, hp = pose.hip || 0;
-  const HEADRX = 190 * (look.headW ?? 0.9), HEADRY = 190 * (look.headH ?? 1), TH = look.torsoH ?? 285, LEG = look.legL ?? 390, TWs = look.torsoW ?? 1.1;
+  const HEADRX = 186 * (look.headW ?? 1), HEADRY = 186 * (look.headH ?? 1), TH = look.torsoH ?? 285, LEG = look.legL ?? 390, TWs = look.torsoW ?? 1.1;
   const hipY = -LEG + bob, shY = hipY - TH, shX = Math.sin(lean) * 120, hdY = shY - HEADRY + 70 + bob * 0.3;
   // ---- ink loop: a closed shape outlined by a pen whose weight swells and thins around it (heavy on the shadow side, light on the lit side)
   const loop = (fn, n, base, lightAng = -0.9) => { const out = [], inn = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2, p = fn(a), q = fn(a + 0.01), tx = q[0] - p[0], ty = q[1] - p[1], l = Math.hypot(tx, ty) || 1, nx = ty / l, ny = -tx / l, th = base * (0.5 + 0.95 * Math.pow(0.5 + 0.5 * Math.cos(a - lightAng - Math.PI), 1.4)) + wb(i * 3, 0.5); out.push([p[0] + nx * th * 0.5, p[1] + ny * th * 0.5]); inn.push([p[0] - nx * th * 0.5, p[1] - ny * th * 0.5]); }
@@ -73,7 +73,7 @@ export function drawStick(ctx, W, H, s) {
   ctx.restore(); loop(bean, 72, 9.5, -0.7); inner(bean, 60, 0.94, 0.45);
   // ---- head: a round, slightly tall oval; cream with a warm shaded rim; ink loop with a heavy shadow side
   ctx.save(); ctx.translate(shX * 1.1, hdY); ctx.rotate((pose.tilt + (look.headTilt || 0) + (expr.tilt2 || 0)) * R); const fx = turn * 56;
-  const headF = (a) => [Math.cos(a) * HEADRX * (1 + 0.035 * sm1(a) + (Math.cos(a) > 0 ? 0.03 : -0.01)), Math.sin(a) * HEADRY * (Math.sin(a) > 0 ? 1.0 : 0.97) * (1 + 0.03 * sm1(a + 1.3))];
+  const headF = (a) => { const r = 1 + 0.075 * Math.cos(a - 0.75 * (look.asym ?? 1)) + 0.022 * sm1(a); return [Math.cos(a) * HEADRX * r, Math.sin(a) * HEADRY * r]; };   // a circle with one fuller cheek, not an egg
   ctx.save(); ctx.beginPath(); for (let i = 0; i <= 56; i++) { const p = headF((i / 56) * Math.PI * 2); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.fillStyle = look.skin || '#fdf6e6'; ctx.fill(); ctx.clip();
   const hg = ctx.createRadialGradient(-HEADRX * 0.3, -HEADRY * 0.35, 20, 0, 0, HEADRY * 1.15); hg.addColorStop(0, 'rgba(255,255,255,0.7)'); hg.addColorStop(0.65, 'rgba(255,255,255,0)'); hg.addColorStop(1, 'rgba(150,100,40,0.34)'); ctx.fillStyle = hg; ctx.fillRect(-300, -300, 600, 600);
   ctx.strokeStyle = 'rgba(190,120,50,0.38)'; ctx.lineWidth = 30; ctx.beginPath(); ctx.ellipse(0, 0, HEADRX, HEADRY, 0, Math.PI * 0.2, Math.PI * 0.95); ctx.stroke(); ctx.restore();
