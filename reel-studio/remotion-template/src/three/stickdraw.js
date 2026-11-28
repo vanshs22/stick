@@ -38,7 +38,7 @@ export function drawStick(ctx, W, H, s) {
   const HEADRX = 186 * (look.headW ?? 1), HEADRY = 186 * (look.headH ?? 1), TH = look.torsoH ?? 285, LEG = look.legL ?? 390, TWs = look.torsoW ?? 1.1;
   const hipY = -LEG + bob, shY = hipY - TH, shX = Math.sin(lean) * 120, hdY = shY - HEADRY + 70 + bob * 0.3;
   // ---- ink loop: a closed shape outlined by a pen whose weight swells and thins around it (heavy on the shadow side, light on the lit side)
-  const loop = (fn, n, base, lightAng = -0.9) => { const out = [], inn = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2, p = fn(a), q = fn(a + 0.01), tx = q[0] - p[0], ty = q[1] - p[1], l = Math.hypot(tx, ty) || 1, nx = ty / l, ny = -tx / l, th = base * (0.5 + 0.95 * Math.pow(0.5 + 0.5 * Math.cos(a - lightAng - Math.PI), 1.4)) + wb(i * 3, 0.5); out.push([p[0] + nx * th * 0.5, p[1] + ny * th * 0.5]); inn.push([p[0] - nx * th * 0.5, p[1] - ny * th * 0.5]); }
+  const loop = (fn, n, base, lightAng = -0.9) => { const out = [], inn = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2, p = fn(a), q = fn(a + 0.01), tx = q[0] - p[0], ty = q[1] - p[1], l = Math.hypot(tx, ty) || 1, nx = ty / l, ny = -tx / l, th = base * (0.35 + 1.7 * Math.pow(0.5 + 0.5 * Math.cos(a - lightAng - Math.PI), 1.4)) + wb(i * 3, 0.5); out.push([p[0] + nx * th * 0.5, p[1] + ny * th * 0.5]); inn.push([p[0] - nx * th * 0.5, p[1] - ny * th * 0.5]); }
     ctx.beginPath(); out.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); inn.reverse().forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fillStyle = ink; ctx.fill('evenodd'); };
   const sm1 = (a) => Math.sin(a * 2 + S0) * 0.5 + Math.sin(a * 3 + S0 * 1.7) * 0.3 + Math.sin(a * 5 + S0 * 0.6) * 0.12;
   // a limb as a tapered ink stroke: heavy at the body, thin at the hand, with a tiny knuckle at the knee/elbow
@@ -70,10 +70,10 @@ export function drawStick(ctx, W, H, s) {
   if (look.vis) { ctx.fillStyle = look.vis; ctx.fillRect(bx - 140, shY + 20, 280, 400); ctx.fillStyle = '#e8e8e0'; ctx.fillRect(bx - 140, shY + 150, 280, 26); ctx.fillRect(bx - 140, shY + 250, 280, 26); ctx.strokeStyle = ink; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(bx, shY + 20); ctx.lineTo(bx, hipY + 40); ctx.stroke(); }
   ctx.lineCap = 'round'; [[-60, 0.62, 0.7, 6, 0.5], [-40, 0.74, 0.5, 4.5, 0.4], [58, 0.35, 0.9, 5, 0.5], [70, 0.5, 0.6, 4, 0.35]].forEach(([dx, k, bend, w, al]) => { const y = shY + (hipY - shY) * k; ctx.strokeStyle = `rgba(30,12,0,${al})`; ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(bx + dx, y); ctx.quadraticCurveTo(bx + dx + 24 * (dx < 0 ? 1 : -1), y + 22 * bend + 10, bx + dx + 46 * (dx < 0 ? 1 : -1), y + 8); ctx.stroke(); });
   hatch(bx + 22, shY + 70, 70, TH * 0.72, -0.9, 12, 0.22);
-  ctx.restore(); loop(bean, 72, 9.5, -0.7); inner(bean, 60, 0.94, 0.45);
+  ctx.restore(); ctx.save(); ctx.beginPath(); for (let i = 0; i <= 48; i++) { const p = bean((i / 48) * Math.PI * 2); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.clip(); { const bg = ctx.createLinearGradient(-200, 0, 200, 0); bg.addColorStop(0, 'rgba(0,0,0,0)'); bg.addColorStop(0.5, 'rgba(0,0,0,0.05)'); bg.addColorStop(1, 'rgba(10,5,30,0.42)'); ctx.fillStyle = bg; ctx.fillRect(-300, -400, 600, 900); } ctx.restore(); loop(bean, 72, 9.5, -0.7); inner(bean, 60, 0.94, 0.45);
   // ---- head: a round, slightly tall oval; cream with a warm shaded rim; ink loop with a heavy shadow side
   ctx.save(); ctx.translate(shX * 1.1, hdY); ctx.rotate((pose.tilt + (look.headTilt || 0) + (expr.tilt2 || 0)) * R); const fx = turn * 56;
-  const headF = (a) => { const r = 1 + 0.125 * Math.cos(a - 0.75 * (look.asym ?? 1)) + 0.04 * Math.cos(2 * a + 1.3 * (look.asym ?? 1)) + 0.022 * sm1(a); return [Math.cos(a) * HEADRX * r, Math.sin(a) * HEADRY * r]; };   // a circle with one fuller cheek, not an egg
+  const headF = (a) => { const r = 1 + 0.17 * Math.cos(a - 0.75 * (look.asym ?? 1)) + 0.07 * Math.cos(2 * a + 1.3 * (look.asym ?? 1)) + 0.035 * Math.cos(3 * a - 0.6 * (look.asym ?? 1)) + 0.022 * sm1(a); return [Math.cos(a) * HEADRX * r, Math.sin(a) * HEADRY * r]; };   // a circle with one fuller cheek, not an egg
   ctx.save(); ctx.beginPath(); for (let i = 0; i <= 56; i++) { const p = headF((i / 56) * Math.PI * 2); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.fillStyle = look.skin || '#fdf6e6'; ctx.fill(); ctx.clip();
   const hg = ctx.createRadialGradient(-HEADRX * 0.3, -HEADRY * 0.35, 20, 0, 0, HEADRY * 1.15); hg.addColorStop(0, 'rgba(255,255,255,0.7)'); hg.addColorStop(0.65, 'rgba(255,255,255,0)'); hg.addColorStop(1, 'rgba(150,100,40,0.34)'); ctx.fillStyle = hg; ctx.fillRect(-300, -300, 600, 600);
   ctx.strokeStyle = 'rgba(190,120,50,0.38)'; ctx.lineWidth = 30; ctx.beginPath(); ctx.ellipse(0, 0, HEADRX, HEADRY, 0, Math.PI * 0.2, Math.PI * 0.95); ctx.stroke(); ctx.restore();
@@ -94,6 +94,9 @@ export function drawStick(ctx, W, H, s) {
   ctx.strokeStyle = ink; ctx.lineWidth = 8; ctx.stroke();
   if (sm > 0.45) { [-1, 1].forEach((sd) => line([[mx + sd * (mw + 16), my - sm * 20], [mx + sd * (mw + 30), my - sm * 4], [mx + sd * (mw + 14), my + 14]], 5, ink)); }
   ctx.save(); ctx.beginPath(); for (let i = 0; i <= 56; i++) { const p = headF((i / 56) * Math.PI * 2); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.clip(); hatch(HEADRX * 0.2, HEADRY * 0.35, 70, HEADRY * 0.7, -0.8, 12, 0.2); ctx.restore();
+  ctx.save(); ctx.beginPath(); for (let i = 0; i <= 56; i++) { const p = headF((i / 56) * Math.PI * 2); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.clip();
+  const sg = ctx.createRadialGradient(-HEADRX * 0.35, -HEADRY * 0.4, HEADRY * 0.45, HEADRX * 0.15, HEADRY * 0.1, HEADRY * 1.25); sg.addColorStop(0, 'rgba(120,70,30,0)'); sg.addColorStop(0.62, 'rgba(120,70,30,0.12)'); sg.addColorStop(1, 'rgba(70,35,10,0.55)'); ctx.fillStyle = sg; ctx.fillRect(-300, -300, 600, 600);
+  ctx.strokeStyle = 'rgba(60,30,10,0.35)'; ctx.lineWidth = 26; ctx.beginPath(); ctx.ellipse(HEADRX * 0.12, HEADRY * 0.1, HEADRX * 0.98, HEADRY * 0.98, 0, -0.5, 1.2); ctx.stroke(); ctx.restore();
   // head outline last so it is crisp
   loop(headF, 84, 12, -0.8); inner(headF, 70, 0.94, 0.4);
   // hats sit on top, smaller than the head
