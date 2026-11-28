@@ -35,7 +35,7 @@ export function drawStick(ctx, W, H, s) {
   ctx.clearRect(0, 0, W, H); ctx.save(); ctx.translate(W / 2, H * 0.985); ctx.scale(u, u); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   const rn = (i) => { const x = Math.sin((i + S0) * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }, wb = (i, a = 1.6) => (rn(i * 7.3 + fr * 0.37) - 0.5) * 2 * a;
   const bob = Math.sin(t * 2.2 + seed) * 3 + Math.abs(Math.sin(walk * Math.PI)) * -12 * (walk ? 1 : 0), lean = pose.lean * R + walk * 0.05, hp = pose.hip || 0;
-  const HEADRX = 162 * (look.headW ?? 1), HEADRY = 180 * (look.headH ?? 1), TH = look.torsoH ?? 285, LEG = look.legL ?? 390, TWs = look.torsoW ?? 1.5;
+  const HEADRX = 174 * (look.headW ?? 1), HEADRY = 174 * (look.headH ?? 1), TH = look.torsoH ?? 285, LEG = look.legL ?? 390, TWs = look.torsoW ?? 1.5;
   const hipY = -LEG + bob, shY = hipY - TH, shX = Math.sin(lean) * 120, hdY = shY - HEADRY + 70 + bob * 0.3;
   // ---- ink loop: a closed shape outlined by a pen whose weight swells and thins around it (heavy on the shadow side, light on the lit side)
   const loop = (fn, n, base, lightAng = -0.9) => { const out = [], inn = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2, p = fn(a), q = fn(a + 0.01), tx = q[0] - p[0], ty = q[1] - p[1], l = Math.hypot(tx, ty) || 1, nx = ty / l, ny = -tx / l, th = base * (0.5 + 0.95 * Math.pow(0.5 + 0.5 * Math.cos(a - lightAng - Math.PI), 1.4)) + wb(i * 3, 0.5); out.push([p[0] + nx * th * 0.5, p[1] + ny * th * 0.5]); inn.push([p[0] - nx * th * 0.5, p[1] - ny * th * 0.5]); }
@@ -54,10 +54,10 @@ export function drawStick(ctx, W, H, s) {
   // ---- legs: thin long lines with a clear knee, tiny shoe strokes
   const dirx = turn >= 0 ? 1 : -1, sw = walk ? Math.sin(walk * Math.PI * 2) : 0, sp = Math.abs(turn) > 0.5 ? 0.5 : 0.12;
   const thL = -pose.hL[0] * R - sw * sp * dirx, thR = pose.hR[0] * R + sw * sp * dirx, kL = (pose.hL[1] + Math.max(0, sw) * 40) * R, kR = (pose.hR[1] + Math.max(0, -sw) * 40) * R;
-  const lg = (hx, th, kb) => { const l1 = LEG * 0.5, l2 = LEG * 0.5, e = [hx + Math.sin(th) * l1, hipY + Math.cos(th) * l1], h = [e[0] + Math.sin(th - kb * dirx) * l2, e[1] + Math.cos(th - kb * dirx) * l2]; taper([hx, hipY], [e[0] + 8 * dirx, e[1]], h, 11, 5.5); taper([h[0] - 2, h[1]], [h[0] + 14 * dirx, h[1] - 3], [h[0] + 40 * dirx, h[1] + 5], 8, 4); return h; };
+  const lg = (hx, th, kb) => { const l1 = LEG * 0.5, l2 = LEG * 0.5, e = [hx + Math.sin(th) * l1, hipY + Math.cos(th) * l1], h = [e[0] + Math.sin(th - kb * dirx) * l2, e[1] + Math.cos(th - kb * dirx) * l2]; taper([hx, hipY], [e[0] + 8 * dirx, e[1]], h, 20, 13); taper([h[0] - 2, h[1]], [h[0] + 16 * dirx, h[1] - 3], [h[0] + 46 * dirx, h[1] + 6], 15, 9); return h; };
   lg(-44 + shX * 0.3 + hp, thL, kL); lg(44 + shX * 0.3 + hp, thR, kR);
   // ---- arms: thin ink lines, tiny closed fist
-  const armOf = (side, a) => { const L1 = 150 * (look.armL ?? 1), L2 = 140 * (look.armL ?? 1), ox = shX + side * 70 * TWs * 0.95, oy = shY + 50, e = [ox + side * Math.sin(a[0] * R) * L1, oy + Math.cos(a[0] * R) * L1], h = [e[0] + side * Math.sin((a[0] + a[1]) * R) * L2, e[1] + Math.cos((a[0] + a[1]) * R) * L2]; taper([ox, oy], [e[0], e[1]], h, 9, 4.2); ctx.fillStyle = look.glove || ink; ctx.beginPath(); ctx.ellipse(h[0], h[1], 12, 14, 0, 0, 7); ctx.fill(); return h; };
+  const armOf = (side, a) => { const L1 = 150 * (look.armL ?? 1), L2 = 140 * (look.armL ?? 1), ox = shX + side * 70 * TWs * 0.95, oy = shY + 50, e = [ox + side * Math.sin(a[0] * R) * L1, oy + Math.cos(a[0] * R) * L1], h = [e[0] + side * Math.sin((a[0] + a[1]) * R) * L2, e[1] + Math.cos((a[0] + a[1]) * R) * L2]; taper([ox, oy], [e[0], e[1]], h, 16, 10); ctx.fillStyle = look.glove || '#fbf4e6'; ctx.beginPath(); ctx.ellipse(h[0], h[1], 20, 22, 0, 0, 7); ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 7; ctx.stroke(); return h; };
   const backArm = pose.sR; armOf(1, backArm);
   // ---- torso: a bean (no neck; the head sits on it), painted clothes on top
   const bean = (a) => { const c = Math.cos(a), sn = Math.sin(a), cx = shX * 0.5 + hp * 0.5, cy = (shY + hipY) / 2 + 10, rx = 78 * TWs * (1 + 0.1 * sn + 0.05 * sm1(a + 0.7)), ry = (TH / 2 + 28) * (1 + 0.03 * sm1(a + 2.1)); return [cx + c * rx, cy + sn * ry]; };
