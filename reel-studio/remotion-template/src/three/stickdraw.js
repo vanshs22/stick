@@ -13,6 +13,10 @@ export const POSES = {
   hammer: { sL: [8, 10], sR: [128, 60], hL: [4, 4], hR: [4, 4], lean: 2, tilt: 0 },
   flail:  { sL: [130, 20], sR: [160, 30], hL: [30, 30], hR: [18, 50], lean: -12, tilt: -8 },
   hold:   { sL: [60, 60], sR: [60, 60], hL: [4, 4], hR: [4, 4], lean: 2, tilt: 0 },
+  lean:   { sL: [24, 40], sR: [62, 80], hL: [10, 16], hR: [-14, 80], lean: 12, tilt: -9, hip: 14 },
+  stomp:  { sL: [40, 30], sR: [30, 20], hL: [-12, 70], hR: [14, 6], lean: -6, tilt: 6, hip: -8 },
+  sneak:  { sL: [10, 60], sR: [30, 70], hL: [-8, 56], hR: [18, 20], lean: 14, tilt: 10, hip: 10 },
+  laughy: { sL: [20, 40], sR: [10, 20], hL: [8, 8], hR: [-8, 40], lean: -12, tilt: -10, hip: -6 },
   slump:  { sL: [4, 8], sR: [4, 8], hL: [3, 6], hR: [3, 6], lean: 8, tilt: 10 },
 };
 export const EXPR = {
@@ -26,7 +30,7 @@ export function blendPose(a, b, k) { const o = {}; for (const key of Object.keys
 export function blendExpr(a, b, k) { const o = {}; for (const key of Object.keys(a)) o[key] = mix(a[key], b[key], k); return o; }
 
 export function drawStick(ctx, W, H, s) {
-  const { t = 0, pose = POSES.idle, look = {}, expr = EXPR.neutral, turn = 0, walk = 0, seed = 1 } = s, u = H / 1420, B = { headS: 1.3, torsoW: 1, torsoH: 230, legL: 430, hand: 34, shoe: 1.3, armL: 1.1, ...(look.body || {}) }, fr = Math.floor(t * 12), ink = look.ink || '#241a15', LK = look.lineK || 1;
+  const { t = 0, pose = POSES.idle, look = {}, expr = EXPR.neutral, turn = 0, walk = 0, seed = 1 } = s, u = H / 1420, B = { headS: 1.6, torsoW: 1.5, torsoH: 170, legL: 420, hand: 20, shoe: 1.0, armL: 1.05, ...(look.body || {}) }, fr = Math.floor(t * 12), ink = look.ink || '#241a15', LK = look.lineK ?? 0.62;
   ctx.clearRect(0, 0, W, H); ctx.save(); ctx.translate(W / 2, H * 0.985); ctx.scale(u, u); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   const wb = (i, a = 1.8) => wob(seed + fr * 0.37, i, a);
   const bob = Math.sin(t * 2.2 + seed) * 3 + Math.abs(Math.sin(walk * Math.PI)) * -14 * (walk ? 1 : 0), lean = pose.lean * R + walk * 0.05;
@@ -40,7 +44,7 @@ export function drawStick(ctx, W, H, s) {
   const thL = -pose.hL[0] * R - sw * sp * dirx, thR = pose.hR[0] * R + sw * sp * dirx, kL = (pose.hL[1] + Math.max(0, sw) * 40) * R, kR = (pose.hR[1] + Math.max(0, -sw) * 40) * R;
   const lg = (hx, th, kb) => { const l1 = B.legL * 0.49, l2 = B.legL * 0.51, e = [hx + Math.sin(th) * l1, hipY + Math.cos(th) * l1], h = [e[0] + Math.sin(th - kb * dirx) * l2, e[1] + Math.cos(th - kb * dirx) * l2]; if (look.pants) { ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(hx, hipY); ctx.lineTo(e[0], e[1]); ctx.lineTo(h[0], h[1]); ctx.strokeStyle = ink; ctx.lineWidth = look.baggy ? 52 : 36; ctx.stroke(); ctx.strokeStyle = look.pants; ctx.lineWidth = look.baggy ? 42 : 27; ctx.stroke(); } else line([[hx, hipY], e, h], 9); return h; };
   const boot = (p, ang) => { ctx.save(); ctx.translate(p[0], p[1] + 6); ctx.rotate(ang); ctx.scale(B.shoe, B.shoe); ctx.fillStyle = look.boots || '#33261b'; ctx.beginPath(); ctx.moveTo(-26, -18); ctx.quadraticCurveTo(-30, 26, 8 * dirx, 26); ctx.quadraticCurveTo(64 * dirx, 28, 66 * dirx, 6); ctx.quadraticCurveTo(40 * dirx, -4, 26, -18); ctx.closePath(); ctx.fill(); pen(6); ctx.restore(); };
-  const fL = lg(-30 + shX * 0.3, thL, kL), fR = lg(30 + shX * 0.3, thR, kR); boot(fL, 0); boot(fR, 0.04);
+  const hp = (pose.hip || 0), fL = lg(-30 + shX * 0.3 + hp, thL, kL), fR = lg(30 + shX * 0.3 + hp, thR, kR); boot(fL, 0); boot(fR, 0.04);
   const hand = (p, ang = 0) => { ctx.fillStyle = look.glove || '#fbf8f2'; ctx.beginPath(); ctx.arc(p[0], p[1], B.hand, 0, 7); ctx.fill(); pen(6); ctx.beginPath(); ctx.arc(p[0] + B.hand * 0.22, p[1] - B.hand * 0.22, B.hand * 0.26, 0, 7); ctx.fillStyle = '#fff'; ctx.fill(); };
   const sleeve = look.sleeve || look.shirt, armOf = (side, a, front) => {
     const ox = shX + side * 70 * B.torsoW, oy = shY + 22, L1 = 138 * B.armL, L2 = 134 * B.armL, e1 = [ox + side * Math.sin(a[0] * R) * L1, oy + Math.cos(a[0] * R) * L1], r = limb(ox, oy, a[0] * R, a[1] * R, L1, L2, 9, side);
@@ -50,7 +54,7 @@ export function drawStick(ctx, W, H, s) {
   if (look.backpack) { ctx.fillStyle = look.backpack; ctx.save(); ctx.translate(shX * 0.5, 0); ctx.beginPath(); ctx.roundRect(-92 * B.torsoW, shY + 20, 184 * B.torsoW, B.torsoH * 0.9, 34); ctx.fill(); pen(6); ctx.restore(); }
   // torso: a soft bean (shoulders narrower than the belly) with clothes drawn on it
   const tw = 78, sh = look.shirt || '#d9a13a', gx = ctx.createLinearGradient(-tw, 0, tw, 0); gx.addColorStop(0, '#ffffff22'); gx.addColorStop(0.55, '#00000000'); gx.addColorStop(1, '#00000040');
-  ctx.save(); ctx.translate(shX * 0.5, 0); ctx.rotate(lean * 0.6); ctx.scale(B.torsoW, 1);
+  ctx.save(); ctx.translate(shX * 0.5 + (pose.hip || 0) * 0.5, 0); ctx.rotate(lean * 0.6); ctx.scale(B.torsoW, 1);
   const bean = () => { ctx.beginPath(); ctx.moveTo(-58 + wb(3), shY + 6); ctx.bezierCurveTo(-98, shY + 70, -104, hipY - 70, -68 + wb(4), hipY + 22); ctx.quadraticCurveTo(0, hipY + 44, 68 + wb(5), hipY + 22); ctx.bezierCurveTo(104, hipY - 70, 98, shY + 70, 58 + wb(6), shY + 6); ctx.quadraticCurveTo(0, shY - 26, -58, shY + 6); ctx.closePath(); };
   bean(); ctx.fillStyle = sh; ctx.fill(); ctx.fillStyle = gx; ctx.fill(); pen(8.5);
   ctx.save(); bean(); ctx.clip();
@@ -71,30 +75,30 @@ export function drawStick(ctx, W, H, s) {
   const headPath = () => { ctx.beginPath(); ctx.moveTo(0, -hh); ctx.bezierCurveTo(hw * 1.04, -hh, hw * 1.12, hh * 0.1, hw * 0.55, hh * 0.86); ctx.quadraticCurveTo(fx * 0.3, hh * 1.12, -hw * 0.55, hh * 0.86); ctx.bezierCurveTo(-hw * 1.12, hh * 0.1, -hw * 1.04, -hh, 0, -hh); ctx.closePath(); };
   headPath(); const hg = ctx.createRadialGradient(-hw * 0.35 + turn * 20, -hh * 0.4, 10, 0, 0, hh * 1.15); hg.addColorStop(0, '#ffffff'); hg.addColorStop(0.65, '#f6f2ec'); hg.addColorStop(1, '#ddd6cb'); ctx.fillStyle = hg; ctx.fill(); pen(7.5);
   ctx.save(); headPath(); ctx.clip(); const sg = ctx.createLinearGradient(0, hh * 0.1, 0, hh * 1.1); sg.addColorStop(0, 'rgba(110,120,160,0)'); sg.addColorStop(1, 'rgba(110,120,160,0.26)'); ctx.fillStyle = sg; ctx.fillRect(-hw * 1.3, hh * 0.1, hw * 2.6, hh); ctx.restore();
-  ctx.fillStyle = '#f1ece4'; [-1, 1].forEach((sd) => { ctx.beginPath(); ctx.ellipse(sd * (hw * 1.04) + fx * 0.3, 14, 17, 28, 0, 0, 7); ctx.fill(); pen(6); });
+  if (look.ears) { ctx.fillStyle = '#f1ece4'; [-1, 1].forEach((sd) => { ctx.beginPath(); ctx.ellipse(sd * (hw * 1.04) + fx * 0.3, 14, 17, 28, 0, 0, 7); ctx.fill(); pen(6); }); }
   if (look.hair) { ctx.fillStyle = look.hair; ctx.beginPath(); ctx.moveTo(-hw * 0.98, -16); ctx.bezierCurveTo(-hw * 1.1, -hh * 1.22, hw * 0.4 + fx * 0.3, -hh * 1.34, hw * 1.02, -hh * 0.5); ctx.bezierCurveTo(hw * 1.08, -hh * 0.2, hw, -30, hw * 0.92, -10); ctx.bezierCurveTo(hw * 0.7, -hh * 0.62, 10 + fx * 0.4, -hh * 0.72, -hw * 0.5, -hh * 0.5); ctx.bezierCurveTo(-hw * 0.8, -hh * 0.4, -hw * 0.95, -hh * 0.1, -hw * 0.98, -16); ctx.fill(); pen(6.5); ctx.beginPath(); ctx.moveTo(-hw * 0.3, -hh * 0.98); ctx.quadraticCurveTo(-hw * 0.05, -hh * 1.12, hw * 0.3, -hh * 1.0); ctx.strokeStyle = '#ffffff40'; ctx.lineWidth = 9; ctx.stroke(); }
   const ep = { l: [-52 + fx, -6], r: [52 + fx, -6] }, open = Math.max(0, Math.min(1.3, expr.eyes ?? 1)), blink = (() => { const c = (t + seed * 0.7) % 4.1; return c < 0.13 ? Math.sin((c / 0.13) * Math.PI) : 0; })(), eo = open * (1 - blink * 0.95);
   for (const [k, side] of [['l', -1], ['r', 1]]) {
-    const [ex, ey] = ep[k], rx = 23 * (1 + (open - 1) * 0.2), ry = Math.max(2.5, 28 * eo);
+    const [ex, ey] = ep[k], rx = 19 * (1 + (open - 1) * 0.2), ry = Math.max(2.5, 24 * eo);
     if (open < 0.12) { ctx.beginPath(); ctx.moveTo(ex - side * 26, ey - 18); ctx.lineTo(ex + side * 22, ey + 4); ctx.lineTo(ex - side * 26, ey + 26); pen(8); }   // squeezed ">" eye of a big laugh
     else { ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.ellipse(ex, ey, rx, ry, 0, 0, 7); ctx.fill(); pen(5.5);
       const lk = s.gaze || [0, 0], px = ex + lk[0] * 9 + turn * 6, py = ey + lk[1] * 7; ctx.fillStyle = ink; ctx.beginPath(); ctx.ellipse(px, py, 13 * Math.min(1, ry / 22), Math.min(17, ry * 0.78), 0, 0, 7); ctx.fill(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px + 4, py - 6, 3.6, 0, 7); ctx.fill(); }
     const by = ey - 54 - expr.brow * 24, outer = [ex + side * 38, by + expr.tilt * 8 + (expr.tilt < 0 ? 4 : 0)], inner = [ex - side * 30, by - expr.tilt * 20], mid = [ex, by - 12 - Math.abs(expr.tilt) * 2]; line([outer, mid, inner], 11);
   }
-  const nz = look.nose || 1; ctx.beginPath(); ctx.moveTo(fx - 7 * nz, 24); ctx.quadraticCurveTo(fx + 16 * nz, 24 + 20 * nz, fx - 2 * nz, 24 + 28 * nz); pen(5 + nz);
+  const nz = look.nose ?? 0.45; ctx.beginPath(); ctx.moveTo(fx - 7 * nz, 24); ctx.quadraticCurveTo(fx + 16 * nz, 24 + 20 * nz, fx - 2 * nz, 24 + 28 * nz); pen(5 + nz);
   if (look.stache) { ctx.fillStyle = look.stache; ctx.beginPath(); ctx.moveTo(fx, 56); ctx.bezierCurveTo(fx - 30, 44, fx - 76, 54, fx - 84, 78); ctx.bezierCurveTo(fx - 56, 66, fx - 30, 68, fx, 66); ctx.bezierCurveTo(fx + 30, 68, fx + 56, 66, fx + 84, 78); ctx.bezierCurveTo(fx + 76, 54, fx + 30, 44, fx, 56); ctx.fill(); pen(5); }
   if (look.freckles) { ctx.fillStyle = look.freckles; [[-74, 40], [-58, 52], [-86, 58], [70, 40], [56, 54], [86, 58]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x + fx, y, 4, 0, 7); ctx.fill(); }); }
-  const mx = fx * 0.9, my = 78, sm = expr.smile, op = Math.max(0, Math.min(1, expr.open + (s.talk || 0) * 0.7)), mw = 46 + Math.abs(sm) * 16;
+  const mx = fx * 0.9, my = 78, sm = expr.smile, op = Math.max(0, Math.min(1, expr.open + (s.talk || 0) * 0.7)), mw = 54 + Math.abs(sm) * 18;
   ctx.beginPath(); ctx.moveTo(mx - mw, my - sm * 8); ctx.quadraticCurveTo(mx, my + sm * 36 - op * 4, mx + mw, my - sm * 8);
   if (op > 0.12) { ctx.quadraticCurveTo(mx, my + sm * 30 + op * 80, mx - mw, my - sm * 8); ctx.closePath(); ctx.fillStyle = '#7a1f26'; ctx.fill(); ctx.save(); ctx.clip(); if (sm > 0.2) { ctx.fillStyle = '#fff'; ctx.fillRect(mx - mw, my - sm * 9, mw * 2, 16 + op * 8); ctx.strokeStyle = ink; ctx.lineWidth = 3; for (let q = -2; q <= 2; q++) { ctx.beginPath(); ctx.moveTo(mx + q * 18, my - sm * 9); ctx.lineTo(mx + q * 18, my - sm * 9 + 20); ctx.stroke(); } } ctx.fillStyle = '#e8737a'; ctx.beginPath(); ctx.ellipse(mx, my + op * 54, mw * 0.55, 20, 0, 0, 7); ctx.fill(); ctx.restore(); ctx.beginPath(); ctx.moveTo(mx - mw, my - sm * 8); ctx.quadraticCurveTo(mx, my + sm * 36 - op * 4, mx + mw, my - sm * 8); ctx.quadraticCurveTo(mx, my + sm * 30 + op * 80, mx - mw, my - sm * 8); }
   pen(7);
   if (sm > 0.4) { [-1, 1].forEach((sd) => { ctx.beginPath(); ctx.moveTo(mx + sd * (mw + 10), my - sm * 14); ctx.quadraticCurveTo(mx + sd * (mw + 22), my - sm * 2, mx + sd * (mw + 6), my + 8); pen(5); }); }
-  if (look.cheeks !== false) { ctx.fillStyle = 'rgba(238,120,110,0.3)'; [-1, 1].forEach((sd) => { ctx.beginPath(); ctx.ellipse(sd * 92 + fx, 52, 24, 14, 0, 0, 7); ctx.fill(); }); }
+  if (look.blush) { ctx.fillStyle = 'rgba(238,120,110,0.3)'; [-1, 1].forEach((sd) => { ctx.beginPath(); ctx.ellipse(sd * 92 + fx, 52, 24, 14, 0, 0, 7); ctx.fill(); }); }
   if (look.glasses) { ctx.fillStyle = 'rgba(170,190,205,0.45)'; [-1, 1].forEach((sd) => { ctx.beginPath(); ctx.roundRect(sd * 52 + fx - 38, -48, 76, 80, 22); ctx.fill(); pen(6.5); }); ctx.beginPath(); ctx.moveTo(fx - 14, -16); ctx.quadraticCurveTo(fx, -26, fx + 14, -16); pen(6); }
   if (look.bun) { ctx.fillStyle = look.bun; ctx.beginPath(); ctx.arc(hw * 0.35, -hh * 1.12, 44, 0, 7); ctx.fill(); pen(6); }
   if (look.goggles) { [-1, 1].forEach((sd) => { ctx.fillStyle = 'rgba(150,210,240,0.55)'; ctx.beginPath(); ctx.arc(sd * 54 + fx * 0.5, -96, 34, 0, 7); ctx.fill(); pen(7); ctx.fillStyle = '#ffffff90'; ctx.beginPath(); ctx.arc(sd * 54 + fx * 0.5 - 10, -108, 8, 0, 7); ctx.fill(); }); ctx.strokeStyle = '#5a4630'; ctx.lineWidth = 12; ctx.beginPath(); ctx.moveTo(-hw, -96); ctx.lineTo(hw, -96); ctx.stroke(); }
   if (look.headphones) { ctx.strokeStyle = look.headphones; ctx.lineWidth = 20; ctx.beginPath(); ctx.arc(0, -10, hw * 1.04, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke(); [-1, 1].forEach((sd) => { ctx.fillStyle = look.headphones; ctx.beginPath(); ctx.ellipse(sd * hw * 1.04, 8, 30, 46, 0, 0, 7); ctx.fill(); pen(6); }); }
-  const hat = look.hat, hc = look.hatColor || '#E3C06A';
+  const hat = look.hat, hc = look.hatColor || '#E3C06A', hs = look.hatS ?? 0.8; ctx.save(); ctx.translate(0, -60); ctx.scale(hs, hs); ctx.translate(0, 60);
   if (hat === 'hard') { ctx.fillStyle = hc; ctx.beginPath(); ctx.moveTo(-hw * 1.02, -70); ctx.bezierCurveTo(-hw * 1.1, -250, hw * 1.1, -250, hw * 1.02, -70); ctx.closePath(); ctx.fill(); pen(7.5); ctx.fillStyle = hc; ctx.beginPath(); ctx.ellipse(0, -70, hw * 1.28, 26, 0, 0, 7); ctx.fill(); pen(7); ctx.fillStyle = '#ffffff40'; ctx.beginPath(); ctx.ellipse(-40, -170, 40, 18, -0.5, 0, 7); ctx.fill(); ctx.fillStyle = '#fff3a0'; ctx.beginPath(); ctx.arc(0, -150, 24, 0, 7); ctx.fill(); pen(5); ctx.beginPath(); ctx.moveTo(-14, -250); ctx.lineTo(-14, -70); ctx.moveTo(14, -250); ctx.lineTo(14, -70); ctx.strokeStyle = '#00000030'; ctx.lineWidth = 6; ctx.stroke(); }
   if (hat === 'fedora') { ctx.fillStyle = hc; ctx.beginPath(); ctx.ellipse(0, -96, hw * 1.45, 34, -0.05, 0, 7); ctx.fill(); pen(7); ctx.beginPath(); ctx.moveTo(-hw * 0.84, -100); ctx.bezierCurveTo(-hw * 0.9, -240, hw * 0.9, -240, hw * 0.84, -100); ctx.bezierCurveTo(hw * 0.4, -80, -hw * 0.4, -80, -hw * 0.84, -100); ctx.fill(); pen(7); ctx.strokeStyle = '#1b1b1b'; ctx.lineWidth = 22; ctx.beginPath(); ctx.moveTo(-hw * 0.84, -126); ctx.quadraticCurveTo(0, -100, hw * 0.84, -126); ctx.stroke(); ctx.beginPath(); ctx.moveTo(-30, -226); ctx.quadraticCurveTo(0, -196, 30, -226); ctx.strokeStyle = '#00000050'; ctx.lineWidth = 8; ctx.stroke(); }
   if (hat === 'chef') { ctx.fillStyle = '#fbfbf8'; [[-62, -190, 58], [0, -230, 70], [62, -190, 58]].forEach(([x, y, r]) => { ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); pen(7); }); ctx.beginPath(); ctx.roundRect(-hw * 0.86, -190, hw * 1.72, 120, 18); ctx.fill(); pen(7); ctx.strokeStyle = '#00000020'; ctx.lineWidth = 6; [-30, 30].forEach((x) => { ctx.beginPath(); ctx.moveTo(x, -180); ctx.lineTo(x, -80); ctx.stroke(); }); }
@@ -103,6 +107,7 @@ export function drawStick(ctx, W, H, s) {
   if (hat === 'top') { ctx.fillStyle = hc; ctx.beginPath(); ctx.ellipse(0, -110, hw * 1.2, 26, 0, 0, 7); ctx.fill(); pen(7); ctx.beginPath(); ctx.roundRect(-hw * 0.72, -300, hw * 1.44, 200, 12); ctx.fill(); pen(7); ctx.fillStyle = look.band || '#E8B93A'; ctx.fillRect(-hw * 0.72, -164, hw * 1.44, 36); }
   if (hat === 'straw' || hat === 'sun') { ctx.fillStyle = hc; ctx.beginPath(); ctx.ellipse(0, -118, hat === 'sun' ? 206 : 186, 36, -0.06, 0, 7); ctx.fill(); pen(7); ctx.beginPath(); ctx.moveTo(-104, -122); ctx.bezierCurveTo(-104, -246, 104, -246, 104, -122); ctx.bezierCurveTo(54, -100, -54, -100, -104, -122); ctx.fill(); pen(7); ctx.strokeStyle = look.band || '#B04A2E'; ctx.lineWidth = 22; ctx.beginPath(); ctx.moveTo(-102, -146); ctx.quadraticCurveTo(0, -122, 102, -146); ctx.stroke(); ctx.strokeStyle = '#ffffff30'; ctx.lineWidth = 3; for (let q = -3; q <= 3; q++) { ctx.beginPath(); ctx.moveTo(q * 26, -190 + Math.abs(q) * 8); ctx.lineTo(q * 30, -128); ctx.stroke(); } }
   if (hat === 'cap') { ctx.fillStyle = hc; ctx.beginPath(); ctx.moveTo(-128, -70); ctx.bezierCurveTo(-130, -214, 128, -214, 128, -70); ctx.closePath(); ctx.fill(); pen(7.5); ctx.fillStyle = '#ffffff2a'; ctx.beginPath(); ctx.ellipse(-40, -150, 48, 22, -0.4, 0, 7); ctx.fill(); ctx.fillStyle = hc; ctx.beginPath(); ctx.moveTo(26 + fx, -82); ctx.quadraticCurveTo(168 + fx, -96, 200 + fx, -54); ctx.quadraticCurveTo(110 + fx, -48, 20 + fx, -62); ctx.closePath(); ctx.fill(); pen(7); ctx.beginPath(); ctx.arc(0, -186, 9, 0, 7); ctx.fillStyle = ink; ctx.fill(); }
+  ctx.restore();
   if (look.helmet) { ctx.fillStyle = 'rgba(190,225,255,0.22)'; ctx.beginPath(); ctx.arc(0, 4, hw * 1.32, 0, 7); ctx.fill(); ctx.strokeStyle = look.helmet; ctx.lineWidth = 16; ctx.stroke(); ctx.strokeStyle = '#ffffff90'; ctx.lineWidth = 12; ctx.beginPath(); ctx.arc(0, 4, hw * 1.18, Math.PI * 1.1, Math.PI * 1.45); ctx.stroke(); ctx.fillStyle = look.helmet; ctx.beginPath(); ctx.roundRect(-hw * 1.1, hh * 0.9, hw * 2.2, 46, 22); ctx.fill(); pen(6); }
   ctx.restore();
   armOf(-1, pose.sL, true);
