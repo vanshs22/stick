@@ -2,43 +2,255 @@
  "schema_version": 1,
  "id": "acting",
  "title": "Acting: face, body and hand gestures chosen by what the sentence does",
- "read_by": ["director", "storyboard", "critic-emotion", "gestures.js", "character-map.js"],
+ "read_by": [
+  "director",
+  "storyboard",
+  "critic-emotion",
+  "gestures.js",
+  "character-map.js"
+ ],
  "entries": [
-  { "id": "gesture-by-function", "when": "choosing a hand or body gesture for a sentence",
-    "do": "list-item: count on fingers or point to the item; contrast ('but', 'instead'): two hands split left/right; emphasis word: beat gesture (a small chop) on the keyword time; question: palm up, head tilt 6 degrees; uncertainty: shrug; reveal: both hands open, step back; warning: palm out; hook: lean-in with a pointing hand; CTA: point down or at the viewer. Return to rest between sentences.",
-    "parameters": { "gesture_lead_ms": 80, "rest_between": true },
-    "evidence": [{ "ref": "r05", "note": "host: point up, point sideways, thinking, surprised, wink, hands up across 65 s" }, { "ref": "r27", "note": "7 poses while 7 panels change" }, { "ref": "src/three/gestures.js", "note": "idle, explain, point, think, shrug, wave, cheer, lean-in, step-back..." }],
-    "anti_patterns": ["gesture held for more than 3 s", "same gesture twice in a row"],
-    "how_by_engine": { "2d-flat": "sprite swap by pose (character-map.js)", "sprite-in-3d": "sprite swap + 6 px parallax", "3d": "GESTURES blend with ease", "face-cam": "not applicable", "board": "host pose per sentence" }, "check": "emotion_match" },
-  { "id": "face-by-emotion", "when": "choosing a facial expression for a line",
-    "do": "Map emotion to brows/eyes/mouth: curious = one brow up, eyes to the object; alarmed = brows up and in, eyes wide, mouth small O; smug = half-lid, one side smile; deadpan = flat mouth, slow blink; excited = brows up, big open smile; sad = brows up and in at the inner ends, mouth down; angry = brows down and in. Expression changes 150-250 ms BEFORE the word that carries it.",
-    "parameters": { "lead_ms": [150, 250] },
-    "evidence": [{ "ref": "r13", "note": "sweating worried face, grin, glaring glasses face" }, { "ref": "r14", "note": "red glowing eyes on the threat beat" }, { "ref": "r07", "note": "raised brow, flat mouth on the dev; square eyes on the mascot" }],
-    "anti_patterns": ["mouth movement with no brow change", "expression snaps with no ease"],
-    "how_by_engine": { "2d-flat": "rig v2 mouth/brow/eye sets", "sprite-in-3d": "sprite set per emotion", "3d": "face blend shapes or decals", "face-cam": "not applicable", "board": "not applicable" }, "check": "emotion_match" },
-  { "id": "eye-life", "when": "any character on screen longer than 1.5 s",
-    "do": "Blink every 3-5 s (random within), a long blink on a beat of doubt; eye-dart 5-10 degrees toward the thing mentioned 120 ms before the word; look at the camera on the CTA; never freeze the eyes.",
-    "parameters": { "blink_every_s": [3, 5], "dart_deg": [5, 10] },
-    "evidence": [{ "ref": "r09", "note": "the only motion in a 82 s film is the eyes sliding sideways and blinking" }, { "ref": "r01", "note": "same eye-dart pattern" }],
-    "anti_patterns": ["blink on the exact same frame in two characters"],
-    "how_by_engine": { "2d-flat": "eye layer offset + lid frames", "sprite-in-3d": "sprite sets", "3d": "SDF eye look-at", "face-cam": "not applicable", "board": "not applicable" }, "check": "emotion_match" },
-  { "id": "body-life", "when": "any character at rest",
-    "do": "Breathing (chest or scale 1 %, 3.5 s cycle), weight shift every 4-6 s, small head tilt when thinking, a settle (0.2 s overshoot) when a pose ends; no perfectly still frames.",
-    "parameters": { "breath_s": 3.5, "shift_every_s": [4, 6] },
-    "evidence": [{ "ref": "src/three/gestures.js", "note": "engine already adds breathing, weight shift, head life and blinks on top of poses" }],
-    "anti_patterns": ["robotic loops with a visible seam"],
-    "how_by_engine": { "2d-flat": "idle loop 1 % scale + 2 px", "sprite-in-3d": "same", "3d": "built in", "face-cam": "not applicable", "board": "host idle loop" }, "check": "emotion_match" },
-  { "id": "reaction-shots", "when": "a surprising line is spoken by another character",
-    "do": "Cut to the listener within 0.3 s of the line start; the reaction is a different emotion from the speaker; hold 0.8-1.2 s; the listener's eyes go to the speaker or the object.",
-    "parameters": { "cut_within_s": 0.3, "hold_s": [0.8, 1.2] },
-    "evidence": [{ "ref": "r13", "note": "close-up of the sweating boy when the host announces the rules" }, { "ref": "r14", "note": "cap-boy and glasses-boy exchange" }],
-    "anti_patterns": ["reaction identical to the speaker"],
-    "how_by_engine": { "2d-flat": "close-up face layer", "sprite-in-3d": "cut to the sprite close-up", "3d": "over-the-shoulder cut", "face-cam": "not applicable", "board": "not applicable" }, "check": "emotion_match" },
-  { "id": "mascot-vs-human", "when": "a mascot and a human share the screen",
-    "do": "The mascot is symmetric, smaller and bouncier (squash and stretch on emphasis, a 3 degree wobble), speaks with its whole body; the human is asymmetric, gestures with one hand, reacts with the eyebrows; keep eye lines crossing.",
-    "parameters": { "squash_pct": 6 },
-    "evidence": [{ "ref": "r07", "note": "mascot with square eyes and tiny legs, dev with big glasses" }, { "ref": "r25", "note": "spiky fruit mascot vs freckled human" }],
-    "anti_patterns": ["both characters same energy"],
-    "how_by_engine": { "2d-flat": "sprite squash", "sprite-in-3d": "sprite squash", "3d": "rig squash", "face-cam": "not applicable", "board": "not applicable" }, "check": "emotion_match" }
+  {
+   "id": "gesture-by-function",
+   "when": "choosing a hand or body gesture for a sentence",
+   "do": "list-item: count on fingers or point to the item; contrast ('but', 'instead'): two hands split left/right; emphasis word: beat gesture (a small chop) on the keyword time; question: palm up, head tilt 6 degrees; uncertainty: shrug; reveal: both hands open, step back; warning: palm out; hook: lean-in with a pointing hand; CTA: point down or at the viewer. Return to rest between sentences.",
+   "parameters": {
+    "gesture_lead_ms": 80,
+    "rest_between": true
+   },
+   "evidence": [
+    {
+     "ref": "r05",
+     "note": "host: point up, point sideways, thinking, surprised, wink, hands up across 65 s"
+    },
+    {
+     "ref": "r27",
+     "note": "7 poses while 7 panels change"
+    },
+    {
+     "ref": "src/three/gestures.js",
+     "note": "idle, explain, point, think, shrug, wave, cheer, lean-in, step-back..."
+    }
+   ],
+   "anti_patterns": [
+    "gesture held for more than 3 s",
+    "same gesture twice in a row"
+   ],
+   "how_by_engine": {
+    "2d-flat": "sprite swap by pose (character-map.js)",
+    "sprite-in-3d": "sprite swap + 6 px parallax",
+    "3d": "GESTURES blend with ease",
+    "face-cam": "not applicable",
+    "board": "host pose per sentence"
+   },
+   "check": "emotion_match"
+  },
+  {
+   "id": "face-by-emotion",
+   "when": "choosing a facial expression for a line",
+   "do": "Map emotion to brows/eyes/mouth: curious = one brow up, eyes to the object; alarmed = brows up and in, eyes wide, mouth small O; smug = half-lid, one side smile; deadpan = flat mouth, slow blink; excited = brows up, big open smile; sad = brows up and in at the inner ends, mouth down; angry = brows down and in. Expression changes 150-250 ms BEFORE the word that carries it.",
+   "parameters": {
+    "lead_ms": [
+     150,
+     250
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "r13",
+     "note": "sweating worried face, grin, glaring glasses face"
+    },
+    {
+     "ref": "r14",
+     "note": "red glowing eyes on the threat beat"
+    },
+    {
+     "ref": "r07",
+     "note": "raised brow, flat mouth on the dev; square eyes on the mascot"
+    }
+   ],
+   "anti_patterns": [
+    "mouth movement with no brow change",
+    "expression snaps with no ease"
+   ],
+   "how_by_engine": {
+    "2d-flat": "rig v2 mouth/brow/eye sets",
+    "sprite-in-3d": "sprite set per emotion",
+    "3d": "face blend shapes or decals",
+    "face-cam": "not applicable",
+    "board": "not applicable"
+   },
+   "check": "emotion_match"
+  },
+  {
+   "id": "eye-life",
+   "when": "any character on screen longer than 1.5 s",
+   "do": "Blink every 3-5 s (random within), a long blink on a beat of doubt; eye-dart 5-10 degrees toward the thing mentioned 120 ms before the word; look at the camera on the CTA; never freeze the eyes.",
+   "parameters": {
+    "blink_every_s": [
+     3,
+     5
+    ],
+    "dart_deg": [
+     5,
+     10
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "r09",
+     "note": "the only motion in a 82 s film is the eyes sliding sideways and blinking"
+    },
+    {
+     "ref": "r01",
+     "note": "same eye-dart pattern"
+    }
+   ],
+   "anti_patterns": [
+    "blink on the exact same frame in two characters"
+   ],
+   "how_by_engine": {
+    "2d-flat": "eye layer offset + lid frames",
+    "sprite-in-3d": "sprite sets",
+    "3d": "SDF eye look-at",
+    "face-cam": "not applicable",
+    "board": "not applicable"
+   },
+   "check": "emotion_match"
+  },
+  {
+   "id": "body-life",
+   "when": "any character at rest",
+   "do": "Breathing (chest or scale 1 %, 3.5 s cycle), weight shift every 4-6 s, small head tilt when thinking, a settle (0.2 s overshoot) when a pose ends; no perfectly still frames.",
+   "parameters": {
+    "breath_s": 3.5,
+    "shift_every_s": [
+     4,
+     6
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "src/three/gestures.js",
+     "note": "engine already adds breathing, weight shift, head life and blinks on top of poses"
+    }
+   ],
+   "anti_patterns": [
+    "robotic loops with a visible seam"
+   ],
+   "how_by_engine": {
+    "2d-flat": "idle loop 1 % scale + 2 px",
+    "sprite-in-3d": "same",
+    "3d": "built in",
+    "face-cam": "not applicable",
+    "board": "host idle loop"
+   },
+   "check": "emotion_match"
+  },
+  {
+   "id": "reaction-shots",
+   "when": "a surprising line is spoken by another character",
+   "do": "Cut to the listener within 0.3 s of the line start; the reaction is a different emotion from the speaker; hold 0.8-1.2 s; the listener's eyes go to the speaker or the object.",
+   "parameters": {
+    "cut_within_s": 0.3,
+    "hold_s": [
+     0.8,
+     1.2
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "r13",
+     "note": "close-up of the sweating boy when the host announces the rules"
+    },
+    {
+     "ref": "r14",
+     "note": "cap-boy and glasses-boy exchange"
+    }
+   ],
+   "anti_patterns": [
+    "reaction identical to the speaker"
+   ],
+   "how_by_engine": {
+    "2d-flat": "close-up face layer",
+    "sprite-in-3d": "cut to the sprite close-up",
+    "3d": "over-the-shoulder cut",
+    "face-cam": "not applicable",
+    "board": "not applicable"
+   },
+   "check": "emotion_match"
+  },
+  {
+   "id": "mascot-vs-human",
+   "when": "a mascot and a human share the screen",
+   "do": "The mascot is symmetric, smaller and bouncier (squash and stretch on emphasis, a 3 degree wobble), speaks with its whole body; the human is asymmetric, gestures with one hand, reacts with the eyebrows; keep eye lines crossing.",
+   "parameters": {
+    "squash_pct": 6
+   },
+   "evidence": [
+    {
+     "ref": "r07",
+     "note": "mascot with square eyes and tiny legs, dev with big glasses"
+    },
+    {
+     "ref": "r25",
+     "note": "spiky fruit mascot vs freckled human"
+    }
+   ],
+   "anti_patterns": [
+    "both characters same energy"
+   ],
+   "how_by_engine": {
+    "2d-flat": "sprite squash",
+    "sprite-in-3d": "sprite squash",
+    "3d": "rig squash",
+    "face-cam": "not applicable",
+    "board": "not applicable"
+   },
+   "check": "emotion_match"
+  },
+  {
+   "id": "physical-honesty-checklist",
+   "when": "staging any action with a character and props (all engines)",
+   "do": "Feet always touch a surface and cast a shadow; walk phase equals distance travelled (no foot sliding); jumps follow a parabola with anticipation squash, stretch, landing squash; doors are real openings, open away from the walker, the hand reaches the handle first; carried objects are parented to the hand; nothing passes through walls, props or other characters; entries and exits happen through openings, props are carried in or revealed, never popped in.",
+   "parameters": {
+    "sfx_per_20s_max": 8
+   },
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "Stick3D pack RULES 2-4 and QUALITY-CHECKLIST"
+    }
+   ],
+   "anti_patterns": [
+    "teleporting or morphing",
+    "a hand inside a shelf",
+    "foot sliding on a walk"
+   ],
+   "how_by_engine": {
+    "sprite-in-3d": "keep the sprite on the ground plane with the projected shadow; drive walk phase from travelled distance"
+   },
+   "check": "logic"
+  },
+  {
+   "id": "secondary-motion-and-micro-acting",
+   "when": "any held shot of a character",
+   "do": "Characters never freeze: idle breathing and a slow head bob, blinks, a bob on stressed words; every action has anticipation, overshoot and a settle; hat, hair, tie and badge lag the body (secondary motion); nervous = sweat drops, darting eyes, hunch, gulp, tremble ONLY at tense beats; shock = anticipation, jump-back, hands to head.",
+   "parameters": {},
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "Stick3D ACTION-LIBRARY and animated-shorts-kit motion rules"
+    }
+   ],
+   "anti_patterns": [
+    "constant trembling",
+    "a pose held dead still for 4 frames or more"
+   ],
+   "how_by_engine": {
+    "sprite-in-3d": "blend poses and moods over 0.22-0.28 s, add breathing and sway to the canvas draw"
+   },
+   "check": "acting"
+  }
  ]
 }

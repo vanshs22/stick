@@ -2,55 +2,363 @@
  "schema_version": 1,
  "id": "hook-cta",
  "title": "Hooks, bodies and calls to action that the references use",
- "read_by": ["hook-writer", "script-writer", "cta-writer", "critic-script"],
+ "read_by": [
+  "hook-writer",
+  "script-writer",
+  "cta-writer",
+  "critic-script"
+ ],
  "entries": [
-  { "id": "hook-warning-negation", "when": "tutorial or tool list for a technical audience",
-    "do": "Open with a prohibition plus the number of items: 'Don't use X unless you've installed these five'. The first noun appears on screen as a title card at the same moment.",
-    "parameters": { "max_words": 16 },
-    "evidence": [{ "ref": "r08", "note": "Don't use Claude code unless you've installed these five plugins" }], "check": "script" },
-  { "id": "hook-absurd-stake", "when": "story or demo; a surprising stake in one sentence",
-    "do": "Say the rule-breaking claim as a fact with a concrete number: 'make 100 versions fight to the death', 'buried a man alive with a bell tied to his finger'; do not explain until the next sentence.",
-    "parameters": { "max_words": 20 },
-    "evidence": [{ "ref": "r11", "note": "make 100 versions of Claude fight to the death" }, { "ref": "r06", "note": "They buried a man alive with a bell tied to his finger" }, { "ref": "r26", "note": "He bent the roller coaster's loop out of shape... it cost him everything" }], "check": "script" },
-  { "id": "hook-social-proof", "when": "a tool or repo is the subject",
-    "do": "Authority + number: 'Someone open sourced... passed 11,000 stars'; 'Twenty-five repos... you only need four'.",
-    "parameters": { "max_words": 22 },
-    "evidence": [{ "ref": "r19", "note": "Someone open sourced a Claude coach... passed 11,000 stars" }, { "ref": "r15", "note": "25 GitHub repos... you only need four of them" }], "check": "script" },
-  { "id": "hook-world-rule", "when": "story shorts in a made-up place",
-    "do": "State the rule of the world in one sentence with a number ('everyone is only allowed 1 million steps'); the next sentence shows the consequence; a glowing number on a character proves it.",
-    "parameters": { "max_words": 24 },
-    "evidence": [{ "ref": "r23", "note": "In this town, everyone is only allowed to take 1 million steps" }, { "ref": "r24", "note": "a haystack, 5 million straws, and one golden needle" }, { "ref": "r21", "note": "If you plant a tree beside an empty road, cars will steer right into it" }], "check": "script" },
-  { "id": "hook-cold-open-dialogue", "when": "a joke or conflict between two characters",
-    "do": "Start mid-argument with the user's complaint: 'Claude, I asked you to fix one typo!'; the reply answers in character; no setup line.",
-    "parameters": { "max_words": 12 },
-    "evidence": [{ "ref": "r07", "note": "Claude, I asked you to fix one typo!" }, { "ref": "r18", "note": "Claude, I graduated today. Zero offers." }, { "ref": "r25", "note": "Why does AI get dumber the longer I chat?" }], "check": "script" },
-  { "id": "hook-tutorial-promise", "when": "how-to for a trend",
-    "do": "Name the trend, the gap and the promise: 'Everyone is doing X, but nobody is showing you how. So I'll show you everything.'",
-    "parameters": { "max_words": 26 },
-    "evidence": [{ "ref": "r22", "note": "Everyone's making AI animated reels... nobody's showing you how" }, { "ref": "r27", "note": "same template for Instagram automation" }, { "ref": "r05", "note": "This one folder makes every kind of reel" }], "check": "script" },
-  { "id": "body-list-problem-fix", "when": "list of tools or tips",
-    "do": "Each item: name, the problem in one clause, the fix in one clause, one proof (number or screenshot): 'The problem: the limit runs out mid-work. Omni-Rout connects 200 providers.' 4-5 items in 45-55 s; the last item is the strongest.",
-    "parameters": { "items": [4, 5], "words_per_item": [28, 42] },
-    "evidence": [{ "ref": "r03", "note": "The problem... / the fix..." }, { "ref": "r08", "note": "five plugins listed first/second/third" }], "check": "script" },
-  { "id": "body-story-escalate-reverse", "when": "story shorts",
-    "do": "Setup (who wants what) -> escalation (a rival, a rule, a crowd) -> reversal (the physics or logic trick) -> payoff image; one open loop closes every 15 s; each line either opens, closes, shows, turns or lands.",
-    "parameters": { "open_loop_every_s": 15 },
-    "evidence": [{ "ref": "r26", "note": "rival copies the loop, the trick makes the copy fail" }, { "ref": "r21", "note": "tree sign, crashes, target fixation explained, the sign becomes a stump" }, { "ref": "r24", "note": "the needle was in the video the whole time" }], "check": "script" },
-  { "id": "cta-comment-keyword", "when": "any tutorial, promo or tool short",
-    "do": "'Comment KEYWORD and I'll send you the link/setup/kit': one short keyword that is a real word from the video, said once, shown in a comment-box overlay, repeated in the caption; 4-6 s at the end.",
-    "parameters": { "last_s": [4, 6], "keyword_len": [3, 9] },
-    "evidence": [{ "ref": "r08", "note": "comment Claude" }, { "ref": "r11", "note": "comment ARENA" }, { "ref": "r19", "note": "comment pre-sell" }, { "ref": "r17", "note": "comment reels" }, { "ref": "r02", "note": "comment Wi-Fi" }, { "ref": "r05", "note": "comment kit" }], "check": "script" },
-  { "id": "cta-series-cliffhanger", "when": "story series",
-    "do": "End on an unresolved choice or question to the viewer ('So would you open it?') followed by an end card 'PART N / FOLLOW FOR PART N+1'.",
-    "parameters": {},
-    "evidence": [{ "ref": "r14", "note": "...So would you open it? then PART 3 / FOLLOW FOR PART 4" }, { "ref": "r13", "note": "What power would you pick? then PART 2" }], "check": "script" },
-  { "id": "cta-callback-twist", "when": "stand-alone story",
-    "do": "Close with a callback or a reframe that recontextualises the first line ('It was in this video the whole time' / 'the whole town walks upside down'); a plug is one sentence at most.",
-    "parameters": {},
-    "evidence": [{ "ref": "r24", "note": "Did you see it before I did?" }, { "ref": "r23", "note": "the whole town walks upside down" }, { "ref": "r04", "note": "connect viral explainers to Claude, link in bio" }], "check": "script" },
-  { "id": "cta-joke-tag", "when": "dialogue comedy",
-    "do": "A last line that is a joke at the AI's or the user's expense and also states the tool: 'Your billing code hasn't run since March.'; then the keyword CTA.",
-    "parameters": {},
-    "evidence": [{ "ref": "r07", "note": "I don't delete it. So? I'm mentioning it. Your billing code hasn't run since March." }, { "ref": "r25", "note": "My chat called Help is from March. I know. I'm still reading it." }], "check": "script" }
+  {
+   "id": "hook-warning-negation",
+   "when": "tutorial or tool list for a technical audience",
+   "do": "Open with a prohibition plus the number of items: 'Don't use X unless you've installed these five'. The first noun appears on screen as a title card at the same moment.",
+   "parameters": {
+    "max_words": 16
+   },
+   "evidence": [
+    {
+     "ref": "r08",
+     "note": "Don't use Claude code unless you've installed these five plugins"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "hook-absurd-stake",
+   "when": "story or demo; a surprising stake in one sentence",
+   "do": "Say the rule-breaking claim as a fact with a concrete number: 'make 100 versions fight to the death', 'buried a man alive with a bell tied to his finger'; do not explain until the next sentence.",
+   "parameters": {
+    "max_words": 20
+   },
+   "evidence": [
+    {
+     "ref": "r11",
+     "note": "make 100 versions of Claude fight to the death"
+    },
+    {
+     "ref": "r06",
+     "note": "They buried a man alive with a bell tied to his finger"
+    },
+    {
+     "ref": "r26",
+     "note": "He bent the roller coaster's loop out of shape... it cost him everything"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "hook-social-proof",
+   "when": "a tool or repo is the subject",
+   "do": "Authority + number: 'Someone open sourced... passed 11,000 stars'; 'Twenty-five repos... you only need four'.",
+   "parameters": {
+    "max_words": 22
+   },
+   "evidence": [
+    {
+     "ref": "r19",
+     "note": "Someone open sourced a Claude coach... passed 11,000 stars"
+    },
+    {
+     "ref": "r15",
+     "note": "25 GitHub repos... you only need four of them"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "hook-world-rule",
+   "when": "story shorts in a made-up place",
+   "do": "State the rule of the world in one sentence with a number ('everyone is only allowed 1 million steps'); the next sentence shows the consequence; a glowing number on a character proves it.",
+   "parameters": {
+    "max_words": 24
+   },
+   "evidence": [
+    {
+     "ref": "r23",
+     "note": "In this town, everyone is only allowed to take 1 million steps"
+    },
+    {
+     "ref": "r24",
+     "note": "a haystack, 5 million straws, and one golden needle"
+    },
+    {
+     "ref": "r21",
+     "note": "If you plant a tree beside an empty road, cars will steer right into it"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "hook-cold-open-dialogue",
+   "when": "a joke or conflict between two characters",
+   "do": "Start mid-argument with the user's complaint: 'Claude, I asked you to fix one typo!'; the reply answers in character; no setup line.",
+   "parameters": {
+    "max_words": 12
+   },
+   "evidence": [
+    {
+     "ref": "r07",
+     "note": "Claude, I asked you to fix one typo!"
+    },
+    {
+     "ref": "r18",
+     "note": "Claude, I graduated today. Zero offers."
+    },
+    {
+     "ref": "r25",
+     "note": "Why does AI get dumber the longer I chat?"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "hook-tutorial-promise",
+   "when": "how-to for a trend",
+   "do": "Name the trend, the gap and the promise: 'Everyone is doing X, but nobody is showing you how. So I'll show you everything.'",
+   "parameters": {
+    "max_words": 26
+   },
+   "evidence": [
+    {
+     "ref": "r22",
+     "note": "Everyone's making AI animated reels... nobody's showing you how"
+    },
+    {
+     "ref": "r27",
+     "note": "same template for Instagram automation"
+    },
+    {
+     "ref": "r05",
+     "note": "This one folder makes every kind of reel"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "body-list-problem-fix",
+   "when": "list of tools or tips",
+   "do": "Each item: name, the problem in one clause, the fix in one clause, one proof (number or screenshot): 'The problem: the limit runs out mid-work. Omni-Rout connects 200 providers.' 4-5 items in 45-55 s; the last item is the strongest.",
+   "parameters": {
+    "items": [
+     4,
+     5
+    ],
+    "words_per_item": [
+     28,
+     42
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "r03",
+     "note": "The problem... / the fix..."
+    },
+    {
+     "ref": "r08",
+     "note": "five plugins listed first/second/third"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "body-story-escalate-reverse",
+   "when": "story shorts",
+   "do": "Setup (who wants what) -> escalation (a rival, a rule, a crowd) -> reversal (the physics or logic trick) -> payoff image; one open loop closes every 15 s; each line either opens, closes, shows, turns or lands.",
+   "parameters": {
+    "open_loop_every_s": 15
+   },
+   "evidence": [
+    {
+     "ref": "r26",
+     "note": "rival copies the loop, the trick makes the copy fail"
+    },
+    {
+     "ref": "r21",
+     "note": "tree sign, crashes, target fixation explained, the sign becomes a stump"
+    },
+    {
+     "ref": "r24",
+     "note": "the needle was in the video the whole time"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "cta-comment-keyword",
+   "when": "any tutorial, promo or tool short",
+   "do": "'Comment KEYWORD and I'll send you the link/setup/kit': one short keyword that is a real word from the video, said once, shown in a comment-box overlay, repeated in the caption; 4-6 s at the end.",
+   "parameters": {
+    "last_s": [
+     4,
+     6
+    ],
+    "keyword_len": [
+     3,
+     9
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "r08",
+     "note": "comment Claude"
+    },
+    {
+     "ref": "r11",
+     "note": "comment ARENA"
+    },
+    {
+     "ref": "r19",
+     "note": "comment pre-sell"
+    },
+    {
+     "ref": "r17",
+     "note": "comment reels"
+    },
+    {
+     "ref": "r02",
+     "note": "comment Wi-Fi"
+    },
+    {
+     "ref": "r05",
+     "note": "comment kit"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "cta-series-cliffhanger",
+   "when": "story series",
+   "do": "End on an unresolved choice or question to the viewer ('So would you open it?') followed by an end card 'PART N / FOLLOW FOR PART N+1'.",
+   "parameters": {},
+   "evidence": [
+    {
+     "ref": "r14",
+     "note": "...So would you open it? then PART 3 / FOLLOW FOR PART 4"
+    },
+    {
+     "ref": "r13",
+     "note": "What power would you pick? then PART 2"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "cta-callback-twist",
+   "when": "stand-alone story",
+   "do": "Close with a callback or a reframe that recontextualises the first line ('It was in this video the whole time' / 'the whole town walks upside down'); a plug is one sentence at most.",
+   "parameters": {},
+   "evidence": [
+    {
+     "ref": "r24",
+     "note": "Did you see it before I did?"
+    },
+    {
+     "ref": "r23",
+     "note": "the whole town walks upside down"
+    },
+    {
+     "ref": "r04",
+     "note": "connect viral explainers to Claude, link in bio"
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "cta-joke-tag",
+   "when": "dialogue comedy",
+   "do": "A last line that is a joke at the AI's or the user's expense and also states the tool: 'Your billing code hasn't run since March.'; then the keyword CTA.",
+   "parameters": {},
+   "evidence": [
+    {
+     "ref": "r07",
+     "note": "I don't delete it. So? I'm mentioning it. Your billing code hasn't run since March."
+    },
+    {
+     "ref": "r25",
+     "note": "My chat called Help is from March. I know. I'm still reading it."
+    }
+   ],
+   "check": "script"
+  },
+  {
+   "id": "story-arc-looks-stupid-then-right",
+   "when": "writing a 45-65 s story short (history, invention, odd fact)",
+   "do": "Arc: someone does something that looks stupid; people laugh in short quoted lines; it gets worse; the turn (\"You see, ...\") shows he was right, result first then the reason in 1-3 sentences with an everyday analogy; the laughers pay or are left speechless. Last line is the twist, ending 0.1-0.5 s after the last word, with no goodbye and no call to action. 145-250 words at 3.3-3.8 words per second, sentences 8-15 words, small exact numbers, things in threes.",
+   "parameters": {
+    "words": [
+     145,
+     250
+    ],
+    "words_per_s": [
+     3.3,
+     3.8
+    ],
+    "sentence_words": [
+     8,
+     15
+    ],
+    "end_after_last_word_s": [
+     0.1,
+     0.5
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "story formula measured from channels at 16-35 M views per short (animated-shorts-kit 02_STORY_FORMULA)"
+    }
+   ],
+   "anti_patterns": [
+    "\"today we are talking about\"",
+    "a summary or \"so that is why\" after the twist",
+    "statistics instead of one exact small number"
+   ],
+   "check": "script"
+  },
+  {
+   "id": "hook-strange-action-he",
+   "when": "the first sentence of a story short",
+   "do": "One sentence, no intro, no year, no \"once upon a time\", built on a contradiction: strange action by He or She (\"He paid strangers to push empty carts around his store\"), a paradox fact, or a conditional promise. Strange-action plus underdog hooks performed best. Frame zero is already the hook image.",
+   "parameters": {
+    "hook_s": [
+     1.7,
+     5
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "hook formula from the measured story shorts"
+    }
+   ],
+   "anti_patterns": [
+    "setup before the claim",
+    "a question the viewer can ignore"
+   ],
+   "check": "script"
+  },
+  {
+   "id": "script-800-900-chars-mid-action",
+   "when": "writing a micro-story script from a niche (phenomenon, what-if history, scams, accidents, war tricks)",
+   "do": "800-900 characters of plain flowing prose that opens mid-action, explains the concept through what happens, names the principle naturally inside the story, and ends the moment the concept lands. Count characters and show the count.",
+   "parameters": {
+    "chars": [
+     800,
+     900
+    ]
+   },
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "3D stick figure master prompt (Stage 4 content rules)"
+    }
+   ],
+   "anti_patterns": [
+    "headings, bullets or scene directions in the script text",
+    "textbook explanation of the concept"
+   ],
+   "check": "script"
+  }
  ]
 }

@@ -1,0 +1,10 @@
+# Character shape rules, measured on the reference (applies to all flat 2D characters; style 2 locked look is in STYLE2-LOCKED.md)
+Source: docs/references/drive-kits/04_SHAPE_GUIDE.md (measured on 1080x1920 frames, relative to head width HW). Use the RULES, never the kit's characters or names.
+- Head: near-round egg, h:w 0.97-1.08, widest just below centre, superellipse exponent 2.0-2.8, tilt or shear 0-8 degrees (sign differs per character). Face colour near-white (#fdf9f6), never skin-tinted; only a cel band and a faint cool shade.
+- Body: no neck, head overlaps body; body width 0.75-0.9 HW, height 1.3-1.9 heads; one sack shape per outfit (suit trapezoid, dress A-line, overalls barrel widest at 45 percent, kid pod). Belly rounder than back.
+- Ink: outline 2.5-3.2 percent HW, dark WARM brown not black, 2-5 percent HW range with ratio about 2.3-2.6; heavy on the lower and shadow side and under hat brims, thin on the light side; slow wobble plus or minus 10 percent. Brows, smiles, eyelids taper to points (brush, peak at 42 percent). Folds and seams 0.6-1.2 percent HW. Limbs thin with slight taper.
+- Face: heavy wedge brows 5-6 percent HW at the inner end, tilted for mood; eyes black ovals or lidded half-ovals; no nose; mouth small (10-15 percent HW), often asymmetric and slightly off-level; big teeth or open mouth only on peak expressions.
+- Hair: helmet or bowl shapes with a sharp off-centre part notch, pointed locks and sideburns, never symmetric scallops. Hats oversized and askew (tilt up to 0.22 rad), brims lens-shaped with lifted pointed tips, crowns tapered or pinched.
+- Hands ball, feet wedge (square heel, toe tapering up). At most three asymmetric cues per character (head shear, hat tilt, side part); stiff characters (cop, preacher) stay symmetric on purpose.
+- Props: chunky silhouettes, posts taper and flare at the base, vehicles lean forward with a raked windshield and no doors; change the silhouette, do not add trim.
+- Two neighbours in one shot must not share a head family (dumpling, egg, square jaw, pear, long bean, round).

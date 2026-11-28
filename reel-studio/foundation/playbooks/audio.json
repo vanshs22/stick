@@ -287,6 +287,29 @@
     }
    ],
    "check": "assets"
+  },
+  {
+   "id": "music-and-sfx-at-half-the-voice",
+   "when": "mixing any story short with a voiceover",
+   "do": "Lock the mix with one linear gain and a peak limiter, no ducking that changes the ratio: music bed at 50 percent of the voice level (about -6 dB, gated RMS), SFX at 50 percent or a little less with peaks capped at 0.7 of the voice peak, master about -14 LUFS with a -1 dBFS peak limiter. SFX sparse (fewer than 8 events per 20 s), none on captions; the music stops on the twist line.",
+   "parameters": {
+    "music_vs_voice_db": -6,
+    "sfx_peak_vs_voice_peak": 0.7,
+    "lufs": -14,
+    "sfx_per_20s_max": 8
+   },
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "cartoon-audio-short mix.py and Stick3D mix_sfx.py rules"
+    }
+   ],
+   "anti_patterns": [
+    "SFX on every word",
+    "music louder than the voice",
+    "editing or re-timing the voice"
+   ],
+   "check": "audio"
   }
  ]
 }

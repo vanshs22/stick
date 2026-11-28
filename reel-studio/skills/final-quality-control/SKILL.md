@@ -35,3 +35,11 @@ Rendering options and codecs: `node $TK/tools/rs.mjs render rendering`. Licence 
 2. Findings name shots: `node $TK/tools/fix_plan.mjs $P`, fix, then re-render ONLY those shots: `node $TK/tools/render_segments.mjs $P --shots S03` (cached by content hash) and `node $TK/tools/assemble.mjs $P`.
 3. The user can reject, replace a shot, change music, captions, a transition or the pacing: `node $TK/tools/state.mjs change $P <kind> --shot S03 --note "..."`.
 4. Deliver: `state.mjs seal $P renders/<name>.mp4` writes the receipt (who approved what, which gates were delegated). If the voice is AI-generated, remind the user to switch on the platform's AI label. Never claim a vision critic ran if you could not open the images.
+
+## Hard gates for 3D and puppet stories (added from the animated-shorts kit, docs/references/drive-kits/06_CHECKS.md)
+Run on every frame of the storyboard stills or the render. No full render while a hard gate fails; a waiver needs a written reason the user accepted.
+- Logic: a person walks into or through a person, car, wall, shelf or table; a hand is not on the handle it should hold; people, props, cars float or sink; a carried object leaves the hand.
+- Framing: head or face cut by the frame edge; camera inside geometry or under the ground (clamped in three/cinema.js) or less than 0.5 m from a head; subject hidden for 5 frames or more, or a foreground thing covering it.
+- Warnings: subject off-centre, too small or too big, feet cut, no headroom, face under the caption, a sign that cannot be read.
+- Watch the whole video as contact sheets every 0.5 s before saying done; a few stills hide sinking props and cameras inside faces. Keep every version (v1, v2, ...); put each fix into the shared engine, not one video's copy.
+
