@@ -56,3 +56,11 @@ Face in frame and not cropped by the sides; hero or hero object readable in 0.3 
 
 ## 8. Failure log (so we do not repeat it)
 Cap-only frames (extreme close-up + low angle + wrong face height); camera under the ground (black frame); sharp rectangle behind a sprite from the depth-of-field pass (keep aperture <= 0.0015); focus subject outside the frame because the critic used the start framing for the whole take (fixed: it checks the active key); fill props moving between shots (ids now stable); characters jumping between shots (keep the stage anchor).
+
+## 9. World life and logic (added after the "Pull" short)
+- The city world is alive and safe: two traffic lanes (x = -1.35 moving -z at 5.0 m/s, x = +1.35 moving +z at 5.6 m/s), five vehicles per lane 21 m apart (no overlap possible), parked cars only at the kerb (x = +-3.45, hatch and pickup), wheels spin with distance; pedestrians walk three sidewalk lanes (one direction per lane, spaced 6 m+) with a 4-frame walk cycle. A shot that uses a lane for the cast turns that walker lane off: `worldOpts.walkers: [1,2]`.
+- Props that act: `shopdoor` (opens about a hinge, swing in or out, rattles when stuck, sign), `parcelbox` (follows an actor's hand), `cone`, `crate`, `planter`, `mailbox`, `bench`, `hydrant`, `bin`, `car` (parked or on a path).
+- Painted wood (grain, knots, seams, nails) on fences and the door frame; facades with window modules, shopfronts and awnings; ink pass on everything in the world.
+- Acting effects drawn with the character: sweat drops (worried/scared), a bang mark (shock), anger marks (angry/annoyed), dust puffs at the feet on steps. Moods map to open-eyed faces (calm, curious, worried, excited, proud) and the kit's lidded faces only for deadpan beats.
+- Every film is proven with `plan_scenes.mjs` (ledger + choreography) and `check_cinematography.mjs` BEFORE a still is rendered.
+

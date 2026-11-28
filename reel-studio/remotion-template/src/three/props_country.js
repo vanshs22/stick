@@ -2,13 +2,21 @@
 import * as THREE from 'three';
 import { mat, T, canvasTex } from './world.js';
 
+const rn = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+/** painted-wood plank texture: base tone, long grain lines, knots, dark seams and nail heads (replaces flat beige boards) */
+const woodTex = () => canvasTex('plankwood2', 128, 512, (g, w, h) => {
+  const gr = g.createLinearGradient(0, 0, w, 0); gr.addColorStop(0, '#d2b48a'); gr.addColorStop(0.5, '#e6cba0'); gr.addColorStop(1, '#c9aa7e'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 46; i++) { const x = rn(i) * w; g.strokeStyle = `rgba(95,62,30,${0.1 + rn(i * 3) * 0.2})`; g.lineWidth = 0.8 + rn(i * 5) * 1.6; g.beginPath(); g.moveTo(x, 0); for (let y = 0; y <= h; y += 64) g.lineTo(x + Math.sin(y * 0.02 + i) * 3 + (rn(i + y) - 0.5) * 2, y); g.stroke(); }
+  for (let k = 0; k < 3; k++) { const x = 20 + rn(k * 7) * 88, y = 60 + rn(k * 11 + 2) * 400; g.fillStyle = 'rgba(88,56,26,0.7)'; g.beginPath(); g.ellipse(x, y, 7, 12, 0, 0, 7); g.fill(); g.strokeStyle = 'rgba(88,56,26,0.5)'; g.lineWidth = 2; g.beginPath(); g.ellipse(x, y, 13, 20, 0, 0, 7); g.stroke(); }
+  g.fillStyle = 'rgba(40,24,10,0.6)'; g.fillRect(0, 0, 4, h); g.fillRect(w - 4, 0, 4, h); for (const y of [90, h - 120]) { g.fillStyle = '#4a3a2c'; g.beginPath(); g.arc(w / 2, y, 4, 0, 7); g.fill(); }
+}, [1, 1]);
 const ease = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
 const val = (spec, lt, d) => { if (!Array.isArray(spec)) return spec ?? d; let v = spec[0][1], p = spec[0][0]; for (let i = 0; i < spec.length; i++) { if (lt >= spec[i][0]) { v = spec[i][1]; p = spec[i][0]; if (i < spec.length - 1) { const k = ease((lt - p) / Math.max(0.001, spec[i + 1][0] - p)); v = spec[i][1] + (spec[i + 1][1] - spec[i][1]) * k; } } } return v; };
 
 /** plankfence: {at:[x,z], rotY, len, h: number | [[t,height],...], col, fly:{from, dur, lift, spin, drift}} */
 function plankfence(e) {
   const g = new THREE.Group(), inner = new THREE.Group(), len = e.len || 8, at = e.at || [0, 0]; g.add(inner); g.position.set(at[0], 0, at[1]); g.rotation.y = e.rotY || 0;
-  const post = mat({ color: '#5A4430', roughness: 1 }), mk = (i) => mat({ color: ['#C9AE86', '#B89C76', '#D2B88E', '#AA9070', '#C0A47C'][i % 5], roughness: 0.95 });
+  const post = mat({ color: '#5A4430', roughness: 1 }), mk = (i) => mat({ map: woodTex(), color: ['#F2DDB8', '#E0C69C', '#FFE6BE', '#D2B88C', '#EAD2A8'][i % 5], roughness: 0.92 });
   const n = Math.max(2, Math.round(len / 1.2)); for (let i = 0; i <= n; i++) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 0.2), post); p.position.set(-len / 2 + (len / n) * i, 0.6, 0); p.castShadow = p.receiveShadow = true; inner.add(p); }
   // vertical boards of uneven height and colour, with gaps, nailed to two rails
   const bw = 0.2, cnt = Math.round(len / (bw + 0.03)); for (let i = 0; i < cnt; i++) { const hgt = 1 + (((Math.sin(i * 12.9898) * 43758.5453) % 1 + 1) % 1) * 0.12; const b = new THREE.Mesh(new THREE.BoxGeometry(bw, hgt, 0.05), mk(i)); b.position.set(-len / 2 + (i + 0.5) * (len / cnt), hgt / 2, 0.11); b.rotation.z = (((Math.sin(i * 78.233) * 43758.5453) % 1) - 0.5) * 0.02; b.castShadow = b.receiveShadow = true; inner.add(b); }

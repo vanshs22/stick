@@ -29,6 +29,9 @@ const add = (severity, shot, problem, evidence, expected, fix, extra = {}) => F.
 const GENERIC = /\b(dynamic|dynamism|energy|energetic|interesting|engaging|keep(s)? (it |things )?(moving|alive|fresh)|more movement|spice|cinematic feel|looks? (cool|nice)|for variety|add motion|visual interest)\b/i;
 const D2R = Math.PI / 180;
 
+const ease01 = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+/** actors who walk (cast.path) are where the path puts them at time t, not where they start */
+function subjectsAt(s, t) { const o = subjectsOf(s); for (const c of s.props?.cast || []) { const p = c.path; if (!p || !p.length || !o[c.id]) continue; let i = 0; while (i < p.length - 1 && t > p[i + 1][0]) i++; const A = p[i], B = p[Math.min(i + 1, p.length - 1)], k = B[0] > A[0] ? ease01((t - A[0]) / (B[0] - A[0])) : 1; o[c.id] = { ...o[c.id], pos: [A[1] + (B[1] - A[1]) * k, o[c.id].pos[1], A[2] + (B[2] - A[2]) * k] }; } return o; }
 function subjectsOf(s) {
   const out = { ...(DATA.worlds[s.props?.world] || {}) };
   for (const c of s.props?.cast || []) { const at = c.at || [0, 0]; out[c.id] = { pos: [at[0], c.y || 0, at[1]], height: (c.height ?? DATA.heights[c.kind || 'human'] ?? 1.8) * (c.scale || 1), rotY: c.rotY || 0 }; }
@@ -50,7 +53,7 @@ for (const s of stage) {
   const mv = spec.movement || { type: 'static' }, type = mv.type || 'static'; const sig = type === 'take' ? 'take:' + (mv.keys || []).map((k) => `${k.framing}/${k.angle || ''}`).join('>') : type;
   if (!MOVEMENTS.includes(type)) { add('blocker', s.id, 'unknown camera movement', `"${type}"`, MOVEMENTS.join(', '), 'Use a supported movement'); continue; }
   const badF = [mv.from?.framing, mv.to?.framing].filter((f) => f && !FRAMINGS[f]); if (badF.length) { add('blocker', s.id, 'camera movement uses an unknown framing', badF.map((f) => `"${f}"`).join(', '), Object.keys(FRAMINGS).join(', '), 'Use a supported framing in movement.from / movement.to'); continue; }
-  let c0, c1, cm; try { c0 = cameraAt(spec, subj, 0, d); cm = cameraAt(spec, subj, d / 2, d); c1 = cameraAt(spec, subj, d, d); } catch (e) { add('blocker', s.id, 'camera cannot be solved', e.message, 'valid subjects and poses', 'Fix the camera spec'); continue; }
+  const subjS = { start: subjectsAt(s, 0), middle: subjectsAt(s, d / 2), end: subjectsAt(s, d) }; let c0, c1, cm; try { c0 = cameraAt(spec, subjS.start, 0, d); cm = cameraAt(spec, subjS.middle, d / 2, d); c1 = cameraAt(spec, subjS.end, d, d); } catch (e) { add('blocker', s.id, 'camera cannot be solved', e.message, 'valid subjects and poses', 'Fix the camera spec'); continue; }
   cams[s.id] = { c0, cm, c1, subj, spec, d };
   if (type !== 'static') {
     moves++;
@@ -87,10 +90,18 @@ for (const s of stage) {
   const fsId = typeof spec.focus?.target === 'string' ? spec.focus.target : typeof spec.subject === 'string' ? spec.subject : null;
   const keyAt = (lab) => { if (type !== 'take' || !(mv.keys || []).length) return { subject: fsId, framing: spec.framing }; const u = lab === 'start' ? 0 : lab === 'middle' ? 0.5 : 1, k = mv.keys.reduce((bst, x) => (Math.abs((x.t ?? 0) - u) < Math.abs((bst.t ?? 0) - u) ? x : bst)); return { subject: k.subject || spec.subject, framing: k.framing || spec.framing }; };   // a take checks the subject and framing of the key that is active at that moment
   if (fsId || type === 'take') for (const [lab, c] of [['start', c0], ['middle', cm], ['end', c1]]) {
-    const { subject: fsK, framing: frK } = keyAt(lab); if (!fsK || !subj[fsK] || frK === 'insert') continue; if (type === 'take' && !(s.props?.cast || []).some((q) => q.id === fsK)) continue;   // world subjects (street, field) are places, not people
+    const subj = subjS[lab], { subject: fsK, framing: frK } = keyAt(lab); if (!fsK || !subj[fsK] || frK === 'insert') continue; if (type === 'take' && !(s.props?.cast || []).some((q) => q.id === fsK)) continue;   // world subjects (street, field) are places, not people
     const sj = subj[fsK], pt = project([sj.pos[0], sj.pos[1] + sj.height * (['close-up', 'extreme-close-up', 'medium-close-up'].includes(frK) ? 0.9 : 0.55), sj.pos[2]], c);
     if (!pt.front) { add('blocker', s.id, 'focus subject is behind the camera', lab, 'in front of the camera', 'Fix the camera pose'); break; }
     if (pt.x < 0.05 || pt.x > 0.95 || pt.y < 0.08 || pt.y > 0.92) { add('major', s.id, 'focus subject leaves the safe frame', `${lab}: x ${pt.x.toFixed(2)} y ${pt.y.toFixed(2)}`, 'x 0.05-0.95, y 0.08-0.92', 'Adjust offset/framing', { timestamp_sec: lab === 'start' ? 0 : lab === 'middle' ? d / 2 : d }); break; }
+  }
+  // camera clearance (animated-shorts hard gates): never under the ground, never within 0.5 m of a head, never in live traffic or inside a building
+  for (const [lab, c] of [['start', c0], ['middle', cm], ['end', c1]]) {
+    const ts = { timestamp_sec: lab === 'start' ? 0 : lab === 'middle' ? d / 2 : d };
+    if (s.props?.world === 'city-street' && c.pos[1] < 4.5 && (Math.abs(c.pos[0]) < 4.6 || Math.abs(c.pos[0]) > 7.5)) { add('blocker', s.id, Math.abs(c.pos[0]) < 4.6 ? 'camera sits in the traffic lanes' : 'camera is inside a building', `${lab}: x ${c.pos[0].toFixed(2)}, y ${c.pos[1].toFixed(2)}`, 'on a sidewalk (4.75-7.4 m from the street axis) or above 4.5 m', 'Move the camera: smaller distScale, another az, or a higher angle', ts); break; }
+    if (c.pos[1] < 0.28) { add('blocker', s.id, 'camera is under or on the ground', `${lab}: y ${c.pos[1].toFixed(2)} m`, 'at least 0.3 m above the ground', 'Raise the camera or use a higher angle', ts); break; }
+    const hit = Object.entries(subj).find(([id, sj]) => sj.height > 0.5 && sj.height < 3 && (s.props?.cast || []).some((q) => q.id === id) && Math.hypot(c.pos[0] - sj.pos[0], c.pos[1] - (sj.pos[1] + sj.height * 0.93), c.pos[2] - sj.pos[2]) < 0.5);
+    if (hit) { add('major', s.id, 'camera is closer than 0.5 m to a head', `${lab}: ${hit[0]}`, 'at least 0.5 m', 'Pull the camera back or use a longer framing', ts); break; }
   }
   const cons = [...(spec.constraints || []), ...(mv.constraints || [])].map(String);
   // default composition rule: in wide/medium framings of a character the HEAD must not be cut by the frame (close-ups, inserts and over-the-shoulder may crop on purpose). Opt out with a constraint "allow head crop".
@@ -112,7 +123,7 @@ for (let i = 1; i < stage.length; i++) {
   const sid = ca.spec.subject, same = typeof sid === 'string' && sid === cb.spec.subject && ca.subj[sid]?.kind !== 'giftbox';
   if (sameWorld && same && ca.subj[sid] && cb.subj[sid]) { const da = dirOf(ca, sid, ca.c1), db = dirOf(cb, sid, cb.c0); if (Math.abs(da) > 0.3 && Math.abs(db) > 0.3 && Math.sign(da) !== Math.sign(db) && Math.abs(ca.subj[sid].rotY - cb.subj[sid].rotY) < 0.3) add('major', b.id, 'screen direction flips across the cut', `${a.id}: subject faces ${da > 0 ? 'screen-left' : 'screen-right'}, ${b.id}: ${db > 0 ? 'screen-left' : 'screen-right'} while it does not turn`, 'the subject keeps looking/moving the same way on screen unless it turns in the shot', 'Mirror the angle or let the character turn on screen'); }
   // character continuity
-  for (const c of b.props.cast || []) { const p = (a.props.cast || []).find((x) => x.id === c.id); if (p && sameWorld) { const d0 = Math.hypot((p.at?.[0] ?? 0) - (c.at?.[0] ?? 0), (p.at?.[1] ?? 0) - (c.at?.[1] ?? 0)); if (d0 > 0.6 && !(p.walk || c.walk)) add('major', b.id, 'character jumps to a different position between shots', `${c.id}: ${a.id} at ${JSON.stringify(p.at)}, ${b.id} at ${JSON.stringify(c.at)}`, 'same position unless the character walks', 'Keep the position or add a walk'); if (p.kind !== c.kind || JSON.stringify(p.look || {}) !== JSON.stringify(c.look || {})) add('major', b.id, 'character looks different from the previous shot', `${c.id}`, 'identical kind and look in every shot of the scene', 'Use the same look object'); } }
+  for (const c of b.props.cast || []) { const p = (a.props.cast || []).find((x) => x.id === c.id); if (p && sameWorld) { const pe = p.path?.length ? [p.path[p.path.length - 1][1], p.path[p.path.length - 1][2]] : (p.at || [0, 0]), d0 = Math.hypot(pe[0] - (c.at?.[0] ?? 0), pe[1] - (c.at?.[1] ?? 0));; if (d0 > 0.6 && !(p.walk || c.walk)) add('major', b.id, 'character jumps to a different position between shots', `${c.id}: ${a.id} at ${JSON.stringify(p.at)}, ${b.id} at ${JSON.stringify(c.at)}`, 'same position unless the character walks', 'Keep the position or add a walk'); if (p.kind !== c.kind || JSON.stringify(p.look || {}) !== JSON.stringify(c.look || {})) add('major', b.id, 'character looks different from the previous shot', `${c.id}`, 'identical kind and look in every shot of the scene', 'Use the same look object'); } }
   for (const p of b.props.props3d || []) { const q = (a.props.props3d || []).find((x) => x.id === p.id); if (q && sameWorld && Math.hypot(...[0, 1, 2].map((k) => (q.at?.[k] ?? 0) - (p.at?.[k] ?? 0))) > 0.05) add('major', b.id, 'object moves between shots', `${p.id}`, 'same position unless it is moved on screen', 'Keep the position'); }
   if (!sameWorld) add('minor', b.id, 'location changes', `${a.id} -> ${b.id}`, 'a motivated transition (dip/wipe/match) is better than a straight cut', 'Declare transition_out.why', { fix_target: 'storyboard' });
   // match cut

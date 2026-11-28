@@ -19,3 +19,6 @@ The ending decides saves, follows and comments. Read `node tools/playbook.mjs qu
 
 ## Refuse
 Two asks in one ending (comment AND follow AND share), a keyword the video never mentioned, a CTA longer than 6 s.
+
+## Question and keyword CTAs for story shorts (see skills/story-writer/SKILL.md)
+End on ONE open question that is cheap and personal to answer, with a comment keyword (PUSHED, ROUTE), said in the character's voice, last 1-2 s. `tools/script_lint.mjs` fails scripts with no open loop or a generic like-and-subscribe CTA.

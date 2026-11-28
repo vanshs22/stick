@@ -2,12 +2,13 @@
  "key": "2-stickman-3d",
  "name": "2D stickman in a 3D world",
  "ok": true,
- "secs": 302,
+ "secs": 110,
  "director": {
   "verdict": "pass",
-  "score": 98,
+  "score": 96,
   "findings": [
-   "minor: four shots in a row have almost the same length"
+   "minor: four shots in a row have almost the same length",
+   "minor: same framing and angle three shots in a row"
   ]
  },
  "captions": {

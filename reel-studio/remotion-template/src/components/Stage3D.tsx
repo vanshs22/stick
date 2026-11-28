@@ -62,7 +62,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
       [...actors, ...props].forEach((a: any) => (byId[a.id] = a));
       const ctx = {target: (id: string, off?: number[]) => { const s = byId[id] ? byId[id].subject() : wd.subjects[id]; const p = new THREE.Vector3(s.pos[0], s.pos[1] + s.height * 0.7, s.pos[2]); if (off) p.add(new THREE.Vector3(...off)); return p; }};
       actors.forEach((a: any, i: number) => a.update(lt, t, cast[i].speaks === false ? 0 : hasSpeakers ? talkAt(t, cast[i].speaker || cast[i].id) : cast[i].speaks || i === 0 ? talkAt(t) : 0, ctx));
-      props.forEach((p: any) => p.update(lt, t));
+      props.forEach((p: any) => p.update(lt, t, byId));
       wd.update?.(t, lt);
       (mirrors || []).forEach((m: any) => { const a: THREE.Object3D[] = [], b: THREE.Object3D[] = []; m.src.traverse((o: any) => a.push(o)); m.copy.traverse((o: any) => b.push(o)); a.forEach((o, i) => { const q = b[i]; if (!q) return; q.position.copy(o.position); q.quaternion.copy(o.quaternion); q.scale.copy(o.scale); q.visible = o.visible; }); });
       const subjects: Entry = {...wd.subjects};
@@ -70,6 +70,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
       const c = cameraAt(camera, subjects, lt, d, width / height);
       cam.fov = c.fov; cam.aspect = width / height; cam.position.set(...(c.pos as [number, number, number])); cam.up.set(0, 1, 0); cam.lookAt(...(c.look as [number, number, number])); if (c.roll) cam.rotateZ((c.roll * Math.PI) / 180); cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
       actors.forEach((a: any) => a.faceCamera?.(cam));
+      wd.faceCamera?.(cam);
       E.render(wd.scene, cam, {...wd.look, ...look, focus: c.focusDist, aperture: look?.aperture ?? c.aperture, t});
       };
       doRender();

@@ -19,3 +19,6 @@ The hook is a promise plus a stake, spoken in under 3 seconds, matched by the fi
 
 ## Refuse
 Greetings, channel names, 'today we', questions with an obvious answer, a hook the first frame cannot show.
+
+## Short-story hooks (see skills/story-writer/SKILL.md)
+For 10-20 s story shorts: 14 words or fewer, person + goal + clock or contradiction, mid-action, no greeting. Run `node tools/script_lint.mjs` (hook-length, hook-setup, hook-hard).

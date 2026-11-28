@@ -1,6 +1,8 @@
 // Scene planner for style 2 (2D character in a real 3D world): turns script lines into a full shot plan.
 // Rules come from foundation/playbooks (camera: measured-move-mix, move-envelope-on-the-word, one-take-travels-between-subjects, dissolve-at-place-or-time-change;
 // acting; hook-cta) and skills/reel-director/SCENE-PLANNING.md. Pure functions: same script in, same plan out.
+import { compileStage, checkChoreo } from './choreo.mjs';
+import { solvePose } from '../../remotion-template/src/three/cinema.js';
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 export const LOCATIONS = {
   city: { world: 'city-street', test: /\b(street|city|town|traffic|bus|buses|car|cars|truck|store|shop|office|building|crowd|sidewalk|bench|market|cafe|corner|highway|stop)\b/i, stage: [-5.4, 1.0], subjects: { wide: 'street', far: 'skyline' } },
@@ -21,7 +23,8 @@ const FILL = {   // set dressing that gives foreground / midground / background 
 const MOOD = { shock: 'shock', calm: 'neutral', sarcastic: 'smug', whisper: 'neutral', curious: 'neutral', fear: 'scared', anger: 'angry', joy: 'happy', surprise: 'shock', sad: 'sad', proud: 'smug', neutral: 'neutral', smug: 'smug', determined: 'determined', worry: 'scared', excited: 'happy' };
 const POSE_BY_FN = { hook: 'point', establish: 'idle', explain: 'hip', 'list-item': 'point', reveal: 'shock', reaction: 'shrug', emotion: 'slump', payoff: 'cheer', cta: 'point', contrast: 'shrug', question: 'think', warning: 'hold', 'payoff-line': 'cheer' };
 const wordsOf = (t) => String(t).replace(/[^\w' -]/g, ' ').split(/\s+/).filter(Boolean);
-const durOf = (t) => Math.max(1.6, wordsOf(t).length / 3.4);
+/** estimated spoken length, the same model as tools/audio/estimate.py (2.8 words/s, pauses at commas and full stops, 0.32 s gap) so actions land on the same clock as the timeline; real durations (data/lines.json) replace it via opts.durations */
+const durOf = (t, l, d) => { if (d && d[l?.id]) return d[l.id]; const w = wordsOf(t).length, pa = (String(t).match(/[,;:]/g) || []).length * 0.18 + (String(t).replace(/[.!?]\s*$/, '').match(/[.!?]\s/g) || []).length * 0.35; return Math.max(1.6, w / (2.8 * (l?.delivery?.speed || 1)) + pa + (l?.delivery?.pause_after ?? 0.32) + (l?.delivery?.pause_before ?? 0)); };
 /** fraction through the line where the key word lands (an emphasised word, else the last noun-like word, else 0.6) */
 function keyFrac(line) {
   const w = wordsOf(line.text), emph = (line.emphasis || []).map((x) => String(x).toLowerCase());
@@ -33,19 +36,32 @@ export function timeOf(text, i, n) { if (/\b(night|dark|midnight|evening)\b/i.te
 const FN = (text, i, n, beat) => (i === 0 || beat === 'hook' ? 'hook' : i === n - 1 || beat === 'cta' ? 'cta' : /\?\s*$/.test(text) ? 'question' : /\b(suddenly|turns out|then|until|but|looked)\b/i.test(text) ? 'reveal' : /\b(each|every|first|second|third|again)\b/i.test(text) ? 'list-item' : beat === 'proof' || i === n - 2 ? 'payoff' : 'explain');
 const PURPOSE = { hook: 'hook', question: 'explain', reveal: 'reveal', 'list-item': 'explain', payoff: 'payoff', explain: 'explain', cta: 'cta' };
 
+/** the lens must not sit in live traffic or inside a building: shrink the distance (or raise the camera) until it stands on a sidewalk */
+function fitCityCamera(keys, cast, props3d) {
+  const subj = {}; for (const c of cast) subj[c.id] = { pos: [c.at[0], 0.16, c.at[1]], height: c.height || 2.0, rotY: 0 }; for (const q of props3d) subj[q.id] = { pos: [q.at?.[0] ?? 0, 0, q.at?.[1] ?? 0], height: q.kind === 'shopdoor' ? 2.15 : 0.8, rotY: q.kind === 'shopdoor' ? (q.face >= 0 ? Math.PI / 2 : -Math.PI / 2) : 0 };
+  subj.street = { pos: [0, 0, -10], height: 2, rotY: 0 }; subj.skyline = { pos: [0, 12, -60], height: 30, rotY: 0 };
+  const ok = (pos) => pos[1] > 5 || (Math.abs(pos[0]) > 4.75 && Math.abs(pos[0]) < 7.4);
+  for (const k of keys) { if (!subj[k.subject]) continue; const s0 = k.distScale ?? 1; let done = false;
+    for (let s = s0, i = 0; i < 7 && !done; i++, s *= 0.9) for (const az of [k.az || 0, (k.az || 0) * 0.6, (k.az || 0) * 0.3, 0, 12, 22, 35]) { let pose; try { pose = solvePose({ framing: k.framing, angle: k.angle, subject: k.subject, az, roll: k.roll, distScale: s }, subj); } catch { done = true; break; } if (ok(pose.pos)) { k.az = +az.toFixed(1); k.distScale = +s.toFixed(2); done = true; break; } }   // keep the lens distance, give up azimuth first
+    if (!done) { k.angle = 'high-angle'; } }
+}
 /** plan the shots: returns { shots, ledger } */
 export function planScenes(script, opts = {}) {
   const lines = script.lines, n = lines.length, shots = [], ledger = []; let prevPlace = null, prevFrame = '', prevAngle = '', sign = 1;
   lines.forEach((l, i) => {
-    const place = detectPlace(l.text, prevPlace), L = LOCATIONS[place], time = timeOf(l.text, i, n), fn = FN(l.text, i, n, l.beat), changed = prevPlace && place !== prevPlace;
-    let purpose = PURPOSE[fn] || 'explain'; if (i === 1 && !changed) purpose = 'establish'; if (/^(fear|anger|sad|shock)$/.test(l.emotion || '') && purpose === 'explain') purpose = 'emotion';
-    const obj = OBJECTS.find((o) => o.re.test(l.text) && o[place]); const dur = durOf(l.text), f = keyFrac(l), [ax, az] = L.stage;
+    const st = l.stage || {}, place = st.place || detectPlace(l.text, prevPlace), L = LOCATIONS[place], time = st.time || timeOf(l.text, i, n), fn = FN(l.text, i, n, l.beat), changed = prevPlace && place !== prevPlace;
+    let purpose = PURPOSE[fn] || 'explain'; if (i === 1 && !changed && n >= 6) purpose = 'establish'; if (/^(fear|anger|sad|shock)$/.test(l.emotion || '') && purpose === 'explain') purpose = 'emotion';
+    const obj = OBJECTS.find((o) => o.re.test(l.text) && o[place]); const dur = durOf(l.text, l, opts.durations), f = keyFrac(l), [ax, az] = L.stage;
     const hero = 'otto', needPartner = /\b(he|she|they|farmer|driver|man|woman|boss|friend|neighbou?r|officer|looked|said|asked|paid)\b/i.test(l.text) && i > 0, partner = i % 2 ? 'mabel' : 'rex', crowd = /\b(crowd|everyone|people|buses|traffic)\b/i.test(l.text);
     const cast = [{ id: hero, kind: 'sprite', char: hero, height: 2.0, at: [ax + (rnd(i) - 0.5) * 0.5, az + (place === 'city' ? rnd(i + 3) * 1.2 : 0)], pose: [[0, 'idle'], [+(f * dur).toFixed(2), POSE_BY_FN[fn] || 'idle']], mood: [[0, MOOD[l.emotion] || 'neutral']], speaks: false, ...(place === 'city' ? { gaze: [0.4, 0] } : {}) }];
-    if (needPartner) cast.push({ id: partner, kind: 'sprite', char: partner, height: 2.0, at: [ax + (place === 'city' ? 1.8 : 1.9), az - 0.7], flip: true, pose: [[0, 'idle'], [+(f * dur).toFixed(2), fn === 'reveal' ? 'point' : 'hip']], mood: [[0, MOOD[l.emotion] || 'neutral']], speaks: false });
-    if (crowd && place === 'city') cast.push({ id: 'gus', kind: 'sprite', char: 'gus', height: 2.0, at: [ax + 3.4, az - 2.4], flip: true, pose: [[0, 'idle']], mood: [[0, 'neutral']], speaks: false });
+    if (needPartner && !st.cast) cast.push({ id: partner, kind: 'sprite', char: partner, height: 2.0, at: place === 'city' ? [ax - 1.35, az - 0.9] : [ax + 1.9, az - 0.7], flip: place !== 'city', pose: [[0, 'idle'], [+(f * dur).toFixed(2), fn === 'reveal' ? 'point' : 'hip']], mood: [[0, MOOD[l.emotion] || 'neutral']], speaks: false });
+    if (crowd && place === 'city' && !st.cast) cast.push({ id: 'gus', kind: 'sprite', char: 'gus', height: 2.0, at: [ax - 0.9, az - 3.3], flip: true, pose: [[0, 'idle']], mood: [[0, 'neutral']], speaks: false });
     const props3d = []; if (obj) props3d.push({ id: 'hero_' + obj.kind, kind: obj.kind, at: obj[place], ...obj.opts });
     for (const fl of FILL[place]) if (!props3d.some((p) => p.kind === fl.kind && Math.hypot(p.at[0] - fl.at[0], p.at[1] - fl.at[1]) < 3)) props3d.push({ id: `fill_${fl.kind}_${FILL[place].indexOf(fl)}`, kind: fl.kind, at: fl.at, ...(fl.opts || {}) });
+    let notes = [];
+    if (st.cast) for (const o of st.cast) { const c = cast.find((x) => x.id === o.id); if (c) Object.assign(c, o); else cast.push({ kind: 'sprite', height: 2.0, pose: [[0, 'idle']], mood: [[0, 'neutral']], speaks: false, char: o.id, ...o }); }
+    if (st.props3d) { for (const sp of st.props3d) { const k = props3d.findIndex((x) => x.id === sp.id || (x.kind === sp.kind && x.kind !== 'car' && Math.hypot((x.at?.[0] ?? 0) - (sp.at?.[0] ?? 9), (x.at?.[1] ?? 0) - (sp.at?.[1] ?? 9)) < 2)); if (k >= 0) props3d.splice(k, 1); props3d.push({ ...sp }); } }
+    if (st.actions) notes = compileStage(st, cast, props3d, dur);
     // camera: one take, keyed on the word; angle and framing never repeat the neighbour (ledger rule)
     const angles = ['eye-level', 'low-angle', 'high-angle'], pick = (a) => (a === prevAngle ? angles[(angles.indexOf(a) + 1) % 3] : a);
     let angle = pick(purpose === 'hook' || purpose === 'payoff' ? 'low-angle' : purpose === 'establish' ? 'high-angle' : purpose === 'emotion' ? 'eye-level' : angles[(i + 1) % 3]); sign = -sign; const az0 = 14 * sign;
@@ -60,16 +76,20 @@ export function planScenes(script, opts = {}) {
     else { framing = obj ? (obj.ins === 'wide' ? 'medium-wide' : 'close-up') : 'medium'; keys = [{ t: 0, framing: obj ? 'wide' : 'medium', angle, subject: subj, az: obj ? az0 * 3 : az0 }, { t: Math.max(0.35, f), framing: obj ? (obj.ins === 'wide' ? 'medium-wide' : 'close-up') : 'medium-close-up', angle, subject: subj, az: obj ? az0 * 2.4 : az0 * 0.5 }, { t: 1, framing: obj ? (obj.ins === 'wide' ? 'medium-wide' : 'close-up') : 'medium-close-up', angle: pick(angles[(i + 2) % 3]), subject: subj, az: obj ? az0 * 1.8 : -az0 * 0.4 }]; why = obj ? `Push in on the object the line names so the viewer sees the thing the sentence is about.` : `Medium take that pushes in on the key word and drifts to a new side so it does not repeat the last shot.`; }
     for (const k of keys) { if (k.framing === 'close-up') k.distScale = 1.65; else if (k.framing === 'medium-close-up') k.distScale = 1.3; }   // 9:16 is narrow: a ball head is wider than the close-up table assumes
     if (keys[0].framing === prevFrame && keys[0].angle === prevAngle) { keys[0].angle = pick(angles[(angles.indexOf(keys[0].angle) + 1) % 3]); }
+    if (st.camera) { keys = st.camera.keys.map((k) => ({ ...k })); for (const k of keys) { if (k.framing === 'close-up') k.distScale = k.distScale ?? 1.65; else if (k.framing === 'medium-close-up') k.distScale = k.distScale ?? 1.3; } framing = keys[0].framing; why = st.camera.why || why; }
+    if (place === 'city') fitCityCamera(keys, cast, props3d);
     const camera = { framing: keys[0].framing, angle: keys[0].angle, subject: keys[0].subject, focus: { target: tgt === partner && purpose === 'reveal' ? partner : hero, aperture: 0.0015 }, constraints: ['subject stays in the safe frame', 'camera never inside a prop or the ground'], movement: { type: 'take', duration: 'shot', why: why + ` (line ${l.id}, key word at ${(f * 100) | 0}% of the line)`, keys } };
     const trans = purpose === 'reveal' ? { type: 'whip', sound: 'whoosh', why: 'The new thing arrives on the whip so the reveal is a camera move, not a cut' } : { type: 'cut', sound: 'none' };
     const key = wordsOf(l.text)[Math.min(wordsOf(l.text).length - 1, Math.floor(f * wordsOf(l.text).length))];
     shots.push({ id: `S${String(i + 1).padStart(2, '0')}`, line_ids: [l.id], visual_intent: `${purpose} in the ${place === 'city' ? 'city street' : 'country'}: ${why}`, shot_type: '3d-scene', component: 'Stage3D', approach: 'physical-3d', why_renderer: 'The world and the camera tell the story; the sprite actor stands inside it.',
-      props: { world: LOCATIONS[place].world, worldOpts: { time, ink: opts.ink ?? 0.8 }, cast, props3d, camera }, anchors: [{ name: 'a0', line: l.id, word: String(key).toLowerCase() }], overlays: [], transition_out: trans });
+      props: { world: LOCATIONS[place].world, worldOpts: { time, ink: opts.ink ?? 0.8, ...(st.worldOpts || {}) }, cast, props3d, camera }, anchors: [{ name: 'a0', line: l.id, word: String(key).toLowerCase() }], overlays: [], transition_out: trans });
+    shots.at(-1).choreo = [...notes, ...checkChoreo(shots.at(-1), dur, { roadHalf: place === 'city' ? 4.5 : 0 })]; shots.at(-1)._dur = dur;
     ledger.push({ shot: shots.at(-1).id, place, time, purpose, framing: keys[0].framing, angle: keys[0].angle, subject: keys[0].subject, move: `take ${keys.map((k) => k.framing).join(' > ')}`, transition: trans.type, cast: cast.map((c) => c.id).join('+'), hero: obj?.kind || '' });
     prevPlace = place; prevFrame = keys[0].framing; prevAngle = keys[0].angle;
   });
   ledger.forEach((r, i) => { const nx = ledger[i + 1]; if (nx && nx.place !== r.place) { shots[i].transition_out = { type: 'dissolve', sound: 'none', why: `Place changes from ${r.place} to ${nx.place} so the story hands over with a 3-6 frame dissolve` }; r.transition = 'dissolve'; } else if (shots[i].transition_out.type === 'dissolve') { shots[i].transition_out = { type: 'cut', sound: 'none' }; r.transition = 'cut'; } });   // a dissolve belongs to the shot BEFORE a place change
-  return { shots, ledger };
+  const choreo = shots.flatMap((s) => s.choreo || []); shots.forEach((s) => { delete s.choreo; delete s._dur; });
+  return { shots, ledger, choreo };
 }
 /** the ledger check: neighbours must differ in framing+angle, and a place change needs a dissolve (skills/reel-director/SCENE-PLANNING.md) */
 export function checkLedger(ledger) {

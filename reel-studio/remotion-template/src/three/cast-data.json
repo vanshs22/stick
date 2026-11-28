@@ -23,7 +23,13 @@
   "roadsign": 2.2,
   "plankfence": 1.2,
   "hat3d": 0.3,
-  "stump": 0.5
+  "stump": 0.5,
+  "shopdoor": 2.15,
+  "parcelbox": 0.4,
+  "cone": 0.65,
+  "crate": 0.9,
+  "planter": 0.8,
+  "mailbox": 1.4
  },
  "worlds": {
   "home-studio": {

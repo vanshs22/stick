@@ -101,6 +101,47 @@
      "caption": {
       "type": "string",
       "minLength": 1
+     },
+     "delivery": {
+      "type": "object",
+      "description": "how a human would say the line: speed multiplier, pause_before/pause_after seconds, energy low|mid|high, pitch low|mid|high, stress [words], breath before the line, hesitation inside the line",
+      "properties": {
+       "speed": {
+        "type": "number"
+       },
+       "pause_before": {
+        "type": "number"
+       },
+       "pause_after": {
+        "type": "number"
+       },
+       "energy": {
+        "type": "string"
+       },
+       "pitch": {
+        "type": "string"
+       },
+       "stress": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "breath": {
+        "type": "boolean"
+       },
+       "hesitate_at": {
+        "type": "string"
+       }
+      }
+     },
+     "stage": {
+      "type": "object",
+      "description": "choreography for this line: place, time, cast overrides, props3d, actions [{who|prop, do: walk|pose|mood|open|rattle|enter|carry, at 0-1, dur 0-1}], camera {keys}"
+     },
+     "open_loop": {
+      "type": "string",
+      "description": "the question or unresolved thing this line plants for the next line or episode"
      }
     }
    },

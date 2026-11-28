@@ -2733,3 +2733,12 @@ export const fxDrip = (p) => p.ell(300, 500, 40, 64, "#9fd4ff", 10);
 export const fxWood = (p, seed) => { p.poly([[200, 420], [400, 400], [420, 560], [230, 600]], "#5b3d22", 14); p.stroke([[240, 450], [380, 440]], 6, "#3a2614"); p.ell(330, 520, 26, 18, "#4d7a32", 0); };
 
 export const headCenter = (seed = 3) => { const H = headBlob(seed, 118, 0), HH = 2 * H.b; return 975 - 1.38 * HH - 1.08 * HH - H.b; };
+
+// ---- extra faces for alive acting (open dot eyes, brows that carry the mood); the kit's lidded faces stay for deadpan ----
+FACE.calm = { eye: ["dot", "dot"], brow: [0, 0], mouth: "dash" };
+FACE.curious = { eye: ["dot", "dot"], brow: [3, 1], mouth: "o" };
+FACE.worried = { eye: ["dot", "dot"], brow: [5, -2], mouth: "wave" };
+FACE.excited = { eye: ["dot", "dot"], brow: [3, 3], mouth: "smileWide" };
+FACE.proud = { eye: ["dot", "dot"], brow: [-1, 2], mouth: "smirk" };
+FACE.annoyed = { eye: ["lid", "lid"], brow: [4, -2], mouth: "frown" };
+FACE.talk = { eye: ["dot", "dot"], brow: [1, 1], mouth: "o" };

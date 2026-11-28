@@ -1,0 +1,915 @@
+{
+ "style_pack": "stickman-world",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "hook in the city street: Open wide on the door so the viewer knows the goal, then follow the courier in and push onto his face at the word six.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8,
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -4.9,
+       3.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "determined"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ],
+      "path": [
+       [
+        0,
+        -4.9,
+        3.4
+       ],
+       [
+        0.51,
+        -4.9,
+        3.4
+       ],
+       [
+        3.07,
+        -6.3,
+        0.4
+       ]
+      ],
+      "flip": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     },
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL"
+     },
+     {
+      "id": "parcel",
+      "kind": "parcelbox",
+      "follow": {
+       "id": "otto",
+       "dx": 0,
+       "dy": 0.95,
+       "dz": 0.42
+      }
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "high-angle",
+     "subject": "door",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Open wide on the door so the viewer knows the goal, then follow the courier in and push onto his face at the word six. (line L01, key word at 25% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "wide",
+        "angle": "high-angle",
+        "subject": "door",
+        "az": -22
+       },
+       {
+        "t": 0.55,
+        "framing": "medium",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 0,
+        "distScale": 1
+       },
+       {
+        "t": 1,
+        "framing": "medium",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": 0,
+        "distScale": 1
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "get"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "explain in the city street: Low, close push on the pushing hand and the sign so the viewer reads PULL and sees the door refuse him.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8,
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -6.3,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ],
+       [
+        1.45,
+        "push"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "determined"
+       ],
+       [
+        1.99,
+        "annoyed"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     },
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL",
+      "rattle": [
+       2.68,
+       0.4344
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "low-angle",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Low, close push on the pushing hand and the sign so the viewer reads PULL and sees the door refuse him. (line L02, key word at 50% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": 24,
+        "distScale": 1
+       },
+       {
+        "t": 0.45,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 14,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": -8,
+        "distScale": 1.3
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "pull"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "explain in the city street: Start on the sign, drift to the courier, then follow the passer-by out of frame so his slow walk is the joke.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8,
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -6.3,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "annoyed"
+       ],
+       [
+        1.9,
+        "frustrated"
+       ],
+       [
+        3.32,
+        "worried"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     },
+     {
+      "kind": "sprite",
+      "height": 2,
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false,
+      "char": "mabel",
+      "id": "mabel",
+      "at": [
+       -4.6,
+       4.2
+      ],
+      "path": [
+       [
+        0,
+        -4.6,
+        4.2
+       ],
+       [
+        0.19,
+        -4.6,
+        4.2
+       ],
+       [
+        4.46,
+        -4.6,
+        -4
+       ]
+      ]
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     },
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL"
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "door",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Start on the sign, drift to the courier, then follow the passer-by out of frame so his slow walk is the joke. (line L03, key word at 45% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "door",
+        "az": 32,
+        "distScale": 1.05
+       },
+       {
+        "t": 0.35,
+        "framing": "medium",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": -6,
+        "distScale": 1
+       },
+       {
+        "t": 0.8,
+        "framing": "medium-wide",
+        "angle": "eye-level",
+        "subject": "mabel",
+        "az": -26,
+        "distScale": 1
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "slowly"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "payoff in the city street: Show the reach, pull back and arc to see the door swing out clear of him, then follow him to the threshold.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8,
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -6.3,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ],
+       [
+        0.69,
+        "reach"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "worried"
+       ],
+       [
+        0.24,
+        "curious"
+       ],
+       [
+        2.94,
+        "proud"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ],
+      "path": [
+       [
+        0,
+        -6.3,
+        0.4
+       ],
+       [
+        1.18,
+        -6.3,
+        0.4
+       ],
+       [
+        1.77,
+        -5.6,
+        0.4
+       ],
+       [
+        3.23,
+        -5.6,
+        0.4
+       ],
+       [
+        4.7,
+        -7.52,
+        0
+       ]
+      ],
+      "flip": true
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     },
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL",
+      "open": [
+       1.37,
+       1.4695714285714285
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "eye-level",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Show the reach, pull back and arc to see the door swing out clear of him, then follow him to the threshold. (line L04, key word at 25% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": -15.6,
+        "distScale": 1
+       },
+       {
+        "t": 0.38,
+        "framing": "medium-wide",
+        "angle": "eye-level",
+        "subject": "door",
+        "az": 34,
+        "distScale": 0.59
+       },
+       {
+        "t": 0.8,
+        "framing": "medium",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": 14,
+        "distScale": 1
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "it"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "cta in the city street: A calm push on the proud courier in the open doorway while the question is asked so the last frame is on him.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8,
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -7.52,
+       0
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ],
+       [
+        1.43,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "proud"
+       ],
+       [
+        1.58,
+        "excited"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     },
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL",
+      "open": [
+       0,
+       0.05
+      ]
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "A calm push on the proud courier in the open doorway while the question is asked so the last frame is on him. (line L05, key word at 25% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 12,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 12,
+        "distScale": 1.65
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "thing"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

@@ -6,7 +6,7 @@
  },
  "2-stickman-3d": {
   "name": "2D stickman in a 3D world",
-  "example": "stickman-street-story"
+  "example": "stickman-pull-story"
  },
  "3-flat-stickman": {
   "name": "2D stickman (flat, series HUD)",

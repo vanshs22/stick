@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { sky, clouds, sunlight, mat, canvasTex } from './world.js';
 import { leafTree } from './worlds_country.js';
 import { buildCar } from './props_city.js';
+import { makeWalkers } from './walkers.js';
 
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const SKY = { day: ['#3C86DE', '#CFE4F4', '#CFE4F4'], golden: ['#2D63BE', '#F2D2A4', '#E6BC8A'], dusk: ['#3B3590', '#FF9E78', '#E48A68'], night: ['#050A1E', '#1B2A52', '#0B1230'] };
@@ -58,12 +59,18 @@ export function cityStreet(E, o = {}) {
   const tl = new THREE.Group(), tp = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.1, 5, 10), lampM)); tp.position.y = 2.5; tl.add(tp); const ar = sh(new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, RW * 0.7), lampM)); ar.position.set(0, 5, -RW * 0.35); tl.add(ar);
   [['#2ECC71', 0.4], ['#E74C3C', 0.4]].forEach(([c, i], k) => { const L = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 10), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: k ? 0.2 : 3, toneMapped: false })); L.position.set(0, 4.8 - k * 0.0, -RW * 0.6 + k * 0.4); tl.add(L); }); tl.position.set(RW / 2 + 0.6, 0, -14); scene.add(tl);
   // cars: parked along both kerbs, three driving
-  const cars = []; const cols = ['#2E6FB5', '#C0392B', '#E8E4DA', '#2F2F34', '#E0A100', '#3E8E5E', '#8E44AD', '#9AA0A8']; const kinds = ['hatch', 'hatch', 'pickup', 'hatch', 'bus'];
-  for (let i = 0; i < 16; i++) { const s = i % 2 ? 1 : -1, c = buildCar(kinds[Math.floor(rnd(i * 5) * kinds.length)], cols[Math.floor(rnd(i * 3) * cols.length)]); c.position.set(s * (RW / 2 - 1.0), 0, -6 - i * 10.5 - rnd(i) * 3); c.rotation.y = s > 0 ? Math.PI : 0; scene.add(c); }
-  [[0, -2.2, 6, 'hatch', '#E8E4DA'], [1, 2.2, -12, 'pickup', '#C0392B'], [2, -2.2, -40, 'bus', '#E0A100']].forEach(([i, x, z0, kd, col]) => { const c = buildCar(kd, col); c.position.set(x, 0, z0); scene.add(c); cars.push({ c, x, z0, dir: x < 0 ? 1 : -1, sp: 5 + i * 1.5 }); c.rotation.y = x < 0 ? Math.PI : 0; });
+  const cars = []; const cols = ['#2E6FB5', '#C0392B', '#E8E4DA', '#2F2F34', '#E0A100', '#3E8E5E', '#8E44AD', '#9AA0A8']; const kinds = ['hatch', 'hatch', 'pickup', 'hatch'];
+  for (let i = 0; i < 16; i++) { const s = i % 2 ? 1 : -1, c = buildCar(kinds[Math.floor(rnd(i * 5) * kinds.length)], cols[Math.floor(rnd(i * 3) * cols.length)]); c.position.set(s * (RW / 2 - 1.05), 0, -6 - i * 10.5 - rnd(i) * 2); c.rotation.y = s > 0 ? Math.PI : 0; scene.add(c); }
+  // driving traffic: two lanes, every car in a lane has the same speed and 21 m between neighbours, so nothing ever overlaps; wheels spin with the distance
+  [[-1, -1.35, 5.0], [1, 1.35, 5.6]].forEach(([dir, lx, sp], li) => { ['hatch', 'pickup', 'bus', 'hatch', 'hatch'].forEach((kd, k) => { const c = buildCar(kd, cols[(k * 3 + li) % cols.length]); c.position.set(lx, 0, 0); c.rotation.y = dir < 0 ? Math.PI : 0; scene.add(c); cars.push({ c, lx, z0: k * 21 + li * 7, dir: -dir, sp, r: kd === 'bus' ? 0.5 : kd === 'pickup' ? 0.42 : 0.34 }); }); });
+  const LOOP = 105;
+  const placeCars = (t) => cars.forEach((k) => { const d = (((k.z0 + k.dir * k.sp * t) % LOOP) + LOOP) % LOOP; k.c.position.z = 25 - d; k.c.userData.wheels?.forEach((wh) => { wh.rotation.x = -k.dir * (k.sp * t) / k.r; }); });
+  placeCars(0);
+  // pedestrians: low-res toon walkers on the sidewalks, one lane per direction, spaced 6 m or more, 4-frame walk cycle
+  const walkers = makeWalkers(scene, RW, SW, night, o.walkers);
   // billboard
   const bb = new THREE.Group(), bt = canvasTex('bb' + time, 512, 256, (g, w, h) => { g.fillStyle = night ? '#101830' : '#FFD23A'; g.fillRect(0, 0, w, h); g.fillStyle = night ? '#FF5A8A' : '#C0252B'; g.font = '900 78px Arial'; g.textAlign = 'center'; g.fillText('BIG SALE', w / 2, 120); g.font = '700 40px Arial'; g.fillStyle = night ? '#9FD0FF' : '#222'; g.fillText('EVERYTHING MUST GO', w / 2, 190); }, [1, 1]); const bp = sh(new THREE.Mesh(new THREE.BoxGeometry(9, 4.5, 0.3), new THREE.MeshStandardMaterial({ map: bt, emissiveMap: bt, emissive: '#fff', emissiveIntensity: night ? 1.6 : 0.15 }))); bp.position.y = 2.25; bb.add(bp); bb.position.set(-(RW / 2 + SW + 8), 34, -60); bb.rotation.y = Math.PI / 2 - 0.35; bb.visible = boxes.some((b) => b.h > 28); scene.add(bb);
   const look = { bloom: night ? 0.9 : 0.2, bloomThreshold: night ? 0.7 : 0.92, vignette: 0.3, grain: 0.016, warm: time === 'golden' || time === 'dusk' ? 0.05 : 0.02, exposure: night ? 1.0 : 1.0, saturation: 1.06, contrast: 1.08, aperture: 0.0015, maxblur: 0.005, split: night ? 0.6 : 0.55, curve: 0.4, ink: o.ink ?? 0, inkWidth: o.inkWidth ?? 1.6 };
   return { scene, sun, sunDir: S.pos, groundAt: (x) => (Math.abs(x) > RW / 2 + 0.2 ? 0.16 : 0), reflect: false, look, subjects: { street: { pos: [0, 0, -10], height: 2, rotY: 0 }, skyline: { pos: [0, 12, -60], height: 30, rotY: 0 }, crosswalk: { pos: [0, 0, -8], height: 2, rotY: 0 }, horizon: { pos: [0, 4, -120], height: 20, rotY: 0 } },
-    update(t) { cl.forEach((c, i) => { c.position.x += Math.sin(t * 0.05 + i) * 0.002; }); cars.forEach((k) => { const z = ((k.z0 - k.dir * -1 * 0) + (-k.dir) * k.sp * t); k.c.position.z = ((((k.z0 - k.dir * k.sp * t) + 60) % 160) + 160) % 160 - 100 + 40; }); } };
+    faceCamera(cam) { walkers.face(cam); }, update(t) { cl.forEach((c, i) => { c.position.x += Math.sin(t * 0.05 + i) * 0.002; }); placeCars(t); walkers.update(t); } };
 }

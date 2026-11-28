@@ -1,0 +1,145 @@
+{
+ "title": "Pull",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "One job. Get the cake through that door before six.",
+   "emotion": "determined",
+   "delivery": {
+    "speed": 1.01,
+    "energy": "high",
+    "pitch": "low",
+    "pause_before": 0,
+    "pause_after": 0.35,
+    "breath": false,
+    "stress": [
+     "job",
+     "six"
+    ]
+   },
+   "tts_text": "One job. … Get the cake through that door before six.",
+   "gestures": [
+    {
+     "at_word": "job",
+     "beat": "head-nod"
+    },
+    {
+     "at_word": "six",
+     "beat": "head-nod"
+    }
+   ],
+   "note": "say it like it just happened to you"
+  },
+  {
+   "id": "L02",
+   "text": "The door said pull. He pushed. Twice.",
+   "emotion": "neutral",
+   "delivery": {
+    "speed": 1,
+    "energy": "mid",
+    "pitch": "mid",
+    "pause_before": 0.1,
+    "pause_after": 0.28,
+    "breath": false,
+    "stress": [
+     "pull",
+     "pushed",
+     "Twice"
+    ]
+   },
+   "tts_text": "The door said pull. … He pushed. … Twice.",
+   "gestures": [
+    {
+     "at_word": "pull",
+     "beat": "head-nod"
+    },
+    {
+     "at_word": "pushed",
+     "beat": "head-nod"
+    },
+    {
+     "at_word": "Twice",
+     "beat": "head-nod"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "L03",
+   "text": "A man walked past. Slowly. Like he'd seen this before.",
+   "emotion": "sarcastic",
+   "delivery": {
+    "speed": 0.95,
+    "energy": "mid",
+    "pitch": "mid-low",
+    "pause_before": 0.15,
+    "pause_after": 0.28,
+    "breath": true,
+    "stress": [
+     "Slowly"
+    ]
+   },
+   "tts_text": "A man walked past. … Slowly. … Like he'd seen this before.",
+   "gestures": [
+    {
+     "at_word": "Slowly",
+     "beat": "head-nod"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "L04",
+   "text": "He pulled. It opened like it had been waiting all day.",
+   "emotion": "proud",
+   "delivery": {
+    "speed": 0.96,
+    "energy": "mid",
+    "pitch": "mid",
+    "pause_before": 0.3,
+    "pause_after": 0.28,
+    "breath": true,
+    "stress": [
+     "pulled"
+    ]
+   },
+   "tts_text": "He pulled. … It opened like it had been waiting all day.",
+   "gestures": [
+    {
+     "at_word": "pulled",
+     "beat": "head-nod"
+    }
+   ],
+   "note": "a beat of silence before the turn, then land it quietly"
+  },
+  {
+   "id": "L05",
+   "text": "Dumbest thing you've ever pushed? Comment it.",
+   "emotion": "happy",
+   "delivery": {
+    "speed": 0.98,
+    "energy": "mid-warm",
+    "pitch": "mid-high",
+    "pause_before": 0.06,
+    "pause_after": 0.5,
+    "breath": false,
+    "stress": [
+     "Dumbest",
+     "pushed"
+    ]
+   },
+   "tts_text": "Dumbest thing you've ever pushed? Comment it.",
+   "gestures": [
+    {
+     "at_word": "Dumbest",
+     "beat": "head-nod"
+    },
+    {
+     "at_word": "pushed",
+     "beat": "head-nod"
+    }
+   ],
+   "note": ""
+  }
+ ]
+}

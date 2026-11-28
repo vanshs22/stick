@@ -1,0 +1,570 @@
+{
+ "title": "Pull",
+ "language": "en",
+ "voice": "am_michael",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "One job. Get the cake through that door before six.",
+   "beat": "hook",
+   "emotion": "determined",
+   "emphasis": [
+    "job",
+    "six"
+   ],
+   "visual_hint": "courier walks up with a cake box",
+   "open_loop": "Will he get it through?",
+   "delivery": {
+    "pause_after": 0.35
+   },
+   "stage": {
+    "place": "city",
+    "time": "golden",
+    "worldOpts": {
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "props3d": [
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL"
+     }
+    ],
+    "actions": [
+     {
+      "who": "otto",
+      "do": "carry",
+      "item": "parcel"
+     },
+     {
+      "who": "otto",
+      "do": "walk",
+      "to": [
+       -6.3,
+       0.4
+      ],
+      "at": 0.12,
+      "dur": 0.6
+     }
+    ],
+    "cast": [
+     {
+      "id": "otto",
+      "at": [
+       -4.9,
+       3.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "determined"
+       ]
+      ]
+     }
+    ],
+    "camera": {
+     "why": "Open wide on the door so the viewer knows the goal, then follow the courier in and push onto his face at the word six.",
+     "keys": [
+      {
+       "t": 0,
+       "framing": "wide",
+       "angle": "eye-level",
+       "subject": "door",
+       "az": -22
+      },
+      {
+       "t": 0.55,
+       "framing": "medium",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": 14
+      },
+      {
+       "t": 1,
+       "framing": "medium",
+       "angle": "low-angle",
+       "subject": "otto",
+       "az": 8
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "L02",
+   "text": "The door said pull. He pushed. Twice.",
+   "beat": "step",
+   "emotion": "neutral",
+   "emphasis": [
+    "pull",
+    "pushed",
+    "Twice"
+   ],
+   "visual_hint": "he pushes, door rattles",
+   "delivery": {
+    "pause_before": 0.1
+   },
+   "stage": {
+    "place": "city",
+    "time": "golden",
+    "worldOpts": {
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "props3d": [
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL"
+     }
+    ],
+    "actions": [
+     {
+      "who": "otto",
+      "do": "pose",
+      "pose": "push",
+      "at": 0.4
+     },
+     {
+      "prop": "door",
+      "do": "rattle",
+      "at": 0.45,
+      "dur": 0.12
+     },
+     {
+      "who": "otto",
+      "do": "mood",
+      "mood": "annoyed",
+      "at": 0.55
+     },
+     {
+      "prop": "door",
+      "do": "rattle",
+      "at": 0.74,
+      "dur": 0.12
+     }
+    ],
+    "cast": [
+     {
+      "id": "otto",
+      "at": [
+       -6.3,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "determined"
+       ]
+      ]
+     }
+    ],
+    "camera": {
+     "why": "Low, close push on the pushing hand and the sign so the viewer reads PULL and sees the door refuse him.",
+     "keys": [
+      {
+       "t": 0,
+       "framing": "medium",
+       "angle": "low-angle",
+       "subject": "otto",
+       "az": 24
+      },
+      {
+       "t": 0.45,
+       "framing": "medium-close-up",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": 14
+      },
+      {
+       "t": 1,
+       "framing": "medium-close-up",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": -8
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "L03",
+   "text": "A man walked past. Slowly. Like he'd seen this before.",
+   "beat": "step",
+   "emotion": "sarcastic",
+   "emphasis": [
+    "Slowly"
+   ],
+   "visual_hint": "passer-by glances at the sign",
+   "delivery": {
+    "pause_before": 0.15
+   },
+   "stage": {
+    "place": "city",
+    "time": "golden",
+    "worldOpts": {
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "props3d": [
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL"
+     }
+    ],
+    "actions": [
+     {
+      "who": "mabel",
+      "do": "walk",
+      "to": [
+       -4.6,
+       -4.0
+      ],
+      "at": 0.04,
+      "dur": 0.9
+     },
+     {
+      "who": "otto",
+      "do": "mood",
+      "mood": "frustrated",
+      "at": 0.4
+     },
+     {
+      "who": "otto",
+      "do": "mood",
+      "mood": "worried",
+      "at": 0.7
+     }
+    ],
+    "cast": [
+     {
+      "id": "otto",
+      "at": [
+       -6.3,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "annoyed"
+       ]
+      ]
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "at": [
+       -4.6,
+       4.2
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "camera": {
+     "why": "Start on the sign, drift to the courier, then follow the passer-by out of frame so his slow walk is the joke.",
+     "keys": [
+      {
+       "t": 0,
+       "framing": "medium-close-up",
+       "angle": "eye-level",
+       "subject": "door",
+       "az": 32
+      },
+      {
+       "t": 0.35,
+       "framing": "medium",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": -6
+      },
+      {
+       "t": 0.8,
+       "framing": "medium-wide",
+       "angle": "eye-level",
+       "subject": "mabel",
+       "az": -26
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "L04",
+   "text": "He pulled. It opened like it had been waiting all day.",
+   "beat": "twist",
+   "emotion": "proud",
+   "emphasis": [
+    "pulled"
+   ],
+   "visual_hint": "reach, step back, door swings out, he walks to the threshold",
+   "delivery": {
+    "pause_before": 0.3
+   },
+   "stage": {
+    "place": "city",
+    "time": "golden",
+    "worldOpts": {
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "props3d": [
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL"
+     }
+    ],
+    "actions": [
+     {
+      "who": "otto",
+      "do": "mood",
+      "mood": "curious",
+      "at": 0.05
+     },
+     {
+      "who": "otto",
+      "do": "pose",
+      "pose": "reach",
+      "at": 0.14
+     },
+     {
+      "who": "otto",
+      "do": "walk",
+      "to": [
+       -5.6,
+       0.4
+      ],
+      "at": 0.24,
+      "dur": 0.12
+     },
+     {
+      "prop": "door",
+      "do": "open",
+      "at": 0.28,
+      "dur": 0.3,
+      "swing": "out"
+     },
+     {
+      "who": "otto",
+      "do": "mood",
+      "mood": "proud",
+      "at": 0.6
+     },
+     {
+      "who": "otto",
+      "do": "enter",
+      "through": "door",
+      "at": 0.66,
+      "dur": 0.3,
+      "beyond": -0.2
+     }
+    ],
+    "cast": [
+     {
+      "id": "otto",
+      "at": [
+       -6.3,
+       0.4
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "worried"
+       ]
+      ]
+     }
+    ],
+    "camera": {
+     "why": "Show the reach, pull back and arc to see the door swing out clear of him, then follow him to the threshold.",
+     "keys": [
+      {
+       "t": 0,
+       "framing": "medium",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": -26
+      },
+      {
+       "t": 0.38,
+       "framing": "medium-wide",
+       "angle": "eye-level",
+       "subject": "door",
+       "az": 34
+      },
+      {
+       "t": 0.8,
+       "framing": "medium",
+       "angle": "low-angle",
+       "subject": "otto",
+       "az": 14
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "L05",
+   "text": "Dumbest thing you've ever pushed? Comment it.",
+   "beat": "cta",
+   "emotion": "happy",
+   "emphasis": [
+    "Dumbest",
+    "pushed"
+   ],
+   "visual_hint": "proud in the open doorway, looks at the viewer",
+   "open_loop": "What's the dumbest thing you've pushed?",
+   "stage": {
+    "place": "city",
+    "time": "golden",
+    "worldOpts": {
+     "walkers": [
+      1,
+      2
+     ]
+    },
+    "props3d": [
+     {
+      "id": "door",
+      "kind": "shopdoor",
+      "at": [
+       -7.72,
+       0
+      ],
+      "face": 1,
+      "swing": "out",
+      "sign": "PULL",
+      "open": [
+       0,
+       0.05
+      ]
+     }
+    ],
+    "actions": [
+     {
+      "who": "otto",
+      "do": "pose",
+      "pose": "point",
+      "at": 0.45
+     },
+     {
+      "who": "otto",
+      "do": "mood",
+      "mood": "excited",
+      "at": 0.5
+     }
+    ],
+    "cast": [
+     {
+      "id": "otto",
+      "at": [
+       -7.52,
+       0.0
+      ],
+      "pose": [
+       [
+        0,
+        "carry"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "proud"
+       ]
+      ]
+     }
+    ],
+    "camera": {
+     "why": "A calm push on the proud courier in the open doorway while the question is asked so the last frame is on him.",
+     "keys": [
+      {
+       "t": 0,
+       "framing": "medium-close-up",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": -10
+      },
+      {
+       "t": 1,
+       "framing": "close-up",
+       "angle": "eye-level",
+       "subject": "otto",
+       "az": -3
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

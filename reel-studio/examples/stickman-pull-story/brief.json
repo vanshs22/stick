@@ -1,0 +1,26 @@
+{
+ "title": "The fence that fought the wind",
+ "topic": "a courier pushes a door that says pull, in front of a passer-by who has seen this before",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 18,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "one small human joke in 18 seconds that makes people comment",
+ "style_pack": "stickman-world",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "soft-lower"
+ },
+ "cta": {
+  "keyword": "PUSHED",
+  "text": "Comment PUSHED"
+ }
+}
