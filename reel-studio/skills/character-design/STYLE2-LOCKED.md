@@ -17,3 +17,6 @@ Limbs
 - Thick: legs taper 30 to 24, arms 24 to 18, shoes short thick strokes. Hands are solid black balls (radius 23).
 
 Check before shipping any change: render the sheet, put it over the reference crops, compare head shape, skin white, outline weight and side, feature size, body width and bottom fullness, clothes flatness. Fix and re-render until each matches.
+
+## UPDATE: style 2 characters now use the toon-pen renderer (kit design)
+The user asked for the same character design as the supplied cartoon-short kit (inked ball head, shaded fills, thick-thin ink ring, costume parts). Renderer: `remotion-template/src/three/toon_actor.js` (wraps `toon_cast.js`: the mromidev toon.ts Pen library, MIT, plus the kit's romanFront). Our cast is registered as OUTFITS there (barnaby: cap + overalls, hank: vest + hair + moustache, rex: trucker cap, gus: hard hat + hi-vis bands); `cast_designs.js` points each design at it with `canvas.toon`. Moods map to the kit FACE set (`BYNAME` in toon_actor.js), arm poses to the kit arm set. The older canvas renderer (stickdraw.js, the locked head and body rules above) stays as the fallback for designs without `toon`. Attribution: Pen library (c) 2026 Mr omi, MIT.

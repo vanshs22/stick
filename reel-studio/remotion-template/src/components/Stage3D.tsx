@@ -44,7 +44,8 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
       if (!S.current) {
         QUALITY.shadow = dpr < 0.75 ? 2048 : 4096;
         const E = makeEngine(canvas, {w: W, h: H, samples: dpr < 0.75 ? 0 : 2, shadowSize: QUALITY.shadow});
-        const wd = buildWorld(world, E, worldOpts), actors = cast.map((c) => makeActor(c)), props = props3d.map((p) => makeProp(p));
+        const wd = buildWorld(world, E, worldOpts), actors = cast.map((c) => makeActor(c)), actorsSun = (a: any[]) => a.forEach((x: any) => { if (x.setSun && wd.sunDir) x.setSun(wd.sunDir, wd.groundAt); }), props = props3d.map((p) => makeProp(p));
+        actorsSun(actors);
         [...actors, ...props].forEach((a: any) => wd.scene.add(a.group));
         // glossy floor: a faded upside-down copy of every character and small set piece under it (kept in sync each frame)
         const mirrors: any[] = [];

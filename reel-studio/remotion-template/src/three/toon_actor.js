@@ -12,12 +12,13 @@ Object.assign(OUTFITS, {
 });
 const ARMS = { idle: ['hang', 'hang'], point: ['hang', 'point'], cheer: ['up', 'up'], shock: ['lift', 'lift'], think: ['hang', 'cheek'], shrug: ['hip', 'hip'], hammer: ['hang', 'up'], flail: ['up', 'up'], hold: ['belly', 'belly'], hip: ['hip', 'hip'], lean: ['hip', 'cross'], stomp: ['hip', 'hip'], sneak: ['hang', 'hang'], laughy: ['belly', 'hang'], slump: ['hang', 'hang'] };
 const nearest = (pose) => { const sR = pose.sR?.[0] ?? 8, sL = pose.sL?.[0] ?? 8, pick = (a, side) => (a > 125 ? 'up' : a > 70 ? (side ? 'point' : 'lift') : a > 40 ? 'hip' : 'hang'); return [pick(sL, 0), pick(sR, 1)]; };
-const faceOf = (x) => { const s = x.smile ?? 0, o = x.open ?? 0, b = x.brow ?? 0, e = x.eyes ?? 1; if (e > 1.2) return o > 0.4 && (x.tilt ?? 0) > 0.5 ? 'nervous' : 'shock'; if (s > 0.7 && o > 0.5) return 'laugh'; if (s > 0.7) return 'grin'; if (s > 0.4) return 'smile'; if (s < -0.5 && b > 0.3) return 'stern'; if (s < -0.4) return 'pained'; if ((x.tilt ?? 0) < -0.7 && b > 0.3) return 'stubborn'; return 'neutral'; };
+const BYNAME = { neutral: 'neutral', happy: 'smile', laugh: 'laugh', shock: 'shock', scared: 'nervous', sad: 'pained', smug: 'grin', angry: 'stern', determined: 'stern', worried: 'nervous', excited: 'grin', curious: 'smile', proud: 'grin', annoyed: 'stern', confused: 'dazed', surprised: 'shock', relieved: 'relief', thinking: 'neutral', deadpan: 'neutral' };
+const faceOf = (x, name) => { if (name && BYNAME[name]) return BYNAME[name]; const s = x.smile ?? 0, o = x.open ?? 0, b = x.brow ?? 0, e = x.eyes ?? 1; if (e > 1.2) return o > 0.4 && (x.tilt ?? 0) > 0.5 ? 'nervous' : 'shock'; if (s > 0.7 && o > 0.5) return 'laugh'; if (s > 0.7) return 'grin'; if (s > 0.4) return 'smile'; if (s < -0.5 && b > 0.3) return 'stern'; if (s < -0.4) return 'pained'; if ((x.tilt ?? 0) < -0.7 && b > 0.3) return 'stubborn'; return 'neutral'; };
 export function drawToon(ctx, CW, CH, s) {
   const { t = 0, pose, expr, look = {}, turn = 0, walk = 0, seed = 1, talk = 0, gaze = [0, 0], blinkPhase } = s, key = look.toon || 'barnaby';
   ctx.clearRect(0, 0, CW, CH); ctx.save(); ctx.scale(CW / TOON_W, CH / TOON_H);
   const arms = (s.poseName && ARMS[s.poseName]) || nearest(pose), c = (t + seed * 0.7) % 4.1, blink = c < 0.13 ? Math.sin((c / 0.13) * Math.PI) : 0;
-  const ex = talk > 0.25 ? 'laugh' : faceOf(expr), p = new Pen(ctx);
+  const ex = faceOf(expr, s.moodName), p = new Pen(ctx);
   romanFront(p, key, { expr: ex, blink, look: gaze[0] || 0, facing: Math.max(-1, Math.min(1, turn * 0.6)) * (look.flipTurn ? -1 : 1), seed: 3 + (seed % 5), L: arms[0], R: arms[1], tilt: (pose.tilt || 0) * 0.6, headTilt: (expr.tilt2 || 0) * 4, bob: Math.sin(t * 2.2 + seed) * 0.004 + 0.002, step: walk ? walk % 1 : 0, light: look.light });
   ctx.restore();
 }

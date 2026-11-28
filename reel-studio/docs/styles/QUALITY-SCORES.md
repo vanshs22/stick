@@ -59,3 +59,13 @@ Added: optional ink pass (`look.ink`, three/engine.js: normal+depth edges, near-
 | story props the character uses (chair, money, crashed car, sign) | 9 | 3 (character only stands) |
 | acting and body motion in the frame | 8 | 5 |
 Biggest gaps now: characters do not interact with props; cars and bus are toy-like; no pedestrians; ground cast shadows weak in grass; night scenes have little light spill.
+
+## R7 (STORY-VS-KIT-r7.jpg: top = supplied kit stills, look reference only; bottom = our 7-shot fence story with the toon characters)
+Done: kit character renderer for the cast (ink ring, shaded fills, overalls, vest, hard hat, cap), moods mapped to kit faces, sun moved to the front-right so shadows read, actor shadow follows the world sun and the sidewalk height, actors stand on the sidewalk, 4096 shadow map, building shadows on the street.
+| criterion | kit | ours |
+|---|---|---|
+| character design (ink ring, shading, costume parts) | 9 | 8 |
+| shadow clarity (characters on the floor, cast shadows) | 8.5 | 6.5 (buildings and trees read; the character's own shadow is thin at low camera and lost in tall grass) |
+| story logic (hero object insert, reactions, 3 characters, props used) | 9 | 5 (one or two characters, no hero insert, no reaction FX) |
+| 3D-ness (painted textures with ink seams, forms, depth) | 8.5 | 6.5 (realistic grass and foliage rather than painted toon textures; ink pass exists but is off by default) |
+Next: painted toon textures with ink seams (planks, stone, plaster), ink on by default for this look, a hero-object insert shot, FX (zzz, sweat, dust), a third character, and a clear contact shadow decal under every actor.
