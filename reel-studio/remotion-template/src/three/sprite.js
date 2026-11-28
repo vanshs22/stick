@@ -7,7 +7,7 @@ import { drawStick, POSES, EXPR, blendPose, blendExpr } from './stickdraw.js';
 import { DESIGNS } from './cast_designs.js';
 
 const ease = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
-export const COSTUMES = { ...Object.fromEntries(DESIGNS.map((d) => [d.id, d.canvas])), otto: DESIGNS[0].canvas };
+export const COSTUMES = { ...Object.fromEntries(DESIGNS.map((d) => [d.id, d.canvas])), otto: DESIGNS[0].canvas, mabel: DESIGNS[1].canvas, rex: DESIGNS[2].canvas };
 const keys = (spec, d) => (Array.isArray(spec) ? spec : [[0, spec || d]]);
 /** smooth value between keyframed names: blends the previous and the next name over `ramp` seconds before a key */
 function sample(spec, lt, table, blend, d, ramp = 0.28) {
