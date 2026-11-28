@@ -73,7 +73,7 @@ export function drawStick(ctx, W, H, s) {
   ctx.restore(); loop(bean, 72, 9.5, -0.7); inner(bean, 60, 0.94, 0.45);
   // ---- head: a round, slightly tall oval; cream with a warm shaded rim; ink loop with a heavy shadow side
   ctx.save(); ctx.translate(shX * 1.1, hdY); ctx.rotate((pose.tilt + (look.headTilt || 0) + (expr.tilt2 || 0)) * R); const fx = turn * 56;
-  const headF = (a) => { const r = 1 + 0.075 * Math.cos(a - 0.75 * (look.asym ?? 1)) + 0.022 * sm1(a); return [Math.cos(a) * HEADRX * r, Math.sin(a) * HEADRY * r]; };   // a circle with one fuller cheek, not an egg
+  const headF = (a) => { const r = 1 + 0.125 * Math.cos(a - 0.75 * (look.asym ?? 1)) + 0.04 * Math.cos(2 * a + 1.3 * (look.asym ?? 1)) + 0.022 * sm1(a); return [Math.cos(a) * HEADRX * r, Math.sin(a) * HEADRY * r]; };   // a circle with one fuller cheek, not an egg
   ctx.save(); ctx.beginPath(); for (let i = 0; i <= 56; i++) { const p = headF((i / 56) * Math.PI * 2); i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } ctx.closePath(); ctx.fillStyle = look.skin || '#fdf6e6'; ctx.fill(); ctx.clip();
   const hg = ctx.createRadialGradient(-HEADRX * 0.3, -HEADRY * 0.35, 20, 0, 0, HEADRY * 1.15); hg.addColorStop(0, 'rgba(255,255,255,0.7)'); hg.addColorStop(0.65, 'rgba(255,255,255,0)'); hg.addColorStop(1, 'rgba(150,100,40,0.34)'); ctx.fillStyle = hg; ctx.fillRect(-300, -300, 600, 600);
   ctx.strokeStyle = 'rgba(190,120,50,0.38)'; ctx.lineWidth = 30; ctx.beginPath(); ctx.ellipse(0, 0, HEADRX, HEADRY, 0, Math.PI * 0.2, Math.PI * 0.95); ctx.stroke(); ctx.restore();
