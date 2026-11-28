@@ -4,10 +4,10 @@
 export const POSES = ['idle', 'point', 'cheer', 'shock', 'think', 'shrug', 'walkA', 'walkB', 'flail', 'hammer'];
 export const MOODS = ['neutral', 'happy', 'laugh', 'shock', 'sad', 'smug', 'scared', 'angry', 'determined'];
 export const MOODS_ALL = [...MOODS, 'grimace', 'worried'];
-const INK = '#141414', W = 7;
+const INK = '#141414', W = 8;
 const P = (a) => a.map((v) => (typeof v === 'number' ? Math.round(v * 10) / 10 : v)).join(' ');
 // each pose: [right-shoulder side arm path (elbow, hand), left arm (elbow, hand), leg feet x offsets, body lean px, head dy]
-const SH = { L: [214, 404], R: [298, 404] };
+const SH = { L: [198, 410], R: [314, 410] };
 const POSE = {
   idle:   { aL: [[196, 500], [190, 590]], aR: [[316, 500], [322, 590]], legs: [-34, 34], lean: 0, bob: 0 },
   point:  { aL: [[190, 500], [186, 586]], aR: [[372, 420], [452, 396]], legs: [-30, 36], lean: 6, bob: 0 },
@@ -76,25 +76,28 @@ export function stickG({ pose = 'idle', mood = 'neutral', mouth: m = 'closed', l
   const po = POSE[pose] || POSE.idle, shirt = look.shirt || '#2F7D5B', hatKind = look.hat ?? 'straw', hatCol = look.hatColor || '#E3C06A', lean = po.lean, bob = po.bob;
   const hx = 256 + lean * 1.4, hy = 236 + bob, nx = 256 + lean * 0.8, ty = 392 + bob * 0.6;
   const hipL = [256 - 22 + lean * 0.3, 640], hipR = [256 + 22 + lean * 0.3, 640];
-  const legL = limb(hipL[0], hipL[1], [hipL[0] + po.legs[0] * 0.4, 820], [256 + po.legs[0] * 1.5 - 20, 976]), legR = limb(hipR[0], hipR[1], [hipR[0] + po.legs[1] * 0.4, 820], [256 + po.legs[1] * 1.5 + 20, 976]);
-  const shoe = (x) => `<ellipse cx="${x}" cy="990" rx="40" ry="17" fill="#222" stroke="${INK}" stroke-width="${W}"/>`;
+  const legL = limb(hipL[0], hipL[1], [hipL[0] + po.legs[0] * 0.4, 820], [256 + po.legs[0] * 1.5 - 20, 976], INK, 17), legR = limb(hipR[0], hipR[1], [hipR[0] + po.legs[1] * 0.4, 820], [256 + po.legs[1] * 1.5 + 20, 976], INK, 17);
+  const shoe = (x) => `<ellipse cx="${x}" cy="990" rx="52" ry="22" fill="#222" stroke="${INK}" stroke-width="${W}"/>`;
   const aL = po.aL, aR = po.aR, sL = [SH.L[0] + lean * 0.8, ty + 14], sR = [SH.R[0] + lean * 0.8, ty + 14];
-  const hands = (A, S) => limb(S[0], S[1], A[0], A[1]) + hand(A[1][0], A[1][1]);
+  const slv = look.sleeve || shirt, hands = (A, S) => { const d = `M ${S[0]} ${S[1]} Q ${A[0][0]} ${A[0][1]} ${A[1][0]} ${A[1][1]}`; return `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${look.thin ? 24 : 44}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${slv}" stroke-width="${look.thin ? 12 : 31}" stroke-linecap="round" stroke-linejoin="round"/>` + hand(A[1][0], A[1][1]); };
   const E1 = look.eyeStyle === 'ink' ? inkEye : eye, bw = look.eyeStyle === 'ink' ? 17 : 12, face = `${E1(hx - 52, hy + 4, mood, -1)}${E1(hx + 52, hy + 4, mood, 1)}<path d="${brow(hx - 52, hy - 62, mood, -1)}" fill="none" stroke="${INK}" stroke-width="${bw}" stroke-linecap="round"/><path d="${brow(hx + 52, hy - 62, mood, 1)}" fill="none" stroke="${INK}" stroke-width="${bw}" stroke-linecap="round"/>${mouth(mood, m, hx, hy + 78)}`;
   const cheeks = look.cheeks === false ? '' : `<ellipse cx="${hx - 98}" cy="${hy + 58}" rx="20" ry="12" fill="#f4a9a0" opacity="0.55"/><ellipse cx="${hx + 98}" cy="${hy + 58}" rx="20" ry="12" fill="#f4a9a0" opacity="0.55"/>`;
   const sweat = mood === 'scared' ? `<path d="M ${hx + 138} ${hy - 80} Q ${hx + 156} ${hy - 40} ${hx + 138} ${hy - 22} Q ${hx + 118} ${hy - 40} ${hx + 138} ${hy - 80} Z" fill="#8fd3ff" stroke="${INK}" stroke-width="5"/>` : '';
   const folds = `<path d="M ${nx - 30} ${ty + 90} q 14 16 4 40 M ${nx + 26} ${ty + 120} q -12 16 -2 34" fill="none" stroke="#00000040" stroke-width="5" stroke-linecap="round"/>`;
-  const torso = `<path d="M ${nx - 52} ${ty} Q ${nx - 66} ${ty + 120} ${nx - 46} ${ty + 244} L ${nx + 46} ${ty + 244} Q ${nx + 66} ${ty + 120} ${nx + 52} ${ty} Q ${nx} ${ty - 14} ${nx - 52} ${ty} Z" fill="${shirt}" stroke="${INK}" stroke-width="${W}" stroke-linejoin="round"/>` + (look.apron ? `<path d="M ${nx - 36} ${ty + 70} L ${nx + 36} ${ty + 70} L ${nx + 42} ${ty + 244} L ${nx - 42} ${ty + 244} Z" fill="${look.apron}" stroke="${INK}" stroke-width="5"/>` : '') + (look.scarf ? `<path d="M ${nx - 58} ${ty - 2} Q ${nx} ${ty + 22} ${nx + 58} ${ty - 2} L ${nx + 54} ${ty + 22} Q ${nx} ${ty + 46} ${nx - 54} ${ty + 22} Z" fill="${look.scarf}" stroke="${INK}" stroke-width="5"/>` : '');
+  const torso = `<path d="M ${nx - 62} ${ty} C ${nx - 108} ${ty + 70} ${nx - 112} ${ty + 190} ${nx - 76} ${ty + 244} Q ${nx} ${ty + 272} ${nx + 76} ${ty + 244} C ${nx + 112} ${ty + 190} ${nx + 108} ${ty + 70} ${nx + 62} ${ty} Q ${nx} ${ty - 20} ${nx - 62} ${ty} Z" fill="${shirt}" stroke="${INK}" stroke-width="${W}" stroke-linejoin="round"/>` + (look.apron ? `<path d="M ${nx - 36} ${ty + 70} L ${nx + 36} ${ty + 70} L ${nx + 42} ${ty + 244} L ${nx - 42} ${ty + 244} Z" fill="${look.apron}" stroke="${INK}" stroke-width="5"/>` : '') + (look.scarf ? `<path d="M ${nx - 58} ${ty - 2} Q ${nx} ${ty + 22} ${nx + 58} ${ty - 2} L ${nx + 54} ${ty + 22} Q ${nx} ${ty + 46} ${nx - 54} ${ty + 22} Z" fill="${look.scarf}" stroke="${INK}" stroke-width="5"/>` : '');
   const prop = pose === 'hammer' ? `<g transform="translate(${aR[1][0]} ${aR[1][1]}) rotate(-24)"><rect x="-8" y="-150" width="16" height="170" rx="6" fill="#9b6b3c" stroke="${INK}" stroke-width="5"/><rect x="-44" y="-176" width="88" height="40" rx="8" fill="#9aa3ad" stroke="${INK}" stroke-width="6"/></g>` : '';
   const hoodie = look.top === 'hoodie', hairC = look.hairColor || '#2a1d14';
   const hoodTorso = hoodie ? `<path d="M ${nx - 40} ${ty + 150} Q ${nx} ${ty + 176} ${nx + 40} ${ty + 150} L ${nx + 36} ${ty + 214} L ${nx - 36} ${ty + 214} Z" fill="none" stroke="${INK}" stroke-width="5"/><path d="M ${nx - 14} ${ty + 6} L ${nx - 18} ${ty + 70} M ${nx + 14} ${ty + 6} L ${nx + 18} ${ty + 70}" stroke="#eee" stroke-width="5" stroke-linecap="round"/>` : '';
-  return `${hoodie ? hoodBack(hx, hy, shirt) : ''}${legL}${legR}${shoe(256 + po.legs[0] * 1.5 - 20)}${shoe(256 + po.legs[1] * 1.5 + 20)}
-${hands(aL, sL)}
-<line x1="${nx}" y1="${hy + 150}" x2="${nx}" y2="${ty + 6}" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
-${torso}${folds}${hoodTorso}
-<circle cx="${hx}" cy="${hy}" r="158" fill="#fff" stroke="${INK}" stroke-width="${W + 1}"/>${look.shade === false ? '' : `<path d="M ${hx - 110} ${hy + 112} A 158 158 0 0 0 ${hx + 112} ${hy + 112} A 158 158 0 0 1 ${hx - 110} ${hy + 112} Z" fill="#8a93a8" opacity="0.28"/>`}${look.rim ? `<path d="M ${hx + 150} ${hy - 50} A 150 150 0 0 1 ${hx + 60} ${hy + 138}" fill="none" stroke="${look.rim}" stroke-width="8" stroke-linecap="round" opacity="0.75"/>` : ''}
-${cheeks}${face}${look.glasses ? glasses(hx, hy + 4) : ''}${sweat}${tear(mood, hx, hy)}${hair(look.hair, hx, hy, hairC)}${hatKind === 'capback' ? capBack(hx, hy, look.hatColor || '#D8342B') : hat(hatKind, hx, hy, hatCol)}
-${hands(aR, sR)}${prop}`;
+  const HS = look.headS ?? 1.22, BW = look.bodyW ?? 1, pc = look.pants;
+  const legCol = pc ? (l) => l.replace(/stroke="#141414" stroke-width="17"/, `stroke="${pc}" stroke-width="15"`) : (l) => l;
+  const legsSvg = pc ? [legL, legR].map((l) => l.replace(/stroke="#141414" stroke-width="\d+"/, `stroke="#141414" stroke-width="30"`) + l.replace(/stroke="#141414" stroke-width="\d+"/, `stroke="${pc}" stroke-width="19"`)).join('') : `${legL}${legR}`;
+  return `${hoodie ? `<g transform="translate(${hx} ${hy}) scale(${HS}) translate(${-hx} ${-hy})">${hoodBack(hx, hy, shirt)}</g>` : ''}${legsSvg}${shoe(256 + po.legs[0] * 1.5 - 20)}${shoe(256 + po.legs[1] * 1.5 + 20)}
+<line x1="${nx}" y1="${hy + 150}" x2="${nx}" y2="${ty + 6}" stroke="${INK}" stroke-width="18" stroke-linecap="round"/>
+<g transform="translate(${nx} 0) scale(${BW} 1) translate(${-nx} 0)">${torso}${folds}${hoodTorso}</g>
+<g transform="translate(${hx} ${hy + 120}) scale(${HS}) translate(${-hx} ${-hy - 120})">
+<circle cx="${hx}" cy="${hy}" r="158" fill="#fff" stroke="${INK}" stroke-width="${W + 1}"/>${look.shade === false ? '' : `<path d="M ${hx - 110} ${hy + 112} A 158 158 0 0 0 ${hx + 112} ${hy + 112} A 158 158 0 0 1 ${hx - 110} ${hy + 112} Z" fill="#8a93a8" opacity="0.28"/>`}${look.rim ? `<path d="M ${hx + 142} ${hy - 50} A 150 150 0 0 1 ${hx + 60} ${hy + 138}" fill="none" stroke="${look.rim}" stroke-width="8" stroke-linecap="round" opacity="0.75"/>` : ''}
+${cheeks}${face}${look.glasses ? glasses(hx, hy + 4) : ''}${sweat}${tear(mood, hx, hy)}${hair(look.hair, hx, hy, hairC)}${hatKind === 'capback' ? capBack(hx, hy, look.hatColor || '#D8342B') : hat(hatKind, hx, hy, hatCol)}</g>
+${hands(aL, sL)}${hands(aR, sR)}${prop}`;
 }
 const tear = (mood, hx, hy) => (mood === 'sad' || mood === 'worried' ? `<path d="M ${hx - 84} ${hy + 40} Q ${hx - 100} ${hy + 84} ${hx - 84} ${hy + 108} Q ${hx - 66} ${hy + 84} ${hx - 84} ${hy + 40} Z" fill="#bfe6ff" stroke="${INK}" stroke-width="5"/><ellipse cx="${hx - 88}" cy="${hy + 82}" rx="5" ry="10" fill="#fff"/>` : '');
 export function stickSVG(o = {}) { return `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="1084" viewBox="0 -60 512 1084">${stickG(o)}</svg>`; }

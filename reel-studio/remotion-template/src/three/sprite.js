@@ -7,9 +7,9 @@ import { drawStick, POSES, EXPR, blendPose, blendExpr } from './stickdraw.js';
 
 const ease = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
 export const COSTUMES = {
-  otto: { hat: 'straw', hatColor: '#E3C06A', band: '#B04A2E', shirt: '#2F7D5B', apron: '#8A5A3A', boots: '#3a2a1c' },
-  mabel: { hat: 'sun', hatColor: '#F2E3B0', band: '#E86F8A', shirt: '#C9556B', scarf: '#F2C14E', boots: '#4a2a2a' },
-  rex: { hat: 'cap', hatColor: '#D8342B', shirt: '#3C5FA8', boots: '#222' },
+  otto: { hat: 'straw', hatColor: '#E3C06A', band: '#B04A2E', shirt: '#E6B93A', sleeve: '#E6B93A', overalls: '#5A7FB0', hair: '#6A3D1C', boots: '#3a2a1c', stache: '#5a3418', nose: 1.5, headTilt: 5, body: { headS: 1.4, torsoW: 0.9, torsoH: 250, legL: 520, hand: 46, shoe: 1.9, armL: 1.3 } },
+  mabel: { hat: 'sun', hatColor: '#F2E3B0', band: '#E86F8A', cardigan: '#C9556B', shirt: '#F4E3C4', sleeve: '#C9556B', scarf: '#F2C14E', hair: '#8A5A3A', boots: '#4a2a2a', nose: 0.8, headTilt: -5, body: { headS: 1.35, torsoW: 1.5, torsoH: 190, legL: 300, hand: 40, shoe: 1.5, armL: 1.0 } },
+  rex: { hat: 'cap', hatColor: '#D8342B', jacket: '#2F9A8D', shirt: '#2F9A8D', sleeve: '#2F9A8D', hair: '#6A3D1C', boots: '#222', freckles: '#b5663a', nose: 1.2, headTilt: 8, body: { headS: 1.7, torsoW: 1.1, torsoH: 150, legL: 260, hand: 48, shoe: 2.0, armL: 1.1 } },
 };
 const keys = (spec, d) => (Array.isArray(spec) ? spec : [[0, spec || d]]);
 /** smooth value between keyframed names: blends the previous and the next name over `ramp` seconds before a key */
