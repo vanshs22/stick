@@ -25,3 +25,13 @@ Gaps left: sets are mostly dark voids; no detailed rooms (CCTV wall, car dash, n
 ## Changes behind the scores
 Style 2: character now DRAWN every frame with Canvas2D (`three/stickdraw.js`: joints, 3/4 turn, brows, blinks, continuous mouth, boiling line at 12 fps) instead of baked PNGs; world rebuilt (`three/worlds_country.js`: 30k GPU-swaying grass blades, detailed oak, wheat rows, fence line, power poles, silo, golden low sun, saturation and contrast grade).
 Style 3: ink eyes with highlights, head cel shade, rim light colour per scene, torso fold lines (`components/stick/stickman_svg.js`).
+
+## Style 2 world, R4 (three side-by-sides: r21 tree on road, r21 roadside close-up, our oak wide, our oak close-up; file COMPARE-style2-world-v3.jpg)
+| criterion | reference | R3 | R4 |
+|---|---|---|---|
+| foliage and trees (leaf cards, bark relief) | 9 | 4 | 7.5 |
+| sky and clouds | 8.5 | 5 | 6.5 |
+| ground, grass, road continuity | 8.5 | 6 | 7 |
+| props and story set dressing (car, signs, chair) | 9 | 4 | 4.5 |
+| depth and haze | 8.5 | 5 | 7 |
+Done in R4: 3200-card painted-leaf oak canopy and leaf-card trees on the treeline and hills, bark bump relief, less neon grass, soft layered clouds, longer road, larger wheat field, atmospheric fog. Still BELOW the reference on props (no cars, signs, chairs) and sky realism. Next: car and roadside prop kit, volumetric-looking clouds, dusty road shoulder.

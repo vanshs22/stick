@@ -126,12 +126,15 @@ export function sky(scene, { top = '#3D8EE0', horizon = '#BFE4F7', ground = '#BF
 let cloudT = null;
 function cloudTex() {
   if (cloudT) return cloudT;
-  const c = document.createElement('canvas'); c.width = 512; c.height = 256; const g = c.getContext('2d');
-  const puffs = [[110, 175, 58], [185, 140, 80], [285, 118, 96], [380, 150, 70], [250, 178, 70], [440, 180, 44], [70, 190, 36]];
-  g.filter = 'blur(3px)';
-  g.fillStyle = '#B9CCE6'; puffs.forEach(([x, y, r]) => { g.beginPath(); g.arc(x + 4, y + 14, r, 0, 7); g.fill(); });
-  g.fillStyle = '#FFFFFF'; puffs.forEach(([x, y, r]) => { g.beginPath(); g.arc(x - 2, y - 2, r * 0.92, 0, 7); g.fill(); });
-  g.globalCompositeOperation = 'destination-out'; g.filter = 'blur(10px)'; g.fillRect(0, 214, 512, 60);
+  const c = document.createElement('canvas'); c.width = 768; c.height = 384; const g = c.getContext('2d');
+  const R = (i) => { const x = Math.sin(i * 91.7 + 13.1) * 43758.5453; return x - Math.floor(x); };
+  const puffs = []; for (let i = 0; i < 34; i++) { const u = R(i), x = 90 + u * 590, hump = Math.sin(u * Math.PI), r = 34 + R(i + 40) * 46 * (0.5 + hump * 0.7), y = 270 - hump * 110 * (0.5 + R(i + 80)) - R(i + 120) * 22; puffs.push([x, y, r]); }
+  g.filter = 'blur(13px)';
+  g.fillStyle = '#B4C3DC'; puffs.forEach(([x, y, r]) => { g.beginPath(); g.arc(x + 6, y + 22, r, 0, 7); g.fill(); });
+  g.fillStyle = '#DCE6F4'; puffs.forEach(([x, y, r]) => { g.beginPath(); g.arc(x, y + 6, r * 0.97, 0, 7); g.fill(); });
+  g.fillStyle = '#FFFFFF'; puffs.forEach(([x, y, r]) => { g.beginPath(); g.arc(x - 4, y - 8, r * 0.82, 0, 7); g.fill(); });
+  g.fillStyle = '#FFF8EC'; puffs.forEach(([x, y, r]) => { g.beginPath(); g.arc(x - 9, y - 16, r * 0.5, 0, 7); g.fill(); });
+  g.globalCompositeOperation = 'destination-out'; g.filter = 'blur(12px)'; g.fillRect(0, 316, 768, 80);
   cloudT = new THREE.CanvasTexture(c); cloudT.colorSpace = THREE.SRGBColorSpace; return cloudT;
 }
 export function clouds(scene, list, tint = '#FFFFFF') {
@@ -147,12 +150,12 @@ export function sunlight(scene, E, { col = '#FFF0D6', i = 2.6, pos = [6, 10, 6],
 }
 
 // ---------- reusable bits ----------
-export function hills(scene, { col = '#79C25A', z = -90, list } = {}) {
+export function hills(scene, { col = '#79C25A', z = -90, list, treeFn } = {}) {
   const g = new THREE.Group(); scene.add(g);
   (list || [[-40, z, 34, 12], [10, z - 10, 46, 16], [60, z + 4, 36, 11], [-90, z + 10, 40, 10]]).forEach(([x, zz, r, h], i) => {
     const m = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 16), mat({ color: shade(col, 0.92 + rnd(i) * 0.16), map: T.grass(col, [6, 3]) }));
     m.scale.set(r, h, r * 0.6); m.position.set(x, -h * 0.25, zz); g.add(m);
-    for (let k = 0; k < 6; k++) { const a = rnd(i * 9 + k) * 2 - 1; const t = tree(0.5 + rnd(k) * 0.4); t.position.set(x + a * r * 0.6, h * (0.75 - Math.abs(a) * 0.45) - 1, zz + r * 0.25); t.scale.multiplyScalar(2.2); g.add(t); }
+    for (let k = 0; k < 6; k++) { const a = rnd(i * 9 + k) * 2 - 1; const t = treeFn ? treeFn(0.5 + rnd(k) * 0.4, i * 31 + k) : tree(0.5 + rnd(k) * 0.4); t.position.set(x + a * r * 0.6, h * (0.75 - Math.abs(a) * 0.45) - 1, zz + r * 0.25); t.scale.multiplyScalar(2.2); g.add(t); }
   });
   return g;
 }

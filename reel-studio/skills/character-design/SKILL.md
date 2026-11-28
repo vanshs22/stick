@@ -9,3 +9,4 @@ Read `docs/CHARACTER-BIBLE.md` (all of it: it is the spec). Library: `characters
 3. Prove it acts: `node tools/character_sheet.mjs characters/<id>.json` (every emotion, measured against calm), then OPEN the sheet and run the vision critic `faces`.
 4. Use the same `look` object in every shot; give each character its own voice and `emotion` per line (at least three emotions per story).
 Never copy a character from a reference. Never put a stylised character in a photoreal set.
+Style 2 (2D character in a 3D world): the look is LOCKED in `STYLE2-LOCKED.md` (same folder). Read it and keep it; do not redesign.
