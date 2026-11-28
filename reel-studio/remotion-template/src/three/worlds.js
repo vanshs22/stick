@@ -250,5 +250,6 @@ export function neonStage(E, o = {}) {
 }
 
 import { countryField } from './worlds_country.js';
-export const WORLDS = { 'country-field': countryField, 'neon-stage': neonStage, 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
+import { cityStreet } from './worlds_city.js';
+export const WORLDS = { 'country-field': countryField, 'city-street': cityStreet, 'neon-stage': neonStage, 'noir-room': noirRoom, workshop, 'home-studio': homeStudio, 'block-yard': blockYard, 'voxel-valley': voxelValley };
 export function buildWorld(name, E, opts) { const b = WORLDS[name]; if (!b) throw new Error(`unknown world "${name}". Known: ${Object.keys(WORLDS).join(', ')}`); return b(E, opts || {}); }

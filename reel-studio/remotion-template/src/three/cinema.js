@@ -65,6 +65,7 @@ export function solvePose(p, subjects, aspect = 9 / 16) {
   const dir = norm(sub(look, pos)), right = norm(cross(dir, [0, 1, 0])), up = cross(right, dir), visH = 2 * Math.tan((fov * D2R) / 2) * len(sub(look, pos)), visW = visH * aspect;
   look = add(look, add(mul(right, -ox * visW), mul(up, -oy * visH)));   // ox>0 moves the subject to the right of the frame
   if (!['pov', 'over-the-shoulder'].includes(p.framing)) pos = add(pos, add(mul(right, -ox * visW), mul(up, -oy * visH)));
+  if (pos[1] < 0.3) pos = [pos[0], 0.3, pos[2]];   // never put the lens under the ground (low angles on small subjects)
   return { pos, look, fov, roll };
 }
 
