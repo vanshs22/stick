@@ -48,3 +48,14 @@ Done in R5: exponential distance fog tinted by the sky; split-tone grade with S-
 ## Style 2 in a town (new world `city-street`, test STYLE2-CITY-test.jpg: day, golden, night, high-angle)
 New: `three/worlds_city.js` (road with lane paint and crosswalk, kerbs, two rows of varied buildings with window facades, shopfronts, awnings, rooftop kit, lamps, traffic light, trees, billboard, parked and driving cars, day/golden/dusk/night), `three/props_city.js` (cars: hatch, pickup, bus; bench, hydrant, bin). Fixed on the way: camera went under the ground on low angles (black frame; now clamped to 0.3 m), rectangular sharp patch behind the sprite from the depth-of-field depth pass (aperture lowered on sprite worlds).
 Missing, seen in the stills: cars are boxy (no wheel arches, weak reflections), bus is a plain slab; no pedestrians, wires, signs, road wear or wet reflections; facades repeat and have no relief (balconies, ledges); building shadows do not read on the street; a foreground lamp pole can block the frame; night has little light spill on the road.
+
+## R6 (top row reference r21/r26, bottom row ours: country day, city day with ink, city night, city high-angle; COMPARE-style2-final-r6.jpg)
+Added: optional ink pass (`look.ink`, three/engine.js: normal+depth edges, near-side ink, crease ink, distance fade, sprite mask so world ink never crosses a character), camera-clearance gate in check_cinematography (under ground, closer than 0.5 m to a head), mix-ratio gate (tools/qa/mix_ratio.py, selftest ok).
+| criterion | reference | ours |
+|---|---|---|
+| character integration (light, shadow, haze) | 8 | 7.5 |
+| world richness and set dressing | 9 | 6 (city ok, country sparse, cars boxy) |
+| light, grade, depth | 8.5 | 7.5 |
+| story props the character uses (chair, money, crashed car, sign) | 9 | 3 (character only stands) |
+| acting and body motion in the frame | 8 | 5 |
+Biggest gaps now: characters do not interact with props; cars and bus are toy-like; no pedestrians; ground cast shadows weak in grass; night scenes have little light spill.

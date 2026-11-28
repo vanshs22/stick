@@ -22,6 +22,19 @@ const GRADE = {
       c.rgb = clamp(c.rgb, 0.0, 1.0); c.rgb = mix(c.rgb, c.rgb * c.rgb * (3.0 - 2.0 * c.rgb), uCurve); float lu = dot(c.rgb, vec3(0.299, 0.587, 0.114)); float shm = 1.0 - smoothstep(0.0, 0.6, lu), him = smoothstep(0.4, 1.0, lu); c.rgb += (uShT * shm + uHiT * him) * uSplit; c.rgb = mix(vec3(lu), c.rgb, uSat * (1.0 - 0.2 * him)); c.rgb = (c.rgb - 0.5) * uCon + 0.5; c.rgb += (h(vUv * 1000.0) - 0.5) * uGrain; c.r += uWarm * 0.5; c.b -= uWarm * 0.5; gl_FragColor = c; }`,
 };
 
+const INK = {
+  uniforms: { tDiffuse: { value: null }, tNormal: { value: null }, tDepth: { value: null }, tMask: { value: null }, uNear: { value: 0.05 }, uFar: { value: 520 }, uTexel: { value: new THREE.Vector2(1 / W, 1 / H) }, uInk: { value: new THREE.Color('#241726') }, uStrength: { value: 0 }, uWidth: { value: 1.6 }, uFadeA: { value: 140 }, uFadeB: { value: 520 } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  // ink goes on the NEAR side of depth jumps and on creases (normal change); fades with distance (technique from the animated-shorts kit)
+  fragmentShader: `uniform sampler2D tDiffuse, tNormal, tDepth, tMask; uniform float uNear, uFar, uStrength, uWidth, uFadeA, uFadeB; uniform vec2 uTexel; uniform vec3 uInk; varying vec2 vUv;
+    float lin(float d){ float z = d * 2.0 - 1.0; return 2.0 * uNear * uFar / (uFar + uNear - z * (uFar - uNear)); }
+    void main(){ vec4 c = texture2D(tDiffuse, vUv); if (uStrength <= 0.0) { gl_FragColor = c; return; }
+      float lc = lin(texture2D(tDepth, vUv).x); vec3 nc = texture2D(tNormal, vUv).xyz * 2.0 - 1.0; float e = 0.0; vec2 o[4]; o[0] = vec2(1.0, 0.0); o[1] = vec2(-1.0, 0.0); o[2] = vec2(0.0, 1.0); o[3] = vec2(0.0, -1.0);
+      for (int i = 0; i < 4; i++) { vec2 uv = vUv + o[i] * uTexel * uWidth; float ln = lin(texture2D(tDepth, uv).x); vec3 nn = texture2D(tNormal, uv).xyz * 2.0 - 1.0;
+        e = max(e, smoothstep(0.04, 0.09, (ln - lc) / max(lc, 0.01))); e = max(e, smoothstep(0.35, 0.7, 1.0 - dot(nc, nn)) * step(abs(ln - lc) / max(lc, 0.01), 0.05)); }
+      e *= 1.0 - smoothstep(uFadeA, uFadeB, lc); e *= 1.0 - step(0.5, texture2D(tMask, vUv).r); c.rgb = mix(c.rgb, uInk, clamp(e * uStrength, 0.0, 1.0)); gl_FragColor = c; }`,
+};
+const NORMAL_MAT = new THREE.MeshNormalMaterial();
 export function makeEngine(canvas, { w = W, h = H, samples = 4, shadowSize = 2048 } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true, alpha: false });
   renderer.setSize(w, h, false); renderer.setPixelRatio(1);
@@ -32,6 +45,9 @@ export function makeEngine(canvas, { w = W, h = H, samples = 4, shadowSize = 204
   renderer.userData = { shadowSize };
   const composer = new EffectComposer(renderer, rt); composer.setSize(w, h);
   const rp = new RenderPass(new THREE.Scene(), new THREE.PerspectiveCamera()); composer.addPass(rp);
+  const nrt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, samples: 0 }); nrt.depthTexture = new THREE.DepthTexture(w, h); nrt.depthTexture.type = THREE.UnsignedIntType;
+  const mrt = new THREE.WebGLRenderTarget(w, h, { samples: 0 }), MASK_MAT = new THREE.MeshBasicMaterial({ color: '#ffffff', alphaTest: 0.3, side: THREE.DoubleSide, fog: false, toneMapped: false });
+  const inkPass = new ShaderPass(INK); inkPass.uniforms.tMask.value = mrt.texture; inkPass.uniforms.tNormal.value = nrt.texture; inkPass.uniforms.tDepth.value = nrt.depthTexture; inkPass.uniforms.uTexel.value.set(1 / w, 1 / h); composer.addPass(inkPass);
   const bokeh = new BokehPass(rp.scene, rp.camera, { focus: 3, aperture: 0.002, maxblur: 0.008 }); composer.addPass(bokeh);
   const bloom = new UnrealBloomPass(new THREE.Vector2(w, h), 0.35, 0.6, 0.85); composer.addPass(bloom);
   composer.addPass(new OutputPass());
@@ -53,6 +69,14 @@ export function makeEngine(canvas, { w = W, h = H, samples = 4, shadowSize = 204
       bloom.strength = look.bloom ?? 0.3; bloom.threshold = look.bloomThreshold ?? 0.85; bloom.radius = 0.6;
       renderer.toneMappingExposure = look.exposure ?? 1.0;
       grade.uniforms.uVig.value = look.vignette ?? 0.35; grade.uniforms.uGrain.value = look.grain ?? 0.02; grade.uniforms.uWarm.value = look.warm ?? 0.03; grade.uniforms.uTime.value = look.t ?? 0; grade.uniforms.uSplit.value = look.split ?? 1.0; grade.uniforms.uCurve.value = look.curve ?? 0.4; grade.uniforms.uSat.value = look.saturation ?? 1.0; grade.uniforms.uCon.value = look.contrast ?? 1.0;
+      inkPass.uniforms.uStrength.value = look.ink ?? 0; inkPass.enabled = (look.ink ?? 0) > 0;
+      if (inkPass.enabled) {   // normal + depth pass: transparent, alpha-tested, instanced and billboard things are hidden here (cards draw their own ink)
+        const hid = []; scene.traverse((o) => { if (o.visible && (o.userData.noInk || o.isSprite || o.isInstancedMesh || (o.material && (o.material.alphaTest > 0 || o.material.transparent || o.material.fog === false)))) { o.visible = false; hid.push(o); } });
+        const prevOM = scene.overrideMaterial; scene.overrideMaterial = NORMAL_MAT; renderer.setRenderTarget(nrt); renderer.setClearColor(0x8080ff, 1); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null); scene.overrideMaterial = prevOM; hid.forEach((o) => { o.visible = true; });
+        const bodies = []; scene.traverse((o) => { if (o.userData.inkMask) bodies.push(o); });   // billboard cards: white silhouette mask so the world's ink never draws across them
+        if (bodies.length) { const mats = bodies.map((b) => b.material), lay = camera.layers.mask; bodies.forEach((b) => { b.layers.enable(1); MASK_MAT.map = b.material.map; b.material = MASK_MAT.clone(); b.material.map = mats[bodies.indexOf(b)].map; }); camera.layers.set(1); renderer.setRenderTarget(mrt); renderer.setClearColor(0x000000, 1); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null); camera.layers.mask = lay; bodies.forEach((b, i) => { b.material.dispose(); b.material = mats[i]; }); } else { renderer.setRenderTarget(mrt); renderer.setClearColor(0x000000, 1); renderer.clear(); renderer.setRenderTarget(null); }
+        inkPass.uniforms.uNear.value = camera.near; inkPass.uniforms.uFar.value = camera.far; inkPass.uniforms.uWidth.value = look.inkWidth ?? 1.6; if (look.inkColor) inkPass.uniforms.uInk.value.set(look.inkColor);
+      }
       composer.render();
     },
   };
