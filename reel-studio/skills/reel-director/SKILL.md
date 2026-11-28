@@ -62,3 +62,6 @@ The same command analyses a new reference video the user brings: `tools/referenc
 ## Creative freedom and the ledger (from the Stick3D pack, docs/references/drive-kits/CREATIVE-FREEDOM.md)
 For each scene: quote the exact words, write 3 genuinely different ideas (each with a camera path and a character action), pick the most unexpected one that still serves the words, check the ledger (neighbours differ in layout, camera, transition, action and colour world), build, log it. Idea prompts: change the scale, change the viewpoint (keyhole, ceiling, drawer), make the metaphor literal, use the environment as the joke, use time, use cause-and-effect chains, use contrast cuts. Reuse helpers, never layouts. Camera moves, shot length, dissolves, hook and ending follow the measured playbook entries (camera: measured-move-mix, move-envelope-on-the-word, one-take-travels-between-subjects, dissolve-at-place-or-time-change; hook-cta: story-arc-looks-stupid-then-right).
 
+## Style 2 scene planning (full procedure)
+For `stickman-world` films read `SCENE-PLANNING.md` (same folder) and run `tools/plan_scenes.mjs`: takes with keys on the spoken word, staging, set dressing layers, transitions, ledger, 9:16 framing rules and the stills checklist. The critic `tools/check_cinematography.mjs` checks takes key by key.
+

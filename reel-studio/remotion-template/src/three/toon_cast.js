@@ -2585,7 +2585,7 @@ export const romanFront = (p, key, opts = {}) => {
     p.gradFill(dp, O.dress, mul(O.dress, SH_CLOTH), light); p.inkRing(dp, ow, thick);
   }
   // skirt / pteruges below the torso
-  if (!dress) {
+  if (!dress && !O.noSkirt) {
     const sk = [[tcx - 0.92 * T.a, torsoBot - 0.2 * HH], [tcx + 0.92 * T.a, torsoBot - 0.2 * HH], [tcx + 1.0 * T.a, torsoBot + 0.3 * HH], [tcx - 1.0 * T.a, torsoBot + 0.3 * HH]];
     p.gradFill(sk, O.tunic, mul(O.tunic, SH_CLOTH), light); p.poly(sk, null, ow * 0.8);
     if (O.armor) for (let i = -3; i <= 3; i++) { const x = tcx + i * 0.27 * T.a, st = [[x - 9 * u, torsoBot - 0.05 * HH], [x + 9 * u, torsoBot - 0.05 * HH], [x + 9 * u, torsoBot + 0.22 * HH], [x - 9 * u, torsoBot + 0.22 * HH]]; p.poly(st, old ? "#5e4632" : LEATHER, 1.6 * u); }
@@ -2603,7 +2603,7 @@ export const romanFront = (p, key, opts = {}) => {
       for (let i = -2; i <= 2; i++) p.dot(tcx + i * 0.3 * T.a, torsoBot - 0.2 * HH, 2.4 * u, BRASS);
       if (old) for (let i = 0; i < 5; i++) p.ell(tcx + Math.sin(i * 1.7) * 0.7 * T.a, top + (bot - top) * ((i * 0.31) % 1), 6 * u, 3 * u, "#8a4b22", 0);
     } else {
-      p.band([[tcx - 1.4 * T.a, torsoBot - 0.24 * HH], [tcx + 1.4 * T.a, torsoBot - 0.24 * HH]], O.apron ? "#5a3b2a" : "#e2c27a", 0.05 * HH, 1.2 * u);
+      if (!O.noBelt) p.band([[tcx - 1.4 * T.a, torsoBot - 0.24 * HH], [tcx + 1.4 * T.a, torsoBot - 0.24 * HH]], O.apron ? "#5a3b2a" : "#e2c27a", 0.05 * HH, 1.2 * u);
       if (O.toga) p.band([[tcx - 1.0 * T.a, chin - 0.1 * HH], [tcx + 1.1 * T.a, torsoBot - 0.1 * HH]], O.toga, 0.16 * HH, 1.6 * u);
       if (O.apron) p.poly([[tcx - 0.55 * T.a, torsoBot - 0.2 * HH], [tcx + 0.55 * T.a, torsoBot - 0.2 * HH], [tcx + 0.6 * T.a, torsoBot + 0.2 * HH], [tcx - 0.6 * T.a, torsoBot + 0.2 * HH]], O.apron, 1.6 * u);
       p.stroke([[tcx - 0.2 * T.a, chin + 0.02 * HH], [tcx, chin + 0.16 * HH], [tcx + 0.2 * T.a, chin + 0.02 * HH]], 2 * u);
@@ -2611,9 +2611,9 @@ export const romanFront = (p, key, opts = {}) => {
   });
   if (O.bib || O.vest || O.bands) p.clip(tp, () => {
     if (O.bib) {   // overalls: bib, shoulder straps, pocket, brass buttons
-      const bt = chin + 0.16 * HH, bw = 0.62 * T.a, bb = torsoBot + 0.1 * HH;
+      const bt = chin + 0.16 * HH, bw = 0.62 * T.a, bb = torsoBot - 0.03 * HH;
       const lower = [[tcx - 1.5 * T.a, torsoBot - 0.52 * HH], [tcx + 1.5 * T.a, torsoBot - 0.52 * HH], [tcx + 1.5 * T.a, bb], [tcx - 1.5 * T.a, bb]];
-      p.gradFill(lower, O.bib, mul(O.bib, SH_CLOTH), light); p.poly(lower, null, 1.8 * u);
+      p.gradFill(lower, O.bib, mul(O.bib, SH_CLOTH), light);
       const bibP = rrect(tcx - bw, bt, tcx + bw, torsoBot - 0.5 * HH, 6 * u);
       p.gradFill(bibP, O.bib, mul(O.bib, SH_CLOTH), light); p.poly(bibP, null, 2.2 * u);
       for (const sd of [-1, 1]) { p.stroke([[tcx + sd * bw * 0.8, bt], [tcx + sd * 0.7 * T.a, chin - 0.1 * HH]], 5 * u, O.bib); p.stroke([[tcx + sd * bw * 0.8, bt], [tcx + sd * 0.7 * T.a, chin - 0.1 * HH]], 1.5 * u, INK); p.dot(tcx + sd * bw * 0.8, bt + 4 * u, 3.2 * u, BRASS); }

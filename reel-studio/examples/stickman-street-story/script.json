@@ -1,0 +1,87 @@
+{
+ "title": "The shortcut that ate the morning",
+ "language": "en",
+ "voice": "am_michael",
+ "lines": [
+  {
+   "id": "L01",
+   "text": "A man in a hurry took a shortcut to beat the traffic, and it cost him the whole morning.",
+   "beat": "hook",
+   "emotion": "curious",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L02",
+   "text": "The main street was packed. Buses, cars, one slow delivery truck.",
+   "beat": "step",
+   "emotion": "neutral",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L03",
+   "text": "So he turned left, down an empty road nobody used.",
+   "beat": "step",
+   "emotion": "neutral",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L04",
+   "text": "Ten minutes later, the road ended at a farm gate.",
+   "beat": "step",
+   "emotion": "neutral",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L05",
+   "text": "A farmer looked at him. Then at his car. Then at the long way back.",
+   "beat": "twist",
+   "emotion": "shock",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L06",
+   "text": "He paid the farmer to open the gate, and the gate led to another gate.",
+   "beat": "step",
+   "emotion": "sad",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L07",
+   "text": "Each one saved him a minute. Each one cost him ten.",
+   "beat": "step",
+   "emotion": "neutral",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L08",
+   "text": "By the time he reached the highway, the traffic had cleared.",
+   "beat": "step",
+   "emotion": "fear",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L09",
+   "text": "Same street. Same bus. He was now two hours late.",
+   "beat": "proof",
+   "emotion": "proud",
+   "emphasis": [],
+   "visual_hint": ""
+  },
+  {
+   "id": "L10",
+   "text": "Shortcuts feel fast because you only count the minute you saved. Comment ROUTE.",
+   "beat": "cta",
+   "emotion": "neutral",
+   "emphasis": [],
+   "visual_hint": ""
+  }
+ ]
+}

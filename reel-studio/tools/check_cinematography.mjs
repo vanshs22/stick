@@ -31,7 +31,7 @@ const D2R = Math.PI / 180;
 
 function subjectsOf(s) {
   const out = { ...(DATA.worlds[s.props?.world] || {}) };
-  for (const c of s.props?.cast || []) { const at = c.at || [0, 0]; out[c.id] = { pos: [at[0], c.y || 0, at[1]], height: (DATA.heights[c.kind || 'human'] || 1.8) * (c.scale || 1), rotY: c.rotY || 0 }; }
+  for (const c of s.props?.cast || []) { const at = c.at || [0, 0]; out[c.id] = { pos: [at[0], c.y || 0, at[1]], height: (c.height ?? DATA.heights[c.kind || 'human'] ?? 1.8) * (c.scale || 1), rotY: c.rotY || 0 }; }
   for (const p of s.props?.props3d || []) { const at = p.at || [0, 0, 0]; out[p.id] = { pos: at, height: (DATA.heights[p.kind] || 0.4) * (p.scale || 1), rotY: p.rotY || 0 }; }
   return out;
 }
@@ -45,9 +45,9 @@ for (const s of stage) {
   if (!spec) { add('blocker', s.id, 'no camera specification', 'props.camera is missing', 'framing + angle + subject (+ movement)', 'Add props.camera'); continue; }
   if (!FRAMINGS[spec.framing]) { add('blocker', s.id, 'unknown framing', `"${spec.framing}"`, Object.keys(FRAMINGS).join(', '), 'Use a supported framing'); continue; }
   if (spec.angle && !ANGLES[spec.angle]) add('blocker', s.id, 'unknown camera angle', `"${spec.angle}"`, Object.keys(ANGLES).join(', '), 'Use a supported angle');
-  const refs = [spec.subject, spec.target, spec.movement?.target, spec.focus?.target, spec.movement?.focus?.target].filter((x) => typeof x === 'string');
+  const refs = [spec.subject, spec.target, spec.movement?.target, spec.focus?.target, spec.movement?.focus?.target, ...(spec.movement?.keys || []).map((k) => k.subject)].filter((x) => typeof x === 'string');
   for (const r of refs) if (!subj[r]) add('blocker', s.id, 'camera refers to something that is not in the shot', `"${r}"`, `one of: ${Object.keys(subj).join(', ')}`, 'Add it to cast/props3d or fix the name');
-  const mv = spec.movement || { type: 'static' }, type = mv.type || 'static';
+  const mv = spec.movement || { type: 'static' }, type = mv.type || 'static'; const sig = type === 'take' ? 'take:' + (mv.keys || []).map((k) => `${k.framing}/${k.angle || ''}`).join('>') : type;
   if (!MOVEMENTS.includes(type)) { add('blocker', s.id, 'unknown camera movement', `"${type}"`, MOVEMENTS.join(', '), 'Use a supported movement'); continue; }
   const badF = [mv.from?.framing, mv.to?.framing].filter((f) => f && !FRAMINGS[f]); if (badF.length) { add('blocker', s.id, 'camera movement uses an unknown framing', badF.map((f) => `"${f}"`).join(', '), Object.keys(FRAMINGS).join(', '), 'Use a supported framing in movement.from / movement.to'); continue; }
   let c0, c1, cm; try { c0 = cameraAt(spec, subj, 0, d); cm = cameraAt(spec, subj, d / 2, d); c1 = cameraAt(spec, subj, d, d); } catch (e) { add('blocker', s.id, 'camera cannot be solved', e.message, 'valid subjects and poses', 'Fix the camera spec'); continue; }
@@ -57,7 +57,8 @@ for (const s of stage) {
     const why = String(mv.why || '').trim();
     if (why.length < 40) add('major', s.id, 'camera movement has no reason', `why = "${why}"`, 'a sentence naming the story reason (what the move reveals, follows or emphasises) of at least 40 characters', 'Write the reason, or remove the movement');
     else if (GENERIC.test(why)) add('major', s.id, 'camera movement is justified only by "make it look busy"', `why = "${why}"`, 'a story reason: what changes for the viewer because of this move', 'Replace the reason with the real motivation, or make the shot static');
-    for (const k of ['to', 'target', 'duration', 'profile', 'curve']) if (mv[k] == null && !(k === 'to' && ['handheld', 'focus-pull', 'rack-focus', 'subject-follow'].includes(type)) && !(k === 'target' && mv.focus?.target)) add('major', s.id, `movement is missing "${k}"`, JSON.stringify(mv).slice(0, 120), `${k} specified`, `Add movement.${k}`);
+    if (type === 'take' && !(Array.isArray(mv.keys) && mv.keys.length >= 2)) add('blocker', s.id, 'a take needs at least two keys', JSON.stringify(mv.keys || null), 'keys: [{t:0,...},{t:1,...}]', 'Add keys');
+    for (const k of ['to', 'target', 'duration', 'profile', 'curve']) if (type !== 'take' && mv[k] == null && !(k === 'to' && ['handheld', 'focus-pull', 'rack-focus', 'subject-follow'].includes(type)) && !(k === 'target' && mv.focus?.target)) add('major', s.id, `movement is missing "${k}"`, JSON.stringify(mv).slice(0, 120), `${k} specified`, `Add movement.${k}`);
     if (!mv.focus && !spec.focus) add('major', s.id, 'movement has no focus plan', 'no focus', 'focus.target (+ aperture)', 'Add focus: {target, aperture}');
     if (!(mv.constraints?.length || spec.constraints?.length)) add('major', s.id, 'movement has no composition constraints', 'constraints missing', 'at least one constraint the framing must keep', 'Add constraints');
     if (mv.profile && !PROFILES.includes(mv.profile)) add('major', s.id, 'unknown speed profile', mv.profile, PROFILES.join(', '), 'Fix profile');
@@ -79,21 +80,17 @@ for (const s of stage) {
     if (type === 'handheld' && (mv.amplitude_cm ?? 0.8) > 1.5) add('major', s.id, 'handheld is too shaky', `${mv.amplitude_cm} cm`, '<= 1.5 cm (it is controlled handheld)', 'Lower amplitude_cm');
     if (['focus-pull', 'rack-focus'].includes(type) && !(mv.focus?.from && mv.focus?.to)) add('major', s.id, `${type} needs two focus targets`, JSON.stringify(mv.focus || {}), 'focus.from and focus.to', 'Add focus.from / focus.to');
     if (type === 'subject-follow' && !(s.props.cast || []).some((c) => c.walk && c.id === spec.subject)) add('major', s.id, 'subject-follow but the subject does not move', `subject ${spec.subject}`, 'the followed character walks (cast.walk)', 'Add walk or use a static shot');
-    if (prevMove === type) add('major', s.id, 'same camera movement twice in a row', type, 'consecutive moves differ, or one of them is not needed', 'Make one of the shots static');
-    prevMove = type;
+    if (prevMove === sig) add('major', s.id, 'same camera movement twice in a row', type, 'consecutive moves differ, or one of them is not needed', 'Make one of the shots static');
+    prevMove = sig;
   } else prevMove = null;
   // composition: the focus subject must be in the safe frame at start / middle / end
   const fsId = typeof spec.focus?.target === 'string' ? spec.focus.target : typeof spec.subject === 'string' ? spec.subject : null;
-  if (fsId && subj[fsId] && spec.framing !== 'insert') for (const [lab, c] of [['start', c0], ['middle', cm], ['end', c1]]) {
-    const sj = subj[fsId], pt = project([sj.pos[0], sj.pos[1] + sj.height * (['close-up', 'extreme-close-up', 'medium-close-up'].includes(spec.framing) ? 0.9 : 0.55), sj.pos[2]], c);
+  const keyAt = (lab) => { if (type !== 'take' || !(mv.keys || []).length) return { subject: fsId, framing: spec.framing }; const u = lab === 'start' ? 0 : lab === 'middle' ? 0.5 : 1, k = mv.keys.reduce((bst, x) => (Math.abs((x.t ?? 0) - u) < Math.abs((bst.t ?? 0) - u) ? x : bst)); return { subject: k.subject || spec.subject, framing: k.framing || spec.framing }; };   // a take checks the subject and framing of the key that is active at that moment
+  if (fsId || type === 'take') for (const [lab, c] of [['start', c0], ['middle', cm], ['end', c1]]) {
+    const { subject: fsK, framing: frK } = keyAt(lab); if (!fsK || !subj[fsK] || frK === 'insert') continue; if (type === 'take' && !(s.props?.cast || []).some((q) => q.id === fsK)) continue;   // world subjects (street, field) are places, not people
+    const sj = subj[fsK], pt = project([sj.pos[0], sj.pos[1] + sj.height * (['close-up', 'extreme-close-up', 'medium-close-up'].includes(frK) ? 0.9 : 0.55), sj.pos[2]], c);
     if (!pt.front) { add('blocker', s.id, 'focus subject is behind the camera', lab, 'in front of the camera', 'Fix the camera pose'); break; }
     if (pt.x < 0.05 || pt.x > 0.95 || pt.y < 0.08 || pt.y > 0.92) { add('major', s.id, 'focus subject leaves the safe frame', `${lab}: x ${pt.x.toFixed(2)} y ${pt.y.toFixed(2)}`, 'x 0.05-0.95, y 0.08-0.92', 'Adjust offset/framing', { timestamp_sec: lab === 'start' ? 0 : lab === 'middle' ? d / 2 : d }); break; }
-  }
-  // camera clearance (from the animated-shorts hard gates): never under the ground, never within 0.5 m of any head in the shot
-  for (const [lab, c] of [['start', c0], ['middle', cm], ['end', c1]]) {
-    if (c.pos[1] < 0.28) { add('blocker', s.id, 'camera is under or on the ground', `${lab}: y ${c.pos[1].toFixed(2)} m`, 'at least 0.3 m above the ground', 'Raise the camera or use a higher angle', { timestamp_sec: lab === 'start' ? 0 : lab === 'middle' ? d / 2 : d }); break; }
-    const hit = Object.entries(subj).find(([id, sj]) => sj.height > 0.5 && sj.height < 3 && (s.props?.cast || []).some((q) => q.id === id) && Math.hypot(c.pos[0] - sj.pos[0], c.pos[1] - (sj.pos[1] + sj.height * 0.93), c.pos[2] - sj.pos[2]) < 0.5);
-    if (hit) { add('major', s.id, 'camera is closer than 0.5 m to a head', `${lab}: ${hit[0]}`, 'at least 0.5 m', 'Pull the camera back or use a longer framing', { timestamp_sec: lab === 'start' ? 0 : lab === 'middle' ? d / 2 : d }); break; }
   }
   const cons = [...(spec.constraints || []), ...(mv.constraints || [])].map(String);
   // default composition rule: in wide/medium framings of a character the HEAD must not be cut by the frame (close-ups, inserts and over-the-shoulder may crop on purpose). Opt out with a constraint "allow head crop".

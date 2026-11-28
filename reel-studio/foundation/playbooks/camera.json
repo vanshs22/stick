@@ -618,6 +618,35 @@
     "a dissolve inside a continuous action"
    ],
    "check": "camera"
+  },
+  {
+   "id": "take-spec-keys-for-one-continuous-move",
+   "when": "writing the camera of any 3D shot (sprite-in-3d, 3d) that needs more than one move inside one shot",
+   "do": "Use movement.type \"take\" with keys [{t, framing, angle, subject, az, roll, distScale}] (t = fraction of the shot). The renderer solves each key as a pose and eases between them with the velocity peak at 40 percent of each leg plus a 1.2 percent creep-in, so the camera never stops. Put the main key at the emphasised word of the line; use distScale 1.65 on close-up and 1.3 on medium-close-up for 9:16 so a head fits; never extreme-close-up on a ball-head toon.",
+   "parameters": {
+    "creep": 0.012,
+    "peak_at": 0.4,
+    "close_up_dist_scale": 1.65,
+    "medium_close_dist_scale": 1.3
+   },
+   "evidence": [
+    {
+     "ref": "drive-kits",
+     "note": "camera grammar: one camera visits several subjects per take; velocity peak 40 percent"
+    },
+    {
+     "ref": "storyboard-tests",
+     "note": "our stills: extreme close-ups gave cap-only frames until distScale and cyScale were added"
+    }
+   ],
+   "anti_patterns": [
+    "extreme-close-up on a ball-head character in 9:16",
+    "low angle on a close lens (camera under the chin)"
+   ],
+   "how_by_engine": {
+    "sprite-in-3d": "tools/lib/scene_planner.mjs emits the keys; cinema.js cameraAt type take solves them"
+   },
+   "check": "camera"
   }
  ]
 }

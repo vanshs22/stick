@@ -5,10 +5,10 @@ import { Pen, romanFront, OUTFITS } from './toon_cast.js';
 export const TOON_W = 600, TOON_H = 1000, TOON_FEET = 0.975;
 // our own cast in this style (original designs, same construction as the supplied kit)
 Object.assign(OUTFITS, {
-  barnaby: { tunic: '#e8b33a', skin: '#fdebd5', cap: '#d8342b', bib: '#5f86b8', pants: '#5f86b8' },
-  hank: { tunic: '#e9ddb4', skin: '#fdebd5', hair: '#3a2616', moustache: '#4a3020', vest: '#f6ebc8', trim: '#d9b84a', pants: '#3a2f3a' },
-  rex: { tunic: '#2ba39a', skin: '#fdebd5', cap: '#c8372d', pants: '#3b4150' },
-  gus: { tunic: '#c6d84a', skin: '#fdebd5', hardhat: '#f2b31a', bands: '#e8e8e0', bib: '#e8782a', pants: '#e8782a' },
+  barnaby: { noSkirt: true, noBelt: true, tunic: '#e8b33a', skin: '#fdebd5', cap: '#d8342b', bib: '#5f86b8', pants: '#5f86b8' },
+  hank: { noSkirt: true, noBelt: true, tunic: '#e9ddb4', skin: '#fdebd5', hair: '#3a2616', moustache: '#4a3020', vest: '#f6ebc8', trim: '#d9b84a', pants: '#3a2f3a' },
+  rex: { noSkirt: true, noBelt: true, tunic: '#2ba39a', skin: '#fdebd5', cap: '#c8372d', pants: '#3b4150' },
+  gus: { noSkirt: true, noBelt: true, tunic: '#c6d84a', skin: '#fdebd5', hardhat: '#f2b31a', bands: '#e8e8e0', bib: '#e8782a', pants: '#e8782a' },
 });
 const ARMS = { idle: ['hang', 'hang'], point: ['hang', 'point'], cheer: ['up', 'up'], shock: ['lift', 'lift'], think: ['hang', 'cheek'], shrug: ['hip', 'hip'], hammer: ['hang', 'up'], flail: ['up', 'up'], hold: ['belly', 'belly'], hip: ['hip', 'hip'], lean: ['hip', 'cross'], stomp: ['hip', 'hip'], sneak: ['hang', 'hang'], laughy: ['belly', 'hang'], slump: ['hang', 'hang'] };
 const nearest = (pose) => { const sR = pose.sR?.[0] ?? 8, sL = pose.sL?.[0] ?? 8, pick = (a, side) => (a > 125 ? 'up' : a > 70 ? (side ? 'point' : 'lift') : a > 40 ? 'hip' : 'hang'); return [pick(sL, 0), pick(sR, 1)]; };

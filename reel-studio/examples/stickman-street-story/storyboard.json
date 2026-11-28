@@ -1,0 +1,1626 @@
+{
+ "style_pack": "stickman-world",
+ "shots": [
+  {
+   "id": "S01",
+   "line_ids": [
+    "L01"
+   ],
+   "visual_intent": "hook in the city street: Start close on the hero and push in on the key word so the claim lands on his face before the second sentence.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -5.240344134927364,
+       1.7556426096503857
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        4.47,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     },
+     {
+      "id": "gus",
+      "kind": "sprite",
+      "char": "gus",
+      "height": 2,
+      "at": [
+       -2.0000000000000004,
+       -1.4
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "low-angle",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Start close on the hero and push in on the key word so the claim lands on his face before the second sentence. (line L01, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": -14
+       },
+       {
+        "t": 0.5,
+        "framing": "close-up",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": -5.6000000000000005,
+        "distScale": 1.65
+       },
+       {
+        "t": 1,
+        "framing": "close-up",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": 4.2,
+        "distScale": 1.65
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L01",
+     "word": "him"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S02",
+   "line_ids": [
+    "L02"
+   ],
+   "visual_intent": "establish in the city street: Show the whole place first, then travel down to the hero so the viewer knows where the story happens before it starts.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -5.5976587872450185,
+       1.9342033943776187
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.59,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     },
+     {
+      "id": "gus",
+      "kind": "sprite",
+      "char": "gus",
+      "height": 2,
+      "at": [
+       -2.0000000000000004,
+       -1.4
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "hero_car",
+      "kind": "car",
+      "at": [
+       2,
+       -4
+      ],
+      "carKind": "pickup",
+      "color": "#C0392B"
+     },
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     }
+    ],
+    "camera": {
+     "framing": "extreme-wide",
+     "angle": "high-angle",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Show the whole place first, then travel down to the hero so the viewer knows where the story happens before it starts. (line L02, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "extreme-wide",
+        "angle": "high-angle",
+        "subject": "otto",
+        "az": -14
+       },
+       {
+        "t": 0.8,
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 14
+       },
+       {
+        "t": 1,
+        "framing": "medium-wide",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 19.599999999999998
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L02",
+     "word": "slow"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "dissolve",
+    "sound": "none",
+    "why": "Place changes from city to country so the story hands over with a 3-6 frame dissolve"
+   }
+  },
+  {
+   "id": "S03",
+   "line_ids": [
+    "L03"
+   ],
+   "visual_intent": "explain in the country: Medium take that pushes in on the key word and drifts to a new side so it does not repeat the last shot.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       0.15005354121967684,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.35,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "rex",
+      "kind": "sprite",
+      "char": "rex",
+      "height": 2,
+      "at": [
+       1.9,
+       -0.09999999999999998
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.35,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_stump_0",
+      "kind": "stump",
+      "at": [
+       -2.8,
+       2.6
+      ]
+     },
+     {
+      "id": "fill_roadsign_1",
+      "kind": "roadsign",
+      "at": [
+       3.4,
+       -6
+      ],
+      "text": "FARM",
+      "w": 1.2,
+      "h": 0.7
+     },
+     {
+      "id": "fill_plankfence_2",
+      "kind": "plankfence",
+      "at": [
+       -9,
+       -6
+      ],
+      "len": 7,
+      "h": 1
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "eye-level",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Medium take that pushes in on the key word and drifts to a new side so it does not repeat the last shot. (line L03, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": -14
+       },
+       {
+        "t": 0.8,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": -7,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "medium-close-up",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": 5.6000000000000005,
+        "distScale": 1.3
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L03",
+     "word": "nobody"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S04",
+   "line_ids": [
+    "L04"
+   ],
+   "visual_intent": "explain in the country: Push in on the object the line names so the viewer sees the thing the sentence is about.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       0.06485108735432732,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        1.62,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "hero_plankfence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -2.2
+      ],
+      "len": 3.2,
+      "h": 1.1
+     },
+     {
+      "id": "fill_stump_0",
+      "kind": "stump",
+      "at": [
+       -2.8,
+       2.6
+      ]
+     },
+     {
+      "id": "fill_roadsign_1",
+      "kind": "roadsign",
+      "at": [
+       3.4,
+       -6
+      ],
+      "text": "FARM",
+      "w": 1.2,
+      "h": 0.7
+     },
+     {
+      "id": "fill_plankfence_2",
+      "kind": "plankfence",
+      "at": [
+       -9,
+       -6
+      ],
+      "len": 7,
+      "h": 1
+     }
+    ],
+    "camera": {
+     "framing": "wide",
+     "angle": "low-angle",
+     "subject": "hero_plankfence",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Push in on the object the line names so the viewer sees the thing the sentence is about. (line L04, key word at 55% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "wide",
+        "angle": "low-angle",
+        "subject": "hero_plankfence",
+        "az": 42
+       },
+       {
+        "t": 0.55,
+        "framing": "medium-wide",
+        "angle": "low-angle",
+        "subject": "hero_plankfence",
+        "az": 33.6
+       },
+       {
+        "t": 1,
+        "framing": "medium-wide",
+        "angle": "high-angle",
+        "subject": "hero_plankfence",
+        "az": 25.2
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L04",
+     "word": "ended"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S05",
+   "line_ids": [
+    "L05"
+   ],
+   "visual_intent": "reveal in the country: Hold on the hero, then pull back and arc to the reveal on the spoken word so the new thing arrives as a camera move, not a cut.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       0.13925141432400778,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        1.1,
+        "shock"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "shock"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "rex",
+      "kind": "sprite",
+      "char": "rex",
+      "height": 2,
+      "at": [
+       1.9,
+       -0.09999999999999998
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        1.1,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "shock"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "hero_car",
+      "kind": "car",
+      "at": [
+       4.5,
+       -3
+      ],
+      "carKind": "pickup",
+      "color": "#C0392B"
+     },
+     {
+      "id": "fill_stump_0",
+      "kind": "stump",
+      "at": [
+       -2.8,
+       2.6
+      ]
+     },
+     {
+      "id": "fill_roadsign_1",
+      "kind": "roadsign",
+      "at": [
+       3.4,
+       -6
+      ],
+      "text": "FARM",
+      "w": 1.2,
+      "h": 0.7
+     },
+     {
+      "id": "fill_plankfence_2",
+      "kind": "plankfence",
+      "at": [
+       -9,
+       -6
+      ],
+      "len": 7,
+      "h": 1
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "high-angle",
+     "subject": "otto",
+     "focus": {
+      "target": "rex",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Hold on the hero, then pull back and arc to the reveal on the spoken word so the new thing arrives as a camera move, not a cut. (line L05, key word at 25% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "high-angle",
+        "subject": "otto",
+        "az": -14
+       },
+       {
+        "t": 0.3,
+        "framing": "medium-close-up",
+        "angle": "high-angle",
+        "subject": "otto",
+        "az": -14,
+        "distScale": 1.3
+       },
+       {
+        "t": 0.45,
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "rex",
+        "az": 22.400000000000002
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L05",
+     "word": "at"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "whip",
+    "sound": "whoosh",
+    "why": "The new thing arrives on the whip so the reveal is a camera move, not a cut"
+   }
+  },
+  {
+   "id": "S06",
+   "line_ids": [
+    "L06"
+   ],
+   "visual_intent": "emotion in the country: Stay on the face and creep in with a slight roll so the reaction is the whole picture.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       0.031190617421088973,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        3.53,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "sad"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "height": 2,
+      "at": [
+       1.9,
+       -0.09999999999999998
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        3.53,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "sad"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "hero_plankfence",
+      "kind": "plankfence",
+      "at": [
+       0,
+       -2.2
+      ],
+      "len": 3.2,
+      "h": 1.1
+     },
+     {
+      "id": "fill_stump_0",
+      "kind": "stump",
+      "at": [
+       -2.8,
+       2.6
+      ]
+     },
+     {
+      "id": "fill_roadsign_1",
+      "kind": "roadsign",
+      "at": [
+       3.4,
+       -6
+      ],
+      "text": "FARM",
+      "w": 1.2,
+      "h": 0.7
+     },
+     {
+      "id": "fill_plankfence_2",
+      "kind": "plankfence",
+      "at": [
+       -9,
+       -6
+      ],
+      "len": 7,
+      "h": 1
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Stay on the face and creep in with a slight roll so the reaction is the whole picture. (line L06, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 14,
+        "roll": 2,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 4.2,
+        "roll": 3,
+        "distScale": 1.65
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L06",
+     "word": "to"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S07",
+   "line_ids": [
+    "L07"
+   ],
+   "visual_intent": "explain in the country: Medium take that pushes in on the key word and drifts to a new side so it does not repeat the last shot.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "country-field",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       0.24097325397360692,
+       0.6
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        1.62,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_stump_0",
+      "kind": "stump",
+      "at": [
+       -2.8,
+       2.6
+      ]
+     },
+     {
+      "id": "fill_roadsign_1",
+      "kind": "roadsign",
+      "at": [
+       3.4,
+       -6
+      ],
+      "text": "FARM",
+      "w": 1.2,
+      "h": 0.7
+     },
+     {
+      "id": "fill_plankfence_2",
+      "kind": "plankfence",
+      "at": [
+       -9,
+       -6
+      ],
+      "len": 7,
+      "h": 1
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "low-angle",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Medium take that pushes in on the key word and drifts to a new side so it does not repeat the last shot. (line L07, key word at 50% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": -14
+       },
+       {
+        "t": 0.5,
+        "framing": "medium-close-up",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": -7,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "medium-close-up",
+        "angle": "high-angle",
+        "subject": "otto",
+        "az": 5.6000000000000005,
+        "distScale": 1.3
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L07",
+     "word": "minute"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "dissolve",
+    "sound": "none",
+    "why": "Place changes from country to city so the story hands over with a 3-6 frame dissolve"
+   }
+  },
+  {
+   "id": "S08",
+   "line_ids": [
+    "L08"
+   ],
+   "visual_intent": "emotion in the city street: Stay on the face and creep in with a slight roll so the reaction is the whole picture.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "day",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -5.191072503117903,
+       1.8996113874789442
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.59,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "scared"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     },
+     {
+      "id": "mabel",
+      "kind": "sprite",
+      "char": "mabel",
+      "height": 2,
+      "at": [
+       -3.6000000000000005,
+       0.30000000000000004
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.59,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "scared"
+       ]
+      ],
+      "speaks": false
+     },
+     {
+      "id": "gus",
+      "kind": "sprite",
+      "char": "gus",
+      "height": 2,
+      "at": [
+       -2.0000000000000004,
+       -1.4
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Stay on the face and creep in with a slight roll so the reaction is the whole picture. (line L08, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 14,
+        "roll": 2,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 4.2,
+        "roll": 3,
+        "distScale": 1.65
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L08",
+     "word": "traffic"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S09",
+   "line_ids": [
+    "L09"
+   ],
+   "visual_intent": "payoff in the city street: Pull back to the wide on the last line so the result reads as a picture the viewer can see.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -5.238845300233516,
+       1.7794377554921084
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.35,
+        "cheer"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     },
+     {
+      "id": "rex",
+      "kind": "sprite",
+      "char": "rex",
+      "height": 2,
+      "at": [
+       -3.6000000000000005,
+       0.30000000000000004
+      ],
+      "flip": true,
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        2.35,
+        "hip"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "smug"
+       ]
+      ],
+      "speaks": false
+     }
+    ],
+    "props3d": [
+     {
+      "id": "hero_car",
+      "kind": "car",
+      "at": [
+       2,
+       -4
+      ],
+      "carKind": "pickup",
+      "color": "#C0392B"
+     },
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     }
+    ],
+    "camera": {
+     "framing": "medium",
+     "angle": "low-angle",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "Pull back to the wide on the last line so the result reads as a picture the viewer can see. (line L09, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium",
+        "angle": "low-angle",
+        "subject": "otto",
+        "az": -14
+       },
+       {
+        "t": 0.8,
+        "framing": "medium-wide",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 14
+       },
+       {
+        "t": 1,
+        "framing": "wide",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 21
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L09",
+     "word": "hours"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  },
+  {
+   "id": "S10",
+   "line_ids": [
+    "L10"
+   ],
+   "visual_intent": "cta in the city street: A calm push on the hero while the call to action is spoken so the last frame is on the character.",
+   "shot_type": "3d-scene",
+   "component": "Stage3D",
+   "approach": "physical-3d",
+   "why_renderer": "The world and the camera tell the story; the sprite actor stands inside it.",
+   "props": {
+    "world": "city-street",
+    "worldOpts": {
+     "time": "golden",
+     "ink": 0.8
+    },
+    "cast": [
+     {
+      "id": "otto",
+      "kind": "sprite",
+      "char": "otto",
+      "height": 2,
+      "at": [
+       -5.175618300238421,
+       1.2468547038995894
+      ],
+      "pose": [
+       [
+        0,
+        "idle"
+       ],
+       [
+        3.06,
+        "point"
+       ]
+      ],
+      "mood": [
+       [
+        0,
+        "neutral"
+       ]
+      ],
+      "speaks": false,
+      "gaze": [
+       0.4,
+       0
+      ]
+     }
+    ],
+    "props3d": [
+     {
+      "id": "fill_bin_0",
+      "kind": "bin",
+      "at": [
+       -6.9,
+       4.2
+      ]
+     },
+     {
+      "id": "fill_hydrant_1",
+      "kind": "hydrant",
+      "at": [
+       -6.6,
+       -5.5
+      ]
+     },
+     {
+      "id": "fill_bench_2",
+      "kind": "bench",
+      "at": [
+       -7.5,
+       -9
+      ],
+      "rotY": 1.57
+     },
+     {
+      "id": "fill_car_3",
+      "kind": "car",
+      "at": [
+       2.2,
+       -18
+      ],
+      "carKind": "hatch",
+      "color": "#2E6FB5"
+     }
+    ],
+    "camera": {
+     "framing": "medium-close-up",
+     "angle": "eye-level",
+     "subject": "otto",
+     "focus": {
+      "target": "otto",
+      "aperture": 0.0015
+     },
+     "constraints": [
+      "subject stays in the safe frame",
+      "camera never inside a prop or the ground"
+     ],
+     "movement": {
+      "type": "take",
+      "duration": "shot",
+      "why": "A calm push on the hero while the call to action is spoken so the last frame is on the character. (line L10, key word at 80% of the line)",
+      "keys": [
+       {
+        "t": 0,
+        "framing": "medium-close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 14,
+        "distScale": 1.3
+       },
+       {
+        "t": 1,
+        "framing": "close-up",
+        "angle": "eye-level",
+        "subject": "otto",
+        "az": 7,
+        "distScale": 1.65
+       }
+      ]
+     }
+    }
+   },
+   "anchors": [
+    {
+     "name": "a0",
+     "line": "L10",
+     "word": "saved"
+    }
+   ],
+   "overlays": [],
+   "transition_out": {
+    "type": "cut",
+    "sound": "none"
+   }
+  }
+ ]
+}

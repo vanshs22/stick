@@ -17,7 +17,7 @@ export const ANGLES = {
   'eye-level': { el: 0, az: 0, roll: 0 }, 'low-angle': { el: -16, az: 0, roll: 0 }, 'high-angle': { el: 22, az: 0, roll: 0 }, dutch: { el: 0, az: 0, roll: 10 },
   'three-quarter': { el: 0, az: 35, roll: 0 }, profile: { el: 0, az: 90, roll: 0 }, 'front-facing': { el: 0, az: 0, roll: 0 }, overhead: { el: 80, az: 0, roll: 0 },
 };
-export const MOVEMENTS = ['static', 'dolly-push', 'dolly-pull', 'tracking', 'pan', 'tilt', 'orbit', 'crane', 'pedestal', 'handheld', 'focus-pull', 'rack-focus', 'subject-follow', 'reveal'];
+export const MOVEMENTS = ['take', 'static', 'dolly-push', 'dolly-pull', 'tracking', 'pan', 'tilt', 'orbit', 'crane', 'pedestal', 'handheld', 'focus-pull', 'rack-focus', 'subject-follow', 'reveal'];
 export const PROFILES = ['constant', 'ease-in', 'ease-out', 'ease-in-out'];
 export const CURVES = ['linear', 'sine', 'cubic', 'expo', 'quint'];
 
@@ -50,7 +50,7 @@ export function solvePose(p, subjects, aspect = 9 / 16) {
   const an = ANGLES[p.angle || 'eye-level']; if (!an) throw new Error(`unknown angle "${p.angle}"`);
   const fov = p.fov || FOV[p.framing] || 30, s = subjectOf(p.subject, subjects), H = s.height;
   const el = (p.el ?? an.el) * D2R, az = (p.az ?? an.az) * D2R, roll = p.roll ?? an.roll, ox = p.offset?.[0] ?? 0, oy = p.offset?.[1] ?? 0;
-  const center = add(s.pos, [0, (p.cy ?? fr.cy) * H, 0]);
+  const center = add(s.pos, [0, (p.cy ?? fr.cy) * (s.cyScale ?? 1) * H, 0]);   // cyScale: a subject whose face sits lower than the framing table assumes (toon cards)
   let pos, look;
   if (p.framing === 'pov') {                       // through the character's eyes, looking at the target
     const eye = add(s.pos, [0, H * 0.93, 0]), tgt = subjectOf(p.target, subjects); pos = add(eye, mul([Math.sin(s.rotY), 0, Math.cos(s.rotY)], 0.08)); look = add(tgt.pos, [0, tgt.height * 0.55, 0]);
@@ -84,7 +84,18 @@ export function cameraAt(spec, subjects, t, shotDur, aspect = 9 / 16) {
   const base = { ...spec }; delete base.movement;
   const mv = spec.movement; let cam, focusSubject = spec.focus?.target || spec.subject;
   if (!mv || mv.type === 'static') cam = solvePose(base, subjects, aspect);
-  else {
+  else if (mv.type === 'take') {   // one continuous take through several keyed poses (measured grammar: push on the word, pull-back reveal, arc, creep; velocity peaks at 40 percent of each leg)
+    const ks = (mv.keys || []).map((k) => ({ t: k.t ?? 0, pose: solvePose({ ...base, ...k }, subjects, aspect), focus: k.focus })), u = Math.max(0, Math.min(1, t / Math.max(0.001, shotDur)));
+    if (ks.length < 2) cam = solvePose(base, subjects, aspect);
+    else {
+      let i = 0; while (i < ks.length - 2 && u > ks[i + 1].t) i++;
+      const a = ks[i], b = ks[i + 1], x = Math.max(0, Math.min(1, (u - a.t) / Math.max(0.001, b.t - a.t))), p = 0.4;
+      const tri = x < p ? (x * x) / (2 * p) : p / 2 + ((x - p) - ((x - p) * (x - p)) / (2 * (1 - p))), peak = tri / 0.5, k = 0.6 * peak + 0.4 * (x * x * x * (x * (6 * x - 15) + 10));
+      cam = { pos: v3(a.pose.pos, b.pose.pos, k), look: v3(a.pose.look, b.pose.look, k), fov: lerp(a.pose.fov, b.pose.fov, k), roll: lerp(a.pose.roll || 0, b.pose.roll || 0, k) };
+      const creep = 1 + 0.012 * u, dir = sub(cam.pos, cam.look); cam.pos = add(cam.look, mul(dir, 1 / creep));   // never fully still: a slow creep-in
+      if (b.focus || a.focus) focusSubject = (x < 0.5 ? a.focus : b.focus) || focusSubject;
+    }
+  } else {
     const start = mv.start ?? 0, dur = mv.duration === 'shot' || mv.duration == null ? shotDur - start : Math.max(0.3, Math.min(mv.duration, shotDur - start));   // the real shot is only as long as its line: a longer move is compressed to finish with the shot
     const k = easeFn(mv.profile, mv.curve)((t - start) / Math.max(0.001, dur)), A = { ...base, ...(mv.from || {}) }, B = { ...base, ...(mv.to || {}) };
     if (['pan', 'tilt'].includes(mv.type)) { const a = solvePose(A, subjects, aspect), b = solvePose(B, subjects, aspect); cam = { pos: a.pos, look: v3(a.look, b.look, k), fov: lerp(a.fov, b.fov, k), roll: lerp(a.roll, b.roll, k) }; }

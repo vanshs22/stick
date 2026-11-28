@@ -6,12 +6,12 @@
  "entry": "sentence-glow",
  "preset": "soft-lower",
  "accent": "#FFD400",
- "weight": 800,
+ "weight": 500,
  "position": {
   "anchor": "bottom",
   "y": null
  },
- "scale": 1.1,
+ "scale": 0.95,
  "signature": "none",
  "differs_from": [],
  "ranked": [

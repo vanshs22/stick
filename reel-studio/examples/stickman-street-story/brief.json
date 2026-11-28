@@ -1,0 +1,26 @@
+{
+ "title": "The fence that fought the wind",
+ "topic": "a driver takes a shortcut that costs him the whole morning",
+ "platform": "instagram-reels",
+ "aspect": "9:16",
+ "duration_sec": 30,
+ "language": "en",
+ "audience": "beginners who want to make things with free tools",
+ "goal": "one planning lesson in 30 seconds",
+ "style_pack": "stickman-world",
+ "voice": {
+  "engine": "kokoro",
+  "voice": "am_michael",
+  "speed": 1.1
+ },
+ "music": {
+  "direction": "light"
+ },
+ "captions": {
+  "preset": "soft-lower"
+ },
+ "cta": {
+  "keyword": "ROUTE",
+  "text": "Comment ROUTE"
+ }
+}

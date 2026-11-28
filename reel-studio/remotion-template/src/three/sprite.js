@@ -17,7 +17,7 @@ function sample(spec, lt, table, blend, d, ramp = 0.28) {
   return lt <= s ? a : blend(a, b, ease((lt - s) / ramp));
 }
 export function makeSprite(e) {
-  const TOON = !!(e.look?.toon || (COSTUMES[e.char || 'otto'] || {}).toon), H = e.height || (TOON ? 2.25 : 1.9), CW = TOON ? TOON_W : 720, CH = TOON ? TOON_H : 1080, FEET = TOON ? TOON_FEET : 0.985, Wd = (H * CW) / CH, g = new THREE.Group(), seed = e.seed ?? 1, start = e.at || [0, 0];
+  const TOON = !!(e.look?.toon || (COSTUMES[e.char || 'otto'] || {}).toon), VH = e.height || (TOON ? 2.0 : 1.9), H = TOON ? VH / 0.89 : VH, CW = TOON ? TOON_W : 720, CH = TOON ? TOON_H : 1080, FEET = TOON ? TOON_FEET : 0.985, Wd = (H * CW) / CH, g = new THREE.Group(), seed = e.seed ?? 1, start = e.at || [0, 0];
   g.position.set(start[0], e.y || 0, start[1]);
   const cv = document.createElement('canvas'); cv.width = CW; cv.height = CH; const ctx = cv.getContext('2d');
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
@@ -39,7 +39,7 @@ export function makeSprite(e) {
   return {
     id: e.id, group: g, height: H, kind: 'sprite', ready: Promise.resolve(),
     setSun,
-    subject: () => ({ pos: [g.position.x, g.position.y, g.position.z], height: H, rotY: 0 }),
+    subject: () => ({ pos: [g.position.x, g.position.y, g.position.z], height: VH, rotY: 0, cyScale: TOON ? 0.91 : 1 }),
     update(lt, t, talk) {
       let moving = false, vx = 0;
       if (e.path && e.path.length) { const p = e.path; let i = 0; while (i < p.length - 1 && lt > p[i + 1][0]) i++; const a = p[i], b = p[Math.min(i + 1, p.length - 1)], k = b[0] > a[0] ? ease((lt - a[0]) / (b[0] - a[0])) : 1, dx = b[1] - a[1], dz = b[2] - a[2];
