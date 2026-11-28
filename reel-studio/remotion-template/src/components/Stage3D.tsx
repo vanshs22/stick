@@ -42,7 +42,7 @@ export const Stage3D: React.FC<ShotProps & {world?: string; worldOpts?: Entry; c
     try {
       const canvas = ref.current!;
       if (!S.current) {
-        QUALITY.shadow = dpr < 0.75 ? 1024 : 2048;
+        QUALITY.shadow = dpr < 0.75 ? 2048 : 4096;
         const E = makeEngine(canvas, {w: W, h: H, samples: dpr < 0.75 ? 0 : 2, shadowSize: QUALITY.shadow});
         const wd = buildWorld(world, E, worldOpts), actors = cast.map((c) => makeActor(c)), props = props3d.map((p) => makeProp(p));
         [...actors, ...props].forEach((a: any) => wd.scene.add(a.group));

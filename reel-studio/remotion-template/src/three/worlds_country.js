@@ -7,7 +7,7 @@ import { sky, clouds, sunlight, hills, tree, mat, T, canvasTex, wire } from './w
 
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const SKY = { day: ['#2F7FE0', '#BFE3F6', '#BFE4F7'], golden: ['#1F5BC0', '#EFCB98', '#E2B27A'], dusk: ['#4B3F9A', '#FFA070', '#E88A66'], night: ['#050A1E', '#1E2B55', '#0B1230'], storm: ['#4A5568', '#9AA5B1', '#7B8794'] };
-const SUN = { day: { col: '#FFF0D6', i: 3.0, pos: [10, 14, 8], hemi: 1.1, sky: '#CFE6FF', ground: '#B5A070', env: 0.3 }, golden: { col: '#FFC98A', i: 3.9, pos: [16, 7, 5], hemi: 0.7, sky: '#B8D2F2', ground: '#C49A5A', env: 0.28 }, dusk: { col: '#FFB27A', i: 2.7, pos: [-14, 5, -16], hemi: 0.85, sky: '#C9A6E0', ground: '#6A4A3A', env: 0.2 }, night: { col: '#9FB4FF', i: 0.9, pos: [-8, 12, 6], hemi: 0.35, sky: '#2A3A7A', ground: '#10162E', env: 0.06 }, storm: { col: '#DCE6F2', i: 1.2, pos: [6, 12, 6], hemi: 1.0, sky: '#9AA5B1', ground: '#5C6670', env: 0.15 } };
+const SUN = { day: { col: '#FFF0D6', i: 3.2, pos: [13, 9, -5], hemi: 1.1, sky: '#CFE6FF', ground: '#B5A070', env: 0.3 }, golden: { col: '#FFC98A', i: 3.9, pos: [16, 6, -7], hemi: 0.7, sky: '#B8D2F2', ground: '#C49A5A', env: 0.28 }, dusk: { col: '#FFB27A', i: 2.7, pos: [-14, 5, -16], hemi: 0.85, sky: '#C9A6E0', ground: '#6A4A3A', env: 0.2 }, night: { col: '#9FB4FF', i: 0.9, pos: [-8, 12, 6], hemi: 0.35, sky: '#2A3A7A', ground: '#10162E', env: 0.06 }, storm: { col: '#DCE6F2', i: 1.2, pos: [6, 12, 6], hemi: 1.0, sky: '#9AA5B1', ground: '#5C6670', env: 0.15 } };
 const GRASS = { day: ['#3A6A2A', '#8CB04A'], golden: ['#3A6A2C', '#A3B84F'], dusk: ['#2C5A2E', '#7FA84E'], night: ['#143826', '#3C7A5A'], storm: ['#2E5A34', '#6B9A56'] };
 
 const tex = (key, w, h, draw, rep) => canvasTex(key, w, h, draw, rep);
@@ -58,8 +58,8 @@ function bigOak(time, wind) {
 }
 export function countryField(E, o = {}) {
   const time = o.time || 'day', scene = new THREE.Scene(), [top, hor, gnd] = SKY[time] || SKY.day, S = SUN[time] || SUN.day, wind = o.wind ?? 1, U = { uTime: { value: 0 }, uWind: { value: wind } };
-  sky(scene, { top, horizon: hor, ground: gnd }); scene.fog = new THREE.Fog(hor, o.fogNear ?? 28, o.fogFar ?? 200);
-  const sun = sunlight(scene, E, { col: S.col, i: S.i, pos: S.pos, sky: S.sky, ground: S.ground, hemi: S.hemi, env: S.env, box: 20 });
+  sky(scene, { top, horizon: hor, ground: gnd }); scene.fog = new THREE.FogExp2(hor, o.fogDensity ?? { day: 0.0068, golden: 0.0078, dusk: 0.009, night: 0.012, storm: 0.016 }[time] ?? 0.0105);
+  const sun = sunlight(scene, E, { col: S.col, i: S.i, pos: S.pos, sky: S.sky, ground: S.ground, hemi: S.hemi, env: Math.max(S.env, 0.55), box: 64, far: 240, target: [0, 0, -22], dome: [top, hor, gnd] });
   const cl = clouds(scene, [[-60, 30, -150, 22], [20, 40, -170, 28], [90, 26, -140, 18], [-12, 22, -110, 13], [-95, 36, -130, 20], [50, 18, -100, 10], [140, 34, -150, 22]], time === 'night' ? '#3A4A7A' : time === 'dusk' ? '#FFB8A0' : time === 'storm' ? '#6C7683' : time === 'golden' ? '#FFE8C8' : '#FFFFFF');
   // ground: large rolling plane, mottled grass texture with low-frequency colour variation
   const geo = new THREE.PlaneGeometry(420, 420, 140, 140), p = geo.attributes.position, col = [];

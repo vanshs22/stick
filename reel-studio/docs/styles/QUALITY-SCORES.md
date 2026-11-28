@@ -35,3 +35,12 @@ Style 3: ink eyes with highlights, head cel shade, rim light colour per scene, t
 | props and story set dressing (car, signs, chair) | 9 | 4 | 4.5 |
 | depth and haze | 8.5 | 5 | 7 |
 Done in R4: 3200-card painted-leaf oak canopy and leaf-card trees on the treeline and hills, bark bump relief, less neon grass, soft layered clouds, longer road, larger wheat field, atmospheric fog. Still BELOW the reference on props (no cars, signs, chairs) and sky realism. Next: car and roadside prop kit, volumetric-looking clouds, dusty road shoulder.
+
+## Style 2 world, R5 (depth, grade, light, character in the 3D light; COMPARE-style2-world-v4.jpg)
+| criterion | reference | R4 | R5 |
+|---|---|---|---|
+| depth and aerial perspective | 8.5 | 7 | 7.5 |
+| colour grade (split-tone, S-curve, haze) | 8.5 | 5.5 | 7.5 |
+| shadows (reach, softness, contact) | 8.5 | 4 | 6 |
+| character integration (sun/sky shading, soft shadow, haze) | 8 | 5 | 7.5 |
+Done in R5: exponential distance fog tinted by the sky; split-tone grade with S-curve (cool shadows, warm highlights); sky-lit image-based light; wide 4096 sun shadow (64 m); backlit sun angle; sprite normals bulged from its alpha so the real sun and sky shade it; stacked soft shadow plus contact shadow; tree shadows fall on it. Gaps: cast shadows are hard to see in tall grass, no AO pass yet, no props.

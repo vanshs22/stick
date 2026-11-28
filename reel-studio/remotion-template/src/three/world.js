@@ -142,10 +142,11 @@ export function clouds(scene, list, tint = '#FFFFFF') {
   list.forEach(([x, y, z, s]) => { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: cloudTex(), color: tint, fog: false, toneMapped: false, depthWrite: false })); sp.position.set(x, y, z); sp.scale.set(s * 2, s, 1); scene.add(sp); out.push(sp); });
   return out;
 }
-export function sunlight(scene, E, { col = '#FFF0D6', i = 2.6, pos = [6, 10, 6], target = [0, 0, 0], box = 12, sky = '#CFE6FF', ground = '#C48A5A', hemi = 1.25, env = 0.25 } = {}) {
-  scene.environment = E.envMap; scene.environmentIntensity = env;
+export function sunlight(scene, E, { col = '#FFF0D6', i = 2.6, pos = [6, 10, 6], target = [0, 0, 0], box = 12, sky = '#CFE6FF', ground = '#C48A5A', hemi = 1.25, env = 0.25, dome, far = 80 } = {}) {
+  scene.environment = dome && E.skyEnv ? E.skyEnv(dome[0], dome[1], dome[2], pos, col) : E.envMap; scene.environmentIntensity = env;
+  if (far > 80) { const n = new THREE.Vector3(...pos).normalize().multiplyScalar(far * 0.45); pos = [target[0] + n.x, target[1] + n.y, target[2] + n.z]; }
   const r = lightRig(scene, { key: col, keyI: i, keyPos: pos, target, shadowBox: box, rimCol: '#FFFFFF', rimI: 0.4, sky, ground, hemiI: hemi });
-  r.key.shadow.camera.far = 80; r.key.shadow.bias = -0.0006; r.key.shadow.camera.updateProjectionMatrix();
+  r.key.shadow.camera.far = far; r.key.shadow.bias = -0.0006; r.key.shadow.camera.updateProjectionMatrix();
   return r;
 }
 

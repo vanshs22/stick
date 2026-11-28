@@ -11,15 +11,15 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 export const W = 1080, H = 1920;
 /** quality knobs (set by Stage3D from the render scale): shadow map size */
-export const QUALITY = { shadow: 2048 };
+export const QUALITY = { shadow: 4096 };
 const GRADE = {
-  uniforms: { tDiffuse: { value: null }, uVig: { value: 0.35 }, uGrain: { value: 0.025 }, uTime: { value: 0 }, uWarm: { value: 0.04 }, uSat: { value: 1.0 }, uCon: { value: 1.0 } },
+  uniforms: { tDiffuse: { value: null }, uVig: { value: 0.35 }, uGrain: { value: 0.025 }, uTime: { value: 0 }, uWarm: { value: 0.04 }, uSat: { value: 1.0 }, uCon: { value: 1.0 }, uShT: { value: new THREE.Vector3(-0.03, 0.012, 0.065) }, uHiT: { value: new THREE.Vector3(0.055, 0.028, -0.045) }, uSplit: { value: 1.0 }, uCurve: { value: 0.4 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-  fragmentShader: `uniform sampler2D tDiffuse; uniform float uVig, uGrain, uTime, uWarm, uSat, uCon; varying vec2 vUv;
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float uVig, uGrain, uTime, uWarm, uSat, uCon, uSplit, uCurve; uniform vec3 uShT, uHiT; varying vec2 vUv;
     float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233)) + uTime * 7.13) * 43758.5453); }
     void main(){ vec4 c = texture2D(tDiffuse, vUv); vec2 d = vUv - 0.5; d.x *= 0.5625;
       c.rgb *= 1.0 - uVig * smoothstep(0.25, 0.75, length(d) * 1.4);
-      float lu = dot(c.rgb, vec3(0.299, 0.587, 0.114)); c.rgb = mix(vec3(lu), c.rgb, uSat); c.rgb = (c.rgb - 0.5) * uCon + 0.5; c.rgb += (h(vUv * 1000.0) - 0.5) * uGrain; c.r += uWarm * 0.5; c.b -= uWarm * 0.5; gl_FragColor = c; }`,
+      c.rgb = clamp(c.rgb, 0.0, 1.0); c.rgb = mix(c.rgb, c.rgb * c.rgb * (3.0 - 2.0 * c.rgb), uCurve); float lu = dot(c.rgb, vec3(0.299, 0.587, 0.114)); float shm = 1.0 - smoothstep(0.0, 0.6, lu), him = smoothstep(0.4, 1.0, lu); c.rgb += (uShT * shm + uHiT * him) * uSplit; c.rgb = mix(vec3(lu), c.rgb, uSat * (1.0 - 0.2 * him)); c.rgb = (c.rgb - 0.5) * uCon + 0.5; c.rgb += (h(vUv * 1000.0) - 0.5) * uGrain; c.r += uWarm * 0.5; c.b -= uWarm * 0.5; gl_FragColor = c; }`,
 };
 
 export function makeEngine(canvas, { w = W, h = H, samples = 4, shadowSize = 2048 } = {}) {
@@ -38,6 +38,13 @@ export function makeEngine(canvas, { w = W, h = H, samples = 4, shadowSize = 204
   const grade = new ShaderPass(GRADE); composer.addPass(grade);
   return {
     renderer, envMap, composer,
+    /** image-based light from our own sky: blue skylight fill and a warm sun lobe, so shadows are sky-tinted instead of grey */
+    skyEnv(top, hor, gnd, sunDir = [0.5, 0.6, 0.4], sunCol = '#FFF0D6', sunI = 6) {
+      const s = new THREE.Scene(), m = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, uniforms: { top: { value: new THREE.Color(top) }, hor: { value: new THREE.Color(hor) }, gnd: { value: new THREE.Color(gnd) } },
+        vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }', fragmentShader: 'uniform vec3 top, hor, gnd; varying vec3 vP; void main(){ float y = vP.y; vec3 c = y > 0.0 ? mix(hor, top, pow(clamp(y * 1.4, 0.0, 1.0), 0.6)) : mix(hor, gnd, clamp(-y * 3.0, 0.0, 1.0)); gl_FragColor = vec4(c, 1.0); }' });
+      s.add(new THREE.Mesh(new THREE.SphereGeometry(50, 32, 16), m)); const d = new THREE.Vector3(...sunDir).normalize().multiplyScalar(40), sun = new THREE.Mesh(new THREE.SphereGeometry(7, 16, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(sunCol).multiplyScalar(sunI), toneMapped: false })); sun.position.copy(d); s.add(sun);
+      return pmrem.fromScene(s, 0.03).texture;
+    },
     /** look = { bloom, bloomThreshold, focus (m), aperture (0 = all sharp), maxblur, exposure, vignette, grain, warm, t } */
     render(scene, camera, look = {}) {
       rp.scene = scene; rp.camera = camera; bokeh.scene = scene; bokeh.camera = camera;
@@ -45,7 +52,7 @@ export function makeEngine(canvas, { w = W, h = H, samples = 4, shadowSize = 204
       bokeh.uniforms.focus.value = look.focus ?? 3; bokeh.uniforms.aperture.value = look.aperture ?? 0.0015; bokeh.uniforms.maxblur.value = look.maxblur ?? 0.006;
       bloom.strength = look.bloom ?? 0.3; bloom.threshold = look.bloomThreshold ?? 0.85; bloom.radius = 0.6;
       renderer.toneMappingExposure = look.exposure ?? 1.0;
-      grade.uniforms.uVig.value = look.vignette ?? 0.35; grade.uniforms.uGrain.value = look.grain ?? 0.02; grade.uniforms.uWarm.value = look.warm ?? 0.03; grade.uniforms.uTime.value = look.t ?? 0; grade.uniforms.uSat.value = look.saturation ?? 1.0; grade.uniforms.uCon.value = look.contrast ?? 1.0;
+      grade.uniforms.uVig.value = look.vignette ?? 0.35; grade.uniforms.uGrain.value = look.grain ?? 0.02; grade.uniforms.uWarm.value = look.warm ?? 0.03; grade.uniforms.uTime.value = look.t ?? 0; grade.uniforms.uSplit.value = look.split ?? 1.0; grade.uniforms.uCurve.value = look.curve ?? 0.4; grade.uniforms.uSat.value = look.saturation ?? 1.0; grade.uniforms.uCon.value = look.contrast ?? 1.0;
       composer.render();
     },
   };

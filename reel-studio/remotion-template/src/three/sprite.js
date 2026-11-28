@@ -21,8 +21,16 @@ export function makeSprite(e) {
   const cv = document.createElement('canvas'); cv.width = CW; cv.height = CH; const ctx = cv.getContext('2d');
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
   const geo = new THREE.PlaneGeometry(Wd, H); geo.translate(0, H / 2 - (1 - FEET) * H, 0);
-  const body = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide, roughness: 1, metalness: 0, emissive: '#ffffff', emissiveMap: tex, emissiveIntensity: e.glow ?? 0.22 })); g.add(body);
-  const sh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, color: '#000000', transparent: true, opacity: 0.36, alphaTest: 0.3, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2 })); sh.matrixAutoUpdate = false; sh.frustumCulled = false; g.add(sh);
+  const body = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide, roughness: 1, metalness: 0, emissive: '#ffffff', emissiveMap: tex, emissiveIntensity: e.glow ?? 0.14 })); body.receiveShadow = true; body.material.onBeforeCompile = (sh2) => {   // round the flat card: normals bulge near the silhouette (blurred alpha gradient), so the real sun and sky shade it like a thick toy
+    sh2.fragmentShader = sh2.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
+      { vec2 gA = vec2(0.0); for (int i = 0; i < 2; i++) { float r = i == 0 ? 0.05 : 0.11; float w = i == 0 ? 1.0 : 0.8;
+          gA += w * vec2(texture2D(map, vMapUv + vec2(r, 0.0)).a - texture2D(map, vMapUv - vec2(r, 0.0)).a, texture2D(map, vMapUv + vec2(0.0, r * 0.67)).a - texture2D(map, vMapUv - vec2(0.0, r * 0.67)).a); }
+        normal = normalize(normal + vec3(-gA.x, -gA.y, 0.0) * 1.15); }`); };
+  g.add(body);
+  const sh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, color: '#000000', transparent: true, opacity: 0.36, alphaTest: 0.3, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2 })); sh.matrixAutoUpdate = false; sh.frustumCulled = false; sh.material.color.set('#0a1424'); g.add(sh);
+  const penum = [1.03, 1.07].map((k, i) => { const m = new THREE.Mesh(geo, sh.material.clone()); m.material.opacity = 0.13 - i * 0.04; m.matrixAutoUpdate = false; m.frustumCulled = false; m.userData.k = k; g.add(m); return m; });
+  const cc = document.createElement('canvas'); cc.width = cc.height = 128; { const x = cc.getContext('2d'), gr = x.createRadialGradient(64, 64, 4, 64, 64, 62); gr.addColorStop(0, 'rgba(5,10,20,0.75)'); gr.addColorStop(0.5, 'rgba(5,10,20,0.35)'); gr.addColorStop(1, 'rgba(5,10,20,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128); }
+  const contact = new THREE.Mesh(new THREE.PlaneGeometry(Wd * 0.95, Wd * 0.4), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cc), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3 })); contact.rotation.x = -Math.PI / 2; contact.position.y = 0.025; g.add(contact);
   const L = new THREE.Vector3(...(e.sun || [-0.45, 1, 0.35])).normalize(), hh = 0.03, M = new THREE.Matrix4().set(1, -L.x / L.y, 0, (L.x / L.y) * hh, 0, 0, 0, hh, 0, -L.z / L.y, 1, (L.z / L.y) * hh, 0, 0, 0, 1);
   const inv = new THREE.Matrix4(), costume = { ...(COSTUMES[e.char || 'otto'] || {}), ...(e.look || {}) }; let flip = e.flip ? -1 : 1, turn = e.turn ?? 0.25, walkPhase = 0, last = -1;
   return {
@@ -41,7 +49,7 @@ export function makeSprite(e) {
     },
     faceCamera(cam) {
       body.rotation.y = Math.atan2(cam.position.x - g.position.x, cam.position.z - g.position.z); g.updateMatrixWorld(true); body.updateMatrixWorld(true);
-      inv.copy(g.matrixWorld).invert(); sh.matrix.copy(inv).multiply(M).multiply(body.matrixWorld);
+      inv.copy(g.matrixWorld).invert(); sh.matrix.copy(inv).multiply(M).multiply(body.matrixWorld); penum.forEach((m) => { m.matrix.copy(sh.matrix).multiply(new THREE.Matrix4().makeScale(m.userData.k, 1, m.userData.k)); });
     },
   };
 }
